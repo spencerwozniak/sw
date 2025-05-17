@@ -1,0 +1,120 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto 60px;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .heading {
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #102245;
+    width: 100%;
+  }
+  
+  .searchBar {
+    width: 97%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    color: #333;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .searchBar::placeholder {
+    color: #888;
+  }
+  
+  .searchBar:focus {
+    outline: none;
+    border-color: #73a0b3;
+    background: rgba(255, 255, 255, 0.25);
+  }
+  
+  /* ---------- List and Cards ---------- */
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .card {
+    display: block;
+    
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .cardTitle {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #102245;
+    margin: 0.75rem 1rem;
+  }
+  
+  .cardMeta {
+    font-size: 0.95rem;
+    color: #666;
+    margin: 1rem 1rem;
+  }
+  
+  .cardSnippet {
+    font-size: 1rem;
+    color: #2c2c2c;
+    line-height: 1.6;
+    margin: 0.75rem 1rem;
+  }
+  
+  /* ---------- Pagination ---------- */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    gap: 0.5rem;
+  }
+  
+  .pageButton {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: none;
+    background: rgba(255, 255, 255, 0.15);
+    color: #333;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+  
+  .pageButton:hover {
+    background: #a795af;
+    color: white;
+    transform: scale(1.05);
+  }
+  
+  .active {
+    background: #73a0b3;
+    color: white;
+    font-weight: bold;
+  }
+  

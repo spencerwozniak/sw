@@ -1,0 +1,29 @@
+[
+  {
+    "label": "MCAT TUTORING",
+    "link": "/mcat",
+    "submenu": [
+      { "label": "Practice", "link": "/mcat/practice" }
+    ]
+  },
+  {
+    "label": "STEM TUTORING",
+    "link": "/stem",
+    "submenu": [
+    ]
+  },
+  {
+    "label": "PRACTICE QUESTIONS",
+    "link": "/mcat/practice",
+    "submenu": [
+    ]
+  },
+  {
+    "label": "ABOUT",
+    "link": "/about",
+    "submenu": [
+      { "label": "Articles", "link": "/articles" },
+      { "label": "Press Releases", "link": "/press" }
+    ]
+  }
+]

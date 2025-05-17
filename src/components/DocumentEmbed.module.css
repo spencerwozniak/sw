@@ -1,0 +1,55 @@
+.embedContainer {
+    background-color: #ffffff;
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+    max-width: 1024px;
+    width: 80%;
+    margin: 60px auto;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .embedContainer:hover {
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+  }
+  
+  .embedHeader {
+    margin-bottom: 24px;
+    text-align: left;
+  }
+  
+  .embedHeader h3 {
+    margin: 0;
+    margin-bottom: 10px;
+    font-size: 1.6rem;
+    color: #1e293b;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  
+  .embedHeader p {
+    margin: 8px 0 0;
+    font-size: 1rem;
+    color: #4b5563;
+  }
+  
+  .embedHeader a {
+    color: #4f46e5;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  
+  .embedHeader a:hover {
+    color: #3730a3;
+    text-decoration: underline;
+  }
+  
+  .embedContainer iframe {
+    width: 100%;
+    height: 600px;
+    border: none;
+    border-radius: 8px;
+  }
+  

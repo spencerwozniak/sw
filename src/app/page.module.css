@@ -1,0 +1,410 @@
+.homePage {
+    display: flex;
+    flex-direction: column;
+    z-index: 3;
+  }
+  
+  .homeMain {
+    position: relative;
+    z-index: 3;
+  }
+  
+  .heroSection {
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding: 0 6rem;
+  }
+  
+  .heroImageWrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+  
+  .heroImage {
+    z-index: 0;
+  }
+  
+  .heroContent {
+    position: relative;
+    z-index: 1;
+    max-width: 1000px;
+    text-align: left;
+    color: white;
+  }
+  
+  
+  .heroContent {
+    max-width: 1000px;
+    margin-top: 10%;
+    text-align: left;
+  }
+  
+  .heroContent h1,
+  .heroContent h2,
+  .heroContent p {
+    color: white;
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  
+  .heroHeading {
+    font-size: 3rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  
+  .welcomeTo {
+    font-weight: 300;
+    font-size: 5.2vw;
+    letter-spacing: 0.2vw;
+    text-transform: uppercase;
+    display: block;
+  }
+  
+  .wozprep {
+    font-weight: 700;
+    font-size: 7.0vw;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.3vw;
+  }
+  
+  .heroSubheading {
+    font-weight: 500;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: #f0f0f0;
+  }  
+  
+  .heroDescription {
+    font-size: 1.2rem;
+    margin: 1.5rem 0 2.5rem;
+    color: #333;
+  }
+
+  .heroButtons {
+    display: flex;
+    justify-content: flex-start; /* Aligns buttons to the left */
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+    
+  }
+  
+  .resourcesButton {
+    width: 170px;
+    font-size: 15px;
+  }
+
+  .bookButton {
+    width: 185px;
+    font-size: 15px;
+  }
+  
+  .coreValues {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+  
+  .valueBox {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  .infoSection {
+    padding: 60px 20px;
+    background-color: #ffffff;
+    text-align: center;
+  }
+  
+  .infoColumn:nth-child(2) {
+    background-color: #f4f5f7;
+  }
+  
+  .infoSection h1,
+  .infoSection h2 {
+    margin: 0 0 20px;
+  }
+  
+  .infoSection h1 {
+    font-weight: 700;
+  }
+  
+  .infoSection h2 {
+    font-weight: 400;
+    padding-bottom: 20px;
+  }
+  
+  .infoSection h3 {
+    font-weight: 500;
+  }
+  
+  .separator {
+    width: 100px;
+    height: 5px;
+    background-color: #b7a4bf;
+    border-radius: 20px;
+    margin: 20px auto;
+  }
+  
+  .infoColumns {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .infoColumn {
+    flex: 1;
+    max-width: 300px;
+    padding: 75px;
+    padding-top: 80px;
+    padding-bottom: 70px;
+    background-color: #ffffff;
+    text-align: left;
+    position: relative;
+    transition: background-color 0.3s ease;
+  }
+  
+  .iconHeading {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  
+  .iconContainer {
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+    transition: opacity 0.3s ease, width 0.3s ease;
+  }
+  
+  .infoColumn:hover .iconContainer {
+    opacity: 1;
+    width: 24px;
+  }
+  
+  .headingText {
+    margin-left: 0;
+    font-size: 20px;
+    transition: margin-left 0.3s ease;
+  }
+  
+  .infoColumn:hover .headingText {
+    margin-left: 10px;
+  }
+  
+  .infoIcon {
+    font-size: 24px;
+    color: #74a0b3;
+  }
+  
+  .infoIcon svg {
+    height: 16px;
+    width: 16px;
+  }
+  
+  .infoColumn h3 {
+    margin: 0;
+  }
+  
+  .infoColumn p {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-top: 10px;
+    font-weight: 300;
+  }
+  
+  .servicesSection {
+    padding: 60px 20px;
+    background-color: #f9f9f9;
+    text-align: center;
+  }
+  
+  .servicesHeading {
+    font-size: 25px;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .textSeparator {
+    margin: 0 auto 20px;
+    display: inline-block;
+  }
+  
+  .mkdLineBefore,
+  .mkdLineAfter {
+    display: inline-block;
+    width: 250px;
+    height: 2px;
+    background-color: #74a0b3;
+    margin: 0 20px;
+    margin-bottom: 4px;
+  }
+  
+  .servicesSection h4 {
+    font-size: 18px;
+    font-weight: 400;
+    margin-top: 20px;
+    color: #333333;
+  }
+  
+  .servicesColumns {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+  }
+  
+  .servicesColumn {
+    flex: 1;
+    max-width: 400px;
+    padding: 40px 10px;
+    text-align: left;
+    position: relative;
+    transition: background-color 0.3s ease;
+  }
+  
+  .servicesIconHeading {
+    display: flex;
+    align-items: center;
+    position: relative;
+    font-size: 16px;
+  }
+  
+  .servicesIcon {
+    margin-right: 10px;
+  }
+  
+  .servicesHeadingText {
+    margin-left: 15px;
+    font-weight: 400;
+  }
+  
+  .servicesColumn p {
+    font-weight: 100;
+  }
+
+  .homeButton {
+    width: 200px;
+  }
+  
+  @media (max-width: 960px) {
+    .heroSection {
+      padding: 0;
+      justify-content: center;
+      text-align: center;
+    }
+  
+    .heroContent {
+      text-align: center;
+      align-items: center;
+      margin: 0 auto;
+    }
+
+    .heroContent h1,
+    .heroContent h2,
+    .heroContent p {
+      color: white;
+      text-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    .welcomeTo {
+      font-weight: 300;
+      font-size: 3.5rem;
+      letter-spacing: 0.2vw;
+      text-transform: uppercase;
+      display: block;
+    }
+    
+    .wozprep {
+      font-weight: 700;
+      font-size: 4.6rem;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 0.3vw;
+    }
+    
+    .heroSubheading {
+      font-weight: 500;
+      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+      color: #f0f0f0;
+    }  
+  
+    .heroButtons {
+      justify-content: center;
+    }
+  }  
+
+  /* Responsive design */
+  @media (max-width: 800px) {
+
+    .infoColumns,
+    .servicesColumns {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .infoColumn,
+    .servicesColumn {
+      max-width: 100%;
+      padding: 20px;
+    }
+  
+    .mkdLineBefore,
+    .mkdLineAfter {
+      width: 10vw;
+    }
+    .infoColumn .iconContainer {
+      opacity: 1;
+      width: 24px;
+    }
+    
+    .infoColumn .headingText {
+      margin-left: 10px;
+    }
+
+    .resourcesButton {
+      width: 80%;
+    }
+  
+    .bookButton {
+      width: 80%;
+    }
+    
+    .heroSubheading {
+      font-weight: 500;
+      font-size: 100%;
+      margin-bottom: 1.5rem;
+      color: #f0f0f0;
+    }  
+  }
+  
+  @media (max-width: 400px) {
+    .welcomeTo {
+      font-weight: 300;
+      font-size: 3.0rem;
+      letter-spacing: 0.2vw;
+      text-transform: uppercase;
+      display: block;
+    }
+    
+    .wozprep {
+      font-weight: 700;
+      font-size: 4.0rem;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 0.3vw;
+    }
+
+  }  

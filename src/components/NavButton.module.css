@@ -1,0 +1,89 @@
+.navButton {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  text-align: center;
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 40px;
+  cursor: pointer;
+  background-color: #a2c8d3;
+  border-radius: 24px;
+  overflow: hidden;
+  transition: background-image 0.3s ease, transform 0.3s ease;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navButtonDisabled,
+.navButton[disabled] {
+  cursor: not-allowed;
+  background-image: linear-gradient(to right, #b0b0b0, #a5a5a5);
+  transform: none;
+  pointer-events: none;
+}
+
+.navButtonDisabled:hover span,
+.navButton[disabled]:hover span {
+  padding-right: 0;
+}
+
+.navButtonDisabled:hover span:after,
+.navButton[disabled]:hover span:after {
+  opacity: 0;
+  right: -15px;
+  transition: none;
+}
+
+.navButton:hover {
+  background-color: #d89ebd;
+  transform: scale(1.05);
+  color: white;
+}
+
+.navButton:active {
+  background-color: #e7bbc6;
+  transform: scale(0.98);
+  color: white;
+}
+
+.navButton span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.navButton span:after {
+  content: '»';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -15px;
+  transition: 0.5s;
+}
+
+.navButton:hover span {
+  padding-right: 15px;
+}
+
+.navButton:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+.navButton:focus {
+  outline: none;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .navButton {
+    width: 90%;
+    margin: auto auto;
+  }
+}

@@ -1,0 +1,240 @@
+.navigationHeader {
+  background-color: rgb(255, 255, 255);
+  color: white;
+  padding: 15px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.navContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo {
+  margin-top: 5px;
+  height: auto;
+  max-width: 100px;
+}
+
+.headerNav .navMainLinks {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navItem .navLink {
+  color: #141319;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+.navItem .navLink:hover {
+  color: #b7a4bf;
+}
+
+.navItemWrapper {
+  position: relative;
+}
+
+.submenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 10px 0;
+  display: none;
+  z-index: 1000;
+}
+
+.navItemWrapper:hover .submenu {
+  display: block;
+}
+
+.submenuItem {
+  list-style: none;
+}
+
+.submenuLink {
+  display: block;
+  padding: 10px 20px;
+  text-decoration: none;
+  color: #141319;
+  font-weight: 500;
+}
+
+.submenuLink:hover {
+  background-color: #f0f0f0;
+}
+
+.navSeparator {
+  align-self: center;
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  background-color: #a795af;
+  margin: 3px 5px;
+  margin-left: 22px;
+  border-radius: 1px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.headerRight {
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-right: 40px;
+}
+
+.headerContactLink {
+  color: #141319;
+  font-size: 1.8rem;
+  transition: color 0.3s ease;
+  margin-top: 3px;
+}
+
+.headerContactLink:hover {
+  color: #b7a4bf;
+}
+
+/* ===== FIXED DROPDOWN MENU STYLES ===== */
+.dropdownMenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  color: #141319;
+  padding: 20px 0;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center all children horizontally */
+  gap: 10px;
+}
+
+.open {
+  display: flex;
+}
+
+.navColumn {
+  padding: 10px 0;
+  width: 100%;
+  display: flex;
+  margin-right: 5vw;
+  justify-content: center; /* Center the navColumnHeading inside */
+  flex-direction: column;
+  align-items: center;
+}
+
+.navColumnHeading {
+  color: #141319;
+  text-decoration: none;
+  font-size: 22px;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.navColumnHeading:hover {
+  color: #b7a4bf;
+}
+
+.headerNavButton {
+  width: 120px;
+}
+
+.mobileSubmenu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  gap: 5px;
+}
+
+.mobileSubmenuLink {
+  font-size: 20px;
+  color: #4b5563;
+  text-decoration: none;
+  padding: 10px 0;
+}
+
+.mobileSubmenuLink:hover {
+  color: #6c63ff;
+}
+
+/* ===== MEDIA QUERIES ===== */
+@media (max-width: 960px) {
+  .headerNav {
+    display: none;
+  }
+  .headerNavButton {
+    width: 20vw;
+  }
+}
+@media (max-width: 768px) {
+  .headerRight {
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-right: 10%;
+  }
+
+  .headerNavButton {
+    margin-top: 2px;
+    min-width: 120px;
+  }
+
+  .navContainer {
+    align-items: center;
+  }
+}
+
+
+
+@media (min-width: 960px) {
+  .navMenuButton {
+    display: none;
+  }
+}
+
+@media (max-width: 400px) {
+  .headerContactLink {
+    display: none;
+  }
+
+}
+

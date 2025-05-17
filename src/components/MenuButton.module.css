@@ -1,0 +1,51 @@
+.menu {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  padding: 0;
+  width: 35px;
+  height: 35px;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu svg {
+  width: 100%;
+  height: 100%;
+}
+
+.menu .line {
+  fill: none;
+  stroke: #141319;
+  stroke-width: 6;
+  transition: stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
+              stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.menu .line1 {
+  stroke-dasharray: 60 207;
+}
+
+.menu .line2 {
+  stroke-dasharray: 60 60;
+}
+
+.menu .line3 {
+  stroke-dasharray: 60 207;
+}
+
+.menu.opened .line1 {
+  stroke-dasharray: 90 207;
+  stroke-dashoffset: -134;
+}
+
+.menu.opened .line2 {
+  stroke-dasharray: 1 60;
+  stroke-dashoffset: -30;
+}
+
+.menu.opened .line3 {
+  stroke-dasharray: 90 207;
+  stroke-dashoffset: -134;
+}
