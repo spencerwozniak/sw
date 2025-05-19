@@ -1,5 +1,5 @@
 ```
-wozprep/
+sw/
 │
 ├── update_github.bat                  # Script for pushing changes to GitHub
 │
@@ -24,26 +24,12 @@ wozprep/
 │   │   ├── about/page.tsx             # AboutPage
 │   │   ├── contact/page.tsx           # ContactPage
 │   │   ├── gallery/page.tsx           # Gallery
-│   │   ├── services/page.tsx          # ServicesPage
-│   │   ├── book/page.tsx              # BookPage
-│   │   ├── login/page.tsx             # LoginPage
-│   │   ├── register/page.tsx          # RegisterPage
-│   │   ├── account/page.tsx           # AccountPage
-│   │   ├── profile/page.tsx           # ProfilePage
-│   │   ├── admin/                     # Admin dashboard routes
-│   │   │   ├── page.tsx               # AdminPage
-│   │   │   ├── users/page.tsx         # AdminUserList
-│   │   │   ├── edit/page.tsx          # AdminEdit
-│   │   │   ├── edit/headers/page.tsx  # AdminEditHeaders
-│   │   │   ├── edit/testimonials/page.tsx  # AdminEditTestimonials
-│   │   │   ├── edit/collage/page.tsx  # AdminEditCollage
-│   │   │   └── appointments/page.tsx  # AdminAppointments
 │   │   │
 │   │   └── api/                       # Backend API routes
 │   │       ├── openai/route.ts       # GPT API handler (replaces run_openai.py)
 │   │       ├── users/route.ts        # User login/register, etc.
 │   │       └── ...                   # Other API endpoints
-│
+│   │
 │   ├── components/                   # Shared UI components (from items/ + components/)
 │   │   ├── Header.tsx
 │   │   ├── Footer.tsx
@@ -63,24 +49,19 @@ wozprep/
 │   │   ├── Timeline.tsx
 │   │   ├── TeamCard.tsx
 │   │   └── ProtectedRoute.tsx
-│
-│   ├── context/
-│   │   └── AuthContext.tsx           # Authentication state provider
-│
+│   │
 │   ├── data/
-│   │   ├── navigationData.json       # Site navigation structure
-│   │   └── timeline.json             # Timeline data for company history
+│   │   └── navigationData.json       # Site navigation structure
 │
 │   ├── lib/                          # Replaces all Python back-end logic
 │   │   ├── openai.ts                 # Logic that used to be in run_openai.py
 │   │   ├── auth.ts                   # Token validation, session logic, etc.
 │   │   ├── db.ts                     # SQLite logic (formerly instance/users.db)
 │   │   └── utils.ts                  # Any general-purpose server utilities
-│
 │   ├── prompts/                      # Prompt templates (migrated from Python)
 │   │   ├── system_prompt.txt
 │   │   └── user_prompt.txt
-│
+│   │
 │   └── assets/                       # (Optional) Internal use assets (e.g. TS constants, SVGs)
 │
 └── .env.local                        # Secure environment variables (OpenAI key, DB path, etc.)
