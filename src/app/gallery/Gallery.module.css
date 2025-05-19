@@ -1,0 +1,141 @@
+/* Gallery.module.css */
+
+.pageWrap {
+  padding: 20px;
+  padding-top: 100px;
+  display: flex;
+  justify-content: center; /* center the main content horizontally */
+}
+
+.mainGalleryWrap {
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Modern Tabs */
+.modernTabs {
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+  margin-bottom: 15px;
+  padding-left: 5px;
+}
+
+.modernTab {
+  font-size: 18px;
+  font-weight: 400;
+  cursor: pointer;
+  position: relative;
+  padding: 5px 0;
+  transition: color 0.3s;
+}
+
+.active {
+  color: #bfaa8d;
+}
+
+.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #bfaa8d;
+  transition: width 0.3s ease-in-out;
+}
+
+/* Carousel */
+.carouselWrapper {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 150px);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carouselTrack {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.carouselSlide {
+  flex: 0 0 100%;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.carouselSlide.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+.carouselSlide:not(.active) {
+  z-index: 0;
+}
+
+.carouselImageContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carouselImage {
+  width: 100vw;
+  height: calc(100vh - 150px);
+  object-fit: cover;
+  display: block;
+}
+
+.carouselCaption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.carouselArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: none;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: background 0.3s ease;
+}
+
+.carouselArrow:hover {
+  background: black;
+}
+
+.left {
+  left: 10px;
+}
+
+.right {
+  right: 10px;
+}

@@ -1,0 +1,20 @@
+[
+    {
+      "id": "teaching",
+      "name": "Teaching",
+      "images": [
+        {
+          "url": "metabolism.jpg",
+          "caption": "Teaching an MCAT course on metabolism"
+        },
+        {
+            "url": "cars.jpg",
+            "caption": "Teaching an MCAT course on CARS"
+        },
+        {
+            "url": "cog-dis.jpg",
+            "caption": "Teaching an MCAT course on Psychology"
+        }
+      ]
+    }
+]
