@@ -4,7 +4,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import styles from './Footer.module.css';
 
-import LogoWhite from '../../public/wp-logo-white.png'; // Make sure this image is in /public
+import SocialIcons from './SocialIcons';
+
+import LogoWhite from '../../public/sw-full-signature-white.png'; // Make sure this image is in /public
 import navigationData from './navigationData.json';
 
 const Footer: React.FC = () => {
@@ -16,15 +18,13 @@ const Footer: React.FC = () => {
           {/* Logo and Social Icons */}
           <div className={styles.footerWidget}>
             <div className={styles.footerLogo}>
-              <Link href="/">
-                <Image src={LogoWhite} alt="Zo Logo" className="img-fluid" width={250} height={100} />
+              <Link className={styles.footerLogoLink} href="/">
+                <Image src={LogoWhite} alt="Spencer Wozniak Signature" className="img-fluid" width={400} height={100} />
               </Link>
             </div>
 
             <div className={styles.footerSocial}>
-              <p>
-              Personalized MCAT & STEM Tutoring in San Diego
-              </p>
+              <SocialIcons />
             </div>
           </div>
 

@@ -8,7 +8,7 @@
 .chatCircle {
   width: 60px;
   height: 60px;
-  background-color: #a2c8d3;
+  background-image: linear-gradient(to right, #bfaa8d, #b49a79);
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -55,7 +55,7 @@
 }
 
 .chatHeader {
-  background-color: #a2c8d3;
+  background-image: linear-gradient(to right, #bfaa8d, #b49a79);
   color: white;
   padding: 10px;
   display: flex;
@@ -98,7 +98,7 @@
 }
 
 .userMessage {
-  background-color: #a2c8d3;
+  background-image: linear-gradient(to right, #bfaa8d, #b49a79);
   color: white;
   align-self: flex-end;
   border-bottom-right-radius: 5px;
@@ -133,12 +133,12 @@
 }
 
 .chatInput input:focus {
-  border-color: #925db7;
+  border-color: #ddd1c1;
 }
 
 .chatInput button {
   padding: 10px 20px;
-  background-color: #a2c8d3;
+  background-image: linear-gradient(to right, #bfaa8d, #b49a79);
   color: white;
   border: none;
   border-radius: 25px;

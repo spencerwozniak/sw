@@ -1,6 +1,6 @@
 .footerWrapper {
     width: 100vw;
-    background: linear-gradient(to right, #b59bc0, #a5c8d2);
+    background-color: black;
     margin: 0;
     padding: 0;
     position: relative;
@@ -32,11 +32,15 @@
   }
   
   .footerLogo img {
-    max-width: 450px;
+    max-width: 500px;
     height: auto;
     filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.5));
-    transition: filter 0.3s ease;
   }
+  
+  .footerLogoLink:hover {
+    transform: none !important;
+  }
+  
   
   .footerMotto {
     font-style: italic;
@@ -45,21 +49,8 @@
   }
   
   .footerSocial {
-    margin-top: 20px;
+    margin-top: 40px;
     margin-bottom: 20px;
-  }
-  
-  .socialIcons {
-    display: flex;
-    justify-content: center;
-    gap: 25px;
-  }
-  
-  .socialIcons img {
-    width: auto;
-    height: 24px;
-    transition: filter 0.3s ease;
-    filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.5));
   }
   
   .footerMenu ul {
@@ -82,7 +73,7 @@
   }
   
   .footerMenu ul li a:hover {
-    color: #141319;
+    color: #bfaa8d;
   }
   
   .copyright {
@@ -92,19 +83,9 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
   }
   
-  @media (max-width: 768px) {
+  @media (max-width: 600px) {
     .footerContent {
       padding: 0 10px;
-    }
-  
-    .socialIcons {
-      padding-top: 25px;
-      gap: 40px;
-    }
-  
-    .socialIcons img {
-      width: auto;
-      height: 28px;
     }
   
     .footerMenu ul {
@@ -112,7 +93,8 @@
     }
   
     .footerLogo img {
-      max-width: 222px;
+      max-width: 270px;
     }
+    
   }
   

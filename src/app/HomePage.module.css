@@ -1,0 +1,140 @@
+/* app/about/About.module.css */
+
+.aboutContainer {
+    background-color: #0a0a0a;
+    color: #ffffff;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+  }
+  
+  .heroSection {
+    display: flex;
+    align-items: center;              /* vertically center */
+    justify-content: center;          /* horizontally center */
+    gap: 40px;
+    flex-wrap: wrap;
+    min-height: 100vh;
+    max-width: 1200px;                /* optional: keeps layout neat */
+    margin: 0 auto;                   /* center the section in viewport */
+    padding: 0 20px;                  /* horizontal breathing room */
+  }
+  
+  
+  .headshotWrapper {
+    position: relative;
+    width: 20vw;
+    height: 30vw;
+    min-width: 267px;
+    min-height: 400px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+    flex-shrink: 0;
+  }
+  
+  .headshotImage {
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+  .verticalDivider {
+    width: 2px;
+    height: 30vw;
+    min-height: 400px;
+    background-color: #bfaa8d;
+    margin: 0 2vw;
+    opacity: 0.5;
+  }
+  
+  .heroText {
+    flex: 1;
+    max-width: 650px;
+  }
+  
+  .heroText h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+  }
+  
+  .heroText h2 {
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin-bottom: 20px;
+    color: #bbb;
+  }
+  
+  .heroText p {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: #ddd;
+  }
+  
+  .introSection {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  
+  .introSection h2 {
+    font-size: 2rem;
+    margin-bottom: 12px;
+  }
+  
+  .introSection p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #ccc;
+  }
+  
+  .contactButton {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 24px;
+    background-color: #ffffff;
+    color: #0a0a0a;
+    font-weight: bold;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .contactButton:hover {
+    background-color: #dddddd;
+  }
+  
+  @media (max-width: 850px) {
+    .verticalDivider {
+      display: none;
+    }
+  
+  }
+
+  @media (max-width: 650px) {
+    
+    .heroSection {
+        display: flex;
+        flex-direction: column;
+        align-items: center;              /* vertically center */
+        justify-content: center;          /* horizontally center */
+        flex-wrap: wrap;
+        min-height: 100vh;
+        max-width: 1200px;                /* optional: keeps layout neat */
+        margin: 0 auto;                   /* center the section in viewport */
+        padding-top: 10vh;
+    }
+
+    .headshotWrapper {
+        position: relative;
+        width: 60vw;
+        height: 90vw;
+        min-width: 267px;
+        min-height: 400px;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+        flex-shrink: 0;
+      }
+  
+  }

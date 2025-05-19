@@ -2,13 +2,14 @@
 
 /* Root-level base styles */
 :root {
-  --font-body: 'Open Sans', sans-serif;
+  --font-body: 'Lato', sans-serif;
+  --font-heading: 'Lora', serif;
   font-family: var(--font-body);
   line-height: 1.5;
   font-weight: 400;
   color-scheme: light dark;
-  color: #000000;
-  background-color: #ffffff;
+  color: #ffffff;
+  background-color: #0a0a0a;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -25,13 +26,17 @@ html, body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background: #ffffff;
-  color: #000000;
+  background: #0a0a0a;
+  color: #ffffff;
   font-family: var(--font-body);
   font-size: 15px;
   line-height: 1.6em;
   scroll-behavior: smooth;
   overflow-x: clip;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
 }
 
 /* Typography */
@@ -42,14 +47,14 @@ h1 {
 
 a {
   font-weight: 500;
-  color: #a2c8d3;
+  color: #ddd1c1;
   text-decoration: inherit;
   transition: color 0.3s ease, transform 0.3s ease;
   display: inline-block;
 }
 
 a:hover {
-  color: #e7bbc6;
+  color: #bfaa8d;
   transform: scale(1.01);
 }
 
@@ -57,11 +62,17 @@ i, em {
   font-style: italic;
 }
 
+blockquote {
+  border-left: 4px solid #bfaa8d50; /* change color as needed */
+  padding: 0.05rem 1.25em;
+  color: #eeeeee;
+}
+
 /* Light mode preference */
 @media (prefers-color-scheme: light) {
   :root {
-    color: #000000;
-    background-color: #ffffff;
+    color: #ffffff;
+    background-color: #0a0a0a;
   }
 
   a:hover {
@@ -69,7 +80,7 @@ i, em {
   }
 
   button {
-    background-color: #f9f9f9;
+    background-color: #000000;
   }
 }
 

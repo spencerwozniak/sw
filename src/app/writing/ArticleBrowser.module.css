@@ -1,0 +1,116 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto 60px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.heading {
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  width: 100%;
+}
+
+.searchBar {
+  width: 100%;
+  padding: 0.5rem 0;
+  font-size: 1rem;
+  border: none;
+  border-bottom: 2px solid #888;
+  background: transparent;
+  color: #eaeaea;
+  margin-bottom: 2rem;
+  transition: border-color 0.3s ease;
+}
+
+.searchBar::placeholder {
+  color: #888;
+}
+
+.searchBar:focus {
+  outline: none;
+  border-bottom: 2px solid #bfaa8d;
+}
+
+/* ---------- List and Cards ---------- */
+.list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-top: 1px solid #333;
+}
+
+.card {
+  display: block;
+  padding: 1.5rem 1rem;
+  border-bottom: 1px solid #333;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.card:hover {
+  background: #111111;
+  transform: none !important;
+}
+
+.cardTitle {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0;
+  color: white;
+}
+
+.cardMeta {
+  font-size: 0.95rem;
+  color: #999;
+  margin: 0;
+}
+
+.cardTopic {
+  font-size: 0.95rem;
+  color: #bbb;
+  margin-top: 0.25rem;
+  margin-bottom: 0.2rem;
+}
+
+.cardSnippet {
+  font-size: 1rem;
+  color: #ddd1c1;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ---------- Pagination ---------- */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  gap: 0.5rem;
+}
+
+.pageButton {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: none;
+  background: rgba(255, 255, 255, 0.15);
+  color: #ddd1c1;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.pageButton:hover {
+  background: #ddd1c1;
+  color: white;
+  transform: scale(1.05);
+}
+
+.active {
+  background: #bfaa8d;
+  color: white;
+  font-weight: bold;
+}

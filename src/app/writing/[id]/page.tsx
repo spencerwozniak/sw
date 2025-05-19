@@ -4,14 +4,15 @@ import Image from 'next/image';
 import ClientNavigationWrapper from '@/components/ClientNavigationWrapper';
 import Chatbot from '@/components/Chatbot';
 import Footer from '@/components/Footer';
-import articles from '../articles.json';
+import articles from '@/data/articles.json';
 import styles from './page.module.css';
 
 interface Article {
   id: string;
   title: string;
+  topic: string;
   date: string;
-  location: string;
+  name: string;
   contents: string;
   image: [string, string];
   keywords?: string[]; // optional for backward compatibility
@@ -38,27 +39,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       'Spencer Wozniak',
       article.title
     ],
-    icons: {
-      icon: '/wp-logo-circle.png',
-      shortcut: '/wp-logo-circle.png',
-      apple: '/wp-logo-circle.png'
-    },
     robots: {
       index: true,
       follow: true
     },
     alternates: {
-      canonical: `https://www.wozprep.org/article/${params.id}`
+      canonical: `https://www.spencerwozniak.com/writing/${params.id}`
     },
     openGraph: {
       title: fullTitle,
       description,
-      url: `https://www.wozprep.org/article/${params.id}`,
+      url: `https://www.spencerwozniak.com/writing/${params.id}`,
       type: 'article',
       publishedTime: new Date(article.date).toISOString(),
       images: [
         {
-          url: `https://www.wozprep.org/article/${article.image[0]}`,
+          url: `https://www.spencerwozniak.com/articles/${article.image[0]}`,
           width: 800,
           height: 600,
           alt: article.image[1]
@@ -96,7 +92,8 @@ export default function ArticlePage({ params }: Props) {
         <article className={styles.glassCard}>
         <header className={styles.header}>
           <h1 className={styles.title}>{article.title}</h1>
-          <p className={styles.subhead}>{article.date} · {article.location}</p>
+          <p className={styles.topic}>{article.name}</p>
+          <p className={styles.subhead}>{article.topic} | {article.date}</p>
         </header>
 
 

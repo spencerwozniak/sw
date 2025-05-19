@@ -8,6 +8,8 @@ import MenuButton from './MenuButton';
 import NavButton from './NavButton';
 import styles from './Navigation.module.css';
 import navigationData from './navigationData.json';
+import SocialIcons from './SocialIcons';
+
 import { FaLinkedin } from 'react-icons/fa';
 
 const mobileThreshold = 960;
@@ -63,10 +65,10 @@ const Navigation: React.FC = () => {
             style={{ cursor: 'pointer' }}
           >
             <Image
-              src="/wp-logo.png"
-              alt="WozPrep Logo"
-              width={100}
-              height={40}
+              src="/sw-full-signature-white.png"
+              alt="Spencer Wozniak Signature"
+              width={120}
+              height={50}
               className={styles.logo}
               priority
             />
@@ -99,12 +101,14 @@ const Navigation: React.FC = () => {
           </ul>
         </nav>
 
-        {isMobile && isSubMenuOpen && (
-          <div className={`${styles.dropdownMenu} ${styles.open}`}>
+        {isMobile && (
+          <div className={`${styles.dropdownMenu} ${isSubMenuOpen ? styles.open : styles.closed}`}>
+            <div className={styles.dropdownInner}>
             {navigationData.map((item, index) => (
-              <section key={index} className={styles.navColumn}>
+              <div key={index} className={styles.dropdownSectionWrapper}>
+              <section className={styles.navColumn}>
                 <Link href={item.link} className={styles.navColumnHeading}>
-                  {item.label}
+                  <h2>{item.label}</h2>
                 </Link>
                 {item.submenu && (
                   <div className={styles.mobileSubmenu}>
@@ -116,7 +120,11 @@ const Navigation: React.FC = () => {
                   </div>
                 )}
               </section>
+              {index < navigationData.length - 1 && <hr className={styles.navDivider} />}
+            </div>
             ))}
+            </div>
+            <SocialIcons />
           </div>
         )}
 
@@ -124,7 +132,7 @@ const Navigation: React.FC = () => {
           <a
             className={styles.headerContactLink}
             target="_blank"
-            href="https://www.linkedin.com/company/wozprep"
+            href="https://www.linkedin.com/in/spencerwozniak/"
             rel="noopener noreferrer"
           >
             <FaLinkedin />

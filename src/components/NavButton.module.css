@@ -3,21 +3,23 @@
   justify-content: center;
   align-items: center;
   height: 40px;
+  width: 20px;
+  padding: 0 20px;
   text-align: center;
   color: white;
+  background-color: black;
   font-size: 13px;
   font-weight: 600;
   line-height: 40px;
   cursor: pointer;
-  background-color: #a2c8d3;
-  border-radius: 24px;
   overflow: hidden;
-  transition: background-image 0.3s ease, transform 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
   text-decoration: none;
-  border: none;
-  outline: none;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1.5px solid white;     /* ✅ white outline */
+  border-radius: 0;              /* ✅ non-rounded */
+  box-shadow: none;
 }
+
 
 .navButtonDisabled,
 .navButton[disabled] {
@@ -40,16 +42,16 @@
 }
 
 .navButton:hover {
-  background-color: #d89ebd;
-  transform: scale(1.05);
-  color: white;
+  background-color: white;  /* ✅ invert background */
+  color: black;             /* ✅ invert text */
 }
 
 .navButton:active {
-  background-color: #e7bbc6;
+  background-color: white;
+  color: black;
   transform: scale(0.98);
-  color: white;
 }
+
 
 .navButton span {
   cursor: pointer;
@@ -78,7 +80,7 @@
 
 .navButton:focus {
   outline: none;
-  color: white;
+
 }
 
 @media (max-width: 768px) {

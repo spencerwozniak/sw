@@ -1,29 +1,27 @@
 [
   {
-    "label": "MCAT TUTORING",
-    "link": "/mcat",
-    "submenu": [
-      { "label": "Practice", "link": "/mcat/practice" }
-    ]
-  },
-  {
-    "label": "STEM TUTORING",
-    "link": "/stem",
+    "label": "WRITING",
+    "link": "/writing",
     "submenu": [
     ]
   },
   {
-    "label": "PRACTICE QUESTIONS",
-    "link": "/mcat/practice",
+    "label": "RESUME",
+    "link": "/resume",
+    "submenu": [
+    ]
+  },
+  
+  {
+    "label": "GALLERY",
+    "link": "/gallery",
     "submenu": [
     ]
   },
   {
-    "label": "ABOUT",
-    "link": "/about",
+    "label": "CONTACT",
+    "link": "/contact",
     "submenu": [
-      { "label": "Articles", "link": "/articles" },
-      { "label": "Press Releases", "link": "/press" }
     ]
   }
 ]

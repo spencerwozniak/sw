@@ -1,61 +1,10 @@
 import Image from 'next/image';
 import ClientNavigationWrapper from '@/components/ClientNavigationWrapper';
-import PressReleaseBrowser from '../press/PressReleaseBrowser';
 import Chatbot from '@/components/Chatbot';
 import NavButton from '@/components/NavButton';
 import Footer from '@/components/Footer';
 
 import styles from './page.module.css';
-
-export const metadata = {
-  title: 'About | WozPrep',
-  description:
-    'WozPrep offers expert MCAT and science tutoring from 524-scorer Spencer Wozniak. Learn how our data-driven, personalized approach is helping students across San Diego and beyond succeed.',
-  keywords: [
-    'WozPrep',
-    'MCAT tutor San Diego',
-    'MCAT 524 scorer',
-    'personalized MCAT prep',
-    'science tutoring San Diego',
-    'premed support',
-    'private MCAT tutoring',
-    'Spencer Wozniak',
-    'test prep San Diego',
-  ],
-  robots: {
-    index: true,
-    follow: true,
-    nocache: false,
-  },
-  icons: {
-    icon: '/wp-logo-circle.png',
-    shortcut: '/wp-logo-circle.png',
-    apple: '/wp-logo-circle.png',
-  },
-  alternates: {
-    canonical: 'https://www.wozprep.org/about',
-  },
-  openGraph: {
-    title: 'About Us | WozPrep',
-    description: 'Discover the story, mission, and values behind WozPrep MCAT and science tutoring.',
-    url: 'https://www.wozprep.org/about',
-    type: 'website',
-    images: [
-      {
-        url: 'https://www.wozprep.org/wp-logo-circle.png',
-        width: 512,
-        height: 512,
-        alt: 'WozPrep Logo',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'About Us | WozPrep',
-    description: 'Meet the team and philosophy behind WozPrep’s expert tutoring services.',
-    images: ['https://www.wozprep.org/wp-logo-circle.png'],
-  },
-};
 
 export default function AboutPage() {
   return (
@@ -98,7 +47,6 @@ export default function AboutPage() {
             />
           </div>
         </section>
-        <PressReleaseBrowser />
       </main>
       <Chatbot />
       <Footer />
