@@ -24,7 +24,7 @@ export default function ContactPage() {
       <ClientNavigationWrapper />
 
       <main className={styles.main}>
-        <h1 className={styles.title}>Let's Connect</h1>
+        <h1 className={styles.title}>Let’s Connect</h1>
         <div className={styles.cardContainer}>
           <a href="https://www.linkedin.com/in/spencerwozniak/" target="_blank" rel="noopener noreferrer" className={styles.card}>
             <FaLinkedin size={24} />
