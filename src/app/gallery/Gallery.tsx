@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
 import styles from './Gallery.module.css';
 import galleryTabs from '@/data/gallery.json';
 
