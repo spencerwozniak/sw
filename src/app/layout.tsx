@@ -22,7 +22,7 @@ const lora = Lora({
 export const metadata = {
   title: 'Spencer Wozniak | Thinker, Builder, Mentor.',
   description:
-    'Welcome to the personal website of Spencer Wozniak',
+    'Explore the work, writing, and worldview of Spencer Wozniak.',
   icons: {
     icon: '/sw-initials-white.png',
     shortcut: '/sw-initials-white.png',
@@ -83,12 +83,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               "@context": "https://schema.org",
               "@type": "Organization",
               "name": "WozPrep",
-              "url": "https://www.wozprep.org",
-              "logo": "https://www.wozprep.org/wp-logo-circle.png",
+              "url": "https://www.spencerwozniak.com",
+              "logo": "https://www.spencerwozniak.com/sw-initials-white.png",
               "sameAs": [
                 "https://www.linkedin.com/in/spencerwozniak",
                 "https://x.com/WozniakSpencer",
-                "https://scholar.google.com/citations?user=vBp7kzAAAAAJ&hl=en"
+                "https://scholar.google.com/citations?user=vBp7kzAAAAAJ&hl=en",
+                "https://www.wozprep.org/"
               ]
             })
           }}

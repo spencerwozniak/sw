@@ -1,20 +1,59 @@
 [
     {
-      "id": "teaching",
-      "name": "Teaching",
+      "id": "places",
+      "name": "Places",
       "images": [
-        {
-          "url": "metabolism.jpg",
-          "caption": "Teaching an MCAT course on metabolism"
-        },
-        {
-            "url": "cars.jpg",
-            "caption": "Teaching an MCAT course on CARS"
-        },
-        {
-            "url": "cog-dis.jpg",
-            "caption": "Teaching an MCAT course on Psychology"
-        }
+        { "url": "places/back-in-michigan.jpg", "caption": "Back In Michigan" },
+        { "url": "places/flowers-and-sunset.jpg", "caption": "Flowers And Sunset" },
+        { "url": "places/hotel-churchill.jpg", "caption": "Hotel Churchill" },
+        { "url": "places/san-jacinto-peak-1.jpg", "caption": "San Jacinto Peak" },
+        { "url": "places/torrey-pines-beach-1.jpg", "caption": "Torrey Pines Beach" },
+        { "url": "places/balboa-park-church.jpg", "caption": "Balboa Park Church" },
+        { "url": "places/geisel-library.jpg", "caption": "Geisel Library" },
+        { "url": "places/muskegon-beach.jpg", "caption": "Muskegon Beach" },
+        { "url": "places/san-jacinto-peak-2.jpg", "caption": "San Jacinto Peak" },
+        { "url": "places/torrey-pines-beach-2.jpg", "caption": "Torrey Pines Beach" },
+        { "url": "places/chula-vista.jpg", "caption": "Chula Vista" },
+        { "url": "places/grand-haven-lighthouse.jpg", "caption": "Grand Haven Lighthouse" },
+        { "url": "places/nashville.jpg", "caption": "Nashville" },
+        { "url": "places/san-jacinto-peak-3.jpg", "caption": "San Jacinto Peak" },
+        { "url": "places/train-coal-station.jpg", "caption": "Train Coal Station" },
+        { "url": "places/coronado-beach-1.jpg", "caption": "Coronado Beach" },
+        { "url": "places/grand-haven-pier-1.jpg", "caption": "Grand Haven Pier" },
+        { "url": "places/northern-michigan.jpg", "caption": "Northern Michigan" },
+        { "url": "places/seals-at-la-jolla.jpg", "caption": "Seals At La Jolla" },
+        { "url": "places/usd-campus-fountain.jpg", "caption": "USD Campus Fountain" },
+        { "url": "places/cowles-mountain-peak-at-night.jpg", "caption": "Cowles Mountain Peak At Night" },
+        { "url": "places/grand-haven-pier-2.jpg", "caption": "Grand Haven Pier" },
+        { "url": "places/memorial-hospital.jpg", "caption": "Memorial Hospital" },
+        { "url": "places/pacific-beach-at-night.jpg", "caption": "Pacific Beach At Night" },
+        { "url": "places/sedona-arizona-1.jpg", "caption": "Sedona Arizona" },
+        { "url": "places/usd-campus-hilltop-2.JPG", "caption": "USD Campus Hilltop" },
+        { "url": "places/grand-haven-red-house.jpg", "caption": "Grand Haven Red House" },
+        { "url": "places/michigan-day-snow.jpg", "caption": "Michigan Day Snow" },
+        { "url": "places/sedona-arizona-2.jpg", "caption": "Sedona Arizona" },
+        { "url": "places/usd-campus-hilltop.jpg", "caption": "USD Campus Hilltop" },
+        { "url": "places/downtown-sd-airplane-view.jpg", "caption": "Downtown San Diego Airplane View" },
+        { "url": "places/grand-rapids-1.JPEG", "caption": "Grand Rapids" },
+        { "url": "places/michigan-fall-colors.jpg", "caption": "Michigan Fall Colors" },
+        { "url": "places/view-from-my-apartment.jpg", "caption": "View From My Apartment" },
+        { "url": "places/grand-rapids-2.JPEG", "caption": "Grand Rapids" },
+        { "url": "places/michigan-night-snow.jpg", "caption": "Michigan Night Snow" },
+        { "url": "places/protest-in-downtown-sd.JPG", "caption": "Protest In Downtown San Diego" },
+        { "url": "places/suicide-rock.jpg", "caption": "Suicide Rock" },
+        { "url": "places/windansea-beach.jpg", "caption": "Windansea Beach" },
+        { "url": "places/downtown-sd-night-storm.jpg", "caption": "Downtown San Diego Night Storm" },
+        { "url": "places/hiking-in-mountains-sunset.jpg", "caption": "Hiking In Mountains Sunset" },
+        { "url": "places/msu-campus-fountain.jpg", "caption": "MSU Campus Fountain" },
+        { "url": "places/san-diego-bay-sunset.jpg", "caption": "San Diego Bay Sunset" },
+        { "url": "places/sunset-at-windansea-beach.jpg", "caption": "Sunset At Windansea Beach" },
+        { "url": "places/msu-library.jpg", "caption": "MSU Library" },
+        { "url": "places/taquemenon-falls.JPEG", "caption": "Taquemenon Falls" },
+        { "url": "places/downtown-sd-sunset.jpg", "caption": "Downtown San Diego Sunset" },
+        { "url": "places/grand-rapids-3.JPEG", "caption": "Grand Rapids" },
+        { "url": "places/michigan-starry-sky.jpg", "caption": "Michigan Starry Sky" },
+        { "url": "places/roadtrip-stormclouds.jpg", "caption": "Roadtrip Stormclouds" },
+        { "url": "places/sunset-at-grand-haven.jpg", "caption": "Sunset At Grand Haven" }
       ]
     }
 ]

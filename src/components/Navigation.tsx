@@ -7,7 +7,8 @@ import Link from 'next/link';
 import MenuButton from './MenuButton';
 import NavButton from './NavButton';
 import styles from './Navigation.module.css';
-import navigationData from './navigationData.json';
+import navigationData from '@/data/navigationData.json';
+import articles from '@/data/articles.json';
 import SocialIcons from './SocialIcons';
 
 import { FaLinkedin } from 'react-icons/fa';
@@ -20,6 +21,14 @@ const Navigation: React.FC = () => {
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
+
+  const handleRandomEssay = () => {
+    const randomIndex = Math.floor(Math.random() * articles.length);
+    const randomArticle = articles[randomIndex];
+    if (randomArticle?.id) {
+      router.push(`/writing/${randomArticle.id}`);
+    }
+  };
 
   useEffect(() => {
     setIsHydrated(true); // This ensures the first render matches SSR HTML
@@ -138,10 +147,11 @@ const Navigation: React.FC = () => {
             <FaLinkedin />
           </a>
           <NavButton
-            to="/contact"
-            label="CONTACT"
+            onClick={handleRandomEssay}
+            label="CLICK ME!"
             className={styles.headerNavButton}
           />
+
         </div>
       </div>
     </header>

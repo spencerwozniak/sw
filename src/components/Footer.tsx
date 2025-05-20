@@ -7,7 +7,7 @@ import styles from './Footer.module.css';
 import SocialIcons from './SocialIcons';
 
 import LogoWhite from '../../public/sw-full-signature-white.png'; // Make sure this image is in /public
-import navigationData from './navigationData.json';
+import navigationData from '@/data/navigationData.json';
 
 const Footer: React.FC = () => {
   return (

@@ -28,28 +28,6 @@ export default function HomePage() {
           </p>
         </div>
       </section>
-
-      <section className={styles.introSection}>
-        <h2>Who I Am</h2>
-        <p>
-          Originally from Michigan, I packed up my car and drove cross-country to San Diego after college—a lifelong dream fulfilled at 22. I’ve worked as an MCAT tutor, ABA therapist, and AI researcher. These aren’t just roles—they’re reflections of what drives me: mentoring others, building things that matter, and exploring how science, philosophy, and theology shape our world.
-        </p>
-      </section>
-
-      <section className={styles.introSection}>
-        <h2>What I Do</h2>
-        <p>
-          By day, I help pre-med students crush the MCAT and teach autistic children as an ABA therapist. By night, I’m building modern websites, developing educational tools, and writing about life’s big questions—from neuroscience to God. I believe deeply in intellectual curiosity and emotional presence—being someone others can count on.
-        </p>
-      </section>
-
-      <section className={styles.introSection}>
-        <h2>Let’s Connect</h2>
-        <p>
-          Whether you want to collaborate, get tutoring help, or just chat about AI, philosophy, or how it feels to stand at the edge of the Pacific, I’d love to hear from you.
-        </p>
-        <a href="/contact" className={styles.contactButton}>Reach Out</a>
-      </section>
     </main>
   );
 }

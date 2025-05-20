@@ -1,0 +1,27 @@
+[
+  {
+    "label": "WRITING",
+    "link": "/writing",
+    "submenu": [
+    ]
+  },
+  {
+    "label": "RESUME",
+    "link": "/resume",
+    "submenu": [
+    ]
+  },
+  
+  {
+    "label": "GALLERY",
+    "link": "/gallery",
+    "submenu": [
+    ]
+  },
+  {
+    "label": "CONTACT",
+    "link": "/contact",
+    "submenu": [
+    ]
+  }
+]
