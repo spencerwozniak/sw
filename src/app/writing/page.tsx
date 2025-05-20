@@ -18,11 +18,10 @@ export default function ArticlePage() {
     <>
       <ClientNavigationWrapper />
       <div className={styles.articleContainer}>
-        <h1 className={styles.sectionTitle}>Publications</h1>
-        <ArticleBrowser itemsPerPage={6} data={publications} showSearchBar={false} />
-
         <h1 className={styles.sectionTitle}>Essays</h1>
         <ArticleBrowser itemsPerPage={6} data={articles} />
+        <h1 className={styles.sectionTitle}>Publications</h1>
+        <ArticleBrowser itemsPerPage={6} data={publications} showSearchBar={false} />
       </div>
       <Chatbot />
       <Footer />
