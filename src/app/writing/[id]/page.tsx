@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!article) return {};
 
   const fullTitle = `${article.title} | Spencer Wozniak`;
-  const description = `Read "${article.title}", an article published on ${article.date} by WozPrep in ${article.location}. Learn more about MCAT prep, science education, and tutoring innovations.`;
+  const description = `Read "${article.title}", an article published on ${article.date} by Spencer Wozniak.`;
 
   return {
     title: fullTitle,
@@ -54,10 +54,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       publishedTime: new Date(article.date).toISOString(),
       images: [
         {
-          url: `https://www.spencerwozniak.com/articles/${article.image[0]}`,
+          url: `https://www.spencerwozniak.com/sw-full-signature-white.png`,
           width: 800,
           height: 600,
-          alt: article.image[1]
+          alt: "Spencer Wozniak Signature"
         }
       ]
     },
@@ -65,13 +65,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: 'summary_large_image',
       title: fullTitle,
       description,
-      images: [`https://www.wozprep.org/article/${article.image[0]}`]
+      images: [`https://www.spencerwozniak.com/sw-full-signature-white.png`]
     },
     other: {
       'article:published_time': new Date(article.date).toISOString(),
       'article:author': 'Spencer Wozniak', // or company name
       'article:section': 'Article',
-      'article:tag': 'MCAT, Education, WozPrep'
+      'article:tag': 'Spencer Wozniak'
     }    
   };
 }
