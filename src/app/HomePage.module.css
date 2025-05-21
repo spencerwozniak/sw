@@ -70,38 +70,14 @@
     line-height: 1.6;
     color: #ddd;
   }
-  
-  .introSection {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: left;
+
+  .heroButtons {
+    display: flex;
+    gap: 1rem;
   }
-  
-  .introSection h2 {
-    font-size: 2rem;
-    margin-bottom: 12px;
-  }
-  
-  .introSection p {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: #ccc;
-  }
-  
-  .contactButton {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 12px 24px;
-    background-color: #ffffff;
-    color: #0a0a0a;
-    font-weight: bold;
-    border-radius: 8px;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-  }
-  
-  .contactButton:hover {
-    background-color: #dddddd;
+
+  .heroButton {
+    min-width: 120px;
   }
   
   @media (max-width: 850px) {
@@ -135,6 +111,14 @@
         overflow: hidden;
         box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
         flex-shrink: 0;
+      }
+
+      .heroButtons {
+        display: flex;
+        gap: 1rem;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
       }
   
   }
