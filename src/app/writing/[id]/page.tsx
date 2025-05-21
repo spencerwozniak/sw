@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!article) return {};
 
-  const fullTitle = `${article.title} | WozPrep Article`;
+  const fullTitle = `${article.title} | Spencer Wozniak`;
   const description = `Read "${article.title}", an article published on ${article.date} by WozPrep in ${article.location}. Learn more about MCAT prep, science education, and tutoring innovations.`;
 
   return {
