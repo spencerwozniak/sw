@@ -50,12 +50,10 @@ a {
   color: #ddd1c1;
   text-decoration: inherit;
   transition: color 0.3s ease, transform 0.3s ease;
-  display: inline-block;
 }
 
 a:hover {
   color: #bfaa8d;
-  transform: scale(1.01);
 }
 
 i, em {

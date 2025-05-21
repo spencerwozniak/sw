@@ -18,7 +18,6 @@ const lora = Lora({
   variable: '--font-heading',
 });
 
-
 export const metadata = {
   title: 'Spencer Wozniak | Thinker, Builder, Mentor.',
   description:
