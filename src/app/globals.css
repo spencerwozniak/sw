@@ -66,6 +66,7 @@ blockquote {
   border-left: 4px solid #bfaa8d50; /* change color as needed */
   padding: 0.05rem 1.25em;
   color: #eeeeee;
+  margin: 1rem;
 }
 
 /* Light mode preference */
@@ -91,4 +92,13 @@ blockquote {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+@media (max-width: 768px) {
+  blockquote {
+    border-left: 4px solid #bfaa8d50; /* change color as needed */
+    
+    padding: 0.05rem 1.25em;
+    color: #eeeeee;
+  }
 }

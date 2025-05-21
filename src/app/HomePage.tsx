@@ -24,7 +24,9 @@ export default function HomePage() {
           <h2>Thinker, Builder, Mentor.</h2>
           <p>
             I’m a Catholic Christian, a relentless explorer of ideas and places, and someone who finds deep purpose in guiding others.
-            I’ve driven across the country to chase my dreams, built a tutoring business to help others chase theirs, and spent years exploring the intersection of AI and healthcare. My journey is rooted in curiosity, guided by faith, and driven by a deep desire to serve.
+            I’ve driven across the country to chase my dreams, built a tutoring business to help students pursue theirs, and now spend my days working one-on-one with kids, helping them grow in confidence, communication, and independence.
+            I have spent years exploring the intersection of AI and healthcare, and I hope to apply it to transform patient care as a future physician.
+            My journey is rooted in curiosity, guided by faith, and driven by a deep desire to serve.
           </p>
         </div>
       </section>
