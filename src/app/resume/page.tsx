@@ -53,11 +53,16 @@ export default function ResumePage() {
             <p><strong>Coyne and Associates | San Diego, CA</strong></p>
             <p>Aug 2024 – Present</p>
             <ul>
-              <li>Conducted individualized therapy sessions to help children with autism using evidence-based ABA techniques.</li>
-              <li>Implemented interventions to develop communication for nonverbal children.</li>
-              <li>Taught emotional regulation techniques and supported gross motor skill development.</li>
-              <li>Tracked data in EHR to analyze trends and refine treatment.</li>
-              <li>Trained new ABA therapists and collaborated with leadership on protocol adherence.</li>
+              <li>Conducted individualized therapy sessions to help children diagnosed with autism spectrum disorder and other developmental disabilities using evidence-based ABA techniques.</li>
+              <li>Implemented targeted interventions to develop functional communication for nonverbal children.</li>
+              <li>Taught emotional regulation techniques to reduce negative emotions and challenging behaviors.</li>
+              <li>Supported development of gross motor skills through structured play and movement-based activities.</li>
+              <li>Collected and analyzed detailed session data in an electronic health record to track client progress, analyze behavioral trends, and refine interventions.</li>
+              <li>Collaborated with caregivers to promote consistency across environments, ensure treatment compliance, and maintain behavioral improvements.</li>
+              <li>Conducted hands-on training for new ABA therapists using a structured four-phase model.</li>
+              <li>Delivered constructive feedback to trainees on clinical performance, professionalism, and data accuracy.</li>
+              <li>Collaborated with Regional Directors to monitor trainee progress and ensure adherence to protocols.</li>
+              <li>Participated in trainer meetings and contributed to updates in training procedures and clinical standards.</li>
             </ul>
           </div>
 
@@ -66,8 +71,11 @@ export default function ResumePage() {
             <p><strong>Memorial Healthcare | Owosso, MI</strong></p>
             <p>Jul 2023 – Aug 2024</p>
             <ul>
-              <li>Assisted physicians in ED and ICU by documenting exams, procedures, and orders.</li>
-              <li>Reviewed labs and patient histories to support efficient decision-making.</li>
+              <li>Assisted several emergency and internal medicine physicians in the ED and ICU by documenting histories, exam findings, procedures, orders, and assessment & plans for up to 20 patients per shift.</li>
+              <li>Collected preliminary patient histories and medication lists to improve physician efficiency.</li>
+              <li>Interpreted laboratory values to streamline documentation and highlight critical findings.</li>
+              <li>Reviewed and abstracted data from medical charts to support clinical decision-making.</li>
+              <li>Collaborated with nursing staff to support unit operations, including restocking rooms and delivering comfort items and basic support to patients.</li>
             </ul>
           </div>
 
@@ -76,8 +84,10 @@ export default function ResumePage() {
             <p><strong>Sparrow Hospital | Lansing, MI </strong></p>
             <p>Sep 2022 – Apr 2023</p>
             <ul>
-              <li>Supported 40+ patients per shift with comfort, mobility, and companionship.</li>
-              <li>Monitored vital signs and assisted with imaging and patient transport.</li>
+              <li>Supported nursing staff in an inpatient unit by assisting with up to 40 patients per shift.</li>
+              <li>Answered patient call lights to provide timely assistance with comfort, mobility, and basic care needs.</li>
+              <li>Sat with patients who had no visitors, offering companionship, emotional support, and conversation during long or isolating hospital stays.</li>
+              <li>Measured vital signs, transported patients within the hospital, and observed diagnostic imaging exams.</li>
             </ul>
           </div>
         </section>
