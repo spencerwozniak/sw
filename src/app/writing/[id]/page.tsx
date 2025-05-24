@@ -25,6 +25,10 @@ interface Props {
 // ✅ Dynamically generate SEO metadata per article
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const article = articles.find((p) => p.id === params.id);
+  const currentIndex = articles.findIndex((p) => p.id === params.id);
+  const prevArticle = currentIndex > 0 ? articles[currentIndex - 1] : null;
+  const nextArticle = currentIndex < articles.length - 1 ? articles[currentIndex + 1] : null;
+
 
   if (!article) return {};
 
@@ -35,7 +39,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: fullTitle,
     description,
     keywords: article.keywords || [
-      'WozPrep article',
       'Spencer Wozniak',
       article.title
     ],
@@ -56,7 +59,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         {
           url: `https://www.spencerwozniak.com/sw-full-signature-white.png`,
           width: 800,
-          height: 600,
+          height: 400,
           alt: "Spencer Wozniak Signature"
         }
       ]
@@ -80,8 +83,13 @@ export function generateStaticParams() {
   return articles.map((article) => ({ id: article.id }));
 }
 
+
 export default function ArticlePage({ params }: Props) {
   const article: Article | undefined = articles.find((p) => p.id === params.id);
+  const currentIndex = articles.findIndex((p) => p.id === params.id);
+  const nextArticle = currentIndex > 0 ? articles[currentIndex - 1] : null;
+  const prevArticle = currentIndex < articles.length - 1 ? articles[currentIndex + 1] : null;
+
 
   if (!article) return notFound();
 
@@ -89,6 +97,8 @@ export default function ArticlePage({ params }: Props) {
     <div className={styles.articlePage}>
       <ClientNavigationWrapper />
       <main className={styles.container}>
+
+
         <article className={styles.glassCard}>
         <header className={styles.header}>
           <h1 className={styles.title}>{article.title}</h1>
@@ -114,9 +124,23 @@ export default function ArticlePage({ params }: Props) {
             <div dangerouslySetInnerHTML={{ __html: article.contents }} />
         </div>
         </section>
-
-
+        
         </article>
+
+        <div className={styles.bottomNav}>
+          {prevArticle && (
+            <a href={`/writing/${prevArticle.id}`} className={styles.navButton}>
+              ← Previous
+            </a>
+          )}
+          {nextArticle && (
+            <a href={`/writing/${nextArticle.id}`} className={`${styles.navButton} ${styles.nextButton}`}>
+              Next →
+            </a>
+          )}
+        </div>
+
+
       </main>
       <Chatbot />
       <Footer />

@@ -10,7 +10,7 @@
   .container {
     width: 100%;
     max-width: 1200px;
-    margin: 120px auto 60px;
+    margin: 120px auto 20px;
     padding: 0 24px;
     box-sizing: border-box; 
   }
@@ -119,6 +119,30 @@
     clear: both;
   }
   
+  .readMoreTitle {
+    text-align: center;
+    font-size: 2rem;
+    color: white;
+  }
+  
+  /* ---------------- Navigation ---------------- */
+
+  .bottomNav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+  }
+  
+  .navButton {
+    font-size: 1rem;
+    text-decoration: none;
+    transition: background 0.2s ease;
+  }
+
+  
+  .nextButton {
+    margin-left: auto;
+  }
   
   /* ---------------- Responsive ---------------- */
   @media (max-width: 768px) {
@@ -165,5 +189,14 @@
     .content {
       font-size: 1rem;
     }
+
+    .navButton {
+      font-size: 1rem;
+      padding: 0 2rem 2rem;
+      text-decoration: none;
+      transition: background 0.2s ease;
+    }
+
   }
+
   
