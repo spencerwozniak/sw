@@ -25,10 +25,6 @@ interface Props {
 // ✅ Dynamically generate SEO metadata per article
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const article = articles.find((p) => p.id === params.id);
-  const currentIndex = articles.findIndex((p) => p.id === params.id);
-  const prevArticle = currentIndex > 0 ? articles[currentIndex - 1] : null;
-  const nextArticle = currentIndex < articles.length - 1 ? articles[currentIndex + 1] : null;
-
 
   if (!article) return {};
 
