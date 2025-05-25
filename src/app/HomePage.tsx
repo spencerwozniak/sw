@@ -29,6 +29,10 @@ export default function HomePage() {
             I have spent years exploring the intersection of AI and healthcare, and I hope to apply it to transform patient care as a future physician.
             My journey is rooted in curiosity, guided by faith, and driven by a deep desire to serve.
           </p>
+          <div className={styles.heroButtons}>
+            <NavButton className={styles.heroButton} label='Read my Story' to='/writing/behold-i-make-all-things-new' />
+            <NavButton className={styles.heroButton} label='See my Resume' to='/resume' />
+          </div>
         </div>
       </section>
     </main>
