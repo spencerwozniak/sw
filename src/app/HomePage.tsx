@@ -3,7 +3,6 @@
 
 import Image from 'next/image';
 import styles from './HomePage.module.css';
-import NavButton from '@/components/NavButton';
 
 export default function HomePage() {
   return (
