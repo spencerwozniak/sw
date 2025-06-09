@@ -49,7 +49,7 @@ export const metadata = {
     siteName: 'Spencer Wozniak',
     images: [
       {
-        url: 'https://spencerwozniak.com',
+        url: 'https://www.spencerwozniak.com/sw-initials-white.png',
         width: 1200,
         height: 630,
         alt: 'Spencer Wozniak',
@@ -80,10 +80,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "Organization",
-              "name": "WozPrep",
+              "@type": "Person",
+              "name": "Spencer Wozniak",
               "url": "https://www.spencerwozniak.com",
-              "logo": "https://www.spencerwozniak.com/sw-initials-white.png",
+              "logo": "https://www.spencerwozniak.com/sw-initials-black.png", // ✅ updated here
               "sameAs": [
                 "https://www.linkedin.com/in/spencerwozniak",
                 "https://x.com/WozniakSpencer",
@@ -93,6 +93,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             })
           }}
         />
+
       </head>
       <body>{children}</body>
       <GoogleAnalytics gaId="G-5YDYQ636NM" />
