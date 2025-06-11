@@ -24,9 +24,10 @@ export default function HomePage() {
           <h2>Thinker, Builder, Mentor.</h2>
           <p>
             I’m a Catholic Christian, a relentless explorer of ideas and places, and someone who finds deep purpose in guiding others.
-            I’ve driven across the country to chase my dreams, built a tutoring business to help students pursue theirs, and now spend my days working one-on-one with kids, helping them grow in confidence, communication, and independence.
-            I have spent years exploring the intersection of AI and healthcare, and I hope to apply it to transform patient care as a future physician.
-            My journey is rooted in curiosity, guided by faith, and driven by a deep desire to serve.
+            I’ve driven across the country to chase my dreams, built a tutoring business to help students pursue theirs, and I now work one-on-one with kids as a behavioral therapist.
+            I spent years exploring the intersection of AI and healthcare through years of hands-on research and work with patients across a wide range of settings.
+            The more I’ve studied and served, the more convinced I’ve become that mental health care is in urgent need of a paradigm shift.
+            I’m now building <a href='https://www.serelora.com' target='_blank'><strong>a startup to revolutionize how we understand, diagnose, and care for mental health through the power of AI</strong></a>.
           </p>
         </div>
       </section>
