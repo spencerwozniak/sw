@@ -46,16 +46,17 @@ export default function TimerPage() {
 
       <div className="relative min-h-[100vh] w-full">
         <Image
-          src="/images/sf-background.webp"
+          src="/images/sf-background.jpg"
           alt="San Francisco background"
           layout="fill"
           objectFit="cover"
+          objectPosition="10% center"
           priority
           className="z-0"
         />
 
         {/* Overlay with countdown timer */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/70 to-transparent flex items-center justify-center">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/80 to-transparent flex items-center justify-center">
         <div className="flex gap-5 text-white text-center">
         <div>
             <AnimatedDigit value={timeLeft.days} />
