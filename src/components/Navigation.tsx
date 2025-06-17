@@ -149,6 +149,12 @@ const Navigation: React.FC = () => {
           <NavButton
             onClick={handleRandomEssay}
             label="CLICK ME!"
+            className={`${styles.headerNavButton} ${styles.hidden}`}
+          />
+
+          <NavButton
+            to='/sf'
+            label="CLICK ME!"
             className={styles.headerNavButton}
           />
 

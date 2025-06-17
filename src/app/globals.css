@@ -1,4 +1,5 @@
 /* src/app/globals.css */
+@import "tailwindcss";
 
 /* Root-level base styles */
 :root {
@@ -41,12 +42,10 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Typography */
 h1 {
-  font-size: 3.2em;
   line-height: 1.1;
 }
 
 a {
-  font-weight: 500;
   color: #ddd1c1;
   text-decoration: inherit;
   transition: color 0.3s ease, transform 0.3s ease;

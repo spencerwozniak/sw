@@ -1,202 +1,74 @@
-/* ---------------- Page Wrapper ---------------- */
-.articlePage {
-  background: #0a0a0a; /* matte dark */
-  color: #eaeaea;
-  display: flex;
-  flex-direction: column;
+.articleContent {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: white;
+  font-family: var(--font-heading);
 }
-  
-  /* ---------------- Main Container ---------------- */
-  .container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 120px auto 20px;
-    padding: 0 24px;
-    box-sizing: border-box; 
-  }
-  
-  /* ---------------- Glass Card ---------------- */
-  .glassCard {
-    border-top: 1px solid #333;
-    border-bottom: 1px solid #333;
-    border-radius: 0; /* remove rounding */
-    padding: 40px;
-    box-shadow: none;
-  }
-  
-  
-  /* ---------------- Header ---------------- */
-  .header {
-    display: flex;
-    flex-direction: column; /* ✅ stack children vertically */
-    align-items: flex-start;
-    margin-bottom: 10px;
-  }
-  
-  
-  .title {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 0;
-    color: white;
-  }
-  
-  .topic {
-    font-size: 1.1rem;
-    color: #bbb;
-    padding: 0;
-    margin-bottom: 0;
-  }
 
-  .subhead {
-    font-size: 1.1rem;
-    color: #8d8d8d;
-    padding: 0;
-    margin-bottom: 0;
-  }
-  
-  /* ---------------- Content ---------------- */
-  .content {
-    font-size: 1.125rem;
-    line-height: 1.8;
-    color: white;
-    font-family: var(--font-heading);
-  }
-  
-  .content p {
-    margin-bottom: 1.5rem;
-  }
+.articleContent h1,
+.articleContent h2,
+.articleContent h3,
+.articleContent h4,
+.articleContent h5,
+.articleContent h6 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
 
-  .flowWrapper {
-    display: block;
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-  }
-  
-  .inlineImageContainer {
-    float: left;
-    margin-right: 1.5rem;
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
-    padding: 0;
-    text-align: left;
-    line-height: 1.2;
-  }
+.articleContent h1 {
+  font-size: 2.25rem;
+}
 
-  .inlineImage {
-    border-radius: 12px;
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    display: block;
-  }
-  
-  .caption {
-    font-size: 0.875rem;
-    color: #aaa;
-    margin: 6px 0 0 0;
-    line-height: 1.3;
-  }
+.articleContent h2 {
+  font-size: 1.75rem;
+}
 
-  .content p {
-    margin-bottom: 1.5rem;
-  }
+.articleContent h3 {
+  font-size: 1.5rem;
+}
 
-  .content i {
-    font-style: italic;
-  }
-  
-  .inlineImageContainer p {
-    margin-bottom: 0 !important;
-  }
-  
-  
-  .content::after {
-    content: '';
-    display: block;
-    clear: both;
-  }
-  
-  .readMoreTitle {
-    text-align: center;
-    font-size: 2rem;
-    color: white;
-  }
-  
-  /* ---------------- Navigation ---------------- */
+.articleContent p {
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
 
-  .bottomNav {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 1rem;
-  }
-  
-  .navButton {
-    font-size: 1rem;
-    text-decoration: none;
-    transition: background 0.2s ease;
-  }
+.articleContent ul {
+  list-style-type: '→  ';
+  list-style-position: outside;
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
 
-  
-  .nextButton {
-    margin-left: auto;
-  }
-  
-  /* ---------------- Responsive ---------------- */
-  @media (max-width: 768px) {
+.articleContent ol {
+  list-style-type: decimal; /* ensures numbers show */
+  list-style-position: outside;
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
 
-    .container {
-      width: 100%;
-      max-width: 1200px;
-      margin: 80px 0 0 0;
-      padding: 0 6px;
-      box-sizing: border-box; 
-    }  
+.articleContent ul li,
+.articleContent ol li {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
 
-    .header {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-  
-    .imageWrapper {
-      width: 100%;
-      max-width: 100%;
-    }
-  
-    .meta {
-      padding-top: 16px;
-    }
-  
-    .title {
-      font-size: 1.75rem;
-    }
-  
-    .subhead {
-      font-size: 1rem;
-    }
-  
-    .glassCard {
-      border-top: none;
-      border-bottom: none;
-      margin: 0;
-      padding: 40px;
-      box-shadow: none;
-    }
-  
-    .content {
-      font-size: 1rem;
-    }
+.articleContent img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  margin: 1.5rem 0;
+}
 
-    .navButton {
-      font-size: 1rem;
-      padding: 0 2rem 2rem;
-      text-decoration: none;
-      transition: background 0.2s ease;
-    }
+.articleContent blockquote {
+  padding: 1.5rem 0 0.5rem 1.5rem;
+}
 
-  }
-
-  
+.articleContent code {
+  background: #f4f4f4;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.95rem;
+}

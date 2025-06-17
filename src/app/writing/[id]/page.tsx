@@ -1,3 +1,5 @@
+
+
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Image from 'next/image';
@@ -5,7 +7,7 @@ import ClientNavigationWrapper from '@/components/ClientNavigationWrapper';
 import Chatbot from '@/components/Chatbot';
 import Footer from '@/components/Footer';
 import articles from '@/data/articles.json';
-import styles from './page.module.css';
+import styles from './page.module.css'
 
 interface Article {
   id: string;
@@ -15,14 +17,13 @@ interface Article {
   name: string;
   contents: string;
   image: [string, string];
-  keywords?: string[]; // optional for backward compatibility
+  keywords?: string[];
 }
 
 interface Props {
   params: { id: string };
 }
 
-// ✅ Dynamically generate SEO metadata per article
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const article = articles.find((p) => p.id === params.id);
 
@@ -34,16 +35,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: fullTitle,
     description,
-    keywords: article.keywords || [
-      'Spencer Wozniak',
-      article.title
-    ],
-    robots: {
-      index: true,
-      follow: true
-    },
+    keywords: article.keywords || ['Spencer Wozniak', article.title],
+    robots: { index: true, follow: true },
     alternates: {
-      canonical: `https://www.spencerwozniak.com/writing/${params.id}`
+      canonical: `https://www.spencerwozniak.com/writing/${params.id}`,
     },
     openGraph: {
       title: fullTitle,
@@ -56,22 +51,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
           url: `https://www.spencerwozniak.com/sw-full-signature-white.png`,
           width: 800,
           height: 400,
-          alt: "Spencer Wozniak Signature"
-        }
-      ]
+          alt: 'Spencer Wozniak Signature',
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
       title: fullTitle,
       description,
-      images: [`https://www.spencerwozniak.com/sw-full-signature-white.png`]
+      images: [`https://www.spencerwozniak.com/sw-full-signature-white.png`],
     },
     other: {
       'article:published_time': new Date(article.date).toISOString(),
-      'article:author': 'Spencer Wozniak', // or company name
+      'article:author': 'Spencer Wozniak',
       'article:section': 'Article',
-      'article:tag': 'Spencer Wozniak'
-    }    
+      'article:tag': 'Spencer Wozniak',
+    },
   };
 }
 
@@ -79,64 +74,57 @@ export function generateStaticParams() {
   return articles.map((article) => ({ id: article.id }));
 }
 
-
 export default function ArticlePage({ params }: Props) {
   const article: Article | undefined = articles.find((p) => p.id === params.id);
   const currentIndex = articles.findIndex((p) => p.id === params.id);
   const nextArticle = currentIndex > 0 ? articles[currentIndex - 1] : null;
   const prevArticle = currentIndex < articles.length - 1 ? articles[currentIndex + 1] : null;
 
-
   if (!article) return notFound();
 
   return (
-    <div className={styles.articlePage}>
+    <div className="flex flex-col bg-[#0a0a0a] text-[#eaeaea]">
       <ClientNavigationWrapper />
-      <main className={styles.container}>
+      <main className="w-full max-w-6xl mx-auto mt-32 mb-5 px-6">
+        <article className="border-t border-b border-[#333] p-10">
+          <header className="flex flex-col items-start mb-6">
+            <h1 className="text-3xl font-bold text-white mb-4">{article.title}</h1>
+            <p className="text-[1.1rem] text-[#bbb] mb-4">{article.name}</p>
+            <p className="text-[1.1rem] text-[#8d8d8d] mb-0">{article.topic} | {article.date}</p>
+          </header>
 
-
-        <article className={styles.glassCard}>
-        <header className={styles.header}>
-          <h1 className={styles.title}>{article.title}</h1>
-          <p className={styles.topic}>{article.name}</p>
-          <p className={styles.subhead}>{article.topic} | {article.date}</p>
-        </header>
-
-
-        <section className={styles.content}>
-        <div className={styles.flowWrapper}>
-            {article.image.length > 0 && (
-                <div className={styles.inlineImageContainer}>
+          <section className="text-white text-[1.125rem] leading-8 font-heading">
+            <div className="block w-full overflow-hidden relative">
+              {article.image.length > 0 && (
+                <div className="float-left mr-6 my-6 text-left leading-tight">
                   <Image
                     src={`/articles/${article.image[0]}`}
                     alt={article.image[1]}
                     width={300}
                     height={200}
-                    className={styles.inlineImage}
+                    className="rounded-xl shadow-md w-full h-auto object-cover"
                   />
-                  <p className={styles.caption}>{article.image[1]}</p>
+                  <p className="text-sm text-[#aaa] mt-1.5 leading-snug">{article.image[1]}</p>
                 </div>
               )}
-            <div dangerouslySetInnerHTML={{ __html: article.contents }} />
-        </div>
-        </section>
-        
+              <div className={styles.articleContent} dangerouslySetInnerHTML={{ __html: article.contents }} />
+              <div className="clear-both" />
+            </div>
+          </section>
         </article>
 
-        <div className={styles.bottomNav}>
+        <div className="flex justify-between mt-4">
           {prevArticle && (
-            <a href={`/writing/${prevArticle.id}`} className={styles.navButton}>
+            <a href={`/writing/${prevArticle.id}`} className="text-base no-underline hover:underline">
               ← Previous
             </a>
           )}
           {nextArticle && (
-            <a href={`/writing/${nextArticle.id}`} className={`${styles.navButton} ${styles.nextButton}`}>
+            <a href={`/writing/${nextArticle.id}`} className="text-base no-underline hover:underline ml-auto">
               Next →
             </a>
           )}
         </div>
-
-
       </main>
       <Chatbot />
       <Footer />

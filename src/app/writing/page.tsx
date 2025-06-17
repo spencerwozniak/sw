@@ -5,7 +5,6 @@ import ArticleBrowser from './ArticleBrowser';
 import ClientNavigationWrapper from '@/components/ClientNavigationWrapper';
 import Chatbot from '@/components/Chatbot';
 import Footer from '@/components/Footer';
-import styles from './page.module.css';
 
 export default function ArticlePage() {
   const publicationsPath = path.join(process.cwd(), 'src', 'data', 'publications.json');
@@ -17,10 +16,10 @@ export default function ArticlePage() {
   return (
     <>
       <ClientNavigationWrapper />
-      <div className={styles.articleContainer}>
-        <h1 className={styles.sectionTitle}>Essays</h1>
+      <div className="">
+        <h1 className="text-center mx-auto mt-40 mb-5 text-4xl font-semibold">Essays</h1>
         <ArticleBrowser itemsPerPage={6} data={articles} />
-        <h1 className={styles.sectionTitle}>Publications</h1>
+        <h1 className="text-center mx-auto mb-10 text-4xl font-semibold">Publications</h1>
         <ArticleBrowser itemsPerPage={6} data={publications} showSearchBar={false} />
       </div>
       <Chatbot />

@@ -1,33 +1,40 @@
-// app/about/page.tsx
 'use client';
 
 import Image from 'next/image';
-import styles from './HomePage.module.css';
 
 export default function HomePage() {
   return (
-    <main className={styles.aboutContainer}>
-      <section className={styles.heroSection}>
-        <div className={styles.headshotWrapper}>
+    <main className="bg-[#0a0a0a] text-white px-5 py-10 flex flex-col gap-20">
+      <section className="flex flex-wrap justify-center items-center gap-10 min-h-screen max-w-7xl mx-auto px-5 pt-10">
+        {/* Headshot Image */}
+        <div className="relative w-[20vw] h-[30vw] min-w-[267px] min-h-[400px] rounded-xl overflow-hidden shadow-md flex-shrink-0">
           <Image
             src="/headshot.jpg"
             alt="Spencer Wozniak headshot"
             fill
-            className={styles.headshotImage}
+            className="object-cover rounded-xl"
           />
         </div>
 
-        <div className={styles.verticalDivider} />
+        {/* Divider (hidden on small screens) */}
+        <div className="hidden md:block w-[2px] h-[30vw] min-h-[400px] bg-[#bfaa8d] opacity-50 mx-[2vw]" />
 
-        <div className={styles.heroText}>
-          <h1>Spencer Wozniak</h1>
-          <h2>Thinker, Builder, Mentor.</h2>
-          <p>
-            I’m a Catholic Christian, a relentless explorer of ideas and places, and someone who finds deep purpose in guiding others.
-            I’ve driven across the country to chase my dreams, built a tutoring business to help students pursue theirs, and I now work one-on-one with kids as a behavioral therapist.
-            I spent years exploring the intersection of AI and healthcare through years of hands-on research and work with patients across a wide range of settings.
-            The more I’ve studied and served, the more convinced I’ve become that mental health care is in urgent need of a paradigm shift.
-            I’m now building <a href='https://www.serelora.com' target='_blank'><strong>a startup to revolutionize how we understand, diagnose, and care for mental health through the power of AI</strong></a>.
+        {/* Text Section */}
+        <div className="flex-1 max-w-xl">
+          <h1 className="text-5xl font-bold mb-4">Spencer Wozniak</h1>
+          <h2 className="text-2xl font-light text-gray-400 mb-5">Thinker, Builder, Mentor.</h2>
+          <p className="text-lg leading-relaxed text-gray-300">
+            I’m a Catholic Christian, a relentless explorer of ideas, and a builder at heart.
+            I’ve spent years exploring the intersection of AI and healthcare through years of hands-on research and work with patients across a wide range of settings.
+            After years spent in both clinical care and code, I’ve driven across the country to chase my dreams and I’m now building&nbsp;
+            <a 
+              href='https://www.serelora.com' 
+              target='_blank' 
+              className="text-[#bfaa8d] font-semibold underline"
+            >
+              a universal AI interface for doctors
+            </a>
+            &nbsp;— designed to work across any EHR, and finally put clinicians first.
           </p>
         </div>
       </section>
