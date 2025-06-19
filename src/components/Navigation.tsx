@@ -117,7 +117,7 @@ const Navigation: React.FC = () => {
               <div key={index} className={styles.dropdownSectionWrapper}>
               <section className={styles.navColumn}>
                 <Link href={item.link} className={styles.navColumnHeading}>
-                  <h2>{item.label}</h2>
+                  <h2 className='text-4xl'>{item.label}</h2>
                 </Link>
                 {item.submenu && (
                   <div className={styles.mobileSubmenu}>

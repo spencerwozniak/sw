@@ -85,9 +85,9 @@ export default function ArticlePage({ params }: Props) {
   return (
     <div className="flex flex-col bg-[#0a0a0a] text-[#eaeaea]">
       <ClientNavigationWrapper />
-      <main className="w-full max-w-6xl mx-auto mt-32 mb-5 px-6">
-        <article className="border-t border-b border-[#333] p-10">
-          <header className="flex flex-col items-start mb-6">
+      <main className="w-full max-w-6xl mx-auto mt-32 mb-5">
+        <article className="px-6 xl:border-t xl:border-b xl:border-[#333] xl:p-10">
+          <header className="flex flex-col items-start">
             <h1 className="text-3xl font-bold text-white mb-4">{article.title}</h1>
             <p className="text-[1.1rem] text-[#bbb] mb-4">{article.name}</p>
             <p className="text-[1.1rem] text-[#8d8d8d] mb-0">{article.topic} | {article.date}</p>
@@ -113,7 +113,7 @@ export default function ArticlePage({ params }: Props) {
           </section>
         </article>
 
-        <div className="flex justify-between mt-4">
+        <div className="flex justify-between mt-4 px-6">
           {prevArticle && (
             <a href={`/writing/${prevArticle.id}`} className="text-base no-underline hover:underline">
               ← Previous
