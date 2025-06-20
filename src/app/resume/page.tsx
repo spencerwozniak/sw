@@ -40,7 +40,7 @@ export default function ResumePage() {
         <section className={`${styles.resumeSection} ${styles.firstResumeSection}`}>
           <h2>Education</h2>
           <div className={styles.resumeItem}>
-            <h3><FaGraduationCap className={styles.inlineIcon} />Michigan State University</h3>
+            <h3 className='flex-row flex'><FaGraduationCap className={styles.inlineIcon} />Michigan State University</h3>
             <p><strong>B.S. in Human Biology, Minor in Bioethics</strong> — Sep 2020 – May 2024</p>
             <p>GPA: 3.91 (Honors) &nbsp; | &nbsp; MCAT: 524</p>
           </div>
@@ -49,7 +49,7 @@ export default function ResumePage() {
         <section className={styles.resumeSection}>
           <h2>Clinical Experience</h2>
           <div className={styles.resumeItem}>
-            <h3><FaHandsHelping className={styles.inlineIcon} />Applied Behavior Analysis Therapist </h3>
+            <h3 className='flex-row flex'><FaHandsHelping className={styles.inlineIcon} />Applied Behavior Analysis Therapist </h3>
             <p><strong>Coyne and Associates | San Diego, CA</strong></p>
             <p>Aug 2024 – Present</p>
             <ul>
@@ -67,7 +67,7 @@ export default function ResumePage() {
           </div>
 
           <div className={styles.resumeItem}>
-            <h3><FaFileMedical className={styles.inlineIcon} />Medical Scribe</h3>
+            <h3 className='flex-row flex'><FaFileMedical className={styles.inlineIcon} />Medical Scribe</h3>
             <p><strong>Memorial Healthcare | Owosso, MI</strong></p>
             <p>Jul 2023 – Aug 2024</p>
             <ul>
@@ -80,7 +80,7 @@ export default function ResumePage() {
           </div>
 
           <div className={styles.resumeItem}>
-            <h3><FaHandHoldingHeart className={styles.inlineIcon} />Hospital Volunteer</h3>
+            <h3 className='flex-row flex'><FaHandHoldingHeart className={styles.inlineIcon} />Hospital Volunteer</h3>
             <p><strong>Sparrow Hospital | Lansing, MI </strong></p>
             <p>Sep 2022 – Apr 2023</p>
             <ul>
@@ -95,7 +95,7 @@ export default function ResumePage() {
         <section className={styles.resumeSection}>
           <h2>Research Experience</h2>
           <div className={styles.resumeItem}>
-            <h3><FaProjectDiagram className={styles.inlineIcon} />Biochemistry Research Assistant</h3>
+            <h3 className='flex-row flex'><FaProjectDiagram className={styles.inlineIcon} />Biochemistry Research Assistant</h3>
             <p><strong>Michigan State University | East Lansing, MI</strong></p>
             <p>Sep 2020 – Apr 2025</p>
             <ul>
@@ -123,7 +123,7 @@ export default function ResumePage() {
           </div>
 
           <div className={styles.resumeItem}>
-            <h3><FaUsers className={styles.inlineIcon} />Sociology Research Assistant</h3>
+            <h3 className='flex-row flex'><FaUsers className={styles.inlineIcon} />Sociology Research Assistant</h3>
             <p><strong>Michigan State University | East Lansing, MI</strong></p>
             <p>Jan 2024 – Apr 2024</p>
             <ul>
@@ -148,7 +148,7 @@ export default function ResumePage() {
           
           <div className={styles.resumeItem}>
 
-            <h3><FaChalkboardTeacher className={styles.inlineIcon}/>Founder & Tutor</h3>
+            <h3 className='flex-row flex'><FaChalkboardTeacher className={styles.inlineIcon}/>Founder & Tutor</h3>
 
             <p><a href='https://www.wozprep.org' target='_blank'><strong>WozPrep | San Diego, CA</strong></a></p>
             <p>Nov 2024 – Present</p>
@@ -170,7 +170,7 @@ export default function ResumePage() {
         <section className={styles.resumeSection}>
           <h2>Certifications</h2>
           <div className={styles.resumeItem}>
-            <h3><FaHeartbeat className={styles.inlineIcon} />Basic Life Support (BLS)</h3>
+            <h3 className='flex-row flex'><FaHeartbeat className={styles.inlineIcon} />Basic Life Support (BLS)</h3>
             <p><strong>American Heart Association</strong></p>
             <p><i>Issued</i> Feb 2025, <i>Expires</i> Feb 2027</p>
           </div>
@@ -179,7 +179,7 @@ export default function ResumePage() {
         <section className={styles.resumeSection}>
           <h2>Awards and Honors</h2>
           <div className={styles.resumeItem}>
-            <h3><FaAward className={styles.inlineIcon} />Distinguished Freshman Scholarship</h3>
+            <h3 className='flex-row flex'><FaAward className={styles.inlineIcon} />Distinguished Freshman Scholarship</h3>
             <p><strong>Michigan State University Honors College</strong></p>
             <p><i>Issued</i> Sep 2020</p>
             <ul className={styles.bulletedList}>

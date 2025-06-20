@@ -40,7 +40,7 @@ export default function ArticleBrowser({ itemsPerPage = 6, data, showSearchBar }
   const handleNext = () => setPage(prev => Math.min(totalPages, prev + 1));
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} px-4`}>
       {showSearchBar !== false && (
         <input
           type="text"
