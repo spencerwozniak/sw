@@ -107,7 +107,7 @@ export default function ArticlePage({ params }: Props) {
                   <p className="text-sm text-[#aaa] mt-1.5 leading-snug">{article.image[1]}</p>
                 </div>
               )}
-              <div className={styles.articleContent} dangerouslySetInnerHTML={{ __html: article.contents }} />
+              <div className={`mt-4 ${styles.articleContent}`} dangerouslySetInnerHTML={{ __html: article.contents }} />
               <div className="clear-both" />
             </div>
           </section>
