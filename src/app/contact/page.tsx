@@ -14,9 +14,12 @@ import {
   FaYoutube,
   FaBook,
   FaEnvelope,
-  FaTwitter,
   FaInstagram
 } from 'react-icons/fa';
+
+import {
+  FaThreads
+} from 'react-icons/fa6'
 
 export default function ContactPage() {
   return (
@@ -33,7 +36,7 @@ export default function ContactPage() {
               <p>Connect professionally</p>
             </div>
           </a>
-          <a href="mailto:spencerwozniak1@gmail.com" className={styles.card}>
+          <a href="mailto:hey@spencerwozniak.com" className={styles.card}>
             <FaEnvelope size={24} />
             <div className={styles.cardContent}>
               <h2>Email</h2>
@@ -45,8 +48,8 @@ export default function ContactPage() {
             src="/wp-logo-white.png"
             alt="WozPrep Logo"
             width={30}
-            height={25}
-            className={styles.iconImage}
+            height={30}
+            className=''
           />
             <div className={styles.cardContent}>
               <h2>WozPrep</h2>
@@ -88,9 +91,9 @@ export default function ContactPage() {
           </a>
 
           <a href="https://x.com/WozniakSpencer" target="_blank" rel="noopener noreferrer" className={styles.card}>
-            <FaTwitter size={24} />
+            <FaThreads size={24} />
             <div className={styles.cardContent}>
-              <h2>Twitter (X)</h2>
+              <h2>Threads</h2>
               <p>Read my thoughts</p>
             </div>
           </a>
