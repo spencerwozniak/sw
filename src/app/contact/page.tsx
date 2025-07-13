@@ -90,7 +90,7 @@ export default function ContactPage() {
             </div>
           </a>
 
-          <a href="https://x.com/WozniakSpencer" target="_blank" rel="noopener noreferrer" className={styles.card}>
+          <a href="https://www.threads.com/@spencer.wozniak" target="_blank" rel="noopener noreferrer" className={styles.card}>
             <FaThreads size={24} />
             <div className={styles.cardContent}>
               <h2>Threads</h2>
