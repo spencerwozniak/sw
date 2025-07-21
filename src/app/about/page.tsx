@@ -1,15 +1,12 @@
 import Image from 'next/image';
-import ClientNavigationWrapper from '@/components/ClientNavigationWrapper';
 import Chatbot from '@/components/Chatbot';
 import NavButton from '@/components/NavButton';
-import Footer from '@/components/Footer';
 
 import styles from './page.module.css';
 
 export default function AboutPage() {
   return (
     <div className={styles.aboutPage}>
-      <ClientNavigationWrapper />
       <main className={styles.contentWrapper}>
         <article className={styles.aboutIntro}>
           <h1 className={styles.introTitle}>About WozPrep</h1>
@@ -49,7 +46,6 @@ export default function AboutPage() {
         </section>
       </main>
       <Chatbot />
-      <Footer />
     </div>
   );
 }

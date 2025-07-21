@@ -4,6 +4,9 @@ import './globals.css';
 import { Lato, Lora } from 'next/font/google';
 import { GoogleAnalytics } from '@next/third-parties/google'
 
+import ClientNavigationWrapper from '@/components/ClientNavigationWrapper';
+import Footer from '@/components/Footer';
+
 const lato = Lato({
   subsets: ['latin'],
   weight: ['400', '700'],
@@ -95,7 +98,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
 
       </head>
-      <body>{children}</body>
+      <body>
+        <ClientNavigationWrapper />
+        {children}
+        <Footer />
+      </body>
       <GoogleAnalytics gaId="G-5YDYQ636NM" />
     </html>
   );

@@ -24,8 +24,6 @@ import {
 export default function ContactPage() {
   return (
     <div className={styles.contactUsPage}>
-      <ClientNavigationWrapper />
-
       <main className={styles.main}>
         <h1 className={styles.title}>Let’s Connect</h1>
         <div className={styles.cardContainer}>
@@ -108,7 +106,6 @@ export default function ContactPage() {
       </main>
 
       <Chatbot />
-      <Footer />
     </div>
   );
 }

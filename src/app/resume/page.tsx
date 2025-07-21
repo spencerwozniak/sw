@@ -1,9 +1,6 @@
 // Full revised version of /resume page with all CV sections and full content
-
-import ClientNavigationWrapper from '@/components/ClientNavigationWrapper';
 import Chatbot from '@/components/Chatbot';
 import NavButton from '@/components/NavButton';
-import Footer from '@/components/Footer';
 import styles from './page.module.css';
 
 import { 
@@ -27,7 +24,6 @@ import {
 export default function ResumePage() {
   return (
     <div className={styles.resumePage}>
-      <ClientNavigationWrapper />
       <main className={styles.mainContent}>
         <section className={styles.heroSection}>
           <div className={styles.heroContent}>
@@ -244,7 +240,6 @@ export default function ResumePage() {
 
       </main>
       <Chatbot />
-      <Footer />
     </div>
   );
 }
