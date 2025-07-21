@@ -31,17 +31,17 @@ export default function HomePage() {
             shadow-md
             flex-shrink-0
 
-            md:w-[20vw]         // On large screens: portrait on the left
+            md:w-[30vw]         // On large screens: portrait on the left
             md:max-w-none
-            md:h-[30vw]
+            md:h-[45vw]
             md:aspect-[2/3]     // Portrait aspect on large
           "
         >
           <Image
-            src="/headshot.jpg"
+            src="/headshot-transparent.png"
             alt="Spencer Wozniak headshot"
             fill
-            className="object-cover rounded-xl object-top "
+            className="object-cover object-top"
           />
         </div>
 
@@ -79,10 +79,11 @@ export default function HomePage() {
             .
             
           </p>
-          <NavButton to="/contact" label="Get in touch" className="!w-50 mt-5" />
+          <div className="flex justify-center md:justify-start">
+            <NavButton to="/contact" label="Get in touch" className="!w-50 !mt-5" />
+          </div>
         </div>
       </section>
-
     </main>
   );
 }
