@@ -1,8 +1,6 @@
 'use client';
 
-import ClientNavigationWrapper from '@/components/ClientNavigationWrapper';
 import Chatbot from '@/components/Chatbot';
-import Footer from '@/components/Footer';
 import styles from './page.module.css';
 
 import Image from 'next/image';

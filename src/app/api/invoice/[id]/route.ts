@@ -15,7 +15,7 @@ export async function GET(
   try {
     const invoice = await stripe.invoices.retrieve(id);
     return NextResponse.json(invoice, { status: 200 });
-  } catch (err: any) {
+  } catch (err) {
     return NextResponse.json({ error: err.message }, { status: 404 });
   }
 }

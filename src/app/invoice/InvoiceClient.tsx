@@ -3,7 +3,6 @@
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 
 import { MdOutlineFileDownload, MdOutlineAttachMoney } from 'react-icons/md'
 
@@ -169,27 +168,25 @@ export default function InvoiceClient() {
         </div>
         {/* Buttons */}
         <div className="mt-6 flex justify-end gap-x-3">
-  <a
-    className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white !text-[#b28e6d] shadow-2xs hover:bg-gray-50"
-    href={invoice.invoice_pdf}
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    <MdOutlineFileDownload />
-    Invoice PDF
-  </a>
-  {invoice.hosted_invoice_url && (
-    <a
-      className="cursor-pointer py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-[#a6865f] !text-white hover:bg-[#bfaa8d]"
-      href={invoice.hosted_invoice_url}
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <MdOutlineAttachMoney />
-      Pay Now
-    </a>
-  )}
-</div>
+        <a
+            className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white !text-[#b28e6d] shadow-2xs hover:bg-gray-50"
+            href={invoice.invoice_pdf}
+        >
+            <MdOutlineFileDownload />
+            Invoice PDF
+        </a>
+        {invoice.hosted_invoice_url && (
+            <a
+            className="cursor-pointer py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-[#a6865f] !text-white hover:bg-[#bfaa8d]"
+            href={invoice.hosted_invoice_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            >
+            <MdOutlineAttachMoney />
+            Pay Now
+            </a>
+        )}
+        </div>
 
       </div>
     </div>
