@@ -105,7 +105,7 @@ export default function InvoiceClient() {
                 <div className="text-end text-xs font-medium text-neutral-300 uppercase">Amount</div>
               </div>
               <div className="hidden sm:block border-b border-gray-200"></div>
-              {invoice.lines?.data?.map((item: any) => (
+              {invoice.lines?.data?.map((item) => (
                 <div key={item.id} className="grid grid-cols-3 sm:grid-cols-5 gap-2">
                   <div className="col-span-full sm:col-span-2">
                     <h5 className="sm:hidden text-xs font-medium text-neutral-300 uppercase">Item</h5>
