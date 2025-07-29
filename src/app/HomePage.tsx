@@ -68,7 +68,9 @@ export default function HomePage() {
             I’ve spent years exploring the intersection of AI and healthcare through years of hands-on research and work with patients across a wide range of settings.
           </p>
           <p className="text-lg leading-relaxed text-gray-300">
-            After years spent in both clinical care and code, I’ve driven across the country to chase my dreams and I’m now building&nbsp;
+            After years spent in both clinical care and code, I drove across the country to chase my dreams.
+            I now help businesses, from local restaurants to multi-million-dollar brands, build <strong>fast, modern websites that bring their story to life and convert visitors into customers</strong>. 
+            Alongside this, I am also developing&nbsp;
             <a
               href="https://www.serelora.com"
               target="_blank"
@@ -76,7 +78,7 @@ export default function HomePage() {
             >
               a universal AI interface for doctors
             </a>
-            .
+            &nbsp;to improve how care is delivered at scale.
             
           </p>
           <div className="flex justify-center md:justify-start">
