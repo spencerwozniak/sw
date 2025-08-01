@@ -26,20 +26,19 @@ export const metadata = {
   description:
     'Explore the work, writing, and worldview of Spencer Wozniak.',
   icons: {
-    icon: '/sw-initials-white.png',
-    shortcut: '/sw-initials-white.png',
-    apple: '/sw-initials-white.png'
+    icon: '/sw-brand-logo.png',
+    shortcut: '/sw-brand-logo.png',
+    apple: '/sw-brand-logo.png'
   },
   keywords: [
     'Spencer Wozniak',
+    'web developer San Diego',
     'MCAT tutor San Diego',
     'STEM tutor',
     'AI in healthcare',
-    'ABA therapy',
     'Catholic thinker',
     'San Diego tutoring',
-    'philosophy and science',
-    'web developer San Diego'
+    'philosophy and science'
   ],
   authors: [{ name: 'Spencer Wozniak', url: 'https://spencerwozniak.com' }],
   creator: 'Spencer Wozniak',
@@ -52,7 +51,7 @@ export const metadata = {
     siteName: 'Spencer Wozniak',
     images: [
       {
-        url: 'https://www.spencerwozniak.com/sw-initials-white.png',
+        url: 'https://www.spencerwozniak.com/sw-brand-logo.png',
         width: 1200,
         height: 630,
         alt: 'Spencer Wozniak',
