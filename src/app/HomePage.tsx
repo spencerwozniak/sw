@@ -61,7 +61,7 @@ export default function HomePage() {
         ">
           <h1 className="text-5xl font-bold mb-4">Spencer Wozniak</h1>
           <h2 className="text-2xl font-light text-gray-400 mb-5">
-            Thinker, Builder, Mentor.
+            Code. Care. Christ.
           </h2>
           <p className="text-lg leading-relaxed text-gray-300 mb-5">
             I’m a Catholic Christian, a relentless explorer of ideas, and a builder at heart.
