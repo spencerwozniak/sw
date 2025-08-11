@@ -33,7 +33,7 @@ export default function InvoiceClient() {
   if (loading) return <div className="flex flex-col justify-center items-center text-center min-h-[90vh] py-10 px-4 sm:px-6 lg:px-8 mt-10">Loading...</div>;
   if (!invoice) return <div className="flex flex-col justify-center items-center text-center min-h-[90vh] py-10 px-4 sm:px-6 lg:px-8 mt-10">Invoice not found.</div>;
   return (
-  <div className="w-full px-4 sm:px-6 lg:px-8 mx-auto my-4 sm:my-10">
+  <div className="w-full px-4 sm:px-6 lg:px-8 mx-auto mb-10">
       <div className="sm:w-11/12 lg:w-3/4 mx-auto">
         <div className="flex flex-col p-4 sm:p-10 bg-black shadow-md rounded-xl">
           {/* Header */}
