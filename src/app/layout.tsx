@@ -44,15 +44,14 @@ export const metadata = {
   metadataBase: new URL('https://spencerwozniak.com'),
   openGraph: {
     title: 'Spencer Wozniak',
-    description:
-      'Explore the work, writing, and worldview of Spencer Wozniak.',
-    url: 'https://spencerwozniak.com',
+    description: 'Explore the work, writing, and worldview of Spencer Wozniak.',
+    url: 'https://www.spencerwozniak.com',
     siteName: 'Spencer Wozniak',
     images: [
       {
-        url: 'https://www.spencerwozniak.com/sw-brand-logo.png',
-        width: 1200,
-        height: 630,
+        url: 'https://www.spencerwozniak.com/headshot-square.jpg',
+        width: 1700,
+        height: 1700,
         alt: 'Spencer Wozniak',
       },
     ],
@@ -62,12 +61,12 @@ export const metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Spencer Wozniak',
-    description:
-      'Explore the work, writing, and worldview of Spencer Wozniak.',
+    description: 'Explore the work, writing, and worldview of Spencer Wozniak.',
     site: '@spencerwozniak',
     creator: '@spencerwozniak',
-    images: ['https://spencerwozniak.com'],
+    images: ['https://www.spencerwozniak.com/headshot-square.jpg'],
   },
+
 };
 
 
@@ -81,19 +80,52 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "Person",
-              "name": "Spencer Wozniak",
-              "url": "https://www.spencerwozniak.com",
-              "logo": "https://www.spencerwozniak.com/sw-initials-black.png", // ✅ updated here
-              "sameAs": [
-                "https://www.linkedin.com/in/spencerwozniak",
-                "https://x.com/WozniakSpencer",
-                "https://scholar.google.com/citations?user=vBp7kzAAAAAJ&hl=en",
-                "https://www.wozprep.org/"
+              "@graph": [
+                {
+                  "@type": "Organization",
+                  "@id": "https://www.spencerwozniak.com/#org",
+                  "name": "Spencer Wozniak",
+                  "url": "https://www.spencerwozniak.com",
+                  "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://www.spencerwozniak.com/sw-brand-logo.png",
+                    "width": 702,
+                    "height": 702
+                  },
+                  "sameAs": [
+                    "https://www.linkedin.com/in/spencerwozniak",
+                    "https://x.com/WozniakSpencer",
+                    "https://scholar.google.com/citations?user=vBp7kzAAAAAJ&hl=en",
+                    "https://www.wozprep.org/"
+                  ]
+                },
+                {
+                  "@type": "Person",
+                  "@id": "https://www.spencerwozniak.com/#person",
+                  "name": "Spencer Wozniak",
+                  "url": "https://www.spencerwozniak.com",
+                  "image": "https://www.spencerwozniak.com/headshot-square.jpg",
+                  "affiliation": { "@id": "https://www.spencerwozniak.com/#org" },
+                  "sameAs": [
+                    "https://www.linkedin.com/in/spencerwozniak",
+                    "https://x.com/WozniakSpencer",
+                    "https://scholar.google.com/citations?user=vBp7kzAAAAAJ&hl=en",
+                    "https://www.wozprep.org/"
+                  ]
+                },
+                {
+                  "@type": "WebSite",
+                  "@id": "https://www.spencerwozniak.com/#website",
+                  "url": "https://www.spencerwozniak.com",
+                  "name": "Spencer Wozniak",
+                  "publisher": { "@id": "https://www.spencerwozniak.com/#org" },
+                  "inLanguage": "en"
+                }
               ]
             })
           }}
         />
+
 
       </head>
       <body>
