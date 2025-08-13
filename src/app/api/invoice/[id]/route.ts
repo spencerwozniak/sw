@@ -5,7 +5,7 @@ import Stripe from 'stripe';
 export const runtime = 'nodejs';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-03-31.basil' as any, // or remove this line if it causes version errors
+  apiVersion: '2025-03-31.basil', // or remove this line if it causes version errors
 });
 
 export async function GET(
@@ -37,7 +37,7 @@ export async function GET(
         'Cache-Control': 'no-store',
       },
     });
-  } catch (err: any) {
+  } catch (err) {
     console.error('Invoice API error:', err);
     return NextResponse.json({ error: err?.message ?? 'Invoice fetch failed' }, { status: 500 });
   }
