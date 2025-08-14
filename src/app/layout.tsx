@@ -49,7 +49,7 @@ export const metadata = {
     siteName: 'Spencer Wozniak',
     images: [
       {
-        url: 'https://www.spencerwozniak.com/headshot-square.jpg',
+        url: 'https://www.spencerwozniak.com/sw-full-signature-white.png',
         width: 1700,
         height: 1700,
         alt: 'Spencer Wozniak',
@@ -64,7 +64,7 @@ export const metadata = {
     description: 'Explore the work, writing, and worldview of Spencer Wozniak.',
     site: '@spencerwozniak',
     creator: '@spencerwozniak',
-    images: ['https://www.spencerwozniak.com/headshot-square.jpg'],
+    images: ['https://www.spencerwozniak.com/sw-full-signature-white.png'],
   },
 
 };
@@ -104,7 +104,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   "@id": "https://www.spencerwozniak.com/#person",
                   "name": "Spencer Wozniak",
                   "url": "https://www.spencerwozniak.com",
-                  "image": "https://www.spencerwozniak.com/headshot-square.jpg",
+                  "image": "https://www.spencerwozniak.com/sw-full-signature-white.png",
                   "affiliation": { "@id": "https://www.spencerwozniak.com/#org" },
                   "sameAs": [
                     "https://www.linkedin.com/in/spencerwozniak",
