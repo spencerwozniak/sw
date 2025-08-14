@@ -11,7 +11,7 @@ type WorkHeroProps = {
 export default function WorkHero({
   bgSrc = "/gold-bg.jpg",
   bgAlt = "Hero background",
-  tintClassName = "bg-amber-900/40", // gold tint strength
+  tintClassName = "bg-amber-950/40",
 }: WorkHeroProps) {
   return (
     <section className="relative isolate overflow-hidden bg-black">

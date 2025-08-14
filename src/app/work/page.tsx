@@ -1,13 +1,12 @@
 // app/work/page.tsx
 import React from 'react';
+import Link from 'next/link';            // ← use Link directly
 import Image from 'next/image';
 import WorkHero from '@/components/WorkHero';
 import Chatbot from '@/components/Chatbot';
-import NavButton from '@/components/NavButton';
-import {
-  FaBolt, FaArrowRight,
-} from 'react-icons/fa';
-import { BiSolidQuoteLeft } from "react-icons/bi";
+import { FaBolt, FaChevronRight } from 'react-icons/fa';
+import { FiCheckCircle } from 'react-icons/fi';
+import { BiSolidQuoteLeft } from 'react-icons/bi';
 
 import Resume from './resume';
 
@@ -52,21 +51,19 @@ type WorkBlock = {
   theme?: 'primary' | 'emerald' | 'violet';
 };
 
-const ACCENT = '#bfaa8d';
-
 /* ---------------------- DATA ---------------------- */
 
 const WORK: WorkBlock[] = [
   {
     id: 'freelance',
     eyebrow: 'Freelance • Full-Stack Engineer',
-    title: 'Design → Ship: Modern apps & sites',
+    title: 'Modern Apps & Websites',
     subtitle:
       'I help founders launch fast, clean, conversion-focused products. Next.js + TypeScript on the front, Python/Node on the back, with tasteful AI where it actually helps.',
     bullets: [
       'Next.js (React) and TypeScript development for high-performance',
       'Tailwind CSS for rapid, consistent, and responsive UI design',
-      'Integrated payment processing and subscriptions via Stripe',
+      'Integrated secure payment processing and subscriptions',
       'Built and optimized APIs with Prisma/Postgres',
       'Implemented user authentication and onboarding flows with Clerk/Auth, supporting multi-role applications',
       'Configured transactional and marketing email workflows, including custom templates and automation',
@@ -76,8 +73,7 @@ const WORK: WorkBlock[] = [
       'Developed scalable, serverless backends with environment-specific configurations',
     ],
     metrics: [
-      { label: 'Web builds shipped', value: '25+' },
-      { label: 'Avg. Lighthouse perf', value: '95+' },
+      { label: 'Web builds shipped', value: '10+' },
       { label: 'Production uptime', value: '99.9%' },
     ],
     ctas: [
@@ -138,7 +134,7 @@ const WORK: WorkBlock[] = [
   {
     id: 'serelora',
     eyebrow: 'Founder • Serelora',
-    title: 'Universal AI interface for doctors',
+    title: 'Universal AI Interface for Physicians',
     subtitle:
       'EHR‑agnostic and clinician‑first. A team of specialized AI agents supports documentation, orders, and patient communication—without changing the EHR.',
     bullets: [
@@ -168,18 +164,6 @@ const WORK: WorkBlock[] = [
       { label: 'Learn More', href: 'https://www.serelora.com/'},
     ],
     selected: [
-      {
-        title: 'Clinical Agent System',
-        blurb: 'Task‑routed agents with shared context and scoped tools.',
-        tags: ['Agents', 'Tools', 'Safety'],
-        href: 'https://www.serelora.com/',
-      },
-      {
-        title: 'EHR Overlay Prototype',
-        blurb: 'Non‑invasive UI that sits on top of existing workflows.',
-        tags: ['EHR‑agnostic', 'UX'],
-        href: 'https://www.serelora.com/',
-      },
     ],
     tags: ['Healthcare', 'AI', 'Multi‑agent', 'EHR‑agnostic', 'Next.js', 'TypeScript', 'Node'],
     visuals: [
@@ -207,7 +191,7 @@ const WORK: WorkBlock[] = [
   {
     id: 'wozprep',
     eyebrow: 'Founder • WozPrep',
-    title: 'MCAT & STEM tutoring with tools',
+    title: 'MCAT & STEM Tutoring',
     subtitle:
       'I run WozPrep, a tutoring service for pre-health students. I also build custom tools for passage practice, highlighting, timing, and analytics.',
     bullets: [
@@ -216,35 +200,19 @@ const WORK: WorkBlock[] = [
       'Custom Next.js practice app: highlights, strikethrough, saves',
       'Published in-depth articles on MCAT strategy, test psychology, and section-specific tactics',
       'Optimized WozPrep’s website SEO to attract more students through local and national search rankings',
-      'Created tailored lesson plans for each student based on diagnostic results and progress tracking',
-      'Developed targeted drills for high-yield topics and common weak areas',
       'Integrated real exam pacing simulations to improve timing and endurance',
       'Built a resource hub with curated videos, practice questions, and review sheets',
-      'Analyzed student performance data to refine study plans and maximize score gains',
     ],
     metrics: [
       { label: 'Score lifts (best)', value: '+20 pts' },
-      { label: 'Students taught', value: '10+' },
       { label: 'Avg. response time', value: '<24h' },
     ],
     ctas: [
       { label: 'Visit WozPrep', href: 'https://www.wozprep.org'}
     ],
     selected: [
-      {
-        title: 'Passage App',
-        blurb: 'Highlight, strikethrough, keyboard shortcuts, saved per-question state.',
-        tags: ['Next.js', 'TypeScript', 'State mgmt'],
-        href: 'https://www.wozprep.org/mcat/practice',
-      },
-      {
-        title: 'Question Breakdowns',
-        blurb: 'JSON-based explanations with links to targeted review.',
-        tags: ['Content', 'Pedagogy'],
-        href: 'https://www.wozprep.org/mcat/practice/cp-passage-1',
-      },
     ],
-    tags: ['Next.js', 'TypeScript', 'Tailwind', 'Education', 'Content'],
+    tags: ['Next.js', 'TypeScript', 'Tailwind', 'Education', 'Pedagogy'],
     visuals: [
       {
         src: '/wozprep-library.png',
@@ -277,25 +245,86 @@ const THEME_STYLES = {
     pillText: 'text-white',
     pillRing: 'ring-white/20',
     dot: 'bg-white/80',
+    iconText: 'text-[#bfaa8d]',
   },
   emerald: {
     pillBg: 'bg-emerald-500/15',
     pillText: 'text-emerald-300',
     pillRing: 'ring-emerald-500/25',
     dot: 'bg-emerald-400',
+    iconText: 'text-emerald-400',
   },
   violet: {
     pillBg: 'bg-violet-500/15',
     pillText: 'text-violet-300',
     pillRing: 'ring-violet-500/25',
     dot: 'bg-violet-400',
+    iconText: 'text-violet-400',
   },
 } as const;
+
 
 type ThemeKey = keyof typeof THEME_STYLES;
 
 function getThemeStyles(theme?: ThemeKey) {
   return THEME_STYLES[theme ?? 'primary'];
+}
+
+/* ---------- tiny utility ---------- */
+function cn(...xs: Array<string | false | null | undefined>) {
+  return xs.filter(Boolean).join(' ');
+}
+
+/* ---------- themed button link (server-safe) ---------- */
+type ButtonLinkProps = {
+  href: string;
+  external?: boolean;
+  theme?: 'primary' | 'emerald' | 'violet';
+  size?: 'sm' | 'md' | 'lg';
+  rightIcon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  leftIcon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  className?: string;
+  children: React.ReactNode;
+};
+
+const baseBtn =
+  'inline-flex items-center gap-2 rounded-full font-semibold transition ' +
+  'focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 ' +
+  'active:scale-[.99] ring-1';
+
+const sizeMap = {
+  sm: 'px-4 py-2 text-sm',
+  md: 'px-6 py-2.5',
+  lg: 'px-7 py-3 text-base',
+} as const;
+
+function ButtonLink({
+  href,
+  external,
+  theme = 'primary',
+  size = 'md',
+  rightIcon: RightIcon,
+  leftIcon: LeftIcon,
+  className,
+  children,
+}: ButtonLinkProps) {
+  const classes = cn(baseBtn, sizeMap[size], className);
+  if (external) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" className={classes}>
+        {LeftIcon && <LeftIcon className="h-4 w-4" aria-hidden />}
+        <span>{children}</span>
+        {RightIcon && <RightIcon className="h-4 w-4" aria-hidden />}
+      </a>
+    );
+  }
+  return (
+    <Link href={href} className={classes}>
+      {LeftIcon && <LeftIcon className="h-4 w-4" aria-hidden />}
+      <span>{children}</span>
+      {RightIcon && <RightIcon className="h-4 w-4" aria-hidden />}
+    </Link>
+  );
 }
 
 
@@ -313,7 +342,7 @@ function SectionFrame({
 
   return (
     <section id={id} className="relative overflow-hidden">
-      <div className="relative mx-auto max-w-7xl px-5 py-14 md:py-20">
+      <div className="relative mx-auto max-w-7xl py-10 px-1">
         {/* Eyebrow as themed pill */}
         {eyebrow && (
           <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium ring-1 ${t.pillBg} ${t.pillText} ${t.pillRing}`}>
@@ -330,19 +359,31 @@ function SectionFrame({
 }
 
 
-function BulletList({ items }: { items: string[] }) {
+function BulletList({ items, theme = 'primary' as WorkBlock['theme'] }) {
   if (!items?.length) return null;
+  const t = getThemeStyles(theme);
+
   return (
-    <ul className="mt-6 grid gap-3 md:grid-cols-2">
-      {items.map((t, i) => (
-        <li key={i} className="flex items-start gap-3">
-          <span className="mt-1 h-2 w-2 rounded-full" style={{ backgroundColor: ACCENT }} />
-          <span className="text-gray-200">{t}</span>
+    <ul className="mt-6 columns-1 md:columns-2 gap-4 [column-fill:_balance]">
+      {items.map((text, i) => (
+        <li key={i} className="mb-4 break-inside-avoid">
+          <div className="w-full inline-block rounded-lg bg-white/5 p-3 ring-1 ring-white/10">
+            <div className="flex items-start gap-3">
+              <FiCheckCircle
+                className={`mt-0.5 h-5 w-5 shrink-0 ${t.iconText}`}  // ← themed color
+                aria-hidden
+              />
+              <span className="text-gray-200">{text}</span>
+            </div>
+          </div>
         </li>
       ))}
     </ul>
   );
 }
+
+
+
 
 function MetricBar({ metrics }: { metrics?: Metric[] }) {
   if (!metrics?.length) return null;
@@ -371,20 +412,22 @@ function TagRow({ tags }: { tags?: Tag[] }) {
   );
 }
 
-function CTAs({ ctas }: { ctas?: CTA[] }) {
+function CTAs({ ctas, theme = 'primary' as WorkBlock['theme'] }) {
   if (!ctas?.length) return null;
   return (
     <div className="mt-8 flex flex-wrap gap-3">
-      {ctas.map((c, i) =>
-        c.external ? (
-          <a key={i} href={c.href} target="_blank" rel="noreferrer"
-             className="inline-flex items-center gap-2 rounded-full px-6 py-2 font-semibold transition bg-teal-300 text-black hover:bg-teal-400">
-            {c.label} <FaArrowRight className="h-3.5 w-3.5" />
-          </a>
-        ) : (
-          <NavButton key={i} to={c.href} label={c.label} className="text-[14px] !w-50 px-4 py-2" />
-        )
-      )}
+      {ctas.map((c, i) => (
+        <ButtonLink
+          key={i}
+          href={c.href}
+          external={c.external}
+          theme={theme}
+          size="md"
+          rightIcon={FaChevronRight}
+        >
+          {c.label}
+        </ButtonLink>
+      ))}
     </div>
   );
 }
@@ -438,7 +481,7 @@ export default function MyWorkPage() {
     <div className="flex flex-col bg-neutral-900 text-gray-100">
       <main>
         {/* Hero */}
-        <WorkHero bgSrc='/gold-bg.jpg'/>
+        <WorkHero bgSrc='/hero.jpg'/>
 
         {/* Three big work sections with visuals (alternating layout) */}
         <div className="max-w-7xl mx-auto px-5">
@@ -497,12 +540,12 @@ export default function MyWorkPage() {
 
                   {/* Copy side */}
                   <div className="flex-1 flex flex-col gap-6 text-center md:text-left md:items-start items-center">
-                    <BulletList items={block.bullets} />
+                    <BulletList items={block.bullets} theme={block.theme} />
                     <TagRow tags={block.tags} />
                     <div className="w-full">
                       <MetricBar metrics={block.metrics} />
                     </div>
-                    <CTAs ctas={block.ctas} />
+                    <CTAs ctas={block.ctas} theme={block.theme} />
                     {/* Testimonial card (like your example) */}
                     <div className="w-full">
                       <TestimonialCard t={block.testimonial} />
