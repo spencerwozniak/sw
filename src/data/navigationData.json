@@ -1,17 +1,16 @@
 [
   {
-    "label": "WRITING",
-    "link": "/writing",
+    "label": "MY WORK",
+    "link": "/work",
     "submenu": [
     ]
   },
   {
-    "label": "RESUME",
-    "link": "/resume",
+    "label": "WRITING",
+    "link": "/writing",
     "submenu": [
     ]
-  },
-  
+  }, 
   {
     "label": "GALLERY",
     "link": "/gallery",

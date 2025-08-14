@@ -2,18 +2,16 @@ import { Suspense } from 'react';
 import InvoiceClient from './InvoiceClient';
 import { metadata as rootMetadata } from '@/app/layout';
 
-const pageTitle = `Invoice | Spencer Wozniak`;
-
 export const metadata = {
   ...rootMetadata,
-  title: pageTitle,
+  title: 'Invoice',
   openGraph: {
     ...rootMetadata.openGraph,
-    title: pageTitle,
+    title: 'Invoice',
   },
   twitter: {
     ...rootMetadata.twitter,
-    title: pageTitle,
+    title: 'Invoice',
   },
 };
 

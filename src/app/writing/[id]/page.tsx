@@ -82,7 +82,7 @@ export default function ArticlePage({ params }: Props) {
 
   return (
     <div className="flex flex-col bg-[#0a0a0a] text-[#eaeaea]">
-      <main className="w-full max-w-6xl mx-auto mt-32 mb-5">
+      <main className="w-full max-w-6xl mx-auto mt-16 mb-5">
         <article className="px-6 xl:border-t xl:border-b xl:border-[#333] xl:p-10">
           <header className="flex flex-col items-start">
             <h1 className="text-3xl font-bold text-white mb-4">{article.title}</h1>

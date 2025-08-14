@@ -2,7 +2,7 @@
 
 .pageWrap {
   padding: 20px;
-  padding-top: 95px;
+  padding-top: 20px;
   display: flex;
   justify-content: center; /* center the main content horizontally */
 }
