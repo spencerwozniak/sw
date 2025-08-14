@@ -190,14 +190,6 @@ function SectionFrame({
   );
 }
 
-function Chip({ label }: { label: string }) {
-  return (
-    <span className="rounded-full border border-white/15 px-3 py-1 text-xs text-gray-200 bg-white/5">
-      {label}
-    </span>
-  );
-}
-
 function SectionCard({ children }: { children: React.ReactNode }) {
   return (
     <div className="p-6 md:p-8">
@@ -231,7 +223,7 @@ function Block({
   bullets,
   extras,
 }: {
-  icon: React.ComponentType<any>;
+  icon: React.ComponentType;
   header: string;
   org?: React.ReactNode;
   dates?: string;

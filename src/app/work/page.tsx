@@ -5,7 +5,7 @@ import WorkHero from '@/components/WorkHero';
 import Chatbot from '@/components/Chatbot';
 import NavButton from '@/components/NavButton';
 import {
-  FaBolt, FaServer, FaArrowRight,
+  FaBolt, FaArrowRight,
 } from 'react-icons/fa';
 import { BiSolidQuoteLeft } from "react-icons/bi";
 
