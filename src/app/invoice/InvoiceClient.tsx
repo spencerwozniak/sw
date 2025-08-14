@@ -6,6 +6,32 @@ import Image from 'next/image';
 
 import { MdOutlineFileDownload, MdOutlineAttachMoney } from 'react-icons/md'
 
+function InvoiceButtons({ invoice }) {
+  return (
+      <div className="mt-6 flex justify-end gap-x-3">
+      <a
+          className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white !text-[#b28e6d] shadow-2xs hover:bg-gray-50"
+          href={invoice.invoice_pdf}
+      >
+          <MdOutlineFileDownload />
+          Invoice PDF
+      </a>
+      {invoice.hosted_invoice_url && (
+          <a
+          className="cursor-pointer py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-[#a6865f] !text-white hover:bg-[#bfaa8d]"
+          href={invoice.hosted_invoice_url}
+          target="_blank"
+          rel="noopener noreferrer"
+          >
+          <MdOutlineAttachMoney />
+          Pay Now
+          </a>
+      )}
+      </div>
+  )
+}
+
+
 export default function InvoiceClient() {
   const [invoice, setInvoice] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -34,7 +60,9 @@ export default function InvoiceClient() {
   if (!invoice) return <div className="flex flex-col justify-center items-center text-center min-h-[90vh] py-10 px-4 sm:px-6 lg:px-8 mt-10">Invoice not found.</div>;
   return (
   <div className="w-full px-4 sm:px-6 lg:px-8 mx-auto mb-10">
+    
       <div className="sm:w-11/12 lg:w-3/4 mx-auto">
+       <InvoiceButtons invoice={invoice} />
         <div className="flex flex-col p-4 sm:p-10 bg-black shadow-md rounded-xl">
           {/* Header */}
           <div className="flex justify-between">
@@ -166,27 +194,8 @@ export default function InvoiceClient() {
           </div>
           <p className="mt-5 text-sm text-neutral-300">© {new Date().getFullYear()} {invoice.account_name || "Your Company"}.</p>
         </div>
-        {/* Buttons */}
-        <div className="mt-6 flex justify-end gap-x-3">
-        <a
-            className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white !text-[#b28e6d] shadow-2xs hover:bg-gray-50"
-            href={invoice.invoice_pdf}
-        >
-            <MdOutlineFileDownload />
-            Invoice PDF
-        </a>
-        {invoice.hosted_invoice_url && (
-            <a
-            className="cursor-pointer py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-[#a6865f] !text-white hover:bg-[#bfaa8d]"
-            href={invoice.hosted_invoice_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            >
-            <MdOutlineAttachMoney />
-            Pay Now
-            </a>
-        )}
-        </div>
+
+        <InvoiceButtons invoice={invoice} />
 
       </div>
     </div>
