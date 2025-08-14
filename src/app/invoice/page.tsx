@@ -1,5 +1,21 @@
 import { Suspense } from 'react';
 import InvoiceClient from './InvoiceClient';
+import { metadata as rootMetadata } from '@/app/layout';
+
+const pageTitle = `Invoice | Spencer Wozniak`;
+
+export const metadata = {
+  ...rootMetadata,
+  title: pageTitle,
+  openGraph: {
+    ...rootMetadata.openGraph,
+    title: pageTitle,
+  },
+  twitter: {
+    ...rootMetadata.twitter,
+    title: pageTitle,
+  },
+};
 
 export default function InvoicePage() {
   return (
