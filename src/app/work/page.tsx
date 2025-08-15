@@ -279,7 +279,6 @@ function cn(...xs: Array<string | false | null | undefined>) {
 type ButtonLinkProps = {
   href: string;
   external?: boolean;
-  theme?: 'primary' | 'emerald' | 'violet';
   size?: 'sm' | 'md' | 'lg';
   rightIcon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   leftIcon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
@@ -301,7 +300,6 @@ const sizeMap = {
 function ButtonLink({
   href,
   external,
-  theme = 'primary',
   size = 'md',
   rightIcon: RightIcon,
   leftIcon: LeftIcon,
@@ -421,7 +419,6 @@ function CTAs({ ctas, theme = 'primary' as WorkBlock['theme'] }) {
           key={i}
           href={c.href}
           external={c.external}
-          theme={theme}
           size="md"
           rightIcon={FaChevronRight}
         >
