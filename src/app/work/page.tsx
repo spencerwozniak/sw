@@ -410,7 +410,7 @@ function TagRow({ tags }: { tags?: Tag[] }) {
   );
 }
 
-function CTAs({ ctas, theme = 'primary' as WorkBlock['theme'] }) {
+function CTAs({ ctas }) {
   if (!ctas?.length) return null;
   return (
     <div className="mt-8 flex flex-wrap gap-3">
@@ -542,7 +542,7 @@ export default function MyWorkPage() {
                     <div className="w-full">
                       <MetricBar metrics={block.metrics} />
                     </div>
-                    <CTAs ctas={block.ctas} theme={block.theme} />
+                    <CTAs ctas={block.ctas} />
                     {/* Testimonial card (like your example) */}
                     <div className="w-full">
                       <TestimonialCard t={block.testimonial} />
