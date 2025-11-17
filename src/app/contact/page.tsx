@@ -1,9 +1,10 @@
-'use client';
+"use client";
 
-import Chatbot from '@/components/Chatbot';
-import styles from './page.module.css';
+import Chatbot from "@/components/Chatbot";
+import CalendlyInline from "@/components/CalendlyInline";
+import styles from "./page.module.css";
 
-import Image from 'next/image';
+import Image from "next/image";
 
 import {
   FaLinkedin,
@@ -12,12 +13,10 @@ import {
   FaYoutube,
   FaBook,
   FaEnvelope,
-  FaInstagram
-} from 'react-icons/fa';
+  FaInstagram,
+} from "react-icons/fa";
 
-import {
-  FaThreads
-} from 'react-icons/fa6'
+import { FaThreads } from "react-icons/fa6";
 
 export default function ContactPage() {
   return (
@@ -25,7 +24,12 @@ export default function ContactPage() {
       <main className={styles.main}>
         <h1 className={styles.title}>Let’s Connect</h1>
         <div className={styles.cardContainer}>
-          <a href="https://www.linkedin.com/in/spencerwozniak/" target="_blank" rel="noopener noreferrer" className={styles.card}>
+          <a
+            href="https://www.linkedin.com/in/spencerwozniak/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.card}
+          >
             <FaLinkedin size={24} />
             <div className={styles.cardContent}>
               <h2>LinkedIn</h2>
@@ -39,46 +43,70 @@ export default function ContactPage() {
               <p>Shoot me an email</p>
             </div>
           </a>
-          <a href="https://wozprep.org/contact" target="_blank" rel="noopener noreferrer" className={styles.card}>
-          <Image
-            src="/wp-logo-white.png"
-            alt="WozPrep Logo"
-            width={30}
-            height={30}
-            className=''
-          />
+          <a
+            href="https://www.serelora.com/contact"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.card}
+          >
+            <Image
+              src="/serelora-sun-white.png"
+              alt="Serelora Logo"
+              width={30}
+              height={30}
+              className=""
+            />
             <div className={styles.cardContent}>
-              <h2>WozPrep</h2>
-              <p>Reach out for tutoring</p>
+              <h2>Serelora</h2>
+              <p>Start a project</p>
             </div>
           </a>
         </div>
 
         <h1 className={styles.title}>Socials</h1>
         <div className={styles.cardContainer}>
-          
-          <a href="https://github.com/spencerwozniak" target="_blank" rel="noopener noreferrer" className={styles.card}>
+          <a
+            href="https://github.com/spencerwozniak"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.card}
+          >
             <FaGithub size={24} />
             <div className={styles.cardContent}>
               <h2>GitHub</h2>
               <p>See my code</p>
             </div>
           </a>
-          <a href="https://www.researchgate.net/profile/Spencer-Wozniak" target="_blank" rel="noopener noreferrer" className={styles.card}>
+          <a
+            href="https://www.researchgate.net/profile/Spencer-Wozniak"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.card}
+          >
             <FaGraduationCap size={24} />
             <div className={styles.cardContent}>
               <h2>ResearchGate</h2>
               <p>View my publications</p>
             </div>
           </a>
-          <a href="https://www.youtube.com/@spencerwozniak" target="_blank" rel="noopener noreferrer" className={styles.card}>
+          <a
+            href="https://www.youtube.com/@spencerwozniak"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.card}
+          >
             <FaYoutube size={24} />
             <div className={styles.cardContent}>
               <h2>YouTube</h2>
               <p>Watch my videos</p>
             </div>
           </a>
-          <a href="https://www.goodreads.com/user/show/180143299-spencer-wozniak" target="_blank" rel="noopener noreferrer" className={styles.card}>
+          <a
+            href="https://www.goodreads.com/user/show/180143299-spencer-wozniak"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.card}
+          >
             <FaBook size={24} />
             <div className={styles.cardContent}>
               <h2>Goodreads</h2>
@@ -86,20 +114,33 @@ export default function ContactPage() {
             </div>
           </a>
 
-          <a href="https://www.threads.com/@spencer.wozniak" target="_blank" rel="noopener noreferrer" className={styles.card}>
+          <a
+            href="https://www.threads.com/@spencer.wozniak"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.card}
+          >
             <FaThreads size={24} />
             <div className={styles.cardContent}>
               <h2>Threads</h2>
               <p>Read my thoughts</p>
             </div>
           </a>
-          <a href="https://instagram.com/spencer.wozniak" target="_blank" rel="noopener noreferrer" className={styles.card}>
+          <a
+            href="https://instagram.com/spencer.wozniak"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.card}
+          >
             <FaInstagram size={24} />
             <div className={styles.cardContent}>
               <h2>Instagram</h2>
               <p>See my life in photos</p>
             </div>
           </a>
+        </div>
+        <div className={styles.calendlyCardContainer}>
+          <CalendlyInline />
         </div>
       </main>
 

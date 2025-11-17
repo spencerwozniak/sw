@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import NavButton from '@/components/NavButton';
+import Image from "next/image";
+import NavButton from "@/components/NavButton";
 
 export default function HomePage() {
   return (
@@ -36,35 +36,56 @@ export default function HomePage() {
             md:border-t-0 md:border-l-2 md:pt-0 md:px-8 md:min-w-[330px]
           "
         >
-          <h1 className="text-4xl sm:text-5xl font-bold mb-4">Spencer Wozniak</h1>
+          <h1 className="text-4xl sm:text-5xl font-bold mb-4">
+            Spencer Wozniak
+          </h1>
           <h2 className="text-xl sm:text-2xl font-light text-gray-400 mb-5">
             Code. Care. Christ.
           </h2>
 
           <p className="text-base sm:text-lg leading-relaxed text-gray-300 mb-5">
-            I’m a Catholic Christian, a relentless explorer of ideas, and a builder at heart.
-            I’ve spent years exploring the intersection of AI and healthcare through years of hands-on research and work with patients across a wide range of settings.
+            I’m a Catholic Christian, a relentless explorer of ideas, and a
+            builder at heart. I’ve spent years exploring the intersection of AI
+            and healthcare through hands-on research and work with patients
+            across a wide range of settings.
+          </p>
+
+          <p className="text-base sm:text-lg leading-relaxed text-gray-300 mb-5">
+            After years spent in both clinical care and code, I drove across the
+            country and founded{" "}
+            <a href="https://www.serelora.com/" target="_blank">
+              <strong>Serelora</strong>
+            </a>
+            , a software development company dedicated to building
+            human-centered technology.
           </p>
 
           <p className="text-base sm:text-lg leading-relaxed text-gray-300">
-            After years spent in both clinical care and code, I drove across the country to chase my dreams.
-            I now help businesses, from local restaurants to multi-million-dollar brands, build <strong>fast, modern websites that bring their story to life and convert visitors into customers</strong>.{' '}
-            Alongside this, I am also developing{' '}
-            <a
-              href="https://www.serelora.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#bfaa8d] font-semibold underline break-words"
-            >
-              a universal AI interface for doctors
-            </a>{' '}
-            to improve how care is delivered at scale.
+            Today, we partner with a wide range of businesses, especially
+            clinics, healthcare innovators and mission-driven organizations, to
+            build
+            <strong>
+              fast, modern websites, custom CRMs, and AI-powered tools
+            </strong>{" "}
+            that bring their story to life and actually serve people.
           </p>
 
           <div className="flex flex-wrap md:flex-nowrap justify-center md:justify-start md:gap-5">
-            <NavButton to="/work" label="See my Work" className="!text-[14px] !mt-5 md:!w-40" />
-            <NavButton to="/writing/behold-i-make-all-things-new" label="Read my Story" className="!text-[14px] !mt-5 md:!w-40" />
-            <NavButton to="/contact" label="Get in touch" className="!text-[14px] !mt-5 md:!w-40" />
+            <NavButton
+              to="https://www.serelora.com/"
+              label="See my Work"
+              className="!text-[14px] !mt-5 md:!w-40"
+            />
+            <NavButton
+              to="/writing/behold-i-make-all-things-new"
+              label="Read my Story"
+              className="!text-[14px] !mt-5 md:!w-40"
+            />
+            <NavButton
+              to="/contact"
+              label="Get in touch"
+              className="!text-[14px] !mt-5 md:!w-40"
+            />
           </div>
         </div>
       </section>
