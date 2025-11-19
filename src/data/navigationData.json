@@ -1,11 +1,5 @@
 [
   {
-    "label": "MY WORK",
-    "link": "/work",
-    "submenu": [
-    ]
-  },
-  {
     "label": "WRITING",
     "link": "/writing",
     "submenu": [

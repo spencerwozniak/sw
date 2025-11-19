@@ -34,7 +34,7 @@ export default function CalendlyInline() {
     <div
       id="calendly-embed"
       style={{
-        minHeight: "1000px",
+        minHeight: "850px",
         width: "100%",
       }}
     />
