@@ -39,35 +39,35 @@ export default function HomePage() {
           <h1 className="text-4xl sm:text-5xl font-bold mb-4">
             Spencer Wozniak
           </h1>
-          <h2 className="text-xl sm:text-2xl font-light text-gray-400 mb-5">
-            Code. Care. Christ.
+          <h2 className="text-md sm:text-lg font-light text-gray-400 mb-5">
+            Behold the handmaid of the Lord; be it unto me according to thy
+            word.
+            <span className="font-thin"> — Luke 1:38</span>
           </h2>
+
+          <p className="text-base sm:text-lg leading-relaxed text-gray-300 mb-5"></p>
 
           <p className="text-base sm:text-lg leading-relaxed text-gray-300 mb-5">
             I’m a Catholic Christian, a relentless explorer of ideas, and a
-            builder at heart. I’ve spent years exploring the intersection of AI
-            and healthcare through hands-on research and work with patients
-            across a wide range of settings.
+            builder at heart. Everything I build — every system, model, and line
+            of code — is offered through the hands of Mary to Christ.
           </p>
 
           <p className="text-base sm:text-lg leading-relaxed text-gray-300 mb-5">
-            After years spent in both clinical care and code, I drove across the
-            country and founded{" "}
+            My background spans clinical care, academic research, and AI
+            engineering. Working closely with patients and EHR systems, I
+            realized how deeply people suffer from broken software and poor
+            design.
+          </p>
+
+          <p className="text-base sm:text-lg leading-relaxed text-gray-300 mb-5">
+            That experience pushed me to drive across the country and found{" "}
             <a href="https://www.serelora.com/" target="_blank">
               <strong>Serelora</strong>
             </a>
-            , a software development company dedicated to building
-            human-centered technology.
-          </p>
-
-          <p className="text-base sm:text-lg leading-relaxed text-gray-300">
-            Today, we partner with a wide range of businesses, especially
-            clinics, healthcare innovators and mission-driven organizations, to
-            build
-            <strong>
-              fast, modern websites, custom CRMs, and AI-powered tools
-            </strong>{" "}
-            that bring their story to life and actually serve people.
+            , a B2B software studio dedicated to building software that upholds
+            the dignity of the human person and reflects the goodness, truth,
+            and beauty of the Holy Trinity.
           </p>
 
           <div className="flex flex-wrap md:flex-nowrap justify-center md:justify-start md:gap-5">
