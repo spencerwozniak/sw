@@ -49,8 +49,8 @@ export default function HomePage() {
 
           <p className="text-base sm:text-lg leading-relaxed text-gray-300 mb-5">
             I’m a Catholic Christian, a relentless explorer of ideas, and a
-            builder at heart. Everything system I build, model I design, and
-            line of code I write is offered through the hands of Mary to Christ.
+            builder at heart. Every system I build, model I design, and line of
+            code I write is offered through the hands of Mary to Christ.
           </p>
 
           <p className="text-base sm:text-lg leading-relaxed text-gray-300 mb-5">
