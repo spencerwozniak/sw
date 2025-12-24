@@ -164,7 +164,7 @@ export default function InvoiceClient() {
               <a href='mailto:hey@spencerwozniak.com' className="block text-sm font-medium text-neutral-100">hey@spencerwozniak.com</a>
             </div>
           </div>
-          <p className="mt-5 text-sm text-neutral-300">© {new Date().getFullYear()} {invoice.account_name || "Your Company"}.</p>
+          <p className="mt-5 text-sm text-neutral-300">© {new Date().getFullYear()} {invoice.account_name || "Spencer Wozniak"}.</p>
         </div>
         {/* Buttons */}
         <div className="mt-6 flex justify-end gap-x-3">
