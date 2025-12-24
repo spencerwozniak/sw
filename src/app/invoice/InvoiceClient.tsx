@@ -308,35 +308,10 @@ export default function InvoiceClient() {
               </a>
             </div>
           </div>
-<<<<<<< HEAD
-          <p className="mt-5 text-sm text-neutral-300">© {new Date().getFullYear()} {invoice.account_name || "Spencer Wozniak"}.</p>
-        </div>
-        {/* Buttons */}
-        <div className="mt-6 flex justify-end gap-x-3">
-        <a
-            className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white !text-[#b28e6d] shadow-2xs hover:bg-gray-50"
-            href={invoice.invoice_pdf}
-        >
-            <MdOutlineFileDownload />
-            Invoice PDF
-        </a>
-        {invoice.hosted_invoice_url && (
-            <a
-            className="cursor-pointer py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-[#a6865f] !text-white hover:bg-[#bfaa8d]"
-            href={invoice.hosted_invoice_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            >
-            <MdOutlineAttachMoney />
-            Pay Now
-            </a>
-        )}
-=======
           <p className="mt-5 text-sm text-neutral-300">
             © {new Date().getFullYear()}{" "}
             {invoice.account_name || "Your Company"}.
           </p>
->>>>>>> 483be9ebcd6dbf533fe6f769f86261802f832028
         </div>
 
         <InvoiceButtons invoice={invoice} />
