@@ -4,14 +4,7 @@
     "link": "/writing",
     "submenu": [
     ]
-  },
-  {
-    "label": "RESUME",
-    "link": "/resume",
-    "submenu": [
-    ]
-  },
-  
+  }, 
   {
     "label": "GALLERY",
     "link": "/gallery",
