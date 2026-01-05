@@ -5,7 +5,7 @@ import React from "react";
 // Simplified MDX components for react-markdown
 type MDXComponentProps = {
   children?: React.ReactNode;
-  [key: string]: any;
+  [key: string]: unknown;
 };
 
 type HeadingProps = MDXComponentProps;
@@ -13,12 +13,12 @@ type ParagraphProps = MDXComponentProps;
 type CodeProps = {
   className?: string;
   children?: React.ReactNode;
-  [key: string]: any;
+  [key: string]: unknown;
 };
 type LinkProps = {
   href?: string;
   children?: React.ReactNode;
-  [key: string]: any;
+  [key: string]: unknown;
 };
 
 // A comprehensive MDX components mapping for ReactMarkdown
