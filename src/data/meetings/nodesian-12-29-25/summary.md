@@ -161,12 +161,7 @@ Key clarification:
 
 ### 6. Equity Options for Spencer
 
-- Initial suggestion: **10% (merit-based)**.
-- Spencer's stated target: **10%**.
-- Higher asks (15–25%) are defensible if explicitly tied to:
-  - Ownership of the integration layer
-  - Revenue enablement
-  - Enterprise readiness
+- Initial suggestion: **10%**.
 - **Stock classes:**
   - **Class A:** Economic upside.
   - **Class B:** Enhanced voting power.
@@ -193,7 +188,7 @@ Key clarification:
 - PKG value is unlocked only through integration.
 - Revenue is currently low → equity is inexpensive now.
 - Integration layer is the bottleneck.
-- Your contribution directly affects fundability.
+- Spencer's contribution will directly affect fundability.
 
 **Risks to price in:**
 
@@ -213,13 +208,6 @@ Key clarification:
   - Close near-term clients.
   - Prepare enterprise introductions (TX, CA).
   - Share technical papers on agentic and graph-based systems.
-
----
-
-> _"For which of you, intending to build a tower, does not first sit down and count the cost, whether he has enough to complete it?"_  
-> — Luke 14:28
-
-This meeting clarified both the **tower** (a patient-centric knowledge graph surfaced through integrations) and the **cost** (equity, time, and risk).
 
 ---
 
@@ -265,3 +253,11 @@ This list captures **explicitly named companies** and **critical platforms** ref
 - Nodesian's **commercial bottleneck is integration**, not modeling.
 - Equity discussions should reflect ownership of the layer that turns the PKG into revenue.
 
+---
+
+_For which of you, intending to build a tower, does not first sit down and count the cost, whether he has enough to complete it?_
+— Luke 14:28
+
+This meeting clarified both the **tower** (a patient-centric knowledge graph surfaced through integrations) and the **cost** (equity, time, and risk).
+
+---
