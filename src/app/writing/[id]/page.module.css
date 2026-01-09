@@ -1,8 +1,13 @@
 .articleContent {
   font-size: 1.125rem;
   line-height: 1.8;
-  color: white;
+  color: #000000;
   font-family: var(--font-heading);
+  transition: color 0.3s ease;
+}
+
+:global(.dark) .articleContent {
+  color: white;
 }
 
 .articleContent h1,
@@ -66,9 +71,14 @@
 }
 
 .articleContent code {
-  background: #f4f4f4;
+  background: #e5e5e5;
   padding: 0.2rem 0.4rem;
   border-radius: 4px;
   font-family: monospace;
   font-size: 0.95rem;
+  transition: background-color 0.3s ease;
+}
+
+:global(.dark) .articleContent code {
+  background: #2a2a2a;
 }

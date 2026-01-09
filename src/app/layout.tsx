@@ -4,6 +4,7 @@ import "./globals.css";
 import { Lato, Lora } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import CalendlyButton from "@/components/CalendlyButton";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 
 import ClientLayoutWrapper from "./ClientLayoutWrapper";
 
@@ -76,6 +77,17 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${lato.variable} ${lora.variable}`}>
       <head>
+        {/* Set initial theme class before React hydrates to prevent flash */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                document.documentElement.classList.toggle('dark', prefersDark);
+              })();
+            `,
+          }}
+        />
         {/* ✅ JSON-LD Structured Data for Google Logo */}
         <script
           type="application/ld+json"
@@ -134,8 +146,10 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
-        <CalendlyButton />
+        <ThemeProvider>
+          <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
+          <CalendlyButton />
+        </ThemeProvider>
       </body>
 
       <GoogleAnalytics gaId="G-5YDYQ636NM" />

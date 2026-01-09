@@ -3,22 +3,32 @@
 
 /* Root-level base styles */
 :root {
-  --font-body: 'Lato', sans-serif;
-  --font-heading: 'Lora', serif;
+  --font-body: "Lato", sans-serif;
+  --font-heading: "Lora", serif;
   font-family: var(--font-body);
   line-height: 1.5;
   font-weight: 400;
   color-scheme: light dark;
-  color: #ffffff;
-  background-color: #0a0a0a;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Light mode (default) */
+:root {
+  color: #000000;
+  background-color: #ffffff;
+}
 
-html, body {
+/* Dark mode */
+:root.dark {
+  color: #ffffff;
+  background-color: #0a0a0a;
+}
+
+html,
+body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -27,16 +37,32 @@ html, body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background: #0a0a0a;
-  color: #ffffff;
   font-family: var(--font-body);
   font-size: 15px;
   line-height: 1.6em;
   scroll-behavior: smooth;
   overflow-x: clip;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-h1, h2, h3, h4, h5, h6 {
+/* Light mode body */
+html body {
+  background: #ffffff;
+  color: #000000;
+}
+
+/* Dark mode body */
+html.dark body {
+  background: #0a0a0a;
+  color: #ffffff;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
 }
 
@@ -46,40 +72,38 @@ h1 {
 }
 
 a {
-  color: #ddd1c1;
+  color: #8b7355;
   text-decoration: inherit;
   transition: color 0.3s ease, transform 0.3s ease;
 }
 
 a:hover {
+  color: #6b5a45;
+}
+
+.dark a {
+  color: #ddd1c1;
+}
+
+.dark a:hover {
   color: #bfaa8d;
 }
 
-i, em {
+i,
+em {
   font-style: italic;
 }
 
 blockquote {
-  border-left: 4px solid #bfaa8d50; /* change color as needed */
+  border-left: 4px solid #6b5a4550;
   padding: 0.05rem 1.25em;
-  color: #eeeeee;
+  color: #333333;
   margin: 1rem;
 }
 
-/* Light mode preference */
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #ffffff;
-    background-color: #0a0a0a;
-  }
-
-  a:hover {
-    color: #de9e92;
-  }
-
-  button {
-    background-color: #000000;
-  }
+.dark blockquote {
+  border-left: 4px solid #bfaa8d50;
+  color: #eeeeee;
 }
 
 /* Utility container class */
@@ -93,9 +117,13 @@ blockquote {
 
 @media (max-width: 768px) {
   blockquote {
-    border-left: 4px solid #bfaa8d50; /* change color as needed */
-    
+    border-left: 4px solid #6b5a4550;
     padding: 0.05rem 1.25em;
+    color: #333333;
+  }
+
+  .dark blockquote {
+    border-left: 4px solid #bfaa8d50;
     color: #eeeeee;
   }
 }

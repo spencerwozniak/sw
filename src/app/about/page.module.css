@@ -12,6 +12,11 @@
   border-bottom: 1px solid #ddd;
   padding-bottom: 20px;
   margin: 40px 0px;
+  transition: border-color 0.3s ease;
+}
+
+:global(.dark) .aboutIntro {
+  border-bottom: 1px solid #333;
 }
 
 .introTitle {
@@ -19,6 +24,11 @@
   margin-bottom: 1rem;
   color: #102245;
   text-align: center;
+  transition: color 0.3s ease;
+}
+
+:global(.dark) .introTitle {
+  color: #e0e0e0;
 }
 
 .introText {
@@ -29,6 +39,11 @@
   max-width: 900px;
   margin-left: auto;
   margin-right: auto;
+  transition: color 0.3s ease;
+}
+
+:global(.dark) .introText {
+  color: #d0d0d0;
 }
 
 /* ---------------- Mission Section ---------------- */
@@ -38,18 +53,34 @@
   padding-bottom: 25px;
   border-left: 6px solid #102245;
   border-radius: 8px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+:global(.dark) .missionStatement {
+  background-color: #1a1a1a;
+  border-left: 6px solid #bfaa8d;
 }
 
 .missionStatement h2 {
   font-size: 1.75rem;
   margin-bottom: 12px;
   color: #102245;
+  transition: color 0.3s ease;
+}
+
+:global(.dark) .missionStatement h2 {
+  color: #e0e0e0;
 }
 
 .missionStatement p {
   font-size: 1.1rem;
   color: #102245;
   margin: 0;
+  transition: color 0.3s ease;
+}
+
+:global(.dark) .missionStatement p {
+  color: #d0d0d0;
 }
 
 /* ---------------- Founder Section ---------------- */
@@ -64,6 +95,12 @@
   text-align: justify;
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
+  transition: border-color 0.3s ease;
+}
+
+:global(.dark) .founderSection {
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
 }
 
 .founderImageContainer {
@@ -89,12 +126,23 @@
   font-size: 1.8rem;
   margin-bottom: 12px;
   color: #102245;
+  transition: color 0.3s ease;
+}
+
+:global(.dark) .founderText h2 {
+  color: #e0e0e0;
 }
 
 .founderText p {
   font-size: 1.1rem;
   line-height: 1.6;
   margin-bottom: 1rem;
+  color: #2c2c2c;
+  transition: color 0.3s ease;
+}
+
+:global(.dark) .founderText p {
+  color: #d0d0d0;
 }
 
 

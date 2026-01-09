@@ -348,8 +348,8 @@ function SectionFrame({
           </span>
         )}
 
-        {title && <h2 className="mt-3 text-3xl md:text-4xl font-semibold text-white">{title}</h2>}
-        {subtitle && <p className="mt-3 max-w-3xl text-gray-300">{subtitle}</p>}
+        {title && <h2 className="mt-3 text-3xl md:text-4xl font-semibold text-black dark:text-white">{title}</h2>}
+        {subtitle && <p className="mt-3 max-w-3xl text-gray-700 dark:text-gray-300">{subtitle}</p>}
         {children}
       </div>
     </section>
@@ -371,7 +371,7 @@ function BulletList({ items, theme = 'primary' as WorkBlock['theme'] }) {
                 className={`mt-0.5 h-5 w-5 shrink-0 ${t.iconText}`}  // ← themed color
                 aria-hidden
               />
-              <span className="text-gray-200">{text}</span>
+              <span className="text-gray-800 dark:text-gray-200">{text}</span>
             </div>
           </div>
         </li>
@@ -388,9 +388,9 @@ function MetricBar({ metrics }: { metrics?: Metric[] }) {
   return (
     <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 gap-4">
       {metrics.map((m, i) => (
-        <div key={i} className="rounded-xl border border-white/10 bg-black/20 p-4 text-center">
-          <div className="text-xl font-semibold text-white">{m.value}</div>
-          <div className="text-xs text-gray-400">{m.label}</div>
+        <div key={i} className="rounded-xl border border-gray-300 dark:border-white/10 bg-white dark:bg-black/20 p-4 text-center">
+          <div className="text-xl font-semibold text-black dark:text-white">{m.value}</div>
+          <div className="text-xs text-gray-600 dark:text-gray-400">{m.label}</div>
         </div>
       ))}
     </div>
@@ -402,7 +402,7 @@ function TagRow({ tags }: { tags?: Tag[] }) {
   return (
     <div className="mt-6 flex flex-wrap gap-2">
       {tags.map((t, i) => (
-        <span key={i} className="rounded-full border border-white/15 px-3 py-1 text-xs text-gray-200 bg-white/5">
+        <span key={i} className="rounded-full border border-gray-300 dark:border-white/15 px-3 py-1 text-xs text-gray-800 dark:text-gray-200 bg-gray-100 dark:bg-white/5">
           {t}
         </span>
       ))}
@@ -437,18 +437,18 @@ function SelectedWorkGrid({ items, anchor }: { items?: SelectedWork[]; anchor?: 
         <a
           key={i}
           href={w.href || '#'}
-          className="group block rounded-2xl border border-white/10 bg-neutral-900 p-5 hover:bg-white/[0.08] transition"
+          className="group block rounded-2xl border border-gray-300 dark:border-white/10 bg-white dark:bg-neutral-900 p-5 hover:bg-gray-50 dark:hover:bg-white/[0.08] transition"
         >
-          <div className="flex items-center gap-2 text-sm text-gray-300">
-            <FaBolt className="h-3.5 w-3.5 text-[#bfaa8d]" />
+          <div className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
+            <FaBolt className="h-3.5 w-3.5 text-[#6b5a45] dark:text-[#bfaa8d]" />
             Selected Work
           </div>
-          <h3 className="mt-2 text-lg font-semibold text-white">{w.title}</h3>
-          <p className="mt-1 text-gray-300">{w.blurb}</p>
+          <h3 className="mt-2 text-lg font-semibold text-black dark:text-white">{w.title}</h3>
+          <p className="mt-1 text-gray-700 dark:text-gray-300">{w.blurb}</p>
           {w.tags?.length ? (
             <div className="mt-3 flex flex-wrap gap-2">
               {w.tags.map((t, j) => (
-                <span key={j} className="rounded-full border border-white/15 px-2 py-0.5 text-[11px] text-gray-200 bg-white/5">
+                <span key={j} className="rounded-full border border-gray-300 dark:border-white/15 px-2 py-0.5 text-[11px] text-gray-800 dark:text-gray-200 bg-gray-100 dark:bg-white/5">
                   {t}
                 </span>
               ))}
@@ -463,10 +463,10 @@ function SelectedWorkGrid({ items, anchor }: { items?: SelectedWork[]; anchor?: 
 function TestimonialCard({ t }: { t?: Testimonial }) {
   if (!t) return null;
   return (
-    <div className="relative bg-neutral-900 rounded-lg p-6 shadow-lg ring-1 ring-white/10">
-      <BiSolidQuoteLeft className="w-8 h-8 text-[#bfaa8d]" />
-      <p className="text-gray-300 mb-2 mt-3">{t.quote}</p>
-      <p className="text-sm text-[#bfaa8d] font-medium">{t.byline}</p>
+    <div className="relative bg-white dark:bg-neutral-900 rounded-lg p-6 shadow-lg ring-1 ring-gray-300 dark:ring-white/10">
+      <BiSolidQuoteLeft className="w-8 h-8 text-[#6b5a45] dark:text-[#bfaa8d]" />
+      <p className="text-gray-800 dark:text-gray-300 mb-2 mt-3">{t.quote}</p>
+      <p className="text-sm text-[#6b5a45] dark:text-[#bfaa8d] font-medium">{t.byline}</p>
     </div>
   );
 }
@@ -475,7 +475,7 @@ function TestimonialCard({ t }: { t?: Testimonial }) {
 
 export default function MyWorkPage() {
   return (
-    <div className="flex flex-col bg-neutral-900 text-gray-100">
+    <div className="flex flex-col bg-gray-50 dark:bg-neutral-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
       <main>
         {/* Hero */}
         <WorkHero bgSrc='/hero.jpg'/>
@@ -504,7 +504,7 @@ export default function MyWorkPage() {
                           src={v.src}
                           width={v.width || 1080}
                           height={v.height || 720}
-                          className="block rounded-xl shadow-2xl ring-1 ring-white/10 transition hover:opacity-95"
+                          className="block rounded-xl shadow-2xl ring-1 ring-gray-300 dark:ring-white/10 transition hover:opacity-95"
                           priority={idx === 0 && i === 0}
                         />
                       );
@@ -526,7 +526,7 @@ export default function MyWorkPage() {
                           )}
 
                           {v.caption && (
-                            <p className="mt-2 text-sm text-gray-400 text-center md:text-left">
+                            <p className="mt-2 text-sm text-gray-600 dark:text-gray-400 text-center md:text-left">
                               {v.caption}
                             </p>
                           )}

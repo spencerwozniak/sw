@@ -1,38 +1,41 @@
 .socialIcons {
-    display: flex;
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+/* Make icons a bit more visually appealing (optional) */
+.socialIcons a {
+  color: black;
+  transition: transform 0.2s ease, color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.socialIcons a:hover {
+  color: #bfaa8d;
+  transform: scale(1.1);
+}
+
+:global(.dark) .socialIcons a {
+  color: white;
+}
+
+@media (max-width: 600px) {
+  .socialIcons {
+    display: grid;
+    grid-template-columns: repeat(4, auto); /* 4 per row */
     justify-content: center;
-    gap: 25px;
-    flex-wrap: wrap;
+    gap: 20px 30px; /* row gap, column gap */
   }
-  
-  /* Make icons a bit more visually appealing (optional) */
-  .socialIcons a {
-    color: white;
-    transition: transform 0.2s ease, color 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
+  .socialIcons a:nth-child(n + 5) {
+    grid-column: span 1;
   }
-  
-  .socialIcons a:hover {
-    color: #bfaa8d;
-    transform: scale(1.1);
+
+  .socialIcons a:nth-child(n + 5):nth-child(-n + 7) {
+    justify-self: center;
   }
-  
-  @media (max-width: 600px) {
-    .socialIcons {
-      display: grid;
-      grid-template-columns: repeat(4, auto); /* 4 per row */
-      justify-content: center;
-      gap: 20px 30px; /* row gap, column gap */
-    }
-  
-    .socialIcons a:nth-child(n+5) {
-      grid-column: span 1;
-    }
-  
-    .socialIcons a:nth-child(n+5):nth-child(-n+7) {
-      justify-self: center;
-    }
-  }
-  
+}

@@ -14,9 +14,9 @@ export default function ArticlePage() {
   return (
     <>
       <div className="">
-        <h1 className="text-center mx-auto mt-20 mb-5 text-4xl font-semibold">Essays</h1>
+        <h1 className="text-center mx-auto mt-20 mb-5 text-4xl font-semibold text-black dark:text-white">Essays</h1>
         <ArticleBrowser itemsPerPage={6} data={articles} />
-        <h1 className="text-center mx-auto mb-10 text-4xl font-semibold">Publications</h1>
+        <h1 className="text-center mx-auto mb-10 text-4xl font-semibold text-black dark:text-white">Publications</h1>
         <ArticleBrowser itemsPerPage={6} data={publications} showSearchBar={false} />
       </div>
       <Chatbot />

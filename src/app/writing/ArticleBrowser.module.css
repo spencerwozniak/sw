@@ -20,9 +20,13 @@
   border: none;
   border-bottom: 2px solid #888;
   background: transparent;
-  color: #eaeaea;
+  color: #1a1a1a;
   margin-bottom: 2rem;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+:global(.dark) .searchBar {
+  color: #eaeaea;
 }
 
 .searchBar::placeholder {
@@ -31,6 +35,10 @@
 
 .searchBar:focus {
   outline: none;
+  border-bottom: 2px solid #6b5a45;
+}
+
+:global(.dark) .searchBar:focus {
   border-bottom: 2px solid #bfaa8d;
 }
 
@@ -39,47 +47,80 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  border-top: 1px solid #ccc;
+  transition: border-color 0.3s ease;
+}
+
+:global(.dark) .list {
   border-top: 1px solid #333;
 }
 
 .card {
   display: block;
   padding: 1.5rem 1rem;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid #ccc;
   text-decoration: none;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+:global(.dark) .card {
+  border-bottom: 1px solid #333;
 }
 
 .card:hover {
-  background: #111111;
+  background: #f0f0f0;
   transform: none !important;
+}
+
+:global(.dark) .card:hover {
+  background: #111111;
 }
 
 .cardTitle {
   font-size: 1.4rem;
   font-weight: 600;
   margin: 0;
+  color: #000000;
+  transition: color 0.3s ease;
+}
+
+:global(.dark) .cardTitle {
   color: white;
 }
 
 .cardMeta {
   font-size: 0.95rem;
-  color: #999;
+  color: #666;
   margin: 0;
+  transition: color 0.3s ease;
+}
+
+:global(.dark) .cardMeta {
+  color: #999;
 }
 
 .cardTopic {
   font-size: 0.95rem;
-  color: #bbb;
+  color: #777;
   margin-top: 0.25rem;
   margin-bottom: 0.2rem;
+  transition: color 0.3s ease;
+}
+
+:global(.dark) .cardTopic {
+  color: #bbb;
 }
 
 .cardSnippet {
   font-size: 1rem;
-  color: #ddd1c1;
+  color: #6b5a45;
   line-height: 1.6;
   margin: 0;
+  transition: color 0.3s ease;
+}
+
+:global(.dark) .cardSnippet {
+  color: #ddd1c1;
 }
 
 /* ---------- Pagination ---------- */
@@ -93,7 +134,7 @@
 }
 
 .pageButton {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   min-width: 35px;
   height: 35px;
   display: flex;
@@ -101,17 +142,24 @@
   align-items: center;
   gap: 6px;
   padding: 8px 12px;
-  background-color: #1a1a1a;
+  background-color: #ffffff;
   border-width: 2px 2px 2px 0;
   border-style: solid;
-  border-color: #333;
+  border-color: #ccc;
   font-weight: 600;
   font-size: 13px;
-  color: #ddd1c1;
+  color: #333;
   cursor: pointer;
   outline: none;
   text-align: center;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+:global(.dark) .pageButton {
+  background-color: #1a1a1a;
+  border-color: #333;
+  color: #ddd1c1;
 }
 
 .pageButton:first-child {
@@ -126,30 +174,45 @@
 }
 
 .pageButton:hover:not(.disabled):not(.active) {
+  background-color: #e0e0e0;
+  color: #000000;
+}
+
+:global(.dark) .pageButton:hover:not(.disabled):not(.active) {
   background-color: #2a2a2a;
   color: white;
 }
 
 .active {
-  background-color: #bfaa8d;
-  border-color: #bfaa8d;
+  background-color: #6b5a45;
+  border-color: #6b5a45;
   color: white;
 }
 
+:global(.dark) .active {
+  background-color: #bfaa8d;
+  border-color: #bfaa8d;
+}
+
 .disabled {
-  background-color: #1a1a1a;
-  border-color: #222;
-  color: #555;
+  background-color: #ffffff;
+  border-color: #ddd;
+  color: #999;
   cursor: default;
   pointer-events: none;
 }
 
-@media (max-width: 525px) {
+:global(.dark) .disabled {
+  background-color: #1a1a1a;
+  border-color: #222;
+  color: #555;
+}
 
+@media (max-width: 525px) {
   .paginationWrapper {
     gap: 0.5rem;
   }
-  
+
   .pageButtonLetter {
     display: none;
   }

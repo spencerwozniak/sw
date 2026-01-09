@@ -12,12 +12,14 @@ import articles from '@/data/articles.json';
 import SocialIcons from './SocialIcons';
 
 import { FaLinkedin } from 'react-icons/fa';
+import { useTheme } from '@/contexts/ThemeContext';
 
 const mobileThreshold = 960;
 
 const Navigation: React.FC = () => {
   const router = useRouter();
   const pathname = usePathname();
+  const { theme } = useTheme();
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
@@ -74,7 +76,7 @@ const Navigation: React.FC = () => {
             style={{ cursor: 'pointer' }}
           >
             <Image
-              src="/sw-full-signature-white.png"
+              src={theme === 'dark' ? "/sw-full-signature-white.png" : "/sw-full-signature-black.png"}
               alt="Spencer Wozniak Signature"
               width={120}
               height={50}

@@ -25,32 +25,32 @@ type LinkProps = {
 export const mdxComponents = {
   // Headings
   h1: ({ children, ...props }: HeadingProps) => (
-    <h1 className="text-2xl font-extrabold my-6 text-white" {...props}>
+    <h1 className="text-2xl font-extrabold my-6 text-black dark:text-white" {...props}>
       {children}
     </h1>
   ),
   h2: ({ children, ...props }: HeadingProps) => (
-    <h2 className="text-xl font-bold my-5 text-white" {...props}>
+    <h2 className="text-xl font-bold my-5 text-black dark:text-white" {...props}>
       {children}
     </h2>
   ),
   h3: ({ children, ...props }: HeadingProps) => (
-    <h3 className="text-lg font-semibold my-4 text-white" {...props}>
+    <h3 className="text-lg font-semibold my-4 text-black dark:text-white" {...props}>
       {children}
     </h3>
   ),
   h4: ({ children, ...props }: HeadingProps) => (
-    <h4 className="text-lg font-semibold my-3 text-white" {...props}>
+    <h4 className="text-lg font-semibold my-3 text-black dark:text-white" {...props}>
       {children}
     </h4>
   ),
   h5: ({ children, ...props }: HeadingProps) => (
-    <h5 className="text-lg font-medium my-2 text-white" {...props}>
+    <h5 className="text-lg font-medium my-2 text-black dark:text-white" {...props}>
       {children}
     </h5>
   ),
   h6: ({ children, ...props }: HeadingProps) => (
-    <h6 className="text-md font-medium my-1 text-white" {...props}>
+    <h6 className="text-md font-medium my-1 text-black dark:text-white" {...props}>
       {children}
     </h6>
   ),
@@ -58,7 +58,7 @@ export const mdxComponents = {
   // Paragraph
   p: ({ children, ...props }: ParagraphProps) => (
     <p
-      className="text-base !font-normal mb-4 leading-relaxed text-neutral-200"
+      className="text-base !font-normal mb-4 leading-relaxed text-neutral-800 dark:text-neutral-200"
       {...props}
     >
       {children}
@@ -83,7 +83,7 @@ export const mdxComponents = {
   ),
   inlineCode: ({ children, ...props }: CodeProps) => (
     <code
-      className="bg-neutral-800 text-neutral-200 px-1 py-0.5 rounded text-sm font-mono"
+      className="bg-neutral-200 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 px-1 py-0.5 rounded text-sm font-mono"
       {...props}
     >
       {children}
@@ -98,7 +98,7 @@ export const mdxComponents = {
     </ul>
   ),
   ol: ({ children, ...props }: MDXComponentProps) => (
-    <ol className="list-decimal list-inside mb-4 text-neutral-200" {...props}>
+    <ol className="list-decimal list-inside mb-4 text-neutral-800 dark:text-neutral-200" {...props}>
       {children}
     </ol>
   ),
@@ -111,7 +111,7 @@ export const mdxComponents = {
   // Blockquotes
   blockquote: ({ children, ...props }: MDXComponentProps) => (
     <blockquote
-      className="border-l-4 border-neutral-500 pl-4 italic my-4 text-neutral-300"
+      className="border-l-4 border-neutral-400 dark:border-neutral-500 pl-4 italic my-4 text-neutral-700 dark:text-neutral-300"
       {...props}
     >
       {children}
@@ -120,7 +120,7 @@ export const mdxComponents = {
 
   // Thematic break
   hr: (props: MDXComponentProps) => (
-    <hr className="my-6 border-neutral-600" {...props} />
+    <hr className="my-6 border-neutral-400 dark:border-neutral-600" {...props} />
   ),
 
   // Links
@@ -143,7 +143,7 @@ export const mdxComponents = {
       <code
         className={`${
           className || ""
-        } bg-gray-100 dark:bg-neutral-800 text-gray-900 dark:text-neutral-200 px-1 py-0.5 rounded text-sm font-mono`}
+        } bg-neutral-200 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 px-1 py-0.5 rounded text-sm font-mono`}
         {...props}
       >
         {children}
@@ -152,7 +152,7 @@ export const mdxComponents = {
   },
   pre: ({ children, ...props }: MDXComponentProps) => (
     <pre
-      className="bg-gray-100 dark:bg-neutral-800 p-4 rounded-lg overflow-x-auto my-4"
+      className="bg-neutral-200 dark:bg-neutral-800 p-4 rounded-lg overflow-x-auto my-4"
       {...props}
     >
       {children}
@@ -162,7 +162,7 @@ export const mdxComponents = {
   // Other
   mark: ({ children, ...props }: MDXComponentProps) => (
     <mark
-      className="bg-yellow-500 dark:bg-yellow-600 text-black dark:text-white"
+      className="bg-yellow-400 dark:bg-yellow-600 text-black dark:text-white"
       {...props}
     >
       {children}

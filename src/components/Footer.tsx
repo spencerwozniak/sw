@@ -3,13 +3,16 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './Footer.module.css';
+import { useTheme } from '@/contexts/ThemeContext';
 
 import SocialIcons from './SocialIcons';
 
-import LogoWhite from '../../public/sw-full-signature-white.png'; // Make sure this image is in /public
+import LogoWhite from '../../public/sw-full-signature-white.png';
+import LogoBlack from '../../public/sw-full-signature-black.png';
 import navigationData from '@/data/navigationData.json';
 
 const Footer: React.FC = () => {
+  const { theme } = useTheme();
   return (
     <div className={styles.footerWrapper}>
       <footer className={styles.footer}>
@@ -19,7 +22,13 @@ const Footer: React.FC = () => {
           <div className={styles.footerWidget}>
             <div className={styles.footerLogo}>
               <Link className={styles.footerLogoLink} href="/">
-                <Image src={LogoWhite} alt="Spencer Wozniak Signature" className="img-fluid" width={400} height={100} />
+                <Image 
+                  src={theme === 'dark' ? LogoWhite : LogoBlack} 
+                  alt="Spencer Wozniak Signature" 
+                  className="img-fluid" 
+                  width={400} 
+                  height={100} 
+                />
               </Link>
             </div>
 

@@ -20,31 +20,31 @@ export default function ClientMeetingPage({ meeting }: { meeting: Meeting }) {
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
       {/* Header */}
-      <header className="border border-gray-200 p-6 shadow-sm">
-        <h1 className="text-2xl font-semibold tracking-tight">
+      <header className="border border-gray-300 dark:border-gray-200 p-6 shadow-sm bg-white dark:bg-neutral-900">
+        <h1 className="text-2xl font-semibold tracking-tight text-black dark:text-white">
           {meeting.name}
         </h1>
         <div className="mt-3 grid gap-2 text-sm sm:grid-cols-3">
           <div className="flex items-center gap-2">
-            <span className="inline-block border border-gray-200 px-2 py-1 text-xs font-medium">
+            <span className="inline-block border border-gray-300 dark:border-gray-200 px-2 py-1 text-xs font-medium text-black dark:text-white">
               Date
             </span>
-            <span>{formatDate(meeting.date)}</span>
+            <span className="text-gray-700 dark:text-gray-300">{formatDate(meeting.date)}</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="inline-block border border-gray-200 px-2 py-1 text-xs font-medium">
+            <span className="inline-block border border-gray-300 dark:border-gray-200 px-2 py-1 text-xs font-medium text-black dark:text-white">
               Time
             </span>
-            <span>{meeting.time}</span>
+            <span className="text-gray-700 dark:text-gray-300">{meeting.time}</span>
           </div>
           <div className="flex items-center gap-2 sm:col-span-1 sm:justify-end">
-            <span className="inline-block border border-gray-200 px-2 py-1 text-xs font-medium">
+            <span className="inline-block border border-gray-300 dark:border-gray-200 px-2 py-1 text-xs font-medium text-black dark:text-white">
               ID
             </span>
-            <code className="px-1 py-0.5">{meeting.id}</code>
+            <code className="px-1 py-0.5 text-gray-700 dark:text-gray-300">{meeting.id}</code>
           </div>
         </div>
-        <p className="mt-4">{meeting.description}</p>
+        <p className="mt-4 text-gray-700 dark:text-gray-300">{meeting.description}</p>
       </header>
 
       {/* Body */}
@@ -67,9 +67,9 @@ export default function ClientMeetingPage({ meeting }: { meeting: Meeting }) {
 
           <TabsContent value="transcript" className="mt-4">
             <CopyBox getText={() => meeting.transcript} label="Copy transcript">
-              <article className="prose prose-neutral max-w-none">
+              <article className="prose prose-neutral dark:prose-invert max-w-none">
                 {/* If you want markdown here too, swap ReactMarkdown in */}
-                <pre className="whitespace-pre-wrap break-words text-sm leading-relaxed">
+                <pre className="whitespace-pre-wrap break-words text-sm leading-relaxed text-gray-800 dark:text-gray-200">
                   {meeting.transcript}
                 </pre>
               </article>
@@ -106,11 +106,11 @@ function CopyBox({
   };
 
   return (
-    <section className="relative border border-gray-200 p-4 shadow-sm">
+    <section className="relative border border-gray-300 dark:border-gray-200 p-4 shadow-sm bg-white dark:bg-neutral-900">
       <button
         type="button"
         onClick={onCopy}
-        className="cursor-pointer absolute right-3 top-3 inline-flex items-center gap-1 border border-gray-200 px-2 py-1 text-xs font-medium hover:bg-neutral-100 active:scale-[0.98]"
+        className="cursor-pointer absolute right-3 top-3 inline-flex items-center gap-1 border border-gray-300 dark:border-gray-200 px-2 py-1 text-xs font-medium hover:bg-gray-100 dark:hover:bg-neutral-800 active:scale-[0.98] text-black dark:text-white"
         aria-label={label}
         title={label}
       >
@@ -157,7 +157,7 @@ function Tabs({
 
 function TabsList({ children }: { children: React.ReactNode }) {
   return (
-    <div className="inline-flex border border-neutral-700 p-1 shadow-sm">
+    <div className="inline-flex border border-neutral-300 dark:border-neutral-700 p-1 shadow-sm bg-white dark:bg-neutral-900">
       {children}
     </div>
   );
@@ -179,8 +179,8 @@ function TabsTrigger({
       className={[
         "min-w-[120px] px-4 py-2 text-sm font-medium transition",
         active
-          ? "!bg-neutral-800 text-white shadow"
-          : "text-neutral-300 hover:bg-neutral-100",
+          ? "!bg-neutral-800 dark:!bg-neutral-800 text-white shadow"
+          : "text-neutral-700 dark:text-neutral-300 hover:bg-gray-100 dark:hover:bg-neutral-800",
       ].join(" ")}
       type="button"
       aria-pressed={active}

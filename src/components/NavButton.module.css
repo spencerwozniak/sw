@@ -6,8 +6,8 @@
   width: 20px;
   padding: 0 20px;
   text-align: center;
-  color: white;
-  background-color: black;
+  color: black;
+  background-color: white;
   font-size: 14px;
   font-weight: 600;
   line-height: 40px;
@@ -15,11 +15,10 @@
   overflow: hidden;
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
   text-decoration: none;
-  border: 1.5px solid white;     /* ✅ white outline */
-  border-radius: 0;              /* ✅ non-rounded */
+  border: 1.5px solid black; /* ✅ white outline */
+  border-radius: 0; /* ✅ non-rounded */
   box-shadow: none;
 }
-
 
 .navButtonDisabled,
 .navButton[disabled] {
@@ -42,19 +41,17 @@
 }
 
 .navButton:hover {
-  background-color: white;  /* ✅ invert background */
-  color: black;             /* ✅ invert text */
+  opacity: 0.8;
 }
 
 .navButton:active {
-  background-color: white;
-  color: black;
   transform: scale(0.98);
 }
 
-.navButton:focus {
-  outline: none;
-
+:global(.dark) .navButton {
+  color: white;
+  background-color: black;
+  border: 1.5px solid white;
 }
 
 @media (max-width: 768px) {

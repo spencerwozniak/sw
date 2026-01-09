@@ -1,7 +1,7 @@
 .navigationHeader {
   all: unset; /* 🛡️ resets everything */
-  background-color: #0a0a0a;
-  color: white;
+  background-color: #ffffff;
+  color: #000000;
   padding: 15px 20px;
   position: fixed;
   top: 0;
@@ -11,7 +11,12 @@
   z-index: 1000;
   display: flex;
   justify-content: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+:global(.dark) .navigationHeader {
+  background-color: #0a0a0a;
+  color: white;
 }
 
 .navContainer {
@@ -54,13 +59,21 @@
 }
 
 .navItem .navLink {
-  color: #ffffff;
+  color: #000000;
   text-decoration: none;
   font-weight: 600;
   transition: color 0.3s;
 }
 
 .navItem .navLink:hover {
+  color: #6b5a45;
+}
+
+:global(.dark) .navItem .navLink {
+  color: #ffffff;
+}
+
+:global(.dark) .navItem .navLink:hover {
   color: #bfaa8d;
 }
 
@@ -72,12 +85,17 @@
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: white;
+  background-color: #ffffff;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   padding: 10px 0;
   display: none;
   z-index: 1000;
+  transition: background-color 0.3s ease;
+}
+
+:global(.dark) .submenu {
+  background-color: #1a1a1a;
 }
 
 .navItemWrapper:hover .submenu {
@@ -94,9 +112,18 @@
   text-decoration: none;
   color: #141319;
   font-weight: 500;
+  transition: background-color 0.3s ease;
 }
 
 .submenuLink:hover {
+  background-color: #e5e5e5;
+}
+
+:global(.dark) .submenuLink {
+  color: #e0e0e0;
+}
+
+:global(.dark) .submenuLink:hover {
   background-color: #bfaa8d;
 }
 
@@ -105,19 +132,29 @@
   display: inline-block;
   width: 5px;
   height: 5px;
-  background-color: #ddd1c1;
+  background-color: #8b7355;
   margin: 3px 5px;
   margin-left: 22px;
   border-radius: 1px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+:global(.dark) .navSeparator {
+  background-color: #ddd1c1;
 }
 
 .headerRight {
-  color: white;
+  color: #000000;
   display: flex;
   align-items: center;
   gap: 15px;
   margin-right: 40px;
+  transition: color 0.3s ease;
+}
+
+:global(.dark) .headerRight {
+  color: white;
 }
 
 .headerContactLink {
@@ -127,6 +164,10 @@
 }
 
 .headerContactLink:hover {
+  color: #6b5a45;
+}
+
+:global(.dark) .headerContactLink:hover {
   color: #bfaa8d;
 }
 
@@ -137,8 +178,8 @@
   left: 0;
   width: 100vw;
   height: calc(100vh - 80px);
-  background-color: rgb(0, 0, 0);
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #000000;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   z-index: 999;
   display: flex;
@@ -148,7 +189,13 @@
   opacity: 0;
   transform: translateY(-10px);
   pointer-events: none;
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition: opacity 0.6s ease, transform 0.6s ease, background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+:global(.dark) .dropdownMenu {
+  background-color: rgb(0, 0, 0);
+  color: #ffffff;
 }
 
 .open {
@@ -177,7 +224,7 @@
 }
 
 .navColumnHeading {
-  color: #ffffff;
+  color: #000000;
   text-decoration: none;
   font-size: 1.5rem;
   font-weight: 600;
@@ -190,6 +237,14 @@
 }
 
 .navColumnHeading:hover {
+  color: #6b5a45;
+}
+
+:global(.dark) .navColumnHeading {
+  color: #ffffff;
+}
+
+:global(.dark) .navColumnHeading:hover {
   color: #bfaa8d;
 }
 
@@ -204,11 +259,14 @@
 
 .navDivider {
   width: 100%;
-  background-color: #bfaa8d;
+  background-color: #6b5a45;
   opacity: 0.2;
-
+  transition: background-color 0.3s ease;
 }
 
+:global(.dark) .navDivider {
+  background-color: #bfaa8d;
+}
 
 .mobileSubmenu {
   display: flex;
@@ -220,12 +278,21 @@
 
 .mobileSubmenuLink {
   font-size: 20px;
-  color: #ffffff;
+  color: #000000;
   text-decoration: none;
   padding: 10px 0;
+  transition: color 0.3s ease;
 }
 
 .mobileSubmenuLink:hover {
+  color: #6b5a45;
+}
+
+:global(.dark) .mobileSubmenuLink {
+  color: #ffffff;
+}
+
+:global(.dark) .mobileSubmenuLink:hover {
   color: #bfaa8d;
 }
 
@@ -239,8 +306,6 @@
   }
 }
 @media (max-width: 768px) {
-
-
   .headerNavButton {
     margin-top: 2px;
     min-width: 120px;
@@ -250,8 +315,6 @@
     align-items: center;
   }
 }
-
-
 
 @media (min-width: 960px) {
   .navMenuButton {
@@ -263,6 +326,4 @@
   .headerContactLink {
     display: none;
   }
-
 }
-

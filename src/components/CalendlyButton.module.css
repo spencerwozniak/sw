@@ -12,8 +12,8 @@
   padding: 0 20px;
 
   text-align: center;
-  color: white;
-  background-color: black;
+  color: #000000;
+  background-color: #ffffff;
 
   font-size: 14px;
   font-weight: 600;
@@ -22,22 +22,38 @@
   overflow: hidden;
   text-decoration: none;
 
-  border: 1.5px solid white;
+  border: 1.5px solid #000000;
   border-radius: 0;
   box-shadow: none;
 
-  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, border-color 0.3s ease;
+}
+
+:global(.dark) .navButton {
+  color: white;
+  background-color: black;
+  border: 1.5px solid white;
 }
 
 .navButton:hover {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+:global(.dark) .navButton:hover {
   background-color: white;
   color: black;
 }
 
 .navButton:active {
+  background-color: #000000;
+  color: #ffffff;
+  transform: scale(0.98);
+}
+
+:global(.dark) .navButton:active {
   background-color: white;
   color: black;
-  transform: scale(0.98);
 }
 
 .navButton:focus {

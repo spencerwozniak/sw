@@ -5,7 +5,7 @@ import NavButton from "@/components/NavButton";
 
 export default function HomePage() {
   return (
-    <main className="bg-[#0a0a0a] text-white px-5 flex flex-col gap-20 overflow-x-hidden">
+    <main className="bg-[#ffffff] dark:bg-[#0a0a0a] text-black dark:text-white px-5 flex flex-col gap-20 overflow-x-hidden transition-colors duration-300">
       <section
         className="
           flex flex-col md:flex-row items-center gap-10
@@ -15,7 +15,7 @@ export default function HomePage() {
         {/* Image */}
         <div
           className="
-            relative w-full aspect-square max-w-sm overflow-hidden shadow-md
+            relative w-full aspect-square max-w-sm overflow-hidden mt-5
             md:w-[30vw] md:h-[45vw] md:aspect-[2/3] md:max-w-none md:shrink-0
           "
         >
@@ -32,35 +32,35 @@ export default function HomePage() {
         <div
           className="
             flex-1 w-full max-w-xl min-w-0 break-words
-            border-t-2 border-[#bfaa8d50] pt-8
+            border-t-2 border-[#6b5a4550] dark:border-[#bfaa8d50] pt-8
             md:border-t-0 md:border-l-2 md:pt-0 md:px-8 md:min-w-[330px]
           "
         >
           <h1 className="text-4xl sm:text-5xl font-bold mb-4">
             Spencer Wozniak
           </h1>
-          <h2 className="text-md sm:text-lg font-light text-gray-400 mb-5">
+          <h2 className="text-md sm:text-lg font-light text-gray-600 dark:text-gray-400 mb-5">
             Behold the handmaid of the Lord; be it unto me according to thy
             word.
             <span className="font-thin"> — Luke 1:38</span>
           </h2>
 
-          <p className="text-base sm:text-lg leading-relaxed text-gray-300 mb-5"></p>
+          <p className="text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300 mb-5"></p>
 
-          <p className="text-base sm:text-lg leading-relaxed text-gray-300 mb-5">
-            I’m a Catholic Christian, a relentless explorer of ideas, and a
+          <p className="text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300 mb-5">
+            I'm a Catholic Christian, a relentless explorer of ideas, and a
             builder at heart. Every system I build, model I design, and line of
             code I write is offered through the hands of Mary to Christ.
           </p>
 
-          <p className="text-base sm:text-lg leading-relaxed text-gray-300 mb-5">
+          <p className="text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300 mb-5">
             My background spans clinical care, academic research, and AI
             engineering. Working closely with patients and EHR systems, I
             realized how deeply people suffer from broken software and poor
             design.
           </p>
 
-          <p className="text-base sm:text-lg leading-relaxed text-gray-300 mb-5">
+          <p className="text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300 mb-5">
             That experience ultimately pulled me out of the path of medical
             school and into software development, and I drove across the country
             to found{" "}

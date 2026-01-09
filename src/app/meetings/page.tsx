@@ -54,8 +54,8 @@ export default function MeetingsPage() {
   return (
     <main className="mx-auto max-w-6xl px-4 py-20">
       <div className="text-center">
-        <h1 className="text-3xl font-semibold tracking-tight">Meetings</h1>
-        <p className="mt-2">
+        <h1 className="text-3xl font-semibold tracking-tight text-black dark:text-white">Meetings</h1>
+        <p className="mt-2 text-gray-700 dark:text-gray-300">
           &quot;Teach us to number our days that we may get a heart of
           wisdom.&quot; — Psalm 90:12
         </p>
@@ -67,37 +67,37 @@ export default function MeetingsPage() {
               href={`/meetings/${meeting.id}`}
               prefetch={false}
               aria-label={`Open meeting ${meeting.name}`}
-              className="block transition-transform hover:-translate-y-0.5 !text-neutral-200"
+              className="block transition-transform hover:-translate-y-0.5 !text-neutral-800 dark:!text-neutral-200"
             >
-              <header className="border border-gray-200 p-6 shadow-sm">
-                <h2 className="text-2xl font-semibold tracking-tight text-white">
+              <header className="border border-gray-300 dark:border-gray-200 p-6 shadow-sm bg-white dark:bg-neutral-900">
+                <h2 className="text-2xl font-semibold tracking-tight text-black dark:text-white">
                   {meeting.name}
                 </h2>
 
                 <div className="mt-3 grid gap-2 text-sm sm:grid-cols-3">
                   <div className="flex items-center gap-2">
-                    <span className="inline-block border border-gray-200 px-2 py-1 text-xs font-medium">
+                    <span className="inline-block border border-gray-300 dark:border-gray-200 px-2 py-1 text-xs font-medium text-black dark:text-white">
                       Date
                     </span>
-                    <span>{formatDate(meeting.date)}</span>
+                    <span className="text-gray-700 dark:text-gray-300">{formatDate(meeting.date)}</span>
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <span className="inline-block border border-gray-200 px-2 py-1 text-xs font-medium">
+                    <span className="inline-block border border-gray-300 dark:border-gray-200 px-2 py-1 text-xs font-medium text-black dark:text-white">
                       Time
                     </span>
-                    <span>{meeting.time}</span>
+                    <span className="text-gray-700 dark:text-gray-300">{meeting.time}</span>
                   </div>
 
                   <div className="flex items-center gap-2 sm:col-span-1 sm:justify-end">
-                    <span className="inline-block border border-gray-200 px-2 py-1 text-xs font-medium">
+                    <span className="inline-block border border-gray-300 dark:border-gray-200 px-2 py-1 text-xs font-medium text-black dark:text-white">
                       ID
                     </span>
-                    <code className="px-1 py-0.5">{meeting.id}</code>
+                    <code className="px-1 py-0.5 text-gray-700 dark:text-gray-300">{meeting.id}</code>
                   </div>
                 </div>
 
-                <p className="mt-4">{meeting.description}</p>
+                <p className="mt-4 text-gray-700 dark:text-gray-300">{meeting.description}</p>
               </header>
             </Link>
           </li>
