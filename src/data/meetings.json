@@ -3,14 +3,21 @@
     "id": "nodesian-12-29-25",
     "name": "Nodesian Meeting",
     "date": "2025-12-29",
-    "time": "2:00 PM PDT",
+    "time": "2:00 PM PST",
     "description": "Pre-seed company evaluating technical direction, enterprise readiness, and Spencer's potential equity-based role."
   },
   {
     "id": "nodesian-01-05-26",
     "name": "Nodesian Equity and Compensation Discussion",
     "date": "2026-01-05",
-    "time": "8:00 AM PDT",
+    "time": "8:00 AM PST",
     "description": "Discuss Spencer's potential equity and compensation with Nodesian."
+  },
+  {
+    "id": "nexora-hackathon-01-09-26",
+    "name": "Nexora Hackathon Brainstorming",
+    "date": "2026-01-09",
+    "time": "7:00 PM PST",
+    "description": "Discuss Nodesian's participation in the Nexora hackathon."
   }
 ]
