@@ -107,3 +107,8 @@ Show one patient:
 6. Judges are asked: _“If this were your parent, would you want to know?”_
 
 ---
+
+> “Do you not know that the runners in the stadium all run in the race, but only one wins the prize? **Run so as to win.**”
+> — 1 Corinthians 9:24
+
+---
