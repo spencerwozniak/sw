@@ -5,6 +5,10 @@
 
 ---
 
+**Hackathon Link**: https://nexora-hacks-2026.devpost.com/
+
+---
+
 ## Core Idea
 
 Build a **patient-owned, explainable care journey** for dialysis patients that:
