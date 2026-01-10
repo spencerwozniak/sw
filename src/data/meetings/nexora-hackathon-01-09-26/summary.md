@@ -62,13 +62,14 @@ Patient Alerts (why) Clinician Alerts (why + when)
 - Build append-only decision ledger
 - Expose REST endpoints for frontend
 
-### Frontend (Expo React Native)
+### Frontend ([Expo React Native](https://expo.dev/go))
 
 - Build patient journey timeline (core UI)
 - Implement data upload + consent toggles
 - Display eligibility explanations and alerts
 - Create simple clinician alert view
 - Keep UX calm, clear, and explainable
+- Look into [Vessel](https://www.vesselpartners.com/)
 
 ### CEO / Product / Sales
 
