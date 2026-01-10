@@ -1,2 +1,235 @@
-Transcript not available at this time.
 
+Luis Cisneros
+0 minutes 32 seconds0:32
+Luis Cisneros 0 minutes 32 seconds
+Am I the only one here? Uh, there we go.
+
+Spencer Wozniak
+0 minutes 36 seconds0:36
+Spencer Wozniak 0 minutes 36 seconds
+What's going on? Can you hear me?
+LC
+
+Luis Cisneros
+0 minutes 37 seconds0:37
+Luis Cisneros 0 minutes 37 seconds
+How are you? Yes, Sir.
+
+Spencer Wozniak
+0 minutes 40 seconds0:40
+Spencer Wozniak 0 minutes 40 seconds
+And I'm good. I'm good.
+LC
+
+Luis Cisneros
+0 minutes 42 seconds0:42
+Luis Cisneros 0 minutes 42 seconds
+Alright, you excited for this, man?
+
+Spencer Wozniak
+0 minutes 45 seconds0:45
+Spencer Wozniak 0 minutes 45 seconds
+Yeah, I'm excited, man.
+LC
+
+Luis Cisneros
+0 minutes 48 seconds0:48
+Luis Cisneros 0 minutes 48 seconds
+Is gonna be the one of a couple. So my goal is that once per month I want to get cause I want to get the team together and do some hackathons primarily because I want to test out new ideas, right?
+
+Spencer Wozniak
+0 minutes 59 seconds0:59
+Spencer Wozniak 0 minutes 59 seconds
+OK.
+LC
+
+Luis Cisneros
+1 minute 4 seconds1:04
+Luis Cisneros 1 minute 4 seconds
+It's a good way to get them validated, and it's also a good way to, uh, have what I what I like to call a Sprint.
+
+Spencer Wozniak
+1 minute 4 seconds1:04
+Spencer Wozniak 1 minute 4 seconds
+OK.
+LC
+Luis Cisneros
+1 hour 23 minutes1:23:00
+Luis Cisneros 1 hour 23 minutes
+IDEO as well and see what they're building, if there's anybody out there building for this and what are some of the things that we can use for kind of making it engaging for the patient to want to use it.
+
+Spencer Wozniak
+ 1:23:08
+Spencer Wozniak  
+OK.
+Spencer Wozniak  
+Oh, OK. Yeah, I'll be looking at this. OK. This is interesting. OK.
+LC
+Luis Cisneros
+ 1:23:13
+Luis Cisneros  
+No.
+Luis Cisneros  
+Yeah, actually read in, read into Vessel Partners. They have some great, great write-ups like their blog and the writings on on patient design. Really, really good. They're really good. I'm I'm a big fan of them by the way, so.
+
+Spencer Wozniak
+ 1:23:20
+Spencer Wozniak  
+Yep.
+Spencer Wozniak  
+OK.
+Spencer Wozniak  
+OK, yeah, yeah. So we can, we can nerd out on both the front end and the back end and the problem and we can all nerd out in our own specific thing.
+LC
+Luis Cisneros
+ 1:23:35
+Luis Cisneros  
+Perfect.
+Luis Cisneros  
+Yeah, exactly, guys.
+
+Spencer Wozniak
+ 1:23:40
+Spencer Wozniak  
+And it should all come together beautifully. So yeah, yeah, let's, uh, we've got a transcript of the conversation. I'm gonna try and put together just a short. I usually just get a short like notes written up after. So I'll have that. I mean, I think it's gonna be edited after Luis sends over his report and what he's.
+JS
+JT Sohlot
+ 1:23:40
+JT Sohlot  
+Cool, yeah.
+LC
+Luis Cisneros
+ 1:23:51
+Luis Cisneros  
+Yep.
+
+Spencer Wozniak
+ 1:23:58
+Spencer Wozniak  
+Thinking and I think what he's gonna kind of find is gonna guide the direction of where we're going with the front end and back end. I don't know how you guys typically communicate is this Teams is good. Do we have like a?
+LC
+Luis Cisneros
+ 1:24:04
+Luis Cisneros  
+OK.
+Luis Cisneros  
+Teams is good and we also send messages, so let's do this. We'll send a group message tomorrow. What time do you guys? Do you guys wanna meet up later in the evening again tomorrow to work on this? But by what time do you guys wanna have the report done? Is the real question for me 'cause I wanna get.
+
+Spencer Wozniak
+ 1:24:14
+Spencer Wozniak  
+Yeah.
+JS
+JT Sohlot
+ 1:24:22
+JT Sohlot  
+Uh, no.
+JT Sohlot  
+As soon as you send the report after that, let's like me and Spencer, let's like just start working on it a bit and after that maybe later during the day at the at the same time we can have a call or something like that so that we.
+LC
+Luis Cisneros
+ 1:24:35
+Luis Cisneros  
+Perfect.
+Luis Cisneros  
+Perfect.
+JS
+JT Sohlot
+ 1:24:44
+JT Sohlot  
+Uh, basically there will be a progress from all three of us, not just uh uh you, Louis.
+
+Spencer Wozniak
+ 1:24:49
+Spencer Wozniak  
+Yeah, yeah.
+LC
+Luis Cisneros
+ 1:24:51
+Luis Cisneros  
+Perfect. So I'll have the report ready at the latest by 10:00 AM in the morning tomorrow. I'll send it both via e-mail and through Teams to you guys, OK? And then I'll send a quick text when the report is sent so that you guys can get started on what you need to get started and then you guys guide me as to what I was.
+
+Spencer Wozniak
+ 1:24:57
+Spencer Wozniak  
+OK.
+Spencer Wozniak  
+Perfect.
+JS
+JT Sohlot
+ 1:25:02
+JT Sohlot  
+OK.
+LC
+Luis Cisneros
+ 1:25:11
+Luis Cisneros  
+You might need any further research or any further guidance as to what you know you may need to, you know, some some insight into something that, hey, Luis, we, you know, this is great and stuff, but hey, there's this missing gap here that we would want to know. Can you find an answer for this? And that's what I'll do.
+JS
+JT Sohlot
+ 1:25:27
+JT Sohlot  
+Yeah, also uh share uh the uh meet meeting recording uh with all these.
+
+Spencer Wozniak
+ 1:25:28
+Spencer Wozniak  
+Okay.
+Spencer Wozniak  
+Yeah, I I I will. I will share it.
+LC
+Luis Cisneros
+ 1:25:36
+Luis Cisneros  
+Yeah, I think it's also gonna be shared. Yeah, it gets sent automatically, but yeah.
+
+Spencer Wozniak
+ 1:25:37
+Spencer Wozniak  
+I think it should be sent to all of us, you know.
+Spencer Wozniak  
+Yeah.
+Spencer Wozniak  
+Yeah. All right. All right.
+JS
+JT Sohlot
+ 1:25:43
+JT Sohlot  
+OK, sure.
+LC
+Luis Cisneros
+ 1:25:44
+Luis Cisneros  
+OK guys, so I'll talk to you guys tomorrow and I'll send a report in by by 11:00 AM tomorrow, OK?
+
+Spencer Wozniak
+ 1:25:49
+Spencer Wozniak  
+All right, let's go, guys. I'm excited. Let's go. Come on. Try to lock in. Lock in in.
+LC
+Luis Cisneros
+ 1:25:51
+Luis Cisneros  
+Let's go. **** yeah. Let's win, bro. Hey, yo, I think it's like $5000 between the three of us. So, you know, it ain't much, but it's something.
+JS
+JT Sohlot
+ 1:26:04
+JT Sohlot  
+My second San Diego trip. My second San Diego trip.
+LC
+Luis Cisneros
+ 1:26:09
+Luis Cisneros  
+Exactly. Alright guys, I'll talk to you tomorrow. Let me get started on this stuff.
+JS
+JT Sohlot
+ 1:26:10
+JT Sohlot  
+Yeah.
+JT Sohlot  
+Yes, Sir. Bye, bye.
+LC
+Luis Cisneros
+ 1:26:15
+Luis Cisneros  
+Have a beautiful night. Bye bye.
