@@ -108,7 +108,7 @@ Show one patient:
 
 ---
 
-> “Do you not know that the runners in the stadium all run in the race, but only one wins the prize? **Run so as to win.**”
-> — 1 Corinthians 9:24
+\*Do you not know that the runners in the stadium all run in the race, but only one wins the prize? **Run so as to win.\***
+— 1 Corinthians 9:24
 
 ---
