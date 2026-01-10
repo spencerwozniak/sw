@@ -25,32 +25,50 @@ type LinkProps = {
 export const mdxComponents = {
   // Headings
   h1: ({ children, ...props }: HeadingProps) => (
-    <h1 className="text-2xl font-extrabold my-6 text-black dark:text-white" {...props}>
+    <h1
+      className="text-2xl font-extrabold my-6 text-black dark:text-white"
+      {...props}
+    >
       {children}
     </h1>
   ),
   h2: ({ children, ...props }: HeadingProps) => (
-    <h2 className="text-xl font-bold my-5 text-black dark:text-white" {...props}>
+    <h2
+      className="text-xl font-bold my-5 text-black dark:text-white"
+      {...props}
+    >
       {children}
     </h2>
   ),
   h3: ({ children, ...props }: HeadingProps) => (
-    <h3 className="text-lg font-semibold my-4 text-black dark:text-white" {...props}>
+    <h3
+      className="text-lg font-semibold my-4 text-black dark:text-white"
+      {...props}
+    >
       {children}
     </h3>
   ),
   h4: ({ children, ...props }: HeadingProps) => (
-    <h4 className="text-lg font-semibold my-3 text-black dark:text-white" {...props}>
+    <h4
+      className="text-lg font-semibold my-3 text-black dark:text-white"
+      {...props}
+    >
       {children}
     </h4>
   ),
   h5: ({ children, ...props }: HeadingProps) => (
-    <h5 className="text-lg font-medium my-2 text-black dark:text-white" {...props}>
+    <h5
+      className="text-lg font-medium my-2 text-black dark:text-white"
+      {...props}
+    >
       {children}
     </h5>
   ),
   h6: ({ children, ...props }: HeadingProps) => (
-    <h6 className="text-md font-medium my-1 text-black dark:text-white" {...props}>
+    <h6
+      className="text-md font-medium my-1 text-black dark:text-white"
+      {...props}
+    >
       {children}
     </h6>
   ),
@@ -93,12 +111,18 @@ export const mdxComponents = {
 
   // Lists
   ul: ({ children, ...props }: MDXComponentProps) => (
-    <ul className="list-disc list-inside mb-4 text-neutral-200" {...props}>
+    <ul
+      className="list-disc list-inside mb-4 text-neutral-800 dark:text-neutral-200"
+      {...props}
+    >
       {children}
     </ul>
   ),
   ol: ({ children, ...props }: MDXComponentProps) => (
-    <ol className="list-decimal list-inside mb-4 text-neutral-800 dark:text-neutral-200" {...props}>
+    <ol
+      className="list-decimal list-inside mb-4 text-neutral-800 dark:text-neutral-200"
+      {...props}
+    >
       {children}
     </ol>
   ),
@@ -120,13 +144,16 @@ export const mdxComponents = {
 
   // Thematic break
   hr: (props: MDXComponentProps) => (
-    <hr className="my-6 border-neutral-400 dark:border-neutral-600" {...props} />
+    <hr
+      className="my-6 border-neutral-400 dark:border-neutral-600"
+      {...props}
+    />
   ),
 
   // Links
   a: ({ href, children, ...props }: LinkProps) => (
     <a
-      className="text-blue-400 underline hover:text-blue-600"
+      className="text-blue-400 !hover:underline hover:text-blue-600"
       href={href}
       target="_blank"
       rel="noopener noreferrer"
