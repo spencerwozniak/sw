@@ -5,7 +5,7 @@
 
 ---
 
-**Hackathon Link**: https://nexora-hacks-2026.devpost.com/
+[**Hackathon Link**](https://nexora-hacks-2026.devpost.com/)
 
 ---
 
