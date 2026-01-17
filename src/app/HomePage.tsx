@@ -66,16 +66,13 @@ export default function HomePage() {
             to found{" "}
             <a href="https://www.serelora.com/" target="_blank">
               <strong>Serelora</strong>
-            </a>
-            , a B2B software studio dedicated to creating systems that empower
-            people to spend less time fighting technology and more time serving
-            others.
+            </a>.
           </p>
 
           <div className="flex flex-wrap md:flex-nowrap justify-center md:justify-start md:gap-5">
             <NavButton
               to="https://www.serelora.com/"
-              label="My Work"
+              label="My Startup"
               className="!text-[14px] !mt-5 md:!w-40"
             />
             <NavButton
