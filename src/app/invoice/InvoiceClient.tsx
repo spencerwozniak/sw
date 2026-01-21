@@ -4,8 +4,6 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useTheme } from "@/contexts/ThemeContext";
-import NavButton from "@/components/NavButton";
 
 import { MdOutlineFileDownload, MdOutlineAttachMoney } from "react-icons/md";
 
@@ -35,7 +33,6 @@ function InvoiceButtons({ invoice }) {
 }
 
 export default function InvoiceClient() {
-  const { theme } = useTheme();
   const [invoice, setInvoice] = useState(null);
   const [loading, setLoading] = useState(true);
   const params = useSearchParams();
