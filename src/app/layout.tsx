@@ -3,7 +3,7 @@
 import "./globals.css";
 import { Lato, Lora } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
-import CalendlyButton from "@/components/CalendlyButton";
+import CalendlyButton from "@/app/contact/_components/CalendlyButton";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 
 import ClientLayoutWrapper from "./ClientLayoutWrapper";
@@ -75,15 +75,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${lato.variable} ${lora.variable}`}>
+    <html lang="en" className={`${lato.variable} ${lora.variable} dark`}>
       <head>
-        {/* Set initial theme class before React hydrates to prevent flash */}
+        {/* Always set dark mode before React hydrates to prevent flash */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
-                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                document.documentElement.classList.toggle('dark', prefersDark);
+                document.documentElement.classList.add('dark');
               })();
             `,
           }}
@@ -148,7 +147,6 @@ export default function RootLayout({
       <body>
         <ThemeProvider>
           <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
-          <CalendlyButton />
         </ThemeProvider>
       </body>
 

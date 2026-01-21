@@ -1,0 +1,87 @@
+Product development, product management for over 22 years, about 15 years in financial services. And then in 2012, I pivoted to healthcare and have worked for City of Hope and a startup that they had, Access Hope. I work for Conifer Health, which is a division of tenant. And then I've been advising some startups.
+
+But now I'm really focused on trying to build out my consulting practice on my own and then I've got a whole set of other potential partners that I can bring in depending on kind of the size of the project. But my kind of my focus is on the front end of product innovations or product strategy really doing some of that market research identifying and connecting the business need and putting together a
+
+Product strategy and helping organizations define like what the feature should be and assembling a team and trying to get to an MVP and even a production ready application so that that's what I'm. Hoping to do through the consulting practice and specifically in health care, digital health, and I'm looking to would really like to continue working with organizations that.
+
+that have an interest in health equity and so in whatever they're building, or at least have that as a value, as a part of their business. Yeah, so tell me about you and what you're up to.
+
+Okay.
+
+Right. So, um, where did where did you graduate from.
+
+Okay, and you decided to pivot from medical school and move into the software space so. Are you actually coding? Like, did you end up getting a computer science degree?
+
+Okay.
+
+Right. Well, awesome. I mean, it's often, I think these days in particular, not as much the credentials, but what you've actually done. That's awesome. Yeah, I'm impressed that you're selling. You're selling your products and you're consulting to these healthcare companies.
+
+For me, that's been the most challenging part. I've never considered myself as a good salesperson, and so I'm always challenged in that space, right? I can do the work. I can put together products. Teams, but kind of selling the services on my own. That's that's where I've always been challenged. So with with your, your development. Are you, how much are you doing in terms of vibe coding.
+
+Yeah.
+
+Okay.
+
+And what's been your favorite tool so far for that?
+
+And with ChatGPT, so ChatGPT doesn't give you the infrastructure to like set up and run an application, right? It gives you the prompts to build it. And so then, how are you then building an application? off of the prompts that you're getting from CHAT GPT.
+
+OK, OK, cool so I'm curious what you think about this. This one idea that I'm playing around with so. I have run into physicians particularly, not as many nurses, but I think there's some out there as well, but particularly physicians that Want to get out of, you know, seeing patients or they've got some sort of entrepreneurial idea and they they've got a product idea that they want to build out and so I'm
+
+Considering building out like a vibe coding workshop weekend, where I would walk up like a small cohort of physicians or clinicians, physicians and nurses. That have a product idea, a digital product idea, and walk them through how to think about strategy for their product. How to think about what are the core features that.
+
+Actually solve a real business problem that they see and then using one of the by coding tools to actually have them build out an initial prototype that they can. Use to validate to further validate their idea, maybe present to some folks for potential partnership or investment, but it's really to help them validate the idea and prove that.
+
+It's worth investing in and building out. What do you think of something like that? Do you think that would be valuable? Is that something that you... If you have come across in your conversations with physicians that there is an interest that you have seen, excuse me.
+
+What do you think of that idea?
+
+Yes.
+
+Right.
+
+Yep.
+
+Yeah.
+
+Yeah, yeah. So like working with you, it's kind of done for you. They give you the idea, they pay you to build out a prototype for them, and then And then they figure out what to do with it. Some of them are gonna show it to people and it's gonna just kind of flop and the idea dies, but others probably are gonna get some traction. And then maybe at that point they'll invest in.
+
+Having that built out more. Okay. All right. So that's good. Would a workshop like that be interesting to you? Because you've been using Chat GPT. Um, I actually would build out the workshop using one of the specific tools. So, you know, have you heard of tools like Bolt or Lovable or Base44?
+
+Okay, so those are, well, now that you have, I'm sure you're going to take a look at them, but I would strongly. Bolt.new I think it's bolt.new is the domain. The other one is lovable. Lovable is the one that. I think is the most popular that there's the most chatter about there's more. There's a lot of people that are using it. I, I found that.
+
+Bolt has been, for me, kind of easier to use than Lovable. And then Bass 44, I think, is kind of the newest one. That I'm really excited about that I've been able to build some stuff. And so I'm not an engineer. Right. I'm a product and strategy guy. And so I've always had to rely on having an engineering team.
+
+to build out anything for me, any product idea. You know, when I've been inside of a company, I always have to lobby for resources from the engineering team. To build out something and then as an independent person, then I've always had to figure out how to get somebody to buy into my idea and even in one case, I gave somebody equity in order to build out a product for me.
+
+Other times I've paid a little bit, but I've always been constrained by not being an engineer. But with these tools, more than just using chatGBT, I think I'm able to get much further than I ever have before as a non-engineer person.
+
+Yes.
+
+Yeah, they're, they're, they're pretty functional and what what is great and I think what's what you're going to be excited about is that it. Basically, most of them, not all of them, but they have all the infrastructure all built in, so you just go to one place and set everything up.
+
+And it's all, it's sort of all worked seamlessly, whereas with the way you're doing it, you're having to kind of piecemeal different applications and hosting and databases. and connect everything. So it's a little bit more work. I think you're gonna be impressed. Now, the thing that I think that is important to know is that it doesn't feel like any of these at this point are ready for like prime time commercial ready applications.
+
+And so you're able to build that based on what you're doing. It sounds like you're able to build commercial-ready applications for your clients, and that's awesome. It does. I don't think you're able to do that with these yet, but you can get really far.
+
+Um, it's the most complex one. So, um, so I haven't looked at these and I, I kind of have been distracted for the past month. month after playing with them. So, inkquest.app. I think that one was a little complex behind the scenes, and it's a writing app. It's like a writing companion app.
+
+Some of the stuff that I did there is a little bit more complex than I've done elsewhere. I'm playing around with more health care stuff. One of the issues with healthcare is, as you know, with HIPAA, I don't think these are not ready for primetime in terms of being HIPAA compliant, but I've been doing some more research about how possibly to get.
+
+them to be HIPAA compliant. I'm not there yet, but I think it might be possible. But certainly for just MVPs and for validation, They're very doable because, you know, you just use anonymized data to do that, and they're very usable that way. Heavy processing, sort of complex processing behind the scenes, algorithms, that sort of stuff. I haven't done that yet, so I'm not sure how well they can do that.
+
+But you're gonna be surprised at what's possible and just how quickly you're able to do that. I mean.
+
+Exactly. Yeah, yeah.
+
+Yeah, yeah. Check it out. And so, I think maybe we stay in touch because if something comes up where I've got a potential client opportunity, that wants to do something more than an MVP and wants to build out something commercial, you know, commercially ready, then maybe we can partner on that and you can build that out.
+
+Have you built out or have you kind of assembled folks that you can go to to help with coding and engineering that's maybe beyond what your capabilities are?
+
+Okay. Okay, cool. All right, well, let's stay in touch and then if there's anything that comes across your desk where it's maybe more of the strategy side that you want to chat about or partner on, you know, maybe you can connect with me on that.
+
+Okay, cool. Well, I'm really impressed with what you're able to do with ChatGPT. That's more than what I've ever done, so congrats on that.
+
+Bye bye.
+
+Okay. Okay, super. Yeah, once I have something more fully flushed out, maybe I'll run it by you and see what you think. Okay, cool. Well, good talking to you. All right, take care.

@@ -23,6 +23,7 @@ const Navigation: React.FC = () => {
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const handleRandomEssay = () => {
     const randomIndex = Math.floor(Math.random() * articles.length);
@@ -41,9 +42,19 @@ const Navigation: React.FC = () => {
       if (!isNowMobile) setIsSubMenuOpen(false);
     };
 
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      setIsScrolled(scrollY > 10);
+    };
+
     handleResize(); // Set initial value after hydration
+    handleScroll(); // Set initial scroll state
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   const toggleSubMenu = () => {
@@ -56,7 +67,7 @@ const Navigation: React.FC = () => {
   }
 
   return (
-    <header className={styles.navigationHeader}>
+    <header className={`${styles.navigationHeader} transition-[backdrop-filter] duration-300 ${isScrolled ? '!backdrop-blur-xs bg-white/[0.01] dark:bg-black/[0.01]' : '!backdrop-blur-none'}`}>
       <div className={styles.navContainer}>
         <div className={styles.headerLeft}>
           {isMobile && (
@@ -115,25 +126,25 @@ const Navigation: React.FC = () => {
         {isMobile && (
           <div className={`${styles.dropdownMenu} ${isSubMenuOpen ? styles.open : styles.closed}`}>
             <div className={styles.dropdownInner}>
-            {navigationData.map((item, index) => (
-              <div key={index} className={styles.dropdownSectionWrapper}>
-              <section className={styles.navColumn}>
-                <Link href={item.link} className={styles.navColumnHeading}>
-                  <h2 className='text-4xl'>{item.label}</h2>
-                </Link>
-                {item.submenu && (
-                  <div className={styles.mobileSubmenu}>
-                    {item.submenu.map((subItem, subIndex) => (
-                      <Link key={subIndex} href={subItem.link} className={styles.mobileSubmenuLink}>
-                        {subItem.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </section>
-              {index < navigationData.length - 1 && <hr className={styles.navDivider} />}
-            </div>
-            ))}
+              {navigationData.map((item, index) => (
+                <div key={index} className={styles.dropdownSectionWrapper}>
+                  <section className={styles.navColumn}>
+                    <Link href={item.link} className={styles.navColumnHeading}>
+                      <h2 className='text-4xl'>{item.label}</h2>
+                    </Link>
+                    {item.submenu && (
+                      <div className={styles.mobileSubmenu}>
+                        {item.submenu.map((subItem, subIndex) => (
+                          <Link key={subIndex} href={subItem.link} className={styles.mobileSubmenuLink}>
+                            {subItem.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </section>
+                  {index < navigationData.length - 1 && <hr className={styles.navDivider} />}
+                </div>
+              ))}
             </div>
             <SocialIcons />
           </div>

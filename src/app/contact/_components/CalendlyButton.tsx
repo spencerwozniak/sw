@@ -12,7 +12,11 @@ declare global {
   }
 }
 
-export default function CalendlyButton() {
+interface CalendlyButtonProps {
+  variant?: "floating" | "inline";
+}
+
+export default function CalendlyButton({ variant = "floating" }: CalendlyButtonProps) {
   useEffect(() => {
     const script = document.createElement("script");
     script.src = "https://assets.calendly.com/assets/external/widget.js";
@@ -27,8 +31,12 @@ export default function CalendlyButton() {
       url: "https://calendly.com/hey-spencerwozniak/meeting?background_color=000000&text_color=ffffff&primary_color=ded4c1",
     });
 
+  const buttonClass = variant === "inline" 
+    ? `${styles.navButton} ${styles.inline}` 
+    : styles.navButton;
+
   return (
-    <button onClick={openCalendly} className={styles.navButton}>
+    <button onClick={openCalendly} className={buttonClass}>
       Schedule a Meeting
     </button>
   );

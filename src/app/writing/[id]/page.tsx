@@ -1,9 +1,8 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import Image from "next/image";
 import Chatbot from "@/components/Chatbot";
 import articles from "@/data/articles.json";
-import styles from "./page.module.css";
+import AnimatedArticleContent from "./AnimatedArticleContent";
 
 interface Article {
   id: string;
@@ -80,66 +79,13 @@ export default function ArticlePage({ params }: Props) {
   if (!article) return notFound();
 
   return (
-    <div className="flex flex-col bg-[#ffffff] dark:bg-[#0a0a0a] text-[#1a1a1a] dark:text-[#eaeaea] transition-colors duration-300">
-      <main className="w-full max-w-6xl mx-auto mt-16 mb-5">
-        <article className="px-6 xl:border-t xl:border-b xl:border-[#ccc] dark:xl:border-[#333] xl:p-10">
-          <header className="flex flex-col items-start">
-            <h1 className="text-3xl font-bold text-black dark:text-white mb-4">
-              {article.title}
-            </h1>
-            <p className="text-[1.1rem] text-[#666] dark:text-[#bbb] mb-4">
-              {article.name}
-            </p>
-            <p className="text-[1.1rem] text-[#555] dark:text-[#8d8d8d] mb-0">
-              {article.topic} | {article.date}
-            </p>
-          </header>
-
-          <section className="text-black dark:text-white text-[1.125rem] leading-8 font-heading">
-            <div className="block w-full overflow-hidden relative">
-              {article.image.length > 0 && (
-                <div className="float-left mr-6 my-6 text-left leading-tight">
-                  <Image
-                    src={`/articles/${article.image[0]}`}
-                    alt={article.image[1]}
-                    width={300}
-                    height={200}
-                    className="rounded-xl shadow-md w-full h-auto object-cover"
-                  />
-                  <p className="text-sm text-[#666] dark:text-[#aaa] mt-1.5 leading-snug">
-                    {article.image[1]}
-                  </p>
-                </div>
-              )}
-              <div
-                className={`mt-4 ${styles.articleContent}`}
-                dangerouslySetInnerHTML={{ __html: article.contents }}
-              />
-              <div className="clear-both" />
-            </div>
-          </section>
-        </article>
-
-        <div className="flex justify-between mt-4 px-6">
-          {prevArticle && (
-            <a
-              href={`/writing/${prevArticle.id}`}
-              className="text-base no-underline hover:underline text-black dark:text-white"
-            >
-              ← Previous
-            </a>
-          )}
-          {nextArticle && (
-            <a
-              href={`/writing/${nextArticle.id}`}
-              className="text-base no-underline hover:underline ml-auto text-black dark:text-white"
-            >
-              Next →
-            </a>
-          )}
-        </div>
-      </main>
+    <>
+      <AnimatedArticleContent
+        article={article}
+        prevArticle={prevArticle}
+        nextArticle={nextArticle}
+      />
       <Chatbot />
-    </div>
+    </>
   );
 }

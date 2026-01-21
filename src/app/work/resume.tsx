@@ -19,6 +19,7 @@ import {
   FaStethoscope,
   FaCogs,
   FaChartBar,
+  FaBriefcase,
 } from 'react-icons/fa';
 import Link from 'next/link';
 import React from 'react';
@@ -31,27 +32,45 @@ const STACK: StackSet[] = [
   {
     title: 'Frontend',
     items: [
-      'Next.js',
-      'React',
       'TypeScript',
+      'JavaScript',
+      'React',
+      'React Native + Expo (iOS, Android, Web)',
+      'Next.js',
+      'NativeWind (Tailwind CSS for React Native)',
+      'React Native SVG',
+      'React Native Reanimated',
+      'Custom navigation systems',
+      'Flow-based handlers',
+      'Platform-specific optimizations',
       'Tailwind CSS',
+      'HTML',
+      'CSS',
     ],
   },
   {
     title: 'Backend & Data',
     items: [
-      'Node.js', 
-      'Python', 
-      'Flask', 
-      'Prisma', 
-      'Postgres', 
-      'REST APIs'],
+      'Node.js',
+      'Python 3.9+',
+      'Django',
+      'Flask',
+      'FastAPI (async REST endpoints)',
+      'Pydantic (schema validation)',
+      'JSON file-based storage',
+      'In-memory TTL cache',
+      'Modular service architecture',
+      'Uvicorn ASGI server',
+      'Prisma',
+      'PostgreSQL',
+      'REST APIs',
+    ],
   },
   {
     title: 'Auth & Payments',
     items: [
-      'Clerk / Auth.js', 
-      'OAuth2 / OIDC', 
+      'Clerk / Auth.js',
+      'OAuth2 / OIDC',
       'Stripe (subs, invoicing)'
     ],
   },
@@ -59,6 +78,9 @@ const STACK: StackSet[] = [
     title: 'AI / ML',
     items: [
       'PyTorch',
+      'OpenAI',
+      'R',
+      'Jupyter',
       'GNNs',
       'CNNs',
       'Transformers',
@@ -70,7 +92,12 @@ const STACK: StackSet[] = [
   {
     title: 'Agentic AI',
     items: [
-      'OpenAI API',
+      'OpenAI API (real-time streaming, SSE)',
+      'OpenAI Vision API',
+      'Structured context aggregation',
+      'Guardrails & hallucination prevention',
+      'Explainable, guideline-based responses',
+      'Async streaming (AWS load balancer optimized)',
       'Multi-agent orchestration',
       'Tool / function calling',
       'Streaming UI',
@@ -90,16 +117,31 @@ const STACK: StackSet[] = [
   {
     title: 'Apps & Infra',
     items: [
+      'Docker',
+      'Linux',
+      'Vercel',
+      'AWS EC2',
+      'Nginx (reverse proxy)',
+      'Systemd services',
+      'Horizontal scaling',
+      'Load balancers',
+      'CloudFlare',
+      'Git',
+      'GitHub',
+      'pnpm',
+      'Vim',
+      'VSCode',
       'Electron desktop wrapper',
-      'Vercel deploys',
-      'Cloudflare DNS',
       'Caching & code-splitting',
       'Sitemap / robots config',
     ],
   },
   {
-    title: 'Content, SEO & Analytics',
+    title: 'Design & Content',
     items: [
+      'Figma',
+      'Photoshop',
+      'Markdown',
       'SEO (local + technical)',
       'OpenGraph / metadata',
       'Google Docs API ingestion',
@@ -118,7 +160,7 @@ const STACK_ICONS: Record<string, React.ReactNode> = {
   'Agentic AI': <FaRobot className="h-5 w-5" />,
   'Healthcare': <FaStethoscope className="h-5 w-5" />,
   'Apps & Infra': <FaCogs className="h-5 w-5" />,
-  'Content, SEO & Analytics': <FaServer className="h-5 w-5" />,
+  'Design & Content': <FaServer className="h-5 w-5" />,
 };
 
 const STACK_STYLES: Record<
@@ -132,7 +174,7 @@ const STACK_STYLES: Record<
   'Agentic AI': { badgeBg: 'bg-amber-900/30', badgeText: 'text-amber-300', ring: 'ring-amber-900/40' },
   'Healthcare': { badgeBg: 'bg-rose-900/30', badgeText: 'text-rose-300', ring: 'ring-rose-900/40' },
   'Apps & Infra': { badgeBg: 'bg-purple-900/30', badgeText: 'text-purple-300', ring: 'ring-purple-900/40' },
-  'Content, SEO & Analytics': { badgeBg: 'bg-cyan-900/30', badgeText: 'text-cyan-300', ring: 'ring-cyan-900/40' },
+  'Design & Content': { badgeBg: 'bg-cyan-900/30', badgeText: 'text-cyan-300', ring: 'ring-cyan-900/40' },
 };
 
 function StackCard({ title, items }: { title: string; items: string[] }) {
@@ -223,7 +265,7 @@ function Block({
   bullets,
   extras,
 }: {
-  icon: React.ComponentType;
+  icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
   header: string;
   org?: React.ReactNode;
   dates?: string;
@@ -231,7 +273,7 @@ function Block({
   extras?: { heading: string; items: React.ReactNode[] }[];
 }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-neutral-900/40 p-5">
+    <div className="rounded-2xl border border-white/10 bg-white/[0.035] p-5 hover:bg-white/[0.05] transition">
       <h3 className="text-lg font-semibold text-gray-100 mb-2 flex items-center">
         <Icon className="mr-3 text-2xl" style={{ color: ACCENT }} />
         {header}
@@ -251,6 +293,69 @@ function Block({
 
 /* ---------- Static content (copied & condensed from your resume page) ---------- */
 
+const EXPERIENCE = [
+  {
+    icon: FaBriefcase,
+    header: 'Co-Founder & CTO',
+    org: (
+      <Link href="https://www.serelora.com" target="_blank" className="underline underline-offset-2 hover:text-gray-300">
+        <strong>Serelora | San Diego, CA</strong>
+      </Link>
+    ),
+    dates: 'Jun 2025 – Present',
+    bullets: [
+      <>Founded and led a healthcare SaaS company, initially delivering B2B CRM and workflow automation tools before pivoting to AI-powered EHR systems after identifying clinical documentation and interoperability gaps through customer outreach.</>,
+      <>Designed an FHIR-native, AI-first EHR architecture emphasizing traceability and clinician trust.</>,
+      <>Modeled longitudinal patient data in PostgreSQL using FHIR-aligned schemas, enabling structured relationships across clinical history, documentation, and operational workflows.</>,
+      <>Architected a manager-orchestrated system of domain-specific clinical AI agents, dynamically routing requests to labs, medications, and documents agents with scoped retrieval and context awareness.</>,
+      <>Designed agent workflows to balance explainability, performance, and clinical constraints.</>,
+      <>Implemented HIPAA-aligned technical safeguards, including RBAC, audit logging, access boundaries.</>,
+      <>Worked extensively with incomplete, inconsistent, and multi-source clinical data, designing ingestion and reconciliation logic resilient to real-world documentation variability.</>,
+      <>Worked with healthcare organizations to translate workflows into concrete product requirements.</>,
+      <>Led ongoing rollout and support with clients, coordinating calls and check-ins to ensure systems functioned reliably in live environments and adapted rapidly as needs evolved.</>,
+      <>Led go-to-market efforts including outreach through cold email, LinkedIn, and in-person meetings; as well as discovery calls, on-site demos, and deal negotiations with healthcare organizations.</>,
+    ],
+  },
+  {
+    icon: FaChalkboardTeacher,
+    header: 'Founder & Tutor',
+    org: (
+      <Link href="https://www.wozprep.org" target="_blank" className="underline underline-offset-2 hover:text-gray-300">
+        <strong>WozPrep | San Diego, CA</strong>
+      </Link>
+    ),
+    dates: 'Nov 2024 – Dec 2025',
+    bullets: [
+      <>Founded and operated a private tutoring service supported by a custom-built web application.</>,
+      <>Improved student outcomes by up to 50 percentile points through individualized tutoring.</>,
+      <>Applied Socratic method and positive psychology to help critical thinking, motivation, and confidence.</>,
+      <>Conducted 1-on-1 tutoring sessions focused on test strategy, critical thinking, and content mastery.</>,
+      <>Applied the Socratic method to foster deeper student engagement and independent problem-solving.</>,
+      <>Integrated principles of positive psychology to build student confidence and promote motivation.</>,
+      <>Created personalized study plans based on student strengths, weaknesses, and time constraints.</>,
+      <>Utilized Next.js, TypeScript, and React to develop an interactive website with modern UI/UX design to manage client inquiries, promote services, and host content.</>,
+      <>Built a web-based portal for MCAT practice tests and question banks, featuring original questions tailored to AAMC-style reasoning and pacing.</>,
+      <>Leveraged search engine optimization to increase visibility through online outreach.</>,
+    ],
+  },
+  {
+    icon: FaBriefcase,
+    header: 'Co-Founder & Lead Engineer',
+    org: <strong>Clinical Training Platform for IMGs | Rochester, MI</strong>,
+    dates: 'May 2023 – Aug 2023',
+    bullets: [
+      <>Co-founded and led engineering for a clinical training platform preparing international medical graduates (IMGs) for U.S. hospital rotations and residency.</>,
+      <>Built a full-stack web application delivering case-based clinical education, SOAP note training, and AI-assisted feedback.</>,
+      <>Built a React + TypeScript frontend (Vite) supporting authenticated users, course purchase flows, interactive case navigation, video-based learning, and real-time note-taking.</>,
+      <>Developed a Python (Flask) backend handling user authentication, course progress tracking, session management, and secure data persistence.</>,
+      <>Built an AI-powered tutor to provide context-aware feedback on HPI writing and clinical reasoning.</>,
+      <>Designed prompt-engineering workflows and integrated text-to-speech pipelines for AI feedback delivery, enabling multimodal learning experiences.</>,
+      <>Collaborated with physician educators to translate real hospital cases into interactive modules.</>,
+      <>Supported early pilot deployments with medical students and IMG cohorts; platform used for demonstrations to hospital leadership and international partners.</>,
+    ],
+  },
+];
+
 const EDUCATION = [
   {
     icon: FaGraduationCap,
@@ -266,18 +371,11 @@ const CLINICAL = [
     icon: FaHandsHelping,
     header: 'Applied Behavior Analysis Therapist',
     org: <strong>Coyne and Associates | San Diego, CA</strong>,
-    dates: 'Aug 2024 – Present',
+    dates: 'Aug 2024 – Dec 2025',
     bullets: [
-      <>Conducted individualized therapy sessions to help children diagnosed with autism spectrum disorder and other developmental disabilities using evidence-based ABA techniques.</>,
-      <>Implemented targeted interventions to develop functional communication for nonverbal children.</>,
-      <>Taught emotional regulation techniques to reduce negative emotions and challenging behaviors.</>,
-      <>Supported development of gross motor skills through structured play and movement-based activities.</>,
-      <>Collected and analyzed detailed session data in an electronic health record to track client progress, analyze behavioral trends, and refine interventions.</>,
-      <>Collaborated with caregivers to promote consistency across environments, ensure treatment compliance, and maintain behavioral improvements.</>,
-      <>Conducted hands-on training for new ABA therapists using a structured four-phase model.</>,
-      <>Delivered constructive feedback to trainees on clinical performance, professionalism, and data accuracy.</>,
-      <>Collaborated with Regional Directors to monitor trainee progress and ensure adherence to protocols.</>,
-      <>Participated in trainer meetings and contributed to updates in training procedures and clinical standards.</>,
+      <>Conducted individualized therapy sessions with children diagnosed with developmental disabilities.</>,
+      <>Collected data in an EHR to track client progress, analyze behavioral trends, and refine interventions.</>,
+      <>Trained and supervised new therapists, providing structured feedback and performance evaluation.</>,
     ],
   },
   {
@@ -286,23 +384,27 @@ const CLINICAL = [
     org: <strong>Memorial Healthcare | Owosso, MI</strong>,
     dates: 'Jul 2023 – Aug 2024',
     bullets: [
-      <>Assisted several emergency and internal medicine physicians in the ED and ICU by documenting histories, exam findings, procedures, orders, and assessment & plans for up to 20 patients per shift.</>,
-      <>Collected preliminary patient histories and medication lists to improve physician efficiency.</>,
+      <>Documented ED and ICU encounters in MEDITECH for emergency and internal medicine physicians.</>,
+      <>Synthesized patient histories, labs, and assessments for up to 20 patients per shift.</>,
       <>Interpreted laboratory values to streamline documentation and highlight critical findings.</>,
       <>Reviewed and abstracted data from medical charts to support clinical decision-making.</>,
+      <>Coordinated with nursing staff to support unit operations.</>,
+      <>Assisted several emergency and internal medicine physicians in the ED and ICU by documenting histories, exam findings, procedures, orders, and assessment & plans for up to 20 patients per shift.</>,
+      <>Collected preliminary patient histories and medication lists to improve physician efficiency.</>,
       <>Collaborated with nursing staff to support unit operations, including restocking rooms and delivering comfort items and basic support to patients.</>,
     ],
   },
   {
     icon: FaHandHoldingHeart,
-    header: 'Hospital Volunteer',
+    header: 'Volunteer Staff',
     org: <strong>Sparrow Hospital | Lansing, MI</strong>,
     dates: 'Sep 2022 – Apr 2023',
     bullets: [
+      <>Supported nursing staff in an inpatient unit by providing basic care to up to 40 patients per shift.</>,
+      <>Measured vital signs, transported patients within the hospital, and observed diagnostic imaging exams.</>,
       <>Supported nursing staff in an inpatient unit by assisting with up to 40 patients per shift.</>,
       <>Answered patient call lights to provide timely assistance with comfort, mobility, and basic care needs.</>,
       <>Sat with patients who had no visitors, offering companionship, emotional support, and conversation during long or isolating hospital stays.</>,
-      <>Measured vital signs, transported patients within the hospital, and observed diagnostic imaging exams.</>,
     ],
   },
 ];
@@ -310,10 +412,15 @@ const CLINICAL = [
 const RESEARCH = [
   {
     icon: FaProjectDiagram,
-    header: 'Biochemistry Research Assistant',
-    org: <strong>Michigan State University | East Lansing, MI</strong>,
+    header: 'Research Assistant',
+    org: <strong>Biochemistry Department, Michigan State University | East Lansing, MI</strong>,
     dates: 'Sep 2020 – Apr 2025',
     bullets: [
+      <>Conducted multi-year research applying graph-based representations to model molecular systems.</>,
+      <>Developed and evaluated transformer-based graph neural networks (GNNs) to predict molecular properties, leveraging message passing over local and global structural neighborhoods.</>,
+      <>Built data pipelines in Python and C++ to transform raw molecular dynamics outputs into graph-structured datasets suitable for analysis and training models.</>,
+      <>Curated, validated, and maintained large datasets for training and benchmarking AI models.</>,
+      <>Collaborated with interdisciplinary teams to interpret results and refine modeling assumptions.</>,
       <>Assisted in study startup activities and research protocol design under Dr. Michael Feig.</>,
       <>Utilized Python, C++, Bash, and Excel to conduct statistical analyses, verify simulation accuracy, and refine artificial intelligence (AI) models to optimize performance.</>,
       <>Developed AI models including convolutional and graph neural networks, and transformers.</>,
@@ -324,6 +431,24 @@ const RESEARCH = [
       {
         heading: 'Publications',
         items: [
+          <>
+            <a
+              href="https://doi.org/10.1021/acs.jctc.4c01682"
+              target="_blank"
+              className="underline underline-offset-2 hover:text-gray-300"
+            >
+              Wozniak S, Janson G, Feig M. Accurate Predictions of Molecular Properties of Proteins via Graph Neural Networks and Transfer Learning. <em>Journal of Chemical Theory and Computation</em>. 2025.
+            </a>
+          </>,
+          <>
+            <a
+              href="https://doi.org/10.1021/acs.jpcb.4c06877"
+              target="_blank"
+              className="underline underline-offset-2 hover:text-gray-300"
+            >
+              Wozniak S, Feig M. Diffusion and Viscosity in Mixed Protein Solutions. <em>The Journal of Physical Chemistry B</em>. 2024.
+            </a>
+          </>,
           <>
             <a
               href="https://doi.org/10.1021/acs.jctc.4c01682"
@@ -399,30 +524,6 @@ const RESEARCH = [
   },
 ];
 
-const TEACHING = [
-  {
-    icon: FaChalkboardTeacher,
-    header: 'Founder & Tutor',
-    org: (
-      <Link href="https://www.wozprep.org" target="_blank" className="underline underline-offset-2 hover:text-gray-300">
-        <strong>WozPrep | San Diego, CA</strong>
-      </Link>
-    ),
-    dates: 'Nov 2024 – Present',
-    bullets: [
-      <>Founded a private tutoring service with a custom-built website and student-facing tools.</>,
-      <>Conducted 1-on-1 tutoring sessions focused on test strategy, critical thinking, and content mastery.</>,
-      <>Applied the Socratic method to foster deeper student engagement and independent problem-solving.</>,
-      <>Integrated principles of positive psychology to build student confidence and promote motivation.</>,
-      <>Created personalized study plans based on student strengths, weaknesses, and time constraints.</>,
-      <>Helped students improve scores by up to 50 percentile points.</>,
-      <>Utilized Next.js, TypeScript, and React to develop an interactive website with modern UI/UX design to manage client inquiries, promote services, and host content.</>,
-      <>Built a web-based portal for MCAT practice tests and question banks, featuring original questions tailored to AAMC-style reasoning and pacing.</>,
-      <>Leveraged search engine optimization to increase visibility through online outreach.</>,
-    ],
-  },
-];
-
 const CERTS = [
   {
     icon: FaHeartbeat,
@@ -436,9 +537,11 @@ const AWARDS = [
   {
     icon: FaAward,
     header: 'Distinguished Freshman Scholarship',
-    org: <strong>MSU Honors College</strong>,
+    org: <strong>Michigan State University Honors College</strong>,
     dates: 'Issued Sep 2020',
-    bullets: [<>Full-tuition academic scholarship for outstanding achievement.</>],
+    bullets: [
+      <>Full-tuition academic scholarship awarded for outstanding academic achievement.</>,
+    ],
   },
 ];
 
@@ -460,19 +563,10 @@ export default function Resume() {
         </SectionCard>
       </SectionFrame>
 
-      {/* Education */}
-      <SectionFrame title="Education">
+      {/* Experience */}
+      <SectionFrame title="Experience">
         <div className="grid gap-4">
-          {EDUCATION.map((b, i) => (
-            <Block key={i} {...b} />
-          ))}
-        </div>
-      </SectionFrame>
-
-      {/* Clinical Experience */}
-      <SectionFrame title="Clinical Experience">
-        <div className="grid gap-4">
-          {CLINICAL.map((b, i) => (
+          {EXPERIENCE.map((b, i) => (
             <Block key={i} {...b} />
           ))}
         </div>
@@ -487,10 +581,19 @@ export default function Resume() {
         </div>
       </SectionFrame>
 
-      {/* Teaching */}
-      <SectionFrame title="Teaching Experience">
+      {/* Clinical Experience */}
+      <SectionFrame title="Clinical Experience">
         <div className="grid gap-4">
-          {TEACHING.map((b, i) => (
+          {CLINICAL.map((b, i) => (
+            <Block key={i} {...b} />
+          ))}
+        </div>
+      </SectionFrame>
+
+      {/* Education */}
+      <SectionFrame title="Education">
+        <div className="grid gap-4">
+          {EDUCATION.map((b, i) => (
             <Block key={i} {...b} />
           ))}
         </div>

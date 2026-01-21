@@ -6,17 +6,17 @@
   width: 20px;
   padding: 0 20px;
   text-align: center;
-  color: black;
-  background-color: white;
   font-size: 14px;
   font-weight: 600;
   line-height: 40px;
   cursor: pointer;
   overflow: hidden;
-  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  transition: all 0.3s ease, transform 0.2s ease;
   text-decoration: none;
-  border: 1.5px solid black; /* ✅ white outline */
-  border-radius: 0; /* ✅ non-rounded */
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.035);
   box-shadow: none;
 }
 
@@ -41,17 +41,11 @@
 }
 
 .navButton:hover {
-  opacity: 0.8;
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 .navButton:active {
   transform: scale(0.98);
-}
-
-:global(.dark) .navButton {
-  color: white;
-  background-color: black;
-  border: 1.5px solid white;
 }
 
 @media (max-width: 768px) {

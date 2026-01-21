@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import ArticleBrowser from './ArticleBrowser';
 import Chatbot from '@/components/Chatbot';
+import AnimatedWritingContent from './AnimatedWritingContent';
 
 export default function ArticlePage() {
   const publicationsPath = path.join(process.cwd(), 'src', 'data', 'publications.json');
@@ -13,12 +14,7 @@ export default function ArticlePage() {
 
   return (
     <>
-      <div className="">
-        <h1 className="text-center mx-auto mt-20 mb-5 text-4xl font-semibold text-black dark:text-white">Essays</h1>
-        <ArticleBrowser itemsPerPage={6} data={articles} />
-        <h1 className="text-center mx-auto mb-10 text-4xl font-semibold text-black dark:text-white">Publications</h1>
-        <ArticleBrowser itemsPerPage={6} data={publications} showSearchBar={false} />
-      </div>
+      <AnimatedWritingContent articles={articles} publications={publications} />
       <Chatbot />
     </>
   );

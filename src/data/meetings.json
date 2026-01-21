@@ -19,5 +19,40 @@
     "date": "2026-01-09",
     "time": "7:00 PM PST",
     "description": "Discuss Nodesian's participation in the Nexora hackathon."
+  },
+  {
+    "id": "stay-social-discovery-call",
+    "name": "Stay Social Discovery Call",
+    "date": "2025-09-02",
+    "time": "12:30 PM PDT",
+    "description": "Meet with Cathy to discuss the Stay Social software requirements and objectives."
+  },
+  {
+    "id": "stay-social-arc-portal-10-14-25",
+    "name": "Stay Social Arc Portal",
+    "date": "2025-10-14",
+    "time": "1:00 PM PDT",
+    "description": "Discuss a registration portal for the two upcoming ARC workshops"
+  },
+  {
+    "id": "rafael-lopes-10-27-25",
+    "name": "Call with Rafael Lopes",
+    "date": "2025-10-27",
+    "time": "11:00 AM PDT",
+    "description": "Discuss overlap between our missions and visions"
+  },
+  {
+    "id": "stay-social-arc-portal-11-14-25",
+    "name": "Stay Social Arc Portal Updates",
+    "date": "2025-11-14",
+    "time": "4:00 PM PDT",
+    "description": "Discuss updates to the Stay Social CRM and ARC portal"
+  },
+  {
+    "id": "friendship-circle-intro-12-22-25",
+    "name": "Friendship Circle Intro",
+    "date": "2025-12-22",
+    "time": "10:00 AM PDT",
+    "description": "Discuss challenges and opportunities with Friendship Circle"
   }
 ]

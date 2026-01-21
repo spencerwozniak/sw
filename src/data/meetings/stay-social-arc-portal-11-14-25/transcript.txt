@@ -1,0 +1,225 @@
+Access the our place so they're not going to have to remember a login, and they're not going to remember it on their computer, if that makes sense like it's one thing if there's parents logging in or the person themselves. But I, why can't anybody just get in?
+
+I think, I think what we can do is everybody has to log in, but we make maybe their logging credentials something very simple. that they almost like their email address. And do they all have to have different passwords? Can they all have one password?
+
+They want it, but we want them to come. They have to come back to this portal because it's gonna take them time to finish everything on the portal.
+
+Back down, please.
+
+Right.
+
+No, because we want it to be something that's a part of a bigger system, right? So, it would be nice for clients to be able to log in, because they're always emailing me saying, how many, how many, Classes do I have left? But if they can log in on their own and can see stuff like that, that's better, I think. So, okay, you have to create their own login password and use their email address.
+
+Whose email address is being used? Is it the client's or is it the regional center app? So I guess that's the question. So it would be the client's email, whatever. I mean, I guess the regional center, maybe I need a little more information on what it means when you say regional center rep. Each client has their own regional center rep? Okay. Well, there's two people that are gonna need to input things in this portal.
+
+So the first step. The, the, um, the interest form that I sent you, remember in the email last night, I sent you an example, you don't have to use all that stuff. We can go through the interest form and kind of weed things out and just make it pretty simple, but.
+
+The interest form will probably be the client or the caregiver of the client, right? Filling out that interest. And on the interest, the most important thing is for us to ask. What is your regional center reps email? And what is your best point of contact email? Like who's taking care of this person, right? Okay.
+
+So once that's asked, is there a way for the computer to gather that information and just automatically send an email to both of those email addresses? So both, so email address one is the, which, tell me the two email addresses again. Like best point of contact, so like caregiver or best point of contact. Sometimes.
+
+But usually it's like a caregiver family member, okay, and then email address number two is the regional center Service for there, right? Yes, and so you want this email sent when? As soon as they fill out the interest form, an automatic email should go to both of those email addresses. And on this email that I sent you here,
+
+I'll give you a fresh link because that was for session one, and I can make it per event. So I'll give you a fresh link so it's going to the correct event in waiver file. But I just want you to see that when they first enter the portal, we want them to, in order to get to the second step of the portal, we want them to fill out the waiver.
+
+Okay. And fill out the interest form. So those two things that were so hard for us to collect are just done. So yeah. Maybe now it makes sense for me to kind of show you what I have put together then to see if this is kind of what you're thinking. Okay. So we have them log in. So if we log in, then we're into... Oh, wait. Sorry.
+
+So we would log in and then we get some kind of form like this, right, okay Intake, right? I don't know. Date of birth... I'm trying to do this quickly. That's okay.
+
+It's in the form of...
+
+Got it. I just put the same questions you sent me in that email. Yeah, yeah, cuz I had this made with like a simpler form, but then I saw it last night I kind of did some updates last night because I saw that email you sent Uh-huh So we've got all this information, right? Regional center coordinator, email, phone number, I don't know, name. Yep, yep. Perfect.
+
+We should probably collect right then and there to emergency contact. Yeah, so I've got that here. So we want that up higher. I mean, if there's a specific order, we can. Oh, no, I just didn't see it. I didn't. That's great. Everything that was on that one form is on this one. Yeah. We don't have to do... I mean, you could do preferences and... Yeah, we could do preferences still, and interests, because I'm sure it's good to collect for marketing, right?
+
+Because maybe if they click those, can we eventually have filters? Like everyone who was interested in Pickleball, can we email them? And so that's probably- Yeah, yeah. We can do that for sure. Okay. And then emergency contact. Did we do birth date? Yeah, we did birth date. I've got, yeah. So if you want to see the specific field's name.
+
+I feel like Nick came here. This doesn't have to be here. It's just something that I put in the original form. Birthday, email, phone number, address, all that address. This ARC and funding detail is exactly how you had it. Preference interest is exactly how you had it. Safety, other info, just say merge at gmail.com.
+
+Okay, and then okay, so this is gonna be different But I had it where okay now we get to this next page where it's like We can have it automatically email the coordinator right instead of this kind of thing, but the idea would be Something like it's incomplete right the coordinator status incomplete. We need that coordinator to somehow take this link Whether it's sent to their email or what we get a coordinator intake right so
+
+So, well, we don't need the service coordinator intake if they filled it up, right? So I think the next step, an email has been sent, thank you for your interest, an email has been sent to both you and your service coordinator. Check your inbox for the next steps to register.
+
+Okay to in the in the it'll be sent to both the point of contact and the regional So the point of contact will get this or your email has been sent check your inbox what's going to be? Is there going to be a different email or it's the same email? That email pretty much that I gave you. Yep. That one. Yep. Okay. Oh, the other thing on the intake form or on that interest form that we need to put is,
+
+Are you interested in session one and session two? What sessions are you interested in participating? And they have to click the box, like they could click both sessions. So that information should be able to come to their service coordinators, like in the email. Is it possible to tell their service coordinator in that email from what they...
+
+click does that make sense yeah okay i see so because let me let me see if i should if i can show you this um
+
+So submit. Alright, well we're not going to use this, but this is just how it was. So the idea that I had was here is, okay, once everything gets set, once it's all set, then they can pick the event, right? These are just mock events right now. Right. But it was like, like you're saying, like, oh, is it event one or event two that they want to sign up for? And they could sign up. Now they're in this portal where they can see their information.
+
+More importantly, this is where the events are, so they could sign up after filling things out. Those two would be Session 1 and Session 2, and it would have the dates. The dates and the themes. Okay, so then session and you want those done on the first page instead? You think? Well, what page is this? What are we looking at now? This is like. This is after I had.
+
+Basically, we have that intake form, or the interest form as you're calling it, right, interest form. That happens. Something gets sent out via email. To the caregiver or the regional coordinator And once everything's filled out then they're able to access this page Right. So I guess you want this waiver this waiver
+
+This can be signed by either the point of contact or the coordinator? No, that waiver should be in the front portal where they're filling out the... OK, so this way we have to be part of the form. or the caretaker, and the caregiver will know if they are conserved or not. Does that make sense? So the caregiver will know how to fill out this waiver. Do I have them sign it or does the care, you know?
+
+So the caregiver will know. Yeah, I think what we should do is please, please fill out this waiver if you're, if the attendee is not conserved. They need to sign the waiver. If they are conserved, please have the responsible party sign the waiver. Okay, so we should have on this original form.
+
+I have a question. Are you conserved or not? Yes. Is it one of these questions? For each individual, is the participant conserved? Yes or no. And if it's yes, then there should be a pulldown that says name of conservator. So that we have that information so when we're checking the waiver, we're making sure the right people are signing the waiver. I see. Okay, so name of conservator.
+
+Is the participant conserved? Name of conservative. So that should be somewhere in this section. Yeah, okay, and then the waiver itself. Let me see. Can I see the section? Which one? I don't know if it should be under funding details. Can I see the top section?
+
+Identity, preferred name, phone number, day, address. Yeah, okay, ARC and funding. I wouldn't say ARC, I would just say,
+
+Personal details, personal details maybe, or...
+
+Or, um, yeah, uh, funding and personal details or something. Okay.
+
+See, if they're enrolled in the self-determination program...
+
+The email should be going to a different person.
+
+Okay, so if this is good, this is good to know if So if it comes down, yes, i'm in self-determination So if they're not in self-determination If it's no, that's where you should put the name and email of your service coordinator at Regional Center. So if the answer to that, are you enrolled in the self-determination program is no, it should be regional center's name and number.
+
+Okay, so right now I have where it's, are you a client? Yeah, I'm thinking, because instead of putting that up here, you could frame it so whatever the answer is to one of these pull-downs, that's who gets. Because so if it's are you enrolled in self-determination? Yes, then it pulls down. What is the name email and phone number of your regional center coordinator?
+
+But if it's, oh, if it's yes, yes, I am enrolled in self-determination program, then it's what is the name, phone number and email of your independent facilitator? If it's no, if the answer is no, the pull down is what is the, what is your regional center coordinator's name?
+
+Email and phone number rather than having it above because whatever the answer is to that question We want that email to be emailed the next step
+
+So okay, if it's, and is the independent facilitator the point of contact or is that a different thing? Okay, okay. So it's self-determination in that program. The independent facilitator is the person who's gonna help them. Access the funding and register, whereas in traditional track, the regional center coordinator will be the point of contact of them. So we don't need an email sent to two email addresses at the same time. We just need it sent to one based on the answer to this question.
+
+I also wanted to be sent to the answer to that question and the caregiver. So there is there a question like who's the best point of contact like caregiver or best? Maybe we should put a caregiver box. Caregiver, like name, email. Yeah, I think we need that. Because in this box, it would be like name, preferred name, date of birth, email.
+
+Phone number. Caregiver, parent or best point of contact. Something like that, name, email, phone number. Because that email will be emailed, that the second. Email and the email of either the independent facilitator or service coordinator, they'll both be on that. So they both know what's going on, like they see the next step.
+
+Okay, so the independent facilitator is not the same as the point of contact. No, because the point of contact, the best point of contact, will be like the person who when I'm sending communications. gets the emails and tells the person. They're like bringing that person to the events. It's usually a parent or a caregiver or like the house person, you know,
+
+You need to fill out the regional centers so that so then this email will get sent to two emails It's always sent to the caregiver or point-of-contact always if Self-determination is yes It's going to the independent facilitator's email. If self-determination is no, then it's going to go to the regional center coordinator.
+
+Exactly. And do we always want to have a box for caregiver or point of contact or do we only want that box if No, we do always want that box. Yes. We always want that box. Okay. Thank you So, um, if you scroll down a little bit see right there or up I mean
+
+Are asking their personal information one more one more I think in that box you could probably put are you conserved? Okay, yes or no If it's yes, who is the responsible party, then you can put responsible party. And then there can be a box for.
+
+What is the name of the...
+
+Best point of contact, parent, caregiver for us to communicate with. OK, be pretty clear about it because then that way we're getting. That way they know the name of the person is the person they're registering because a lot of times the point of contact will register themselves because they know like this is who you're
+
+communicating with, but that will help them understand, no, we want their name because we're going to register them, but we want your name because we know we're going to be communicating with you.
+
+It's like children, parents, minors, you know? Yeah, yeah. Okay.
+
+So that's all in this first box Are you conserved and then the name of the best point of contact be clear and then information to like that's where we want all the Email, phone number as well. Okay, okay. I'm just writing all these notes out. I think email and phone number. You don't need date of birth or anything like that. Yeah, just email and phone number should be good.
+
+Yeah, okay. So that's if they are conserved. Yes. Not even if they're conserved. That's just separate, separate. Yeah, conserved is responsible party because we need to know who has to be signing the waiver. But so are you conserved if it's yes responsible party and then
+
+It's totally separate. Please select the best point of contact for us to communicate with.
+
+And it's the person's name. And it could be them, but a lot of times it's a sibling or a parent or a house parent. Yep. Okay. And then, yeah. And yeah. Okay.
+
+Good. Okay, so then the email... And there could be an answer on the pull-down like same as above. I don't know. Right. Like when they're filling in the email and phone number, it could be seen as above. Yeah, exactly. Exactly. It would be like, yeah, I am my own.
+
+Yeah. Yeah.
+
+So then the step two would be automatically that email goes out to the point of contact and the regional center rep or the independent facilitator and they get all the information. They know they have to fill out that screening tool. On that email, the only thing that I didn't put in the mock-up one, you'll need to link to the waiver, but then also, we'll put.
+
+So we have a link to the waiver in the email you want link to waiver link to okay the social I'm just trying to be 100% clear. The screening tool, that already exists. There's gonna be a link to that? No, the regional center rep, they'll know what the screening tool is. So is that only if the email's going to the regional center or also if it's going to the independent facilitator?
+
+The Independent Facilitator, it's pretty rare for this demographic, but this is good for other things we're doing. The Independent Facilitator will know... What code to use for their client. You know what I mean? Like they'll know they don't have to fill out a screening tool because they're not going through the regional center.
+
+So if it's if it's an independent facilitator it could be a totally different email like You can use the code 331 for social rack You could you know, you could pull funds from your budget and I could send you this in an email, but The independent facilitator would have to know that this falls under social recreation, which is code 3 3 1. And what they will have to do.
+
+is because we're gonna have the service coordinator upload a picture or a screenshot of the approval. When Regional Center approves their screening tool, the last step will be for them to go to this link and upload a screenshot of the approval, right? Upload screenshot of approval to your link.
+
+To the link that we're going to provide to the portal. It would be part of this portal here. Yes. A place to upload. Yep. Okay. They have to go back to the portal and they have to upload a screenshot of their funding, right? If you're a service coordinator, I'm trying to think of what we'd need to see. I think
+
+We would need them to sign, like, maybe we can we attach a little document saying I, this, my client has the funds in its budget. In their budget, the funds have moved, or like, do you see what I'm saying? Like, so what happens with... What happens with self-determination is that the person has like an individual financial management service.
+
+So, oh, okay. So, we can say to the independent facilitator,
+
+Please return to our portal and let us know your financial management service. Let us know who we, because an invoice basically has to go to I'm sorry that I'm having trouble. I'm trying to think of like what we need to do to streamline it for them. So basically what has to happen is.
+
+The ARC will have to bill their financial management service, but in order for them to bill, they needed approved by the person in charge of that budget. So in the email, and I could write you this email, it would probably, let me see the email. To independent facilitator would have to have service code 331, right? Yeah.
+
+financial management service, like maybe a question or maybe it's who's your... Yeah, so we could still have it where it's sending out a link to the portal, basically. So it sends a link to the portal to the independent facilitator. Here's the link to the portal. Please fill out the following information.
+
+Because basically an invoice will have to go out to...
+
+The independent facilitator and the person in charge of their budget of approving their spending, like for example, I am Thomas's person. Everything has to go through me and then back to his financial management service for payment.
+
+Could we hook it up with QuickBooks so that an invoice goes out?
+
+So the independent facilitator, we're going to want to send an invoice via QuickBooks. I think what you do is you would say who's your service coordinator? What's your service coordinator's email? Who is the person? In charge of
+
+There's a name for it. I have to think of the name for it, but it's like the person in charge of the budget. Right. OK. It's Who approves your purchases in your budget? We could just put that for now. The email of the person who approves your purchases.
+
+And the name of your, the email name of your independent facilitator. And then do you approve, or maybe like on the thing.
+
+Because then, once we have that information, we have the service code all set up with QuickBooks, if it can be programmed to send an automatic invoice. Okay, because if we can send an invoice, this could streamline things for everybody because basically someone could go into our portal for stay social anytime.
+
+And say, oh, I need to buy more class passes. And they could just put in the information, right? Yeah, you should be able to create and send an invoice. Yeah, okay No, no, you're doing amazing because there's a lot of moving parts to this But I think if we could get this down even though it's not totally applicable to this There might be a one-off here and there
+
+who are in self-determination. So if they're in self-determination, we email the independent facilitator or do we just have them answer all the questions right then and there on the portal? And then. A invoice goes out. So is the QuickBooks for the independent facilitator? It's if there is an invoice. Yeah.
+
+So that's, if, yes, to self-determination. Okay, so if self-determination, then we're doing all this. But if otherwise, it's gonna be the regional center coordinator.
+
+Yes, and in most cases, it will be the regional center coordinator in most cases. Okay. Yes for this invoice is all is going to be Yeah, I think the email goes out to a regional center coordinator, but if they're in self-determination, there's like a pulldown of the portal that just answers the question, who's your independent facilitator?
+
+Who approves the spending on your budget? What is your FMS? What is your FMS? What is your FMS? So they're filling this out in the notes. Sorry.
+
+Okay, so the questions that we'd have to ask someone who's in self-determination of the UCI number, independent facilitator, Budget manager or like person in charge of your budget. Who approves your invoices? What is the email of the person who approves your invoices? Let's just make it simple like that.
+
+... [Missing transcript] ...
+
+Does that make sense? But they're all clients of Regional Center. They're just in two different paths. Yeah, yeah, yeah. I see. I see. Okay. Okay, yeah, that makes sense. So I think, but I think this is neat for us to have for the rest of.
+
+Our portal or intake, because we do an intake where someone says I'm in, we can, I can send them if they say, if they fill out my interest form on the website and say, hey, I'm in self-determination, how do I get started? An email can go out to them with a portal that says, what would you like to buy? And it could be a pull-down, 10 class pack, gold membership.
+
+Here's our pricing, whatever they can say they want to buy. And then an automatic invoice can just generate to them. Yes. Right. And then that's their personal portal where they're coming back and they're checking how much money they have left. And they're kind of managing their own budget. Yeah. Right.
+
+Okay, okay. Yeah. Well, I think yeah, we can definitely think about how we're gonna how this can be applied more broadly as well Mm-hmm. Yeah But for now, I think we're cracking the code. I think it's good, right? Yeah, I think I'm understanding here a lot of it. I think I need to...
+
+Did you schedule a meeting on Monday as well? Monday as well? So I scheduled a meeting on Monday with Melanie, who is at the ARC. Okay, we could expect to her. Okay. Do you think that's too soon for you? Do you want to push it out till later in the week? It's fine. I think we can do So what is yeah, so Monday, I guess the question for me is what?
+
+What do we want to do? What do we want to have? What are we discussing on Monday? Sorry, I don't know if you just said that. Can you do another mock-up on Monday with what we've discussed? Okay, okay. That's what I was thinking. We kind of presented today. I kind of put something put together as much as I can by Monday and and we
+
+I feel like you need a little more time to put it together. A little bit later in the week is fine. They're going to be sending, I signed the contract today for two more sessions in the spring. So they're going to be sending out marketing and they're going to want to have.
+
+They're gonna want to, by the end of next week, have a place to put that interest form. So maybe we should keep it Monday. Let's keep it Monday. Okay, perfect. And I invited her too. I put her down on the invite. So she has the meeting link and everything. So, okay, good. So we'll do that. And then, yeah. And then when you are done with this little portion, like once you have it up and running.
+
+Send me a bill. Send me an invoice for the time that it takes you to put together this portal. Okay. Yeah, I guess that is something else to think about is. is like pricing how much you think this is going to be because I mean I know we talked about we I sent you like an estimate in the
+
+Previously and I think that was a little bit different Well, I with the scope of what I was sending an invoice for was a little bit different than then what it's kind of progressed to now Okay, so it might make sense to kind of read I don't think it's gotten much bigger or anything. I think it just makes sense for me to rethink what exactly the terms are. Let me see. Sure. Sure. Why don't you send me another take time to send another proposal looking at how much time this is going to take.
+
+And that your hourly rates are the same as what you quoted me and staff. Doesn't matter how much time. Yeah. Send me a new proposal for that. Okay. And this is huge though, because it's really, you know, I was manually emailing everybody. Yeah, because that's also what I'm thinking about. When I'm thinking about this portal, I'm thinking about what is the time that it's saving you? What is the biggest, what value is it giving you?
+
+That's kind of what I'm thinking about. So, I don't know how long you think it would take typically to send all this stuff yourself. I don't know, do you have any idea how long it would take you to, or like, what time this is saving? I'm just kind of wondering what...
+
+Just for my own, like, I'm just curious. Hmm. Gosh, I don't know. Yeah. Why are you I don't understand what are you I'm just curious about like about this because I'm thinking about Like obviously beyond just this like is this something that a lot of people?
+
+Need right is this something that people is this a big issue with some people that are doing things like Honestly spencer, I feel like this little job right here that you're doing working co-branding with me in the art They are so archaic. I could pitch you to them. Yeah, I Think all of their registration systems. They their waivers were on paper before they started working with me
+
+So I think that there are other places that need similar help who are between all these platforms that you can just like pull their platforms together and connect. Kind of definitely for sure. Yeah. Yeah. Yeah, because that's what I'm thinking about. Because I'm thinking about, we're working on this, but there's no way that you're the only person that, obviously, I'm working with you right now.
+
+But I'm just saying like in general, is there some type of platform that needs to be made for people like you or for people that are kind of organizing these kinds of events? Right. I see what you're saying. I don't know, because I don't know if anybody else is doing quite what I'm doing with the funding. Does that make sense? Like, I don't...
+
+But I do know, like, you could probably go into the ARC or meet, I could get you a meeting with the ARC for probably other things, other systems that they need streamlined, because I couldn't believe how, they're still like, You should see it's so archaic. I'm like, I can't, I can't waste my time doing this for you. Like, I don't have the time, you know? Yeah. Yeah. I think it definitely could lead to other things.
+
+I will definitely brainstorm for you because it's like a super power that you can do this. And I think another person that might be neat for you to talk to, I know you want to do your own thing, but I keep thinking of. A friend of mine, he went to Notre Dame. He's been, he worked for all kinds, he's like in his mid-30s and he's really a brilliant programmer. He's worked for a startup right now.
+
+That I think does stuff like this for companies. But it might be neat to talk with him. Just like a connection and someone to talk to in this world, you know? Yeah, I know. I like meeting and talking to people that are. In this kind of space, especially kind of just getting into this, like, yeah, he's like great. He's a great Catholic guy. He's got five little kids, you know, from a really good family. So he would definitely be someone that I could hook you up with.
+
+I think like what you're doing when you start taking on people like me, I do more. Like you do a good job for me and I'm like, wait. The arc needs you and I recommend you do the arc because people need, you know, but, uh, okay. So yeah, I think definitely you're saving hours of time with this portal and when I was doing it, I was like, this can't be like, we can't be taking registration again this way because it's too many hours for me to pull together and cut and paste and email and find that email and, you know.
+
+Definitely. Do you have any other questions about this for Monday or?
+
+I don't think so. I think what's gonna make I think I have a lot I have like two pages worth of notes I just took down This so I think what I'm gonna try and do is just put it all together as best as I understand put it together And I'm trying to hear from you guys on Monday, and I think then you can tell me this is, yes, this is exactly what I'm looking for. Or like, oh, maybe this needs to get changed a little bit. And the goal is also to be able to have you mess around with it a little bit.
+
+You could kind of go in and, uh, you know, see what the process is like for yourself and I'm not just, I don't even know where this is living in the universe. You know what I mean? Like, I don't know. This isn't, this isn't live on the internet right now.
+
+It's just on my, it's just running off my computer. Um, okay. But I'm going to have it, I should have it up by. It's also not on your website. I will have to check and see if you have, because I know you gave me some information. I'll have to see if I can easily get it to go on your website.
+
+Yeah, and I could probably help you with that. I could also connect you with John who does my website. He's super cool. He would like help you too. That's probably a phone call, like maybe the three of us could just have a quick phone call. So maybe that's a good thing to think about after Monday's meeting then, is whether, yeah, posting it. Yeah. Get this stuff up. Yeah. Okay. And then I want to tell you, so for tomorrow, that's one thing I have to go, I have to go put together my email for you guys tomorrow.
+
+We have a super fun event. Yeah. the Friendsgiving, and then I'm also gonna, you know, throw it out there for the next sessions, if anyone's interested in doing the next sessions, which you might not be. I know it was like kind of a random last minute thing.
+
+But we do have one in July or January, coming up January through March and then one in April through June. So if you want to do it again, you know, I'm gonna throw it out It is a big commitment I know yeah, and we're gonna we're gonna up the pay a little bit so
+
+Just because it's taped. All right. All right. Well, take care, Spencer. Thank you so much. Yeah. Hey, Steve. Spencer's on the phone. Remember? You want to say hi real quick? Steve just came in. Say hi. Wait, is that Spencer from Confession? Yeah, it is. How are you doing? Hey, Spencer. Thank you for helping Kathy and stay social. Yeah, he's a genius.
+
+Yeah, you're making tracks on the portal and stuff? Oh, that's wonderful. That'll be such a huge, a huge benefit. for the operation. Yeah. Yeah. Oh, great. Yeah. Thanks. Thanks a lot. And, and you're enjoying, you're, you're enjoying going to the, to the,
+
+Yes, it's cool. It's cool to go. I don't know. It's a new experience. I've never worked with disabled adults like that before. So it's kind of cool. Yeah, yeah, Spencer's good. He's a big help. He's like perfect for this session. No pressure for other sessions.
+
+All right, Spence. Well, we'll see you tomorrow. All right, I'll see you tomorrow. Bye.
