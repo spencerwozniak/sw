@@ -1,7 +1,6 @@
 // src/app/mcat/page.tsx (Server Component)
 import fs from 'fs';
 import path from 'path';
-import ArticleBrowser from './ArticleBrowser';
 import Chatbot from '@/components/Chatbot';
 import AnimatedWritingContent from './AnimatedWritingContent';
 

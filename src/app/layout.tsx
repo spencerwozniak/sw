@@ -3,7 +3,6 @@
 import "./globals.css";
 import { Lato, Lora } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
-import CalendlyButton from "@/app/contact/_components/CalendlyButton";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 
 import ClientLayoutWrapper from "./ClientLayoutWrapper";

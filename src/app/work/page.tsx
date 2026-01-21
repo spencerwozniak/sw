@@ -39,7 +39,7 @@ export default function MyWorkPage() {
             >
               <h2 className="text-3xl md:text-4xl font-semibold text-white mb-4">Projects</h2>
               <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-                A collection of projects I've built, from startups to freelance work to personal experiments.
+                A collection of projects I&apos;ve built, from startups to freelance work to personal experiments.
               </p>
             </motion.div>
 
