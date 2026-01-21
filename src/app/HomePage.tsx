@@ -73,12 +73,8 @@ export default function HomePage() {
             <p className="leading-relaxed text-white mt-4">
               I&apos;m a Catholic Christian, healthtech entrepreneur, and full-stack engineer
               focused on building reliable, explainable software for healthcare.
-            </p>
-            <p className="leading-relaxed text-white mt-4">
               My work sits at the intersection of clinical systems, data infrastructure,
               and applied AI, with a particular emphasis on EHRs, interoperability, and patient-centered design.
-              Every system I build, model I design, and line of
-              code I write is offered through the hands of Mary to Christ.
             </p>
 
             <p className="leading-relaxed text-white mt-4">
