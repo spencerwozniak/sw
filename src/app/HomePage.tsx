@@ -60,7 +60,7 @@ export default function HomePage() {
             className="text-md font-light text-neutral-100 mb-4 leading-relaxed"
           >
             <div className="br">
-              <h2 className="text-lg mb-2 italic">
+              <h2 className="text-lg mb-1 italic">
                 Behold the handmaid of the Lord;
                 <br />
                 be it unto me according to thy word.
@@ -70,20 +70,20 @@ export default function HomePage() {
               </h2>
             </div>
 
-            <p className="leading-relaxed text-white mt-4">
+            <p className="leading-relaxed text-neutral-100 mt-4">
               I&apos;m a Catholic Christian, healthtech entrepreneur, and full-stack engineer
               focused on building reliable, explainable software for healthcare.
               My work sits at the intersection of clinical systems, data infrastructure,
               and applied AI, with a particular emphasis on EHRs, interoperability, and patient-centered design.
             </p>
 
-            <p className="leading-relaxed text-white mt-4">
+            <p className="leading-relaxed text-neutral-100 mt-4">
               My background spans clinical care, academic research, and software engineering.
               Through direct exposure to patients and healthcare workflows, it became clear
               that much of the suffering in modern healthcare is not clinical, but infrastructural.
             </p>
 
-            <p className="leading-relaxed text-white mt-4">
+            <p className="leading-relaxed text-neutral-100 mt-4">
               That realization redirected my path from medical school into building technology full-time.
               I drove across the country to found{" "}
               <a

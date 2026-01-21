@@ -45,33 +45,40 @@ body {
 body::before {
   content: '';
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background-image: url('/mary-crying.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-attachment: fixed;
+  /* The element itself is fixed; avoid iOS Safari background snapping */
+  background-attachment: scroll;
   opacity: 1;
   z-index: -2;
   pointer-events: none;
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 /* Dark overlay for better text readability */
 body::after {
   content: '';
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: rgba(0, 0, 0, 0.75);
   z-index: -1;
   pointer-events: none;
   opacity: 0;
   /* Animation is controlled by AnimatedOverlay component */
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* iOS Safari: keep fixed layers sized to the *visible* viewport to prevent snapping */
+@supports (-webkit-touch-callout: none) {
+  body::before,
+  body::after {
+    height: 100svh;
+  }
 }
 
 @keyframes fadeInOverlay {
