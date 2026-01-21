@@ -49,7 +49,7 @@ export default function ContactPage() {
               transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
               className="text-[3.5rem] md:text-[4.5rem] mb-6 text-center font-semibold tracking-tight leading-tight"
             >
-              Let's Connect
+              Let&apos;s Connect
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -104,7 +104,7 @@ export default function ContactPage() {
             transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             className="text-4xl md:text-5xl my-8 text-center font-semibold tracking-tight"
           >
-            Let's Connect
+            Let&apos;s Connect
           </motion.h1>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
