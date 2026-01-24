@@ -22,12 +22,12 @@ const Footer: React.FC = () => {
           <div className={styles.footerWidget}>
             <div className={styles.footerLogo}>
               <Link className={styles.footerLogoLink} href="/">
-                <Image 
-                  src={theme === 'dark' ? LogoWhite : LogoBlack} 
-                  alt="Spencer Wozniak Signature" 
-                  className="img-fluid" 
-                  width={400} 
-                  height={100} 
+                <Image
+                  src={theme === 'dark' ? LogoWhite : LogoBlack}
+                  alt="Spencer Wozniak Signature"
+                  className="img-fluid"
+                  width={400}
+                  height={100}
                 />
               </Link>
             </div>
@@ -51,7 +51,7 @@ const Footer: React.FC = () => {
 
           {/* Copyright */}
           <div className={styles.copyright}>
-            <p>&copy; 2025 <strong>Spencer Wozniak</strong></p>
+            <p>&copy; 2026 <strong>Spencer Wozniak</strong></p>
           </div>
         </div>
       </footer>
