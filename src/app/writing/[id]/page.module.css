@@ -42,14 +42,14 @@
 .articleContent ul {
   list-style-type: "→  ";
   list-style-position: outside;
-  padding-left: 1.5rem;
+  padding-left: 2.5rem;
   margin-bottom: 1.5rem;
 }
 
 .articleContent ol {
   list-style-type: decimal; /* ensures numbers show */
   list-style-position: outside;
-  padding-left: 1.5rem;
+  padding-left: 2.5rem;
   margin-bottom: 1.5rem;
 }
 
