@@ -21,6 +21,13 @@
   background-color: transparent;
 }
 
+html {
+  min-height: 100%;
+  min-height: 100dvh;
+  /* Fallback so any gap shows the image, not black */
+  background: #0d0a08 url("/mary-crying.png") center center / cover no-repeat;
+}
+
 html,
 body {
   margin: 0;
@@ -28,6 +35,7 @@ body {
   box-sizing: border-box;
   min-width: 320px;
   height: 100%;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -43,10 +51,13 @@ body {
 
 /* Global background image */
 body::before {
-  content: '';
+  content: "";
   position: fixed;
   inset: 0;
-  background-image: url('/mary-crying.png');
+  /* Ensure full height on mobile (dynamic viewport; avoids address-bar gap) */
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-image: url("/mary-crying.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -61,7 +72,7 @@ body::before {
 
 /* Dark overlay for better text readability */
 body::after {
-  content: '';
+  content: "";
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.75);
@@ -73,11 +84,12 @@ body::after {
   will-change: transform;
 }
 
-/* iOS Safari: keep fixed layers sized to the *visible* viewport to prevent snapping */
+/* iOS Safari: ensure fixed layers fill the visible viewport (avoid address-bar gap) */
 @supports (-webkit-touch-callout: none) {
   body::before,
   body::after {
-    height: 100svh;
+    min-height: 100svh;
+    min-height: 100dvh;
   }
 }
 
@@ -107,7 +119,9 @@ h1 {
 a {
   color: #ddd1c1;
   text-decoration: inherit;
-  transition: color 0.3s ease, transform 0.3s ease;
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease;
 }
 
 a:hover {
