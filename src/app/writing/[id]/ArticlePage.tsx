@@ -1,9 +1,14 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import Image from 'next/image';
-import Link from 'next/link';
-import styles from './page.module.css';
+import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
+import renderMathInElement from "katex/contrib/auto-render";
+import "katex/dist/katex.min.css";
+import Breadcrumb from "./_components/Breadcrumb";
+import ShareButtons from "./_components/ShareButtons";
+import styles from "./page.module.css";
 
 interface Article {
   id: string;
@@ -22,7 +27,21 @@ interface Props {
   nextArticle: Article | null;
 }
 
-export default function AnimatedArticleContent({ article, prevArticle, nextArticle }: Props) {
+export default function ArticlePage({
+  article,
+  prevArticle,
+  nextArticle,
+}: Props) {
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!contentRef.current) return;
+    renderMathInElement(contentRef.current, {
+      throwOnError: false,
+      errorColor: "#cc0000",
+    });
+  }, [article.contents]);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -30,32 +49,33 @@ export default function AnimatedArticleContent({ article, prevArticle, nextArtic
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       className="flex flex-col text-white"
     >
-      <main className="w-full max-w-6xl mx-auto mt-16 mb-5">
+      <main className="w-full max-w-4xl mx-auto mt-16 mb-5">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           className="px-6 xl:px-10 mb-4"
         >
-          <Link
-            href="/writing"
-            className="text-base no-underline hover:underline text-[#bbb] hover:text-white transition-colors"
-          >
-            ← Back to Articles
-          </Link>
+          <Breadcrumb
+            items={[
+              { label: "Writing", href: "/writing" },
+              { label: article.title },
+            ]}
+          />
         </motion.div>
+
         <motion.article
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="px-6 xl:border-t xl:border-b xl:border-[#333] xl:p-10"
+          className="px-6 md:px-10"
         >
           <header className="flex flex-col items-start">
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="text-3xl font-bold text-white mb-4"
+              className="text-4xl font-bold text-white mt-2 mb-4"
             >
               {article.title}
             </motion.h1>
@@ -75,6 +95,13 @@ export default function AnimatedArticleContent({ article, prevArticle, nextArtic
             >
               {article.topic} | {article.date}
             </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.65, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <ShareButtons articleId={article.id} />
+            </motion.div>
           </header>
 
           <motion.section
@@ -88,7 +115,11 @@ export default function AnimatedArticleContent({ article, prevArticle, nextArtic
                 <motion.div
                   initial={{ opacity: 0, x: -30 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{
+                    duration: 0.8,
+                    delay: 0.8,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
                   className="float-left mr-6 my-6 text-left leading-tight"
                 >
                   <Image
@@ -104,6 +135,7 @@ export default function AnimatedArticleContent({ article, prevArticle, nextArtic
                 </motion.div>
               )}
               <div
+                ref={contentRef}
                 className={`mt-4 ${styles.articleContent}`}
                 dangerouslySetInnerHTML={{ __html: article.contents }}
               />
@@ -119,20 +151,20 @@ export default function AnimatedArticleContent({ article, prevArticle, nextArtic
           className="flex justify-between mt-4 px-6"
         >
           {prevArticle && (
-            <a
+            <Link
               href={`/writing/${prevArticle.id}`}
               className="text-base no-underline hover:underline text-white"
             >
               ← Previous
-            </a>
+            </Link>
           )}
           {nextArticle && (
-            <a
+            <Link
               href={`/writing/${nextArticle.id}`}
-              className="text-base no-underline hover:underline ml-auto text-black dark:text-white"
+              className="text-base no-underline hover:underline ml-auto text-white"
             >
               Next →
-            </a>
+            </Link>
           )}
         </motion.div>
       </main>
