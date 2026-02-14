@@ -1,5 +1,31 @@
 [
   {
+    "id": "mathematical-confidence-in-a-claims-graph",
+    "title": "Mathematical Confidence in a Claims Graph",
+    "date": "February 13, 2026",
+    "name": "Spencer Wozniak",
+    "topic": "Epistemology",
+    "contents": "<p>Clinical documents are dense, narrative, and often ambiguous. Turning them into structured, mathematically tractable knowledge requires not just extraction, but epistemology.</p><p>At <a href='https://serelora.com' target=’_blank’><strong>Serelora</strong></a>, we move from raw text to canonical claims through a two-layer architecture:</p><h2>Layer A: From Document to Mentions</h2><p>Whether it arrives as a PDF, scanned image, fax, or <a href=' https://www.youtube.com/watch?v=5FN2Lrqxr4k&t=136s' target='_blank'><strong>even messy handwritten notes</strong></a>, every document is converted into machine-readable text with high accuracy.</p><p>Once in text form, the document is segmented into clinically meaningful sections (e.g. HPI, PMH, Medications, ROS, Physical Exam, Assessment & Plan, or SOAP components) using a dynamic chunking step.</p> <p>These sections are not hardcoded, but rather the system identifies structure contextually based on the document itself. Importantly, each section preserves exact character offsets, ensuring full traceability to the source.</p><p> Within each chunk, the system extracts discrete clinical entities (e.g. medications, diagnoses, labs, procedures, allergies, etc.) without relying on a fixed schema or hard-coded list.</p><p>Each extracted <u>mention</u> carries: </p><ul> <li>Text</li> <li>Section context</li> <li>Document provenance</li> <li>Negation status</li> <li>Confidence (0–1)</li> </ul><p> At this stage, we do not yet assert truth. We merely record that this document <em>appears</em> to state something.</p><h2>Layer B: From Mentions to Claims</h2><p> Mentions are <em>provisional</em>. <u>Claims</u> are <em>canonical</em>. </p><p> When a new mention is extracted, the system evaluates whether it: </p><ul> <li>Represents the same assertion as an existing claim</li> <li>Introduces a new assertion</li> <li>Contradicts an existing claim</li> <li>Supersedes an existing claim</li> </ul><h2>New Claims: Single Confidence Assignment</h2><p>If a mention creates a new claim, the claim simply inherits the mention’s extraction confidence:</p>\\[p_{\\text{claim}} = p_{\\text{mention}}\\]<p> without accumulation.</p><h2>Same Claim: Bayesian-Like Confidence Accumulation</h2><p> When a mention is attached as additional evidence to an existing claim, confidence is updated using a probabilistic accumulation rule.</p><p> Let the existing claim confidence and the new mention confidence be: </p>\\[p_1, p_2 \\in [0,1]\\] <p> respectively. Both values are clamped to the unit interval: </p>\\[ p_i := \\max(0, \\min(1, p_i)) \\]<p> The new confidence is computed as: </p>\\[ p_{\\text{new}} = 1 - (1 - p_1)(1 - p_2) \\]\\[ p_{\\text{new}} = p_1 + p_2 - p_1 p_2 \\]<h3>Interpretation</h3><p> We reinterpret each confidence as a probability of being wrong: </p>\\[ q_1 = 1 - p_1 \\]\\[ q_2 = 1 - p_2 \\]<p> Assuming independence, the probability both are wrong is: </p>\\[ q_{\\text{combined}} = q_1 \\cdot q_2 \\]<p> Converting back to confidence: </p>\\[ p_{\\text{new}} = 1 - q_{\\text{combined}} \\]<p> This is mathematically equivalent to the probability that at least one independent supporting signal is correct. </p><h2>Generalization</h2><p> For multiple independent mentions supporting the same claim: </p>\\[ p_{\\text{final}} = 1 - \\prod_{i=1}^{n} (1 - p_i) \\]<p> Confidence approaches 1 asymptotically but never irrationally exceeds it. Each additional independent witness reduces the probability of error multiplicatively. </p><h2>Epistemic Discipline</h2><p> Importantly: </p><ul> <li>Confidence only accumulates when evidence attaches to an existing claim.</li> <li>Contradictions create new claims and alter epistemic status.</li> <li>Supersessions preserve historical truth but mark it temporally outdated.</li> </ul><p> The system distinguishes between: </p><ul> <li>Extraction (what text appears to say)</li> <li>Assertion (what we provisionally treat as true)</li> <li>Confidence (how mathematically secure that assertion is)</li> </ul><h2>Why This Matters</h2><p>Clinical reasoning requires more than data retrieval: it requires structured belief revision to decide when evidence truly strengthens a claim (and when it does not).</p><p>By grounding confidence in a principled probabilistic update rule, we move toward a coherent epistemic model. Evidence does not merely accumulate, but it increases certainty only when it independently reduces the probability of error.</p><p>Thus, each claim in the graph is mathematically situated with confidence reflecting the structured convergence of multiple witnesses.</p><blockquote><p>By the mouth of two or three witnesses every matter shall be established.</p><p>— Deuteronomy 19:15</p></blockquote>",
+    "image": [],
+    "keywords": [
+      "clinical knowledge graph",
+      "mathematical confidence model",
+      "bayesian confidence accumulation",
+      "llm claim consolidation",
+      "epistemic claims graph",
+      "probabilistic evidence aggregation",
+      "healthcare AI architecture",
+      "structured clinical reasoning",
+      "medical document extraction",
+      "confidence update formula",
+      "1 - (1 - p1)(1 - p2)",
+      "independent evidence combination",
+      "ontology in healthcare AI",
+      "agentic clinical AI",
+      "AI-powered EHR analysis"
+    ]
+  },
+  {
     "id": "why-three-must-emerge",
     "title": "Why Three Must Emerge",
     "date": "February 7, 2026",
