@@ -157,5 +157,18 @@
     "category": "Personal",
     "year": "2022",
     "role": "Developer"
+  },
+  {
+    "slug": "pyeuchre",
+    "title": "PyEuchre",
+    "subtitle": "CLI Euchre",
+    "description": "Python implementation of the card game Euchre.",
+    "content": ["/projects/pyeuchre/ace.png", "/projects/pyeuchre/table.png", "/projects/pyeuchre/terminal.png"],
+    "displayContent": 1,
+    "externalUrl": "https://github.com/spencerwozniak/pyeuchre",
+    "tags": ["Python"],
+    "category": "Personal",
+    "year": "2020",
+    "role": "Developer"
   }
 ]

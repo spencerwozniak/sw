@@ -21,8 +21,9 @@ export function generateStaticParams() {
   return (projects as Project[]).map((p) => ({ slug: p.slug }));
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const project = (projects as Project[]).find((p) => p.slug === params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const project = (projects as Project[]).find((p) => p.slug === slug);
   if (!project) {
     return {
       title: 'Project Not Found',
@@ -52,8 +53,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default function ProjectDetailPage({ params }: { params: { slug: string } }) {
-  const project = (projects as Project[]).find((p) => p.slug === params.slug);
+export default async function ProjectDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const project = (projects as Project[]).find((p) => p.slug === slug);
   if (!project) return notFound();
 
   return <AnimatedProjectContent project={project} />;
