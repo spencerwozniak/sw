@@ -159,12 +159,19 @@ const Navigation: React.FC = () => {
           >
             <FaLinkedin />
           </a>
-          <NavButton
-            onClick={handleRandomEssay}
-            label="CLICK ME!"
-            className={`${styles.headerNavButton}`}
-          />
-
+          {pathname.startsWith('/writing/') ? (
+            <NavButton
+              onClick={handleRandomEssay}
+              label="CLICK ME!"
+              className={`${styles.headerNavButton}`}
+            />
+          ) : (
+            <NavButton
+              to="/contact"
+              label="Get in touch"
+              className={styles.headerNavButton}
+            />
+          )}
         </div>
       </div>
     </header>
