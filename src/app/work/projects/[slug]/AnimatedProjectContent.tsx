@@ -12,6 +12,8 @@ type Project = {
   description?: string;
   image: string;
   content?: string[];
+  /** Number of first N content items to show in the top column (default 2). Rest go to Gallery. */
+  displayContent?: number;
   externalUrl?: string | null;
   tags?: string[];
   category?: string;
@@ -104,9 +106,10 @@ export default function AnimatedProjectContent({ project }: Props) {
   const imageRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
   const content = project.content || [project.image];
-  const firstContent = content[0] || project.image;
-  const secondContent = content[1];
-  const remainingContent = content.slice(2);
+  const displayCount = project.displayContent ?? 2;
+  const columnContent = content.slice(0, displayCount);
+  const remainingContent = content.slice(displayCount);
+  const firstContent = columnContent[0] || project.image;
 
   const handleImageClick = (src: string) => {
     if (!isYouTubeUrl(src)) {
@@ -187,23 +190,24 @@ export default function AnimatedProjectContent({ project }: Props) {
                   }}
                 />
               </motion.div>
-              {/* Second content - only on desktop */}
-              {secondContent && (
+              {/* Additional column content - only on desktop (2nd through displayCount) */}
+              {columnContent.slice(1).map((src, index) => (
                 <motion.div
+                  key={src}
                   initial={{ opacity: 0, x: -30 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 0.8, delay: 0.4 + index * 0.1, ease: [0.22, 1, 0.36, 1] }}
                   className="hidden lg:block"
                 >
                   <ContentItem
-                    src={secondContent}
-                    onImageClick={() => handleImageClick(secondContent)}
+                    src={src}
+                    onImageClick={() => handleImageClick(src)}
                     imageRef={(el) => {
-                      if (el) imageRefs.current[secondContent] = el;
+                      if (el) imageRefs.current[src] = el;
                     }}
                   />
                 </motion.div>
-              )}
+              ))}
             </div>
           </div>
 
