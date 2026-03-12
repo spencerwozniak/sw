@@ -54,5 +54,12 @@
     "date": "2025-12-22",
     "time": "10:00 AM PDT",
     "description": "Discuss challenges and opportunities with Friendship Circle"
+  },
+  {
+    "id": "stay-social-03-12-26",
+    "name": "Stay Social CRM Discussion",
+    "date": "2026-03-12",
+    "time": "1:00 PM PST",
+    "description": "Discuss Stay Social's CRM requirements and objectives"
   }
 ]
