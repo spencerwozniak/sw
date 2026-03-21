@@ -147,6 +147,18 @@
     "role": "Developer"
   },
   {
+    "slug": "flappybird",
+    "title": "Flappy Bird CLI",
+    "subtitle": "Terminal-based Flappy Bird Clone",
+    "description": "A terminal-based implementation of the classic Flappy Bird game written in C++. Features physics-based gameplay with gravity and flap mechanics, procedurally generated pipes, collision detection, and colorized terminal rendering using ANSI escape codes.",
+    "externalUrl": "https://github.com/spencerwozniak/flappybird",
+    "content": ["/projects/flappybird/game.jpg"],
+    "tags": ["C++", "Terminal", "Game"],
+    "category": "Personal",
+    "year": "2023",
+    "role": "Developer"
+  },
+  {
     "slug": "pyseq",
     "title": "PySeq",
     "subtitle": "Python tool for biological sequence analysis.",
@@ -154,6 +166,18 @@
     "image": "/projects/pyseq/gui.png",
     "externalUrl": "https://github.com/spencerwozniak/pyseq",
     "tags": ["Python", "Tkinter", "Bioinformatics"],
+    "category": "Personal",
+    "year": "2022",
+    "role": "Developer"
+  },
+  {
+    "slug": "pyencrypt",
+    "title": "PyEncrypt",
+    "subtitle": "File Encryption Tool",
+    "description": "Python CLI tool for encrypting and decrypting files in a directory. Generates secure encryption keys and supports recursive folder encryption. Includes both CLI interface and importable Python API for integration into other projects.",
+    "externalUrl": "https://github.com/spencerwozniak/pyencrypt",
+    "content": ["/projects/pyencrypt/cli.jpg"],
+    "tags": ["Python", "Cryptography", "CLI", "Security"],
     "category": "Personal",
     "year": "2022",
     "role": "Developer"
