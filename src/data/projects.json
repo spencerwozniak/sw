@@ -87,6 +87,20 @@
     "role": "Founder & Tutor"
   },
   {
+    "slug": "woz-foundation",
+    "title": "Woz-Arnold Foundation",
+    "subtitle": "Charity Tournaments for San Diego",
+    "description": "Marketing site for a San Diego nonprofit that hosts local sporting tournaments to raise money for the community. Landing page, upcoming events, and tournament registration flows.",
+    "image": "/projects/woz-foundation/landingpage.jpg",
+    "content": ["/projects/woz-foundation/landingpage.jpg", "/projects/woz-foundation/eventpage.jpg", "/projects/woz-foundation/form.jpg"],
+    "displayContent": 1,
+    "externalUrl": "https://www.wozarnold.org/",
+    "tags": ["Nonprofit", "Events", "San Diego", "Community", "Marketing Site"],
+    "category": "Nonprofit",
+    "year": "2025",
+    "role": "Co-Founder"
+  },
+  {
     "slug": "social-determinants-ehr",
     "title": "The Social Determinants of EHR Quality in US Hospitals",
     "subtitle": "Research Project",
@@ -109,6 +123,19 @@
     "category": "Startup",
     "year": "2024",
     "role": "Co-Founder & Lead Engineer"
+  },
+  {
+    "slug": "msar-extractor",
+    "title": "MSAR Extractor",
+    "subtitle": "AAMC MSAR Data Extraction",
+    "description": "Python tool to scrape and extract medical school data from the AAMC MSAR (Medical School Admission Requirements) database. Pulls median MCAT and GPA, tuition, class size, interview and acceptance rates, required experiences, situational judgment test requirements, and curriculum style. Caches HTML locally to limit logins and exports structured data to CSV.",
+    "image": "/projects/msar-extractor/csv.jpg",
+    "content": ["/projects/msar-extractor/csv.jpg", "/projects/msar-extractor/xlsx.jpg"],
+    "externalUrl": "https://github.com/spencerwozniak/msar-extractor",
+    "tags": ["Python", "Selenium", "BeautifulSoup", "Pandas", "Web Scraping"],
+    "category": "Personal",
+    "year": "2024",
+    "role": "Developer"
   },
   {
     "slug": "gnn",
@@ -155,7 +182,7 @@
     "content": ["/projects/flappybird/game.jpg"],
     "tags": ["C++", "Terminal", "Game"],
     "category": "Personal",
-    "year": "2023",
+    "year": "2022",
     "role": "Developer"
   },
   {
@@ -180,6 +207,32 @@
     "tags": ["Python", "Cryptography", "CLI", "Security"],
     "category": "Personal",
     "year": "2022",
+    "role": "Developer"
+  },
+  {
+    "slug": "stocknn",
+    "title": "StockNN",
+    "subtitle": "ML models to predict the stock market",
+    "description": "Dataset and training scaffold for ML models that predict stock movements. Bundles historical price data and news corpora (e.g. DJIA-related headlines) with Python modules for dataset loading, model definition, training, and inference.",
+    "image": "/projects/stocknn/img.jpg",
+    "content": ["/projects/stocknn/img.jpg"],
+    "externalUrl": "https://github.com/spencerwozniak/stockNN",
+    "tags": ["Python", "PyTorch", "Machine Learning", "Finance", "Time Series"],
+    "category": "Personal",
+    "year": "2022",
+    "role": "Developer"
+  },
+  {
+    "slug": "restaurant",
+    "title": "Restaurant",
+    "subtitle": "Restaurant Management Simulator",
+    "description": "CLI restaurant management simulator in Python. Seat parties and track table availability, manage a waiting list, take and update orders, process payments, and assign servers to tables. Includes a pre-configured menu (appetizers, entrees, desserts, beverages) and runtime stats.",
+    "image": "/projects/restaurant/main.jpg",
+    "content": ["/projects/restaurant/main.jpg", "/projects/restaurant/tables.jpg", "/projects/restaurant/seat-party.jpg", "/projects/restaurant/menu.jpg", "/projects/restaurant/take-order.jpg", "/projects/restaurant/orders.jpg", "/projects/restaurant/update-order.jpg", "/projects/restaurant/payment.jpg", "/projects/restaurant/clear-table.jpg", "/projects/restaurant/stats.jpg"],
+    "externalUrl": "https://github.com/spencerwozniak/restaurant",
+    "tags": ["Python", "CLI", "Simulation"],
+    "category": "Personal",
+    "year": "2021",
     "role": "Developer"
   },
   {
