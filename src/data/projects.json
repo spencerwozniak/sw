@@ -214,10 +214,10 @@
     "title": "StockNN",
     "subtitle": "ML models to predict the stock market",
     "description": "Dataset and training scaffold for ML models that predict stock movements. Bundles historical price data and news corpora (e.g. DJIA-related headlines) with Python modules for dataset loading, model definition, training, and inference.",
-    "image": "/projects/stocknn/img.jpg",
-    "content": ["/projects/stocknn/img.jpg"],
+    "image": "/projects/stockNN/img.jpg",
+    "content": ["/projects/stockNN/img.jpg"],
     "externalUrl": "https://github.com/spencerwozniak/stockNN",
-    "tags": ["Python", "PyTorch", "Machine Learning", "Finance", "Time Series"],
+    "tags": ["Python", "PyTorch", "Machine Learning", "Finance"],
     "category": "Personal",
     "year": "2022",
     "role": "Developer"
