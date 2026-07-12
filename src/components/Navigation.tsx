@@ -61,18 +61,26 @@ const Navigation: React.FC = () => {
     setIsSubMenuOpen((prev) => !prev);
   };
 
+  // Fade the page content out while the mobile menu is open
+  useEffect(() => {
+    const root = document.documentElement;
+    root.classList.toggle('menu-open', isSubMenuOpen);
+    return () => root.classList.remove('menu-open');
+  }, [isSubMenuOpen]);
+
   if (!isHydrated) {
     // Return nothing or minimal skeleton until hydration is complete to avoid mismatch
     return null;
   }
 
   return (
+    <>
     <header className={`${styles.navigationHeader} transition-[backdrop-filter] duration-300 ${isScrolled ? '!backdrop-blur-xs bg-white/[0.01] dark:bg-black/[0.01]' : '!backdrop-blur-none'}`}>
       <div className={styles.navContainer}>
         <div className={styles.headerLeft}>
           {isMobile && (
             <div className={styles.navMenuButton}>
-              <MenuButton onClick={toggleSubMenu} />
+              <MenuButton onClick={toggleSubMenu} isOpen={isSubMenuOpen} />
             </div>
           )}
           <div
@@ -123,33 +131,6 @@ const Navigation: React.FC = () => {
           </ul>
         </nav>
 
-        {isMobile && (
-          <div className={`${styles.dropdownMenu} ${isSubMenuOpen ? styles.open : styles.closed}`}>
-            <div className={styles.dropdownInner}>
-              {navigationData.map((item, index) => (
-                <div key={index} className={styles.dropdownSectionWrapper}>
-                  <section className={styles.navColumn}>
-                    <Link href={item.link} className={styles.navColumnHeading}>
-                      <h2 className='text-4xl'>{item.label}</h2>
-                    </Link>
-                    {item.submenu && (
-                      <div className={styles.mobileSubmenu}>
-                        {item.submenu.map((subItem, subIndex) => (
-                          <Link key={subIndex} href={subItem.link} className={styles.mobileSubmenuLink}>
-                            {subItem.label}
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                  </section>
-                  {index < navigationData.length - 1 && <hr className={styles.navDivider} />}
-                </div>
-              ))}
-            </div>
-            <SocialIcons />
-          </div>
-        )}
-
         <div className={styles.headerRight}>
           <a
             className={styles.headerContactLink}
@@ -175,6 +156,34 @@ const Navigation: React.FC = () => {
         </div>
       </div>
     </header>
+
+    {isMobile && (
+      <div className={`${styles.dropdownMenu} ${isSubMenuOpen ? styles.open : styles.closed}`}>
+        <div className={styles.dropdownInner}>
+          {navigationData.map((item, index) => (
+            <div key={index} className={styles.dropdownSectionWrapper}>
+              <section className={styles.navColumn}>
+                <Link href={item.link} className={styles.navColumnHeading} onClick={() => setIsSubMenuOpen(false)}>
+                  <h2 className='text-4xl'>{item.label}</h2>
+                </Link>
+                {item.submenu && (
+                  <div className={styles.mobileSubmenu}>
+                    {item.submenu.map((subItem, subIndex) => (
+                      <Link key={subIndex} href={subItem.link} className={styles.mobileSubmenuLink} onClick={() => setIsSubMenuOpen(false)}>
+                        {subItem.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </section>
+              {index < navigationData.length - 1 && <hr className={styles.navDivider} />}
+            </div>
+          ))}
+        </div>
+        <SocialIcons />
+      </div>
+    )}
+    </>
   );
 };
 

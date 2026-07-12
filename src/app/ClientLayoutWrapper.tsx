@@ -18,10 +18,12 @@ export default function ClientLayoutWrapper({ children }: { children: React.Reac
       {!invoiceLayout &&
         <>
           <ClientNavigationWrapper />
-          <div className="mt-15">
+          <div className="mt-15 page-content">
             {children}
           </div>
-          <Footer />
+          <div className="page-content">
+            <Footer />
+          </div>
         </>
       }
 

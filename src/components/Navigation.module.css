@@ -176,40 +176,32 @@
   left: 0;
   width: 100vw;
   height: calc(100vh - 80px);
-  background-color: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background-color: transparent;
   color: #000000;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   z-index: 999;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   opacity: 0;
-  transform: translateY(-10px);
   pointer-events: none;
   transition:
     opacity 0.6s ease,
-    transform 0.6s ease,
     background-color 0.3s ease,
     color 0.3s ease;
 }
 
 :global(.dark) .dropdownMenu {
-  background-color: rgba(0, 0, 0, 0.12);
   color: #ffffff;
 }
 
 .open {
   opacity: 1;
-  transform: translateY(0);
   pointer-events: auto;
 }
 
 .closed {
   opacity: 0;
-  transform: translateY(-10px);
   pointer-events: none;
 }
 
