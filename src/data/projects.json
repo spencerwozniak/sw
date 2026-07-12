@@ -2,14 +2,40 @@
   {
     "slug": "serelora",
     "title": "Serelora",
-    "subtitle": "Universal AI Interface for Physicians",
-    "description": "EHR‑agnostic and clinician‑first. A team of specialized AI agents supports documentation, orders, and patient communication—without changing the EHR.",
-    "content": ["/projects/serelora/chart-linking.jpg", "/projects/serelora/document-open.jpg", "/projects/serelora/patient-list.jpg", "/projects/serelora/serelora-web-app.png", "/projects/serelora/website.jpg"],
+    "subtitle": "An Agentic EHR",
+    "description": "Serelora automates the work that keeps doctors at their computers so they can be with their patients.",
+    "content": ["/projects/serelora/chart-linking.jpg", "/projects/serelora/scribe-app.png", "/projects/serelora/serelora-note.jpg", "/projects/serelora/timeline.jpg", "/projects/serelora/calendar.jpg", "/projects/serelora/tool-use.jpg"],
     "externalUrl": "https://www.serelora.com",
     "tags": ["Healthcare", "AI", "Multi‑agent", "EHR‑agnostic", "Next.js", "TypeScript", "Node"],
     "category": "Startup",
     "year": "2025 - Present",
     "role": "Co-Founder & CTO"
+  },
+  {
+    "slug": "clirc",
+    "title": "clirc",
+    "subtitle": "Bidirectional FHIR R4 Library in C",
+    "description": "clirc (Clinical Lightweight Interoperability Resources in C) is a lightweight, bidirectional FHIR R4 library written in pure C. It parses FHIR JSON into C structs and serializes C structs back into FHIR JSON — with zero heap allocation and zero dependencies.\n\nBuilt for medical devices, surgical robots, and embedded gateways that need to interoperate with EHRs without heavyweight runtimes. Fixed-size structs, no malloc on the hot path, explicit error codes, and roughly 2K lines of auditable, hand-written C99.\n\nSupports Observation, Device, and Patient resources, including component arrays for complex observations like blood pressure. Designed and implemented the entire library, test suite, and validation CLI end-to-end.",
+    "image": "/projects/clirc/logo.png",
+    "content": ["/projects/clirc/logo.png"],
+    "externalUrl": "https://github.com/spencerwozniak/clirc",
+    "tags": ["C", "C99", "FHIR R4", "HL7", "Interoperability", "Embedded", "Medical Devices", "Zero-dependency"],
+    "category": "Open Source",
+    "year": "2026",
+    "role": "Creator & Sole Developer"
+  },
+  {
+    "slug": "sage",
+    "title": "Sage",
+    "subtitle": "Local-First Knowledge Agent",
+    "description": "Sage is a local-first desktop knowledge agent — built with Tauri, Next.js, and FastAPI — that turns your own sources into chat, reports, quizzes, flashcards, and audio reviews, all grounded in a personal, user-owned knowledge base.\n\nContributed the app's backend and data foundations: replaced every placeholder fixture with real backend round-trips and built the core generation endpoints (flashcards, quizzes, and reports) that retrieve knowledge-base excerpts via semantic search and validate LLM JSON output before responding.\n\nAlso added audio narration with TTS synthesis and streaming, live chat sessions, and the history panel — wiring the frontend views to live, KB-grounded FastAPI data.",
+    "image": "/projects/sage/input.png",
+    "content": ["/projects/sage/input.png"],
+    "externalUrl": "https://github.com/zeapsu/Sage/pull/37",
+    "tags": ["TypeScript", "Next.js", "React", "Tauri", "FastAPI", "Python", "LLM", "RAG", "TTS"],
+    "category": "Open Source",
+    "year": "2026",
+    "role": "Backend Contributor"
   },
   {
     "slug": "kare-app",
