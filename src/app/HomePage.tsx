@@ -71,10 +71,8 @@ export default function HomePage() {
             </div>
 
             <p className="leading-relaxed text-neutral-100 mt-4">
-              I&apos;m a Catholic Christian, healthtech entrepreneur, and full-stack engineer
-              focused on building reliable, explainable software for healthcare.
-              My work sits at the intersection of clinical systems, data infrastructure,
-              and applied AI, with a particular emphasis on EHRs, interoperability, and patient-centered design.
+              I&apos;m a Catholic Christian and healthtech entrepreneur focused on 
+              building reliable, explainable software for healthcare.
             </p>
 
             <p className="leading-relaxed text-neutral-100 mt-4">
@@ -84,8 +82,7 @@ export default function HomePage() {
             </p>
 
             <p className="leading-relaxed text-neutral-100 mt-4">
-              That realization redirected my path from medical school into building technology full-time.
-              I drove across the country to found{" "}
+              That realization redirected my path from medical school, and I founded{" "}
               <a
                 href="https://www.serelora.com/"
                 target="_blank"
@@ -113,13 +110,13 @@ export default function HomePage() {
             className="flex flex-wrap md:flex-nowrap justify-center md:justify-start md:gap-5"
           >
             <NavButton
-              to="/work"
-              label="My Work"
+              to="/writing/behold-i-make-all-things-new"
+              label="My Story"
               className="!text-[14px] !mt-5 md:!w-40"
             />
             <NavButton
-              to="/writing/behold-i-make-all-things-new"
-              label="My Story"
+              to="/work"
+              label="My Work"
               className="!text-[14px] !mt-5 md:!w-40"
             />
             <NavButton

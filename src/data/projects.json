@@ -2,7 +2,7 @@
   {
     "slug": "serelora",
     "title": "Serelora",
-    "subtitle": "An Agentic EHR",
+    "subtitle": "The Chat EHR",
     "description": "Serelora automates the work that keeps doctors at their computers so they can be with their patients.",
     "content": ["/projects/serelora/chart-linking.jpg", "/projects/serelora/scribe-app.png", "/projects/serelora/serelora-note.jpg", "/projects/serelora/timeline.jpg", "/projects/serelora/calendar.jpg", "/projects/serelora/tool-use.jpg"],
     "externalUrl": "https://www.serelora.com",
@@ -173,7 +173,7 @@
     "tags": ["Python", "GNNs", "Graph Theory", "PyTorch Geometric", "MoE", "Transformers", "Attention"],
     "category": "AI & Biophysics Research",
     "year": "2022 - 2025",
-    "role": "Co-Author & Researcher"
+    "role": "First Author"
   },
   {
     "slug": "sh3-diffusion",
@@ -185,7 +185,7 @@
     "tags": ["PyTorch", "Diffusion", "SH3 Protein"],
     "category": "Biophysics Research",
     "year": "2022-2024",
-    "role": "Co-Author & Researcher"
+    "role": "First Author"
   },
   {
     "slug": "fishbot",

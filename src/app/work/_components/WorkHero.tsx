@@ -25,9 +25,6 @@ export default function WorkHero() {
             <p className="text-xl md:text-2xl text-gray-200 leading-relaxed">
               I&apos;m currently building <strong className="text-white font-semibold">Serelora</strong>, a startup that&apos;s transforming how physicians interact with electronic health records.
             </p>
-            <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
-              We&apos;re building an AI-powered interface that makes EHRs actually usable—helping doctors spend less time on documentation and more time with patients.
-            </p>
           </div>
 
           {/* CTA */}
