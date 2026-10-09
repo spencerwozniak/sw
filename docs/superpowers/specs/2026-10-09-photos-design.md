@@ -64,7 +64,7 @@ Uses `sharp` (already in node_modules) and runs with `node scripts/process-photo
 - Input: `public/gallery/places/*` plus captions from `src/data/gallery.json`.
 - For each photo: read EXIF DateTimeOriginal and camera model, apply EXIF
   orientation, resize to max 2400px long edge, re-encode JPEG (q≈82) **with
-  all metadata stripped**, write to `public/photos/<id>.jpg` (id = lowercased
+  all metadata stripped**, write to `public/images/photos/<id>.jpg` (not `public/photos/`, which would share URLs with the `/photos/[set]` route) (id = lowercased
   filename stem).
 - Emit `src/data/photos.json`: `[{ id, file, caption, width, height, takenAt
   (ISO string or null), camera (string or null) }]`.
@@ -101,7 +101,7 @@ Typed loaders: `getPhotos()` (newest first), `getPhoto(id)`, `getPhotosets()`,
 - Each route checked in the browser on desktop and at 375px width: no
   horizontal page scroll, grid rows fill the width, lightbox works with the
   keyboard and closes cleanly.
-- A metadata check confirms no file in `public/photos` contains EXIF or GPS.
+- A metadata check confirms no file in `public/images/photos` contains EXIF or GPS.
 
 ## Out of scope
 Collections, per-photo pages, maps, per-set long-form write-ups, CMS.
