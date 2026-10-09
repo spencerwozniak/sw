@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FaFacebookF,
   FaXTwitter,
@@ -8,19 +8,21 @@ import {
   FaRedditAlien,
   FaRegCopy,
 } from "react-icons/fa6";
+import { IconButton } from "@/components/ui";
+import TempMsg from "@/components/TempMsg";
 
 export default function ShareButtons({ articleId }: { articleId: string }) {
-  const url =
-    typeof window !== "undefined"
-      ? `${window.location.origin}/writing/${articleId}`
-      : "";
+  const [url, setUrl] = useState("");
   const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    setUrl(`${window.location.origin}/writing/${articleId}`);
+  }, [articleId]);
 
   const copyToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(url);
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
     } catch (err) {
       console.error("Failed to copy:", err);
     }
@@ -50,31 +52,34 @@ export default function ShareButtons({ articleId }: { articleId: string }) {
   ];
 
   return (
-    <aside aria-label="Share article" className="mt-5">
-      <div className="flex gap-3 flex-wrap items-center">
+    <aside aria-label="Share article">
+      <div className="flex flex-wrap items-center gap-1.5">
         {buttons.map(({ icon, label, href }) => (
-          <a
+          <IconButton
             key={label}
+            variant="outline"
+            size="sm"
             href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[#bbb] hover:text-white border border-[#333] hover:border-[#555] p-2 rounded-full transition-colors"
+            label={`Share on ${label}`}
             title={`Share on ${label}`}
-            aria-label={`Share on ${label}`}
-          >
-            {icon}
-          </a>
+            icon={icon}
+          />
         ))}
-        <button
-          onClick={copyToClipboard}
-          className="cursor-pointer text-[#bbb] hover:text-white border border-[#333] hover:border-[#555] p-2 rounded-full transition-colors"
+        <IconButton
+          variant="outline"
+          size="sm"
+          label="Copy link"
           title="Copy link"
-          aria-label="Copy link"
-        >
-          <FaRegCopy />
-        </button>
+          icon={<FaRegCopy />}
+          onClick={copyToClipboard}
+        />
         {copied && (
-          <span className="text-sm text-[#8d8d8d] ml-2">Link copied!</span>
+          <TempMsg
+            message="Link copied!"
+            clearMessage={() => setCopied(false)}
+            duration={2000}
+            className="ml-2"
+          />
         )}
       </div>
     </aside>

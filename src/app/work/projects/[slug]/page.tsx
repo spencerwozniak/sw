@@ -10,6 +10,8 @@ type Project = {
   description?: string;
   image: string;
   content?: string[]; // Array of image paths or YouTube URLs
+  /** Number of first N content items to show in the top column (default 2). Rest go to Gallery. */
+  displayContent?: number;
   externalUrl?: string | null;
   tags?: string[];
   category?: string;

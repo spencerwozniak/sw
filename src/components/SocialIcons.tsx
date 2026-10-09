@@ -1,5 +1,3 @@
-'use client';
-
 import {
   FaLinkedin,
   FaGithub,
@@ -10,76 +8,29 @@ import {
   FaYoutube,
   FaFacebook,
 } from 'react-icons/fa';
-import styles from './SocialIcons.module.css'; // optional: split CSS if needed
+import { cx } from '@/lib/cx';
+import { IconButton } from '@/components/ui';
 
-const SocialIcons: React.FC = () => {
+const SOCIAL_LINKS = [
+  { href: 'https://www.linkedin.com/in/spencerwozniak/', label: 'LinkedIn', icon: <FaLinkedin /> },
+  { href: 'https://github.com/spencerwozniak', label: 'GitHub', icon: <FaGithub /> },
+  { href: 'https://www.researchgate.net/profile/Spencer-Wozniak', label: 'ResearchGate', icon: <FaGraduationCap /> },
+  { href: 'https://www.youtube.com/@spencerwozniak', label: 'YouTube', icon: <FaYoutube /> },
+  { href: 'https://www.goodreads.com/user/show/180143299-spencer-wozniak', label: 'Goodreads', icon: <FaBook /> },
+  { href: 'https://www.facebook.com/profile.php?id=100009558799665', label: 'Facebook', icon: <FaFacebook /> },
+  { href: 'https://x.com/WozniakSpencer', label: 'Twitter', icon: <FaTwitter /> },
+  { href: 'https://instagram.com/spencer.wozniak', label: 'Instagram', icon: <FaInstagram /> },
+];
+
+const SocialIcons: React.FC<{ className?: string }> = ({ className }) => {
   return (
-    <div className={styles.socialIcons}>
-      <a
-        href="https://www.linkedin.com/in/spencerwozniak/"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="LinkedIn"
-      >
-        <FaLinkedin size={24} />
-      </a>
-      <a
-        href="https://github.com/spencerwozniak"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="GitHub"
-      >
-        <FaGithub size={24} />
-      </a>
-      <a
-        href="https://www.researchgate.net/profile/Spencer-Wozniak"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="ResearchGate"
-      >
-        <FaGraduationCap size={24} />
-      </a>
-      <a
-        href="https://www.youtube.com/@spencerwozniak"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="YouTube"
-      >
-        <FaYoutube size={24} />
-      </a>
-      <a
-        href="https://www.goodreads.com/user/show/180143299-spencer-wozniak"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Goodreads"
-      >
-        <FaBook size={24} />
-      </a>
-      <a
-        href="https://www.facebook.com/profile.php?id=100009558799665"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Facebook"
-      >
-        <FaFacebook size={24} />
-      </a>
-      <a
-        href="https://x.com/WozniakSpencer"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Twitter"
-      >
-        <FaTwitter size={24} />
-      </a>
-      <a
-        href="https://instagram.com/spencer.wozniak"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Instagram"
-      >
-        <FaInstagram size={24} />
-      </a>
-    </div>
+    <ul className={cx('m-0 flex list-none flex-wrap gap-1 p-0', className)}>
+      {SOCIAL_LINKS.map(({ href, label, icon }) => (
+        <li key={href}>
+          <IconButton href={href} label={label} icon={icon} />
+        </li>
+      ))}
+    </ul>
   );
 };
 

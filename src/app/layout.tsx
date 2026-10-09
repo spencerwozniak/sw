@@ -74,19 +74,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${lato.variable} ${lora.variable} dark`}>
+    <html lang="en" className={`${lato.variable} ${lora.variable}`} suppressHydrationWarning>
       <head>
-        {/* Always set dark mode before React hydrates to prevent flash */}
+        {/* No-flash theme script: saved choice wins, otherwise OS preference */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                document.documentElement.classList.add('dark');
-              })();
-            `,
+            __html: `(function(){var r=document.documentElement,t=null;try{t=localStorage.getItem('theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}r.setAttribute('data-theme',t);r.style.colorScheme=t})();`,
           }}
         />
-        {/* ✅ JSON-LD Structured Data for Google Logo */}
+        {/* JSON-LD Structured Data for Google Logo */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

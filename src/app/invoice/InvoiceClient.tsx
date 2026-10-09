@@ -1,53 +1,82 @@
-"use client";
+'use client';
 
-import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
+import { useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
-import { MdOutlineFileDownload, MdOutlineAttachMoney } from "react-icons/md";
+import { MdOutlineFileDownload, MdOutlineAttachMoney } from 'react-icons/md';
 
-function InvoiceButtons({ invoice }) {
+import { Button, Meta, Panel, Signature, TextLink, Title } from '@/components/ui';
+
+interface InvoiceAddress {
+  line1?: string | null;
+  line2?: string | null;
+  city?: string | null;
+  state?: string | null;
+  postal_code?: string | null;
+  country?: string | null;
+}
+
+interface InvoiceLineItem {
+  id: string;
+  description?: string | null;
+  quantity?: number | null;
+  price?: { unit_amount?: number | null } | null;
+  amount: number;
+  currency: string;
+}
+
+interface Invoice {
+  number?: string | null;
+  customer_name?: string | null;
+  customer_email?: string | null;
+  customer_address?: InvoiceAddress | null;
+  created?: number | null;
+  due_date?: number | null;
+  currency?: string;
+  lines?: { data?: InvoiceLineItem[] };
+  subtotal?: number;
+  total?: number;
+  total_taxes?: Array<{ amount?: number | null }> | null;
+  amount_due?: number;
+  amount_paid?: number;
+  description?: string | null;
+  account_name?: string | null;
+  invoice_pdf?: string;
+  hosted_invoice_url?: string;
+}
+
+function InvoiceButtons({ invoice }: { invoice: Invoice }) {
   return (
-    <div className="my-6 flex justify-end gap-x-3">
-      <a
-        className="h-10 px-5 inline-flex items-center justify-center gap-x-2 text-sm font-semibold rounded border border-white/50 bg-white/[0.035] text-white transition-all duration-300 hover:bg-white/[0.05] active:scale-[0.98]"
-        href={invoice.invoice_pdf}
-      >
-        <MdOutlineFileDownload />
+    <div className="flex flex-wrap gap-3 print:hidden">
+      <Button size="sm" href={invoice.invoice_pdf} newTab={false} icon={<MdOutlineFileDownload />}>
         Invoice PDF
-      </a>
+      </Button>
       {invoice.hosted_invoice_url && (
-        <a
-          className="h-10 px-5 inline-flex items-center justify-center gap-x-2 text-sm font-semibold rounded border border-transparent bg-[#a6865f]/[0.75] text-white transition-all duration-300 hover:bg-[#bfaa8d]/[0.75] active:scale-[0.98]"
-          href={invoice.hosted_invoice_url}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <MdOutlineAttachMoney />
+        <Button variant="primary" size="sm" href={invoice.hosted_invoice_url} icon={<MdOutlineAttachMoney />}>
           Pay Now
-        </a>
+        </Button>
       )}
     </div>
   );
 }
 
 export default function InvoiceClient() {
-  const [invoice, setInvoice] = useState(null);
+  const [invoice, setInvoice] = useState<Invoice | null>(null);
   const [loading, setLoading] = useState(true);
   const params = useSearchParams();
 
-  const formatCents = (amount: number, currency = "usd") =>
-    (amount / 100).toLocaleString("en-US", {
-      style: "currency",
+  const formatCents = (amount: number, currency = 'usd') =>
+    (amount / 100).toLocaleString('en-US', {
+      style: 'currency',
       currency: currency.toUpperCase(),
     });
 
-  const formatDate = (unix: number) =>
-    unix ? new Date(unix * 1000).toLocaleDateString() : "-";
+  const formatDate = (unix?: number | null) =>
+    unix ? new Date(unix * 1000).toLocaleDateString() : '-';
 
   useEffect(() => {
-    const id = params.get("id");
+    const id = params.get('id');
     if (!id) return;
     fetch(`/api/invoice/${id}`)
       .then((res) => res.json())
@@ -55,18 +84,8 @@ export default function InvoiceClient() {
       .finally(() => setLoading(false));
   }, [params]);
 
-  if (loading)
-    return (
-      <div className="flex flex-col justify-center items-center text-center min-h-[90vh] py-10 px-4 sm:px-6 lg:px-8 mt-10">
-        Loading...
-      </div>
-    );
-  if (!invoice)
-    return (
-      <div className="flex flex-col justify-center items-center text-center min-h-[90vh] py-10 px-4 sm:px-6 lg:px-8 mt-10">
-        Invoice not found.
-      </div>
-    );
+  if (loading) return <p className="text-center">Loading...</p>;
+  if (!invoice) return <p className="text-center">Invoice not found.</p>;
 
   const hasCustomerAddress =
     !!invoice.customer_address &&
@@ -80,244 +99,170 @@ export default function InvoiceClient() {
     );
 
   return (
-    <div className="w-full px-4 sm:px-6 lg:px-8 mx-auto mb-10">
-      <div className="sm:w-11/12 lg:w-3/4 mx-auto">
-        <InvoiceButtons invoice={invoice} />
-        <div className="flex flex-col p-4 sm:p-10 bg-black/80 shadow-md rounded-xl transition-colors duration-300">
-          {/* Header */}
-          <div className="flex justify-between">
-            <div>
-              {/* SVG or Logo */}
-              <Link href="/">
-                <Image
-                  src="/sw-full-signature-white.png"
-                  alt="Spencer Wozniak Signature"
-                  width={120}
-                  height={50}
-                  priority
-                />
-              </Link>
-            </div>
-            <div className="text-end">
-              <h2 className="text-2xl md:text-3xl font-semibold text-white">
-                Invoice #
-              </h2>
-              <span className="mt-1 block text-neutral-300">
-                {invoice.number}
-              </span>
-
-              {/* Company + email in top-right */}
-              <div className="mt-4 text-sm text-neutral-100">
-                <p className="font-semibold">
-                  {invoice.customer_name || "Spencer Wozniak"}
-                </p>
-                <a
-                  href={`mailto:${invoice.customer_email || "hey@spencerwozniak.com"
-                    }`}
-                  className="text-neutral-300"
-                >
-                  {invoice.customer_email || "hey@spencerwozniak.com"}
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* Info */}
-          <div className="mt-8 grid sm:grid-cols-2 gap-3">
-            <div>
-              <h3 className="text-lg font-semibold text-neutral-100">
-                Bill to:
-              </h3>
-              <h3 className="text-lg font-semibold text-neutral-100">
-                {invoice.customer_name}
-              </h3>
-
-              {hasCustomerAddress && (
-                <address className="mt-2 not-italic text-neutral-300">
-                  {invoice.customer_address?.line1}
-                  {invoice.customer_address?.line2
-                    ? `, ${invoice.customer_address?.line2}`
-                    : ""}
-                  <br />
-                  {[
-                    invoice.customer_address?.city,
-                    invoice.customer_address?.state,
-                    invoice.customer_address?.postal_code,
-                  ]
-                    .filter(Boolean)
-                    .join(", ")}
-                  <br />
-                  {invoice.customer_address?.country}
-                </address>
-              )}
-            </div>
-            <div className="sm:text-end space-y-2">
-              <div className="grid grid-cols-2 sm:grid-cols-1 gap-3 sm:gap-2">
-                <dl className="grid sm:grid-cols-5 gap-x-3">
-                  <dt className="col-span-3 font-semibold text-neutral-100">
-                    Invoice date:
-                  </dt>
-                  <dd className="col-span-2 text-neutral-300">
-                    {formatDate(invoice.created)}
-                  </dd>
-                </dl>
-                <dl className="grid sm:grid-cols-5 gap-x-3">
-                  <dt className="col-span-3 font-semibold text-neutral-100">
-                    Due date:
-                  </dt>
-                  <dd className="col-span-2 text-neutral-300">
-                    {formatDate(invoice.due_date)}
-                  </dd>
-                </dl>
-              </div>
-            </div>
-          </div>
-          {/* Line Items Table */}
-          <div className="mt-6">
-            <div className="border border-gray-200 p-4 rounded-lg space-y-4">
-              <div className="hidden sm:grid sm:grid-cols-5">
-                <div className="sm:col-span-2 text-xs font-medium text-neutral-300 uppercase">
-                  Item
-                </div>
-                <div className="text-start text-xs font-medium text-neutral-300 uppercase">
-                  Qty
-                </div>
-                <div className="text-start text-xs font-medium text-neutral-300 uppercase">
-                  Rate
-                </div>
-                <div className="text-end text-xs font-medium text-neutral-300 uppercase">
-                  Amount
-                </div>
-              </div>
-              <div className="hidden sm:block border-b border-gray-200"></div>
-              {invoice.lines?.data?.map((item) => (
-                <div
-                  key={item.id}
-                  className="grid grid-cols-3 sm:grid-cols-5 gap-2"
-                >
-                  <div className="col-span-full sm:col-span-2">
-                    <h5 className="sm:hidden text-xs font-medium text-neutral-300 uppercase">
-                      Item
-                    </h5>
-                    <p className="font-medium text-neutral-100">
-                      {item.description}
-                    </p>
-                  </div>
-                  <div>
-                    <h5 className="sm:hidden text-xs font-medium text-neutral-300 uppercase">
-                      Qty
-                    </h5>
-                    <p className="text-neutral-100">{item.quantity}</p>
-                  </div>
-                  <div>
-                    <h5 className="sm:hidden text-xs font-medium text-neutral-300 uppercase">
-                      Rate
-                    </h5>
-                    <p className="text-neutral-100">
-                      {formatCents(
-                        item.price?.unit_amount ||
-                        (item.quantity && item.quantity > 0
-                          ? Math.round(item.amount / item.quantity)
-                          : 0),
-                        item.currency
-                      )}
-                    </p>
-                  </div>
-                  <div>
-                    <h5 className="sm:hidden text-xs font-medium text-neutral-300 uppercase">
-                      Amount
-                    </h5>
-                    <p className="sm:text-end text-neutral-100">
-                      {formatCents(item.amount, item.currency)}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          {/* Totals */}
-          <div className="mt-8 flex sm:justify-end">
-            <div className="w-full max-w-2xl sm:text-end space-y-2">
-              <div className="grid grid-cols-2 sm:grid-cols-1 gap-3 sm:gap-2">
-                <dl className="grid sm:grid-cols-5 gap-x-3">
-                  <dt className="col-span-3 font-semibold text-neutral-100">
-                    Subtotal:
-                  </dt>
-                  <dd className="col-span-2 text-neutral-300">
-                    {formatCents(invoice.subtotal, invoice.currency)}
-                  </dd>
-                </dl>
-                <dl className="grid sm:grid-cols-5 gap-x-3">
-                  <dt className="col-span-3 font-semibold text-neutral-100">
-                    Total:
-                  </dt>
-                  <dd className="col-span-2 text-neutral-300">
-                    {formatCents(invoice.total, invoice.currency)}
-                  </dd>
-                </dl>
-                <dl className="grid sm:grid-cols-5 gap-x-3">
-                  <dt className="col-span-3 font-semibold text-neutral-100">
-                    Tax:
-                  </dt>
-                  <dd className="col-span-2 text-neutral-300">
-                    {invoice.total_taxes?.[0]?.amount
-                      ? formatCents(
-                        invoice.total_taxes[0].amount,
-                        invoice.currency
-                      )
-                      : "$0.00"}
-                  </dd>
-                </dl>
-                <dl className="grid sm:grid-cols-5 gap-x-3">
-                  <dt className="col-span-3 font-semibold text-neutral-100">
-                    Amount paid:
-                  </dt>
-                  <dd className="col-span-2 text-neutral-300">
-                    {formatCents(invoice.amount_paid, invoice.currency)}
-                  </dd>
-                </dl>
-                <dl className="grid sm:grid-cols-5 gap-x-3">
-                  <dt className="col-span-3 font-semibold text-neutral-100">
-                    Due balance:
-                  </dt>
-                  <dd className="col-span-2 text-neutral-300">
-                    <b>
-                      {formatCents(
-                        Math.max(0, invoice.amount_due - invoice.amount_paid),
-                        invoice.currency
-                      )}
-                    </b>
-                  </dd>
-                </dl>
-              </div>
-            </div>
-          </div>
-          {/* Footer */}
-          <div className="mt-8 sm:mt-12">
-            <h4 className="text-lg font-semibold text-neutral-100">
-              Thank you!
-            </h4>
-            <p className="text-neutral-300">
-              {invoice.description ||
-                "If you have any questions concerning this invoice, use the following contact information:"}
-            </p>
-            <div className="mt-2">
-              <a
-                href="mailto:hey@spencerwozniak.com"
-                className="block text-sm font-medium text-neutral-100"
-              >
-                hey@spencerwozniak.com
-              </a>
-            </div>
-          </div>
-          <p className="mt-5 text-sm text-neutral-300">
-            © {new Date().getFullYear()}{" "}
-            {invoice.account_name || "Your Company"}.
-          </p>
-        </div>
-
+    <>
+      <div className="mb-6">
         <InvoiceButtons invoice={invoice} />
       </div>
-    </div>
+
+      <Panel>
+        {/* Header */}
+        <div className="flex flex-wrap justify-between gap-6">
+          <Link href="/">
+            <Signature className="h-10 w-auto" priority />
+          </Link>
+          <div className="ml-auto text-end">
+            <Title as="h2" size="h2">
+              Invoice #{invoice.number}
+            </Title>
+            <p className="mt-4 text-muted">{invoice.customer_name || 'Spencer Wozniak'}</p>
+            <TextLink
+              href={`mailto:${invoice.customer_email || 'hey@spencerwozniak.com'}`}
+              className="text-muted"
+            >
+              {invoice.customer_email || 'hey@spencerwozniak.com'}
+            </TextLink>
+          </div>
+        </div>
+
+        {/* Info */}
+        <div className="mt-8 grid gap-6 sm:grid-cols-2">
+          <div>
+            <Meta as="p">Bill to:</Meta>
+            <p className="font-bold">{invoice.customer_name}</p>
+            {hasCustomerAddress && (
+              <address className="mt-2 not-italic">
+                {invoice.customer_address?.line1}
+                {invoice.customer_address?.line2 ? `, ${invoice.customer_address?.line2}` : ''}
+                <br />
+                {[
+                  invoice.customer_address?.city,
+                  invoice.customer_address?.state,
+                  invoice.customer_address?.postal_code,
+                ]
+                  .filter(Boolean)
+                  .join(', ')}
+                <br />
+                {invoice.customer_address?.country}
+              </address>
+            )}
+          </div>
+          <dl className="m-0 space-y-2 sm:text-end">
+            <div>
+              <Meta as="dt">Invoice date:</Meta>
+              <dd className="m-0">{formatDate(invoice.created)}</dd>
+            </div>
+            <div>
+              <Meta as="dt">Due date:</Meta>
+              <dd className="m-0">{formatDate(invoice.due_date)}</dd>
+            </div>
+          </dl>
+        </div>
+
+        {/* Line items */}
+        <Panel padding="sm" className="mt-8 space-y-4">
+          <div className="hidden gap-2 sm:grid sm:grid-cols-5">
+            <Meta as="div" className="sm:col-span-2">
+              Item
+            </Meta>
+            <Meta as="div">Qty</Meta>
+            <Meta as="div">Rate</Meta>
+            <Meta as="div" className="text-end">
+              Amount
+            </Meta>
+          </div>
+          <hr className="hidden sm:block" />
+          {invoice.lines?.data?.map((item, i, arr) => (
+            <div key={item.id}>
+              <div className="grid grid-cols-3 gap-2 sm:grid-cols-5">
+                <div className="col-span-full sm:col-span-2">
+                  <Meta as="p" className="sm:hidden">
+                    Item
+                  </Meta>
+                  <p className="font-bold">{item.description}</p>
+                </div>
+                <div>
+                  <Meta as="p" className="sm:hidden">
+                    Qty
+                  </Meta>
+                  <p>{item.quantity}</p>
+                </div>
+                <div>
+                  <Meta as="p" className="sm:hidden">
+                    Rate
+                  </Meta>
+                  <p>
+                    {formatCents(
+                      item.price?.unit_amount ||
+                        (item.quantity && item.quantity > 0 ? Math.round(item.amount / item.quantity) : 0),
+                      item.currency
+                    )}
+                  </p>
+                </div>
+                <div>
+                  <Meta as="p" className="sm:hidden">
+                    Amount
+                  </Meta>
+                  <p className="sm:text-end">{formatCents(item.amount, item.currency)}</p>
+                </div>
+              </div>
+              {i < arr.length - 1 && <hr className="mt-4" />}
+            </div>
+          ))}
+        </Panel>
+
+        {/* Totals */}
+        <div className="mt-8 flex justify-end">
+          <dl className="w-full max-w-xs space-y-2 text-end">
+            <div className="flex items-baseline justify-between gap-3">
+              <Meta as="dt">Subtotal:</Meta>
+              <dd>{formatCents(invoice.subtotal ?? 0, invoice.currency)}</dd>
+            </div>
+            <div className="flex items-baseline justify-between gap-3">
+              <Meta as="dt">Total:</Meta>
+              <dd>{formatCents(invoice.total ?? 0, invoice.currency)}</dd>
+            </div>
+            <div className="flex items-baseline justify-between gap-3">
+              <Meta as="dt">Tax:</Meta>
+              <dd>
+                {invoice.total_taxes?.[0]?.amount
+                  ? formatCents(invoice.total_taxes[0].amount, invoice.currency)
+                  : '$0.00'}
+              </dd>
+            </div>
+            <div className="flex items-baseline justify-between gap-3">
+              <Meta as="dt">Amount paid:</Meta>
+              <dd>{formatCents(invoice.amount_paid ?? 0, invoice.currency)}</dd>
+            </div>
+            <div className="flex items-baseline justify-between gap-3">
+              <Meta as="dt">Due balance:</Meta>
+              <dd>
+                <b>{formatCents(Math.max(0, (invoice.amount_due ?? 0) - (invoice.amount_paid ?? 0)), invoice.currency)}</b>
+              </dd>
+            </div>
+          </dl>
+        </div>
+
+        {/* Footer */}
+        <div className="mt-8 sm:mt-12">
+          <Title as="h4" size="h4">
+            Thank you!
+          </Title>
+          <p className="text-muted">
+            {invoice.description ||
+              'If you have any questions concerning this invoice, use the following contact information:'}
+          </p>
+          <TextLink href="mailto:hey@spencerwozniak.com" className="mt-2 block">
+            hey@spencerwozniak.com
+          </TextLink>
+        </div>
+        <p className="mt-5 text-muted">
+          © {new Date().getFullYear()} {invoice.account_name || 'Your Company'}.
+        </p>
+      </Panel>
+
+      <div className="mt-6">
+        <InvoiceButtons invoice={invoice} />
+      </div>
+    </>
   );
 }

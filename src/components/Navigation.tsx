@@ -1,29 +1,32 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import Image from 'next/image';
 import Link from 'next/link';
+import { FaLinkedin } from 'react-icons/fa';
 import MenuButton from './MenuButton';
-import NavButton from './NavButton';
-import styles from './Navigation.module.css';
+import SocialIcons from './SocialIcons';
 import navigationData from '@/data/navigationData.json';
 import articles from '@/data/articles.json';
-import SocialIcons from './SocialIcons';
-
-import { FaLinkedin } from 'react-icons/fa';
-import { useTheme } from '@/contexts/ThemeContext';
+import { cx } from '@/lib/cx';
+import { Signature, Button, IconButton, ThemeToggle, Title } from '@/components/ui';
 
 const mobileThreshold = 960;
+
+type NavItem = { label: string; link: string };
+const NAV_ITEMS: NavItem[] = (navigationData as Array<{ label: string; link: string }>).map(({ label, link }) => ({
+  label,
+  link,
+}));
 
 const Navigation: React.FC = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const { theme } = useTheme();
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   const handleRandomEssay = () => {
     const randomIndex = Math.floor(Math.random() * articles.length);
@@ -61,11 +64,30 @@ const Navigation: React.FC = () => {
     setIsSubMenuOpen((prev) => !prev);
   };
 
-  // Fade the page content out while the mobile menu is open
+  // Fade the page content out while the mobile menu is open, and keep it out of the
+  // tab order / screen-reader tree so focus can't land on invisible links behind the menu.
   useEffect(() => {
     const root = document.documentElement;
     root.classList.toggle('menu-open', isSubMenuOpen);
-    return () => root.classList.remove('menu-open');
+    const pageContentEls = document.querySelectorAll<HTMLElement>('.page-content');
+    pageContentEls.forEach((el) => el.toggleAttribute('inert', isSubMenuOpen));
+    return () => {
+      root.classList.remove('menu-open');
+      pageContentEls.forEach((el) => el.removeAttribute('inert'));
+    };
+  }, [isSubMenuOpen]);
+
+  // Close the mobile menu on Escape and return focus to the toggle button
+  useEffect(() => {
+    if (!isSubMenuOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsSubMenuOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
   }, [isSubMenuOpen]);
 
   if (!isHydrated) {
@@ -73,116 +95,102 @@ const Navigation: React.FC = () => {
     return null;
   }
 
+  const isActive = (link: string) => pathname === link || pathname.startsWith(`${link}/`);
+  const onLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    if (pathname === '/') window.location.reload();
+    else router.push('/');
+  };
+
   return (
     <>
-    <header className={`${styles.navigationHeader} transition-[backdrop-filter] duration-300 ${isScrolled ? '!backdrop-blur-xs bg-white/[0.01] dark:bg-black/[0.01]' : '!backdrop-blur-none'}`}>
-      <div className={styles.navContainer}>
-        <div className={styles.headerLeft}>
-          {isMobile && (
-            <div className={styles.navMenuButton}>
-              <MenuButton onClick={toggleSubMenu} isOpen={isSubMenuOpen} />
-            </div>
+      <header
+        className={cx(
+          'fixed inset-x-0 top-0 z-[1000] h-[var(--nav-h)] border-b bg-bg transition-colors duration-300',
+          isScrolled ? 'border-border' : 'border-transparent'
+        )}
+      >
+        <div
+          className={cx(
+            'mx-auto grid h-full w-full max-w-[var(--col-wide)] items-center gap-4 px-[var(--gutter)]',
+            isMobile ? 'grid-cols-[1fr_auto]' : 'grid-cols-[1fr_auto_1fr]'
           )}
-          <div
-            onClick={() => {
-              if (pathname === '/') {
-                window.location.reload();
-              } else {
-                router.push('/');
-              }
-            }}
-            className={styles.headerLogo}
-            style={{ cursor: 'pointer' }}
-          >
-            <Image
-              src={theme === 'dark' ? "/sw-full-signature-white.png" : "/sw-full-signature-black.png"}
-              alt="Spencer Wozniak Signature"
-              width={120}
-              height={50}
-              className={styles.logo}
-              priority
-            />
+        >
+          <Link href="/" onClick={onLogoClick} className="justify-self-start leading-none">
+            <Signature priority sizes="100px" className={isMobile ? 'h-[30px] w-auto' : 'h-[34px] w-auto'} />
+          </Link>
+
+          {!isMobile && (
+            <nav aria-label="Primary">
+              <ul className="m-0 flex list-none items-center p-0">
+                {NAV_ITEMS.map((item, i) => (
+                  <li key={item.link} className="flex items-center">
+                    {i > 0 && <span aria-hidden="true" className="mx-[1.1rem] size-1 bg-accent opacity-85" />}
+                    <Link
+                      href={item.link}
+                      aria-current={isActive(item.link) ? 'page' : undefined}
+                      className="relative py-1.5 eyebrow text-[0.75rem] text-fg transition-colors hover:text-accent aria-[current=page]:text-accent after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:bg-accent after:opacity-0 aria-[current=page]:after:opacity-100"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          )}
+
+          <div className="flex items-center gap-2 justify-self-end">
+            {!isMobile && (
+              <IconButton href="https://www.linkedin.com/in/spencerwozniak/" label="LinkedIn" icon={<FaLinkedin />} />
+            )}
+            <span className="contents max-[359px]:hidden">
+              {pathname.startsWith('/writing/') ? (
+                <Button size="sm" onClick={handleRandomEssay}>
+                  CLICK ME!
+                </Button>
+              ) : (
+                <Button size="sm" href="/contact">
+                  Get in touch
+                </Button>
+              )}
+            </span>
+            <ThemeToggle />
+            {isMobile && <MenuButton ref={menuButtonRef} onClick={toggleSubMenu} isOpen={isSubMenuOpen} />}
           </div>
         </div>
+      </header>
 
-        <nav className={styles.headerNav}>
-          <ul className={styles.navMainLinks}>
-            {navigationData.map((item, index) => (
-              <li key={index} className={styles.navItem}>
-                <div className={styles.navItemWrapper}>
-                  <Link href={item.link} className={styles.navLink}>
-                    {item.label}
-                  </Link>
-                  {index < navigationData.length - 1 && <span className={styles.navSeparator}></span>}
-                  {item.submenu && (
-                    <ul className={styles.submenu}>
-                      {item.submenu.map((subItem, subIndex) => (
-                        <li key={subIndex} className={styles.submenuItem}>
-                          <Link href={subItem.link} className={styles.submenuLink}>
-                            {subItem.label}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        <div className={styles.headerRight}>
-          <a
-            className={styles.headerContactLink}
-            target="_blank"
-            href="https://www.linkedin.com/in/spencerwozniak/"
-            rel="noopener noreferrer"
-          >
-            <FaLinkedin />
-          </a>
-          {pathname.startsWith('/writing/') ? (
-            <NavButton
-              onClick={handleRandomEssay}
-              label="CLICK ME!"
-              className={`${styles.headerNavButton}`}
-            />
-          ) : (
-            <NavButton
-              to="/contact"
-              label="Get in touch"
-              className={styles.headerNavButton}
-            />
+      {isMobile && (
+        <div
+          id="mobile-menu"
+          inert={!isSubMenuOpen}
+          aria-hidden={!isSubMenuOpen}
+          className={cx(
+            'fixed inset-x-0 bottom-0 top-[var(--nav-h)] z-[999] overflow-y-auto bg-bg transition-opacity duration-300',
+            isSubMenuOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
           )}
+        >
+          <div className="mx-auto w-full max-w-[var(--col-text)] px-[var(--gutter)] pb-12 pt-6">
+            <ul className="m-0 list-none p-0">
+              {NAV_ITEMS.map((item) => (
+                <li key={item.link} className="border-b border-border">
+                  <Link
+                    href={item.link}
+                    onClick={() => setIsSubMenuOpen(false)}
+                    aria-current={isActive(item.link) ? 'page' : undefined}
+                    className="block py-5 text-fg transition-colors hover:text-accent aria-[current=page]:text-accent"
+                  >
+                    <Title as="h2" size="h1" tone="inherit">
+                      {item.label}
+                    </Title>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <SocialIcons className="mt-10 justify-start" />
+          </div>
         </div>
-      </div>
-    </header>
-
-    {isMobile && (
-      <div className={`${styles.dropdownMenu} ${isSubMenuOpen ? styles.open : styles.closed}`}>
-        <div className={styles.dropdownInner}>
-          {navigationData.map((item, index) => (
-            <div key={index} className={styles.dropdownSectionWrapper}>
-              <section className={styles.navColumn}>
-                <Link href={item.link} className={styles.navColumnHeading} onClick={() => setIsSubMenuOpen(false)}>
-                  <h2 className='text-4xl'>{item.label}</h2>
-                </Link>
-                {item.submenu && (
-                  <div className={styles.mobileSubmenu}>
-                    {item.submenu.map((subItem, subIndex) => (
-                      <Link key={subIndex} href={subItem.link} className={styles.mobileSubmenuLink} onClick={() => setIsSubMenuOpen(false)}>
-                        {subItem.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </section>
-              {index < navigationData.length - 1 && <hr className={styles.navDivider} />}
-            </div>
-          ))}
-        </div>
-        <SocialIcons />
-      </div>
-    )}
+      )}
     </>
   );
 };

@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import styles from './Gallery.module.css';
+import React, { useState, useEffect, useMemo } from 'react';
+import Image from 'next/image';
 import galleryTabs from '@/data/gallery.json';
+import { Container, FadeIn, TabList, Tab, TabPanel, Frame, FrameSlide, IconButton } from '@/components/ui';
 
 interface GalleryTab {
   id: string;
@@ -17,6 +18,10 @@ function shuffle<T>(array: T[]): T[] {
     [copy[i], copy[j]] = [copy[j], copy[i]];
   }
   return copy;
+}
+
+function resolve(url: string): string {
+  return url.startsWith('http') ? url : `/gallery/${url}`;
 }
 
 const Gallery: React.FC = () => {
@@ -39,7 +44,7 @@ const Gallery: React.FC = () => {
     setCurrentIndex(firstTabShuffled.length ? Math.floor(Math.random() * firstTabShuffled.length) : 0);
   }, [tabs]);
 
-  const activeImages = shuffledImagesMap[activeTab] || [];
+  const activeImages = useMemo(() => shuffledImagesMap[activeTab] || [], [shuffledImagesMap, activeTab]);
 
   useEffect(() => {
     const autoScroll = setInterval(() => {
@@ -63,7 +68,7 @@ const Gallery: React.FC = () => {
     if (!shuffledImagesMap[tabId]) {
       setShuffledImagesMap((prevMap) => ({
         ...prevMap,
-        [tabId]: shuffle(tabs.find(t => t.id === tabId)?.images || [])
+        [tabId]: shuffle(tabs.find((t) => t.id === tabId)?.images || []),
       }));
     }
 
@@ -73,48 +78,67 @@ const Gallery: React.FC = () => {
     setCurrentIndex(randIndex);
   };
 
-  return (
-    <main className={styles.pageWrap}>
-      <div className={styles.mainGalleryWrap}>
-        <div className={styles.modernTabs}>
-          {tabs.map((tab) => (
-            <span
-              key={tab.id}
-              className={`${styles.modernTab} ${activeTab === tab.id ? styles.active : ''}`}
-              onClick={() => handleTabChange(tab.id)}
-            >
-              {tab.name}
-            </span>
-          ))}
-        </div>
+  const current = activeImages[currentIndex];
+  const total = activeImages.length;
 
-        <div className={styles.carouselWrapper}>
-          <button className={`${styles.carouselArrow} ${styles.left}`} onClick={handlePrev}>
-            ←
-          </button>
-          <div className={styles.carouselTrack}>
-            {activeImages.map((image, index) => (
-              <div
-                key={index}
-                className={`${styles.carouselSlide} ${index === currentIndex ? styles.active : ''}`}
+  const near = (i: number) => {
+    if (!total) return false;
+    const diff = Math.min((i - currentIndex + total) % total, (currentIndex - i + total) % total);
+    return diff <= 1;
+  };
+
+  return (
+    <FadeIn>
+      <Container as="main" width="wide" className="pt-14 sm:pt-20">
+        <div className="mx-auto max-w-[max(20rem,calc((100svh-17rem)*1.5))]">
+          <TabList label="Gallery">
+            {tabs.map((t) => (
+              <Tab
+                key={t.id}
+                selected={t.id === activeTab}
+                onClick={() => handleTabChange(t.id)}
+                id={`tab-${t.id}`}
+                controls="gallery-panel"
               >
-                <div className={styles.carouselImageContainer}>
-                  <img
-                    src={image.url.startsWith('http') ? image.url : `/gallery/${image.url}`}
-                    alt={image.caption || `Slide ${index + 1}`}
-                    className={styles.carouselImage}
-                  />
-                  {image.caption && <div className={styles.carouselCaption}>{image.caption}</div>}
-                </div>
-              </div>
+                {t.name}
+              </Tab>
             ))}
-          </div>
-          <button className={`${styles.carouselArrow} ${styles.right}`} onClick={handleNext}>
-            →
-          </button>
+          </TabList>
+          <TabPanel id="gallery-panel" labelledBy={`tab-${activeTab}`} className="mt-6">
+            <Frame aspect="3/2" caption={current?.caption} captionAside={total ? `${currentIndex + 1} / ${total}` : undefined}>
+              {activeImages.map((img, i) => (
+                <FrameSlide key={`${activeTab}-${img.url}`} active={i === currentIndex}>
+                  {near(i) && (
+                    <Image
+                      src={resolve(img.url)}
+                      alt={img.caption || `Slide ${i + 1}`}
+                      fill
+                      sizes="(max-width: 1240px) 100vw, 1200px"
+                      className="object-cover"
+                      unoptimized={img.url.startsWith('http')}
+                    />
+                  )}
+                </FrameSlide>
+              ))}
+              <IconButton
+                variant="surface"
+                label="Previous image"
+                icon={<span aria-hidden="true">←</span>}
+                onClick={handlePrev}
+                className="absolute left-3 top-1/2 z-10 -translate-y-1/2"
+              />
+              <IconButton
+                variant="surface"
+                label="Next image"
+                icon={<span aria-hidden="true">→</span>}
+                onClick={handleNext}
+                className="absolute right-3 top-1/2 z-10 -translate-y-1/2"
+              />
+            </Frame>
+          </TabPanel>
         </div>
-      </div>
-    </main>
+      </Container>
+    </FadeIn>
   );
 };
 

@@ -1,61 +1,43 @@
-'use client';
-
-import Image from 'next/image';
 import Link from 'next/link';
-import styles from './Footer.module.css';
-import { useTheme } from '@/contexts/ThemeContext';
-
-import SocialIcons from './SocialIcons';
-
-import LogoWhite from '../../public/sw-full-signature-white.png';
-import LogoBlack from '../../public/sw-full-signature-black.png';
 import navigationData from '@/data/navigationData.json';
+import SocialIcons from './SocialIcons';
+import { Signature } from '@/components/ui';
+
+type NavItem = { label: string; link: string };
+const NAV_ITEMS: NavItem[] = (navigationData as Array<{ label: string; link: string }>).map(({ label, link }) => ({
+  label,
+  link,
+}));
+
+const footerLink = 'eyebrow text-[0.6875rem] text-muted transition-colors hover:text-accent';
 
 const Footer: React.FC = () => {
-  const { theme } = useTheme();
   return (
-    <div className={styles.footerWrapper}>
-      <footer className={styles.footer}>
-        <div className={styles.footerContent}>
-
-          {/* Logo and Social Icons */}
-          <div className={styles.footerWidget}>
-            <div className={styles.footerLogo}>
-              <Link className={styles.footerLogoLink} href="/">
-                <Image
-                  src={theme === 'dark' ? LogoWhite : LogoBlack}
-                  alt="Spencer Wozniak Signature"
-                  className="img-fluid"
-                  width={400}
-                  height={100}
-                />
+    <footer className="mt-16 border-t border-border px-[var(--gutter)] pb-10 pt-14 text-center sm:mt-28">
+      <Link href="/" className="inline-block leading-none">
+        <Signature className="mx-auto h-auto w-[180px] sm:w-[220px]" />
+      </Link>
+      <SocialIcons className="mb-5 mt-7 justify-center" />
+      <nav aria-label="Footer">
+        <ul className="m-0 mb-6 flex list-none flex-wrap justify-center gap-x-6 gap-y-1.5 p-0">
+          <li>
+            <Link href="/" className={footerLink}>
+              HOME
+            </Link>
+          </li>
+          {NAV_ITEMS.map((item) => (
+            <li key={item.link}>
+              <Link href={item.link} className={footerLink}>
+                {item.label}
               </Link>
-            </div>
-
-            <div className={styles.footerSocial}>
-              <SocialIcons />
-            </div>
-          </div>
-
-          {/* Navigation Links */}
-          <div className={styles.footerMenu}>
-            <ul>
-              <li><Link href="/">HOME</Link></li>
-              {navigationData.map((item, index) => (
-                <li key={index}>
-                  <Link href={item.link}>{item.label}</Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Copyright */}
-          <div className={styles.copyright}>
-            <p>&copy; 2026 <strong>Spencer Wozniak</strong></p>
-          </div>
-        </div>
-      </footer>
-    </div>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <p className="m-0 font-sans text-[0.8125rem] text-muted">
+        &copy; 2026 <strong className="font-bold text-fg">Spencer Wozniak</strong>
+      </p>
+    </footer>
   );
 };
 

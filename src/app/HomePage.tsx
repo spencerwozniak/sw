@@ -1,132 +1,137 @@
-"use client";
+import React from 'react';
+import {
+  Container,
+  Portrait,
+  GoldRule,
+  Title,
+  Scripture,
+  Lede,
+  Prose,
+  TextLink,
+  Button,
+  Section,
+  List,
+  ListRow,
+  MetaSep,
+} from '@/components/ui';
 
-import Image from "next/image";
-import NavButton from "@/components/NavButton";
-import { motion } from "framer-motion";
+export type HomeProject = {
+  href: string;
+  title: string;
+  subline: string;
+  meta: Array<string | undefined>;
+};
 
-export default function HomePage() {
+export type HomeArticle = {
+  href: string;
+  title: string;
+  subline: string;
+  meta: string;
+};
+
+export type HomePageProps = {
+  projects: HomeProject[];
+  articles: HomeArticle[];
+  projectCount: number;
+  articleCount: number;
+};
+
+function ProjectMeta({ items }: { items: Array<string | undefined> }) {
+  const parts = items.filter(Boolean) as string[];
   return (
-    <main className="text-white px-5 flex flex-col gap-20 overflow-x-hidden relative">
-      <section
-        className="
-          flex flex-col md:flex-row items-center gap-10
-          min-h-screen w-full max-w-7xl mx-auto px-5
-          relative
-        "
-      >
-        {/* Image - Left Side */}
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="
-            relative w-full aspect-square max-w-sm overflow-hidden mt-5
-            md:w-[30vw] md:h-[45vw] md:aspect-[2/3] md:max-w-none md:shrink-0
-          "
-        >
-          <Image
-            src="/headshot-transparent.png"
-            alt="Spencer Wozniak headshot"
-            fill
-            className="object-cover object-top"
-            priority
-          />
-        </motion.div>
+    <>
+      {parts.map((part, i) => (
+        <React.Fragment key={i}>
+          {i > 0 && <MetaSep />}
+          {part}
+        </React.Fragment>
+      ))}
+    </>
+  );
+}
 
-        {/* Text - Right Side */}
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="
-            flex-1 w-full max-w-xl min-w-0 break-words
-            border-t-2 border-[#bfaa8d50] pt-8
-            md:border-t-0 md:border-l-2 md:pt-0 md:px-8 md:min-w-[330px]
-            text-center md:text-left
-          "
-        >
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="text-4xl sm:text-5xl font-bold mb-6"
-          >
+export default function HomePage({ projects, articles, projectCount, articleCount }: HomePageProps) {
+  return (
+    <Container as="main" width="text" className="pt-10 sm:pt-20">
+      <div className="mb-7 grid grid-cols-[auto_1px_minmax(0,1fr)] items-stretch gap-x-[1.1rem] sm:mb-9 sm:gap-x-7">
+        <Portrait alt="Spencer Wozniak headshot" priority />
+        <GoldRule />
+        <div className="flex flex-col justify-center py-1">
+          <Title as="h1" size="h1" className="mb-2.5 sm:mb-4">
             Spencer Wozniak
-          </motion.h1>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="text-md font-light text-neutral-100 mb-4 leading-relaxed"
-          >
-            <div className="br">
-              <h2 className="text-lg mb-1 italic">
-                Behold the handmaid of the Lord;
-                <br />
-                be it unto me according to thy word.
-              </h2>
-              <h2 className="text-sm text-neutral-200 font-normal">
-                — Luke 1:38
-              </h2>
-            </div>
+          </Title>
+          <Scripture cite="— Luke 1:38">
+            Behold the handmaid of the Lord;
+            <br />
+            be it unto me according to thy word.
+          </Scripture>
+        </div>
+      </div>
 
-            <p className="leading-relaxed text-neutral-100 mt-4">
-              I&apos;m a Catholic Christian and healthtech entrepreneur focused on 
-              building reliable, explainable software for healthcare.
-            </p>
+      <Lede serif className="mb-[1.15em]">
+        I&apos;m a Catholic Christian and healthtech entrepreneur focused on
+        building reliable, explainable software for healthcare.
+      </Lede>
 
-            <p className="leading-relaxed text-neutral-100 mt-4">
-              My background spans clinical care, academic research, and software engineering.
-              Through direct exposure to patients and healthcare workflows, it became clear
-              that much of the suffering in modern healthcare is not clinical, but infrastructural.
-            </p>
+      <Prose font="sans">
+        <p>
+          My background spans clinical care, academic research, and software engineering.
+          Through direct exposure to patients and healthcare workflows, it became clear
+          that much of the suffering in modern healthcare is not clinical, but infrastructural.
+        </p>
 
-            <p className="leading-relaxed text-neutral-100 mt-4">
-              That realization redirected my path from medical school, and I founded{" "}
-              <a
-                href="https://www.serelora.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="
-                font-semibold text-[#ddd1c1]
-                hover:text-[#bfaa8d]
-                transition-colors duration-200 underline underline-offset-4
-                decoration-2 decoration-[#bfaa8d50]
-                hover:decoration-[#bfaa8d]
-              "
-              >
-                Serelora
-              </a>,
-              a startup  building healthcare infrastructure that is trustworthy, explainable,
-              and oriented toward human dignity.
-            </p>
+        <p>
+          That realization redirected my path from medical school, and I founded{" "}
+          <TextLink href="https://www.serelora.com/">Serelora</TextLink>,
+          a startup  building healthcare infrastructure that is trustworthy, explainable,
+          and oriented toward human dignity.
+        </p>
+      </Prose>
 
-          </motion.div>
+      <div className="mt-7 flex gap-2 sm:gap-3">
+        <Button grow href="/writing/behold-i-make-all-things-new">
+          My Story
+        </Button>
+        <Button grow href="/work">
+          My Work
+        </Button>
+        <Button grow href="/contact">
+          Contact Me
+        </Button>
+      </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-wrap md:flex-nowrap justify-center md:justify-start md:gap-5"
-          >
-            <NavButton
-              to="/writing/behold-i-make-all-things-new"
-              label="My Story"
-              className="!text-[14px] !mt-5 md:!w-40"
+      <Section
+        titleId="h-work"
+        title="My Work"
+        count={projectCount}
+        more={{ href: '/work', label: 'My Work' }}
+        className="mt-12 sm:pt-20"
+      >
+        <List>
+          {projects.map((p) => (
+            <ListRow
+              key={p.href}
+              href={p.href}
+              title={p.title}
+              subline={p.subline}
+              meta={<ProjectMeta items={p.meta} />}
             />
-            <NavButton
-              to="/work"
-              label="My Work"
-              className="!text-[14px] !mt-5 md:!w-40"
-            />
-            <NavButton
-              to="/contact"
-              label="Contact Me"
-              className="!text-[14px] !mt-5 md:!w-40"
-            />
-          </motion.div>
-        </motion.div>
-      </section>
-    </main>
+          ))}
+        </List>
+      </Section>
+
+      <Section
+        titleId="h-writing"
+        title="Writing"
+        count={articleCount}
+        more={{ href: '/writing', label: 'Writing' }}
+      >
+        <List>
+          {articles.map((a) => (
+            <ListRow key={a.href} href={a.href} title={a.title} subline={a.subline} meta={a.meta} />
+          ))}
+        </List>
+      </Section>
+    </Container>
   );
 }

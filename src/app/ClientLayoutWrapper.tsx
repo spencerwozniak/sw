@@ -1,33 +1,25 @@
-// src/app/ClientLayoutWrapper.tsx
 'use client';
 
 import { usePathname } from 'next/navigation';
+import { MotionConfig } from 'framer-motion';
 import ClientNavigationWrapper from '@/components/ClientNavigationWrapper';
 import Footer from '@/components/Footer';
-import AnimatedOverlay from '@/components/AnimatedOverlay';
 
 export default function ClientLayoutWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const invoiceLayout = ['/invoice']
-    .some(path => pathname.startsWith(path));
-
-
+  const invoiceLayout = ['/invoice'].some((path) => pathname.startsWith(path));
   return (
-    <>
-      <AnimatedOverlay />
-      {!invoiceLayout &&
+    <MotionConfig reducedMotion="user">
+      {!invoiceLayout && (
         <>
           <ClientNavigationWrapper />
-          <div className="mt-15 page-content">
-            {children}
-          </div>
+          <div className="page-content flex-1 pt-[var(--nav-h)]">{children}</div>
           <div className="page-content">
             <Footer />
           </div>
         </>
-      }
-
+      )}
       {invoiceLayout && children}
-    </>
+    </MotionConfig>
   );
 }

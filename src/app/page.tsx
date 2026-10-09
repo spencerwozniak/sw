@@ -1,21 +1,38 @@
-// src/app/page.tsx
-'use client';
-
-import { motion } from 'framer-motion';
+import { FadeIn } from '@/components/ui';
 import HomePage from './HomePage';
 import Chatbot from '@/components/Chatbot';
-import styles from './page.module.css';
+import projects from '@/data/projects.json';
+import articles from '@/data/articles.json';
+
+const selectedProjects = projects.slice(0, 5).map((p) => ({
+  href: `/work/projects/${p.slug}`,
+  title: p.title,
+  subline: p.subtitle,
+  meta: [p.category, p.year],
+}));
+
+const recentArticles = [...articles]
+  .sort((a, b) => Date.parse(b.date) - Date.parse(a.date))
+  .slice(0, 6)
+  .map((a) => ({
+    href: `/writing/${a.id}`,
+    title: a.title,
+    subline: a.topic,
+    meta: a.date,
+  }));
 
 export default function Home() {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className={styles.homePage}
-    >
-      <HomePage />
+    <>
+      <FadeIn>
+        <HomePage
+          projects={selectedProjects}
+          articles={recentArticles}
+          projectCount={projects.length}
+          articleCount={articles.length}
+        />
+      </FadeIn>
       <Chatbot />
-    </motion.div>
+    </>
   );
 }

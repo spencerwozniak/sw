@@ -2,9 +2,10 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
-import { FaRegComment, FaTimes } from 'react-icons/fa';
+import { FaRegComment } from 'react-icons/fa';
+import { FiX } from 'react-icons/fi';
 import styles from './Chatbot.module.css';
-import NavButton from './NavButton';
+import { Panel, Title, IconButton, ChatBubble, Button, Input } from '@/components/ui';
 
 const Chatbot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -79,47 +80,42 @@ const Chatbot: React.FC = () => {
   return (
     <div className={styles.chatbot}>
       {isOpen ? (
-        <div className={styles.chatWindow}>
+        <Panel padding="none" className={styles.chatWindow}>
           <div className={styles.chatHeader}>
-            <h4>WozBot</h4>
-            <button onClick={toggleChat} className={styles.closeButton}>
-              <FaTimes />
-            </button>
+            <Title as="h4" size="h4">WozBot</Title>
+            <IconButton variant="ghost" size="sm" label="Close" icon={<FiX />} onClick={toggleChat} />
           </div>
+          <hr className={styles.divider} />
           <div className={styles.chatContainer} ref={chatContainerRef}>
             {messages.map((msg, index) => (
-              <div
-                key={index}
-                className={`${styles.chatMessage} ${
-                  msg.role === 'user' ? styles.userMessage : styles.botMessage
-                }`}
-              >
-                {msg.content}
+              <React.Fragment key={index}>
+                <ChatBubble from={msg.role === 'user' ? 'user' : 'bot'}>{msg.content}</ChatBubble>
                 {msg.buttons && (
                   <div className={styles.chatButtons}>
                     {msg.buttons.map((button, btnIndex) => (
-                      <NavButton className={styles.chatbotButton} key={btnIndex} to={button.route} label={button.title} />
+                      <Button key={btnIndex} size="sm" fullWidth href={button.route}>
+                        {button.title}
+                      </Button>
                     ))}
                   </div>
                 )}
-              </div>
+              </React.Fragment>
             ))}
           </div>
+          <hr className={styles.divider} />
           <div className={styles.chatInput}>
-            <input
-              type="text"
+            <Input
+              label="Message"
+              placeholder="Type your message..."
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Type your message..."
             />
-            <button onClick={handleSendMessage}>Send</button>
+            <Button variant="primary" size="sm" onClick={handleSendMessage}>Send</Button>
           </div>
-        </div>
+        </Panel>
       ) : (
-        <button onClick={toggleChat} className={styles.chatCircle}>
-          <span className={styles.icon}><FaRegComment /></span>
-        </button>
+        <IconButton variant="surface" label="Open chat" icon={<FaRegComment />} onClick={toggleChat} />
       )}
     </div>
   );

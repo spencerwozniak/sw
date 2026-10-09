@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import InvoiceClient from './InvoiceClient';
 import { metadata as rootMetadata } from '@/app/layout';
+import { Container } from '@/components/ui';
 
 export const metadata = {
   ...rootMetadata,
@@ -17,10 +18,16 @@ export const metadata = {
 
 export default function InvoicePage() {
   return (
-  <Suspense fallback={<div className="flex flex-col justify-center items-center text-center min-h-[90vh] py-10 px-4 sm:px-6 lg:px-8 mt-10">Loading...</div>}>
-    <section className='mt-10'>
-      <InvoiceClient />
-    </section>
-  </Suspense>
+    <Suspense
+      fallback={
+        <Container width="text" className="py-24">
+          <p className="text-center">Loading...</p>
+        </Container>
+      }
+    >
+      <Container as="main" width="text" className="py-10 sm:py-16">
+        <InvoiceClient />
+      </Container>
+    </Suspense>
   );
 }

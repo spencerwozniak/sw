@@ -1,32 +1,15 @@
-// app/work/resume.tsx
-'use client';
-
-import {
-  FaServer,
-  FaGraduationCap,
-  FaHandsHelping,
-  FaFileMedical,
-  FaHandHoldingHeart,
-  FaProjectDiagram,
-  FaUsers,
-  FaChalkboardTeacher,
-  FaHeartbeat,
-  FaAward,
-  FaReact,
-  FaDatabase,
-  FaLock,
-  FaRobot,
-  FaStethoscope,
-  FaCogs,
-  FaChartBar,
-  FaBriefcase,
-} from 'react-icons/fa';
-import Link from 'next/link';
-import React from 'react';
-
-const ACCENT = '#bfaa8d';
+import type { ReactNode } from 'react';
+import { Entry, EntryList, Section, SpecTable, TagList, TextLink } from '@/components/ui';
 
 type StackSet = { title: string; items: string[] };
+
+type ResumeBlock = {
+  header: string;
+  org?: ReactNode;
+  dates?: string;
+  bullets?: ReactNode[];
+  extras?: { heading: string; items: ReactNode[] }[];
+};
 
 const STACK: StackSet[] = [
   {
@@ -151,161 +134,20 @@ const STACK: StackSet[] = [
   },
 ];
 
-// Per-category icon + subtle color accents (mirrors your example style)
-const STACK_ICONS: Record<string, React.ReactNode> = {
-  'Frontend': <FaReact className="h-5 w-5" />,
-  'Backend & Data': <FaDatabase className="h-5 w-5" />,
-  'Auth & Payments': <FaLock className="h-5 w-5" />,
-  'AI / ML': <FaChartBar className="h-5 w-5" />,
-  'Agentic AI': <FaRobot className="h-5 w-5" />,
-  'Healthcare': <FaStethoscope className="h-5 w-5" />,
-  'Apps & Infra': <FaCogs className="h-5 w-5" />,
-  'Design & Content': <FaServer className="h-5 w-5" />,
-};
+/* ---------- Static content (copied from the previous resume page) ---------- */
 
-const STACK_STYLES: Record<
-  string,
-  { badgeBg: string; badgeText: string; ring: string }
-> = {
-  'Frontend': { badgeBg: 'bg-sky-900/30', badgeText: 'text-sky-300', ring: 'ring-sky-900/40' },
-  'Backend & Data': { badgeBg: 'bg-emerald-900/30', badgeText: 'text-emerald-300', ring: 'ring-emerald-900/40' },
-  'Auth & Payments': { badgeBg: 'bg-indigo-900/30', badgeText: 'text-indigo-300', ring: 'ring-indigo-900/40' },
-  'AI / ML': { badgeBg: 'bg-fuchsia-900/30', badgeText: 'text-fuchsia-300', ring: 'ring-fuchsia-900/40' },
-  'Agentic AI': { badgeBg: 'bg-amber-900/30', badgeText: 'text-amber-300', ring: 'ring-amber-900/40' },
-  'Healthcare': { badgeBg: 'bg-rose-900/30', badgeText: 'text-rose-300', ring: 'ring-rose-900/40' },
-  'Apps & Infra': { badgeBg: 'bg-purple-900/30', badgeText: 'text-purple-300', ring: 'ring-purple-900/40' },
-  'Design & Content': { badgeBg: 'bg-cyan-900/30', badgeText: 'text-cyan-300', ring: 'ring-cyan-900/40' },
-};
-
-function StackCard({ title, items }: { title: string; items: string[] }) {
-  const style = STACK_STYLES[title] ?? {
-    badgeBg: 'bg-white/10',
-    badgeText: 'text-gray-200',
-    ring: 'ring-white/10',
-  };
-
-  return (
-    <div className="mb-6 break-inside-avoid rounded-2xl border border-white/10 bg-white/[0.035] p-5 hover:bg-white/[0.05] transition">
-      <div className="flex items-center gap-3">
-        <span className={`inline-flex items-center justify-center rounded-xl p-2 ${style.badgeBg}`}>
-          <span className={`${style.badgeText}`} aria-hidden>
-            {STACK_ICONS[title] ?? <FaCogs className="h-5 w-5" />}
-          </span>
-        </span>
-        <p className="text-sm font-semibold text-white">{title}</p>
-      </div>
-
-      <div className="mt-3 flex flex-wrap gap-2">
-        {items.map((it) => (
-          <span
-            key={it}
-            className="rounded-full border border-white/15 px-3 py-1 text-xs text-gray-200 bg-white/5"
-          >
-            {it}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-
-function SectionFrame({
-  children,
-  title,
-  subtitle,
-}: {
-  children?: React.ReactNode;
-  title?: string;
-  subtitle?: string;
-}) {
-  return (
-    <section className="relative overflow-hidden">
-      <div className="relative mx-auto max-w-7xl px-5 py-10">
-        {title && (
-          <h2 className="text-3xl md:text-4xl font-semibold text-white mb-6 text-center">{title}</h2>
-        )}
-        {subtitle && <p className="mt-3 text-gray-300 text-center">{subtitle}</p>}
-        {children}
-      </div>
-    </section>
-  );
-}
-
-function SectionCard({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="p-6 md:p-8">
-      {children}
-    </div>
-  );
-}
-
-/* ---------- Resume blocks (same content as your resume page, restyled) ---------- */
-
-function KVP({ children }: { children: React.ReactNode }) {
-  return <p className="text-base text-gray-300">{children}</p>;
-}
-function Bullets({ items }: { items?: React.ReactNode[] }) {
-  if (!items?.length) return null;
-  return (
-    <ul className="mt-3 list-disc pl-5 text-slate-200">
-      {items.map((n, i) => (
-        <li key={i} className="mb-2 leading-relaxed">
-          {n}
-        </li>
-      ))}
-    </ul>
-  );
-}
-function Block({
-  icon: Icon,
-  header,
-  org,
-  dates,
-  bullets,
-  extras,
-}: {
-  icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
-  header: string;
-  org?: React.ReactNode;
-  dates?: string;
-  bullets?: React.ReactNode[];
-  extras?: { heading: string; items: React.ReactNode[] }[];
-}) {
-  return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.035] p-5 hover:bg-white/[0.05] transition">
-      <h3 className="text-lg font-semibold text-gray-100 mb-2 flex items-center">
-        <Icon className="mr-3 text-2xl" style={{ color: ACCENT }} />
-        {header}
-      </h3>
-      {org && <KVP>{org}</KVP>}
-      {dates && <KVP>{dates}</KVP>}
-      <Bullets items={bullets} />
-      {extras?.map((ex, i) => (
-        <div key={i} className="mt-4">
-          <p className="font-semibold text-gray-100">{ex.heading}</p>
-          <Bullets items={ex.items} />
-        </div>
-      ))}
-    </div>
-  );
-}
-
-/* ---------- Static content (copied & condensed from your resume page) ---------- */
-
-const EXPERIENCE = [
+const EXPERIENCE: ResumeBlock[] = [
   {
-    icon: FaBriefcase,
     header: 'Co-Founder & CTO',
     org: (
-      <Link href="https://www.serelora.com" target="_blank" className="underline underline-offset-2 hover:text-gray-300">
+      <TextLink href="https://www.serelora.com">
         <strong>Serelora | San Diego, CA</strong>
-      </Link>
+      </TextLink>
     ),
     dates: 'Jun 2025 – Present',
     bullets: [
-      <>Founded and led a healthcare SaaS company, initially delivering B2B CRM and workflow automation tools before pivoting to AI-powered EHR systems after identifying clinical documentation and interoperability gaps through customer outreach.</>,
-      <>Designed an FHIR-native, AI-first EHR architecture emphasizing traceability and clinician trust.</>,
+      <>Founded and led a healthcare SaaS company, initially delivering B2B CRM and workflow automation tools before pivoting to agentic systems that connect clinical data and act on it after identifying clinical documentation and interoperability gaps through customer outreach.</>,
+      <>Designed an FHIR-native, agent-first data architecture emphasizing traceability and clinician trust.</>,
       <>Modeled longitudinal patient data in PostgreSQL using FHIR-aligned schemas, enabling structured relationships across clinical history, documentation, and operational workflows.</>,
       <>Architected a manager-orchestrated system of domain-specific clinical AI agents, dynamically routing requests to labs, medications, and documents agents with scoped retrieval and context awareness.</>,
       <>Designed agent workflows to balance explainability, performance, and clinical constraints.</>,
@@ -317,12 +159,11 @@ const EXPERIENCE = [
     ],
   },
   {
-    icon: FaChalkboardTeacher,
     header: 'Founder & Tutor',
     org: (
-      <Link href="https://www.wozprep.org" target="_blank" className="underline underline-offset-2 hover:text-gray-300">
+      <TextLink href="https://www.wozprep.org">
         <strong>WozPrep | San Diego, CA</strong>
-      </Link>
+      </TextLink>
     ),
     dates: 'Nov 2024 – Dec 2025',
     bullets: [
@@ -339,7 +180,6 @@ const EXPERIENCE = [
     ],
   },
   {
-    icon: FaBriefcase,
     header: 'Co-Founder & Lead Engineer',
     org: <strong>Clinical Training Platform for IMGs | Rochester, MI</strong>,
     dates: 'May 2023 – Aug 2023',
@@ -356,9 +196,8 @@ const EXPERIENCE = [
   },
 ];
 
-const EDUCATION = [
+const EDUCATION: ResumeBlock[] = [
   {
-    icon: FaGraduationCap,
     header: 'Michigan State University',
     org: <strong>B.S. in Human Biology, Minor in Bioethics</strong>,
     dates: 'Sep 2020 – May 2024',
@@ -366,9 +205,8 @@ const EDUCATION = [
   },
 ];
 
-const CLINICAL = [
+const CLINICAL: ResumeBlock[] = [
   {
-    icon: FaHandsHelping,
     header: 'Applied Behavior Analysis Therapist',
     org: <strong>Coyne and Associates | San Diego, CA</strong>,
     dates: 'Aug 2024 – Dec 2025',
@@ -379,7 +217,6 @@ const CLINICAL = [
     ],
   },
   {
-    icon: FaFileMedical,
     header: 'Medical Scribe',
     org: <strong>Memorial Healthcare | Owosso, MI</strong>,
     dates: 'Jul 2023 – Aug 2024',
@@ -395,7 +232,6 @@ const CLINICAL = [
     ],
   },
   {
-    icon: FaHandHoldingHeart,
     header: 'Volunteer Staff',
     org: <strong>Sparrow Hospital | Lansing, MI</strong>,
     dates: 'Sep 2022 – Apr 2023',
@@ -409,9 +245,8 @@ const CLINICAL = [
   },
 ];
 
-const RESEARCH = [
+const RESEARCH: ResumeBlock[] = [
   {
-    icon: FaProjectDiagram,
     header: 'Research Assistant',
     org: <strong>Biochemistry Department, Michigan State University | East Lansing, MI</strong>,
     dates: 'Sep 2020 – Apr 2025',
@@ -432,41 +267,25 @@ const RESEARCH = [
         heading: 'Publications',
         items: [
           <>
-            <a
-              href="https://doi.org/10.1021/acs.jctc.4c01682"
-              target="_blank"
-              className="underline underline-offset-2 hover:text-gray-300"
-            >
+            <TextLink href="https://doi.org/10.1021/acs.jctc.4c01682">
               Wozniak S, Janson G, Feig M. Accurate Predictions of Molecular Properties of Proteins via Graph Neural Networks and Transfer Learning. <em>Journal of Chemical Theory and Computation</em>. 2025.
-            </a>
+            </TextLink>
           </>,
           <>
-            <a
-              href="https://doi.org/10.1021/acs.jpcb.4c06877"
-              target="_blank"
-              className="underline underline-offset-2 hover:text-gray-300"
-            >
+            <TextLink href="https://doi.org/10.1021/acs.jpcb.4c06877">
               Wozniak S, Feig M. Diffusion and Viscosity in Mixed Protein Solutions. <em>The Journal of Physical Chemistry B</em>. 2024.
-            </a>
+            </TextLink>
           </>,
           <>
-            <a
-              href="https://doi.org/10.1021/acs.jctc.4c01682"
-              target="_blank"
-              className="underline underline-offset-2 hover:text-gray-300"
-            >
+            <TextLink href="https://doi.org/10.1021/acs.jctc.4c01682">
               Wozniak S, Janson G, Feig M. (2025). Accurate Predictions of Molecular Properties of Proteins via GNNs
               and Transfer Learning. <em>JCTC</em>.
-            </a>
+            </TextLink>
           </>,
           <>
-            <a
-              href="https://doi.org/10.1021/acs.jpcb.4c06877"
-              target="_blank"
-              className="underline underline-offset-2 hover:text-gray-300"
-            >
+            <TextLink href="https://doi.org/10.1021/acs.jpcb.4c06877">
               Wozniak S, Feig M. (2024). Diffusion and Viscosity in Mixed Protein Solutions. <em>JPCB</em>.
-            </a>
+            </TextLink>
           </>,
         ],
       },
@@ -474,10 +293,10 @@ const RESEARCH = [
         heading: 'Other Projects',
         items: [
           <>
-            <span className="font-medium">
+            <span>
               Molecular Dynamics Simulations of Monoclonal Antibodies (Sep 2020 – Jan 2021)
             </span>
-            <ul className="list-disc pl-5 mt-2">
+            <ul>
               <li>Evaluated the stability and solubility of various monoclonal antibody candidates for treating cancer in physiological conditions.</li>
               <li>Found the candidates to be structurally unstable and unsuitable for therapeutic use.</li>
               <li>Presented findings to FAU collaborator.</li>
@@ -488,7 +307,6 @@ const RESEARCH = [
     ],
   },
   {
-    icon: FaUsers,
     header: 'Sociology Research Assistant',
     org: <strong>Michigan State University | East Lansing, MI</strong>,
     dates: 'Jan 2024 – Apr 2024',
@@ -502,18 +320,18 @@ const RESEARCH = [
         heading: 'Projects',
         items: [
           <>
-            <span className="font-medium">
+            <span>
               The Social Determinants of EHR Quality in US Hospitals (Jan 2024 – Apr 2024)
             </span>
-            <ul className="list-disc pl-5 mt-2">
+            <ul>
               <li>Compiled data from American Community Survey and American Hospital Association.</li>
               <li>Explored how social factors relate to electronic health record quality across US hospitals.</li>
               <li>Calculated odds ratios from a logistic regression to assess statistical significance.</li>
               <li>
                 Presented{' '}
-                <a href="/sdoehrq.pdf" target="_blank" className="underline underline-offset-2 hover:text-gray-300">
+                <TextLink href="/sdoehrq.pdf" newTab>
                   <strong>poster</strong>
-                </a>{' '}
+                </TextLink>{' '}
                 at the 2024 University Undergraduate Research and Arts Forum at MSU.
               </li>
             </ul>
@@ -524,18 +342,16 @@ const RESEARCH = [
   },
 ];
 
-const CERTS = [
+const CERTS: ResumeBlock[] = [
   {
-    icon: FaHeartbeat,
     header: 'Basic Life Support (BLS)',
     org: <strong>American Heart Association</strong>,
     dates: 'Issued Feb 2025 • Expires Feb 2027',
   },
 ];
 
-const AWARDS = [
+const AWARDS: ResumeBlock[] = [
   {
-    icon: FaAward,
     header: 'Distinguished Freshman Scholarship',
     org: <strong>Michigan State University Honors College</strong>,
     dates: 'Issued Sep 2020',
@@ -547,74 +363,66 @@ const AWARDS = [
 
 export default function Resume() {
   return (
-    <div>
-      {/* What I Build With (replaces old band) */}
-      <SectionFrame
+    <>
+      <Section
+        size="lg"
+        titleId="h-stack"
         title="What I Build With"
-        subtitle="The stack, patterns, and platforms used across my projects."
+        description="The stack, patterns, and platforms used across my projects."
       >
-        <SectionCard>
-          {/* Masonry-style multi-column layout so cards can be different heights */}
-          <div className="mt-6 [column-gap:1.5rem] columns-1 sm:columns-2 lg:columns-3">
-            {STACK.map((set) => (
-              <StackCard key={set.title} title={set.title} items={set.items} />
-            ))}
-          </div>
-        </SectionCard>
-      </SectionFrame>
+        <SpecTable
+          variant="rows"
+          items={STACK.map((s) => ({ label: s.title, value: <TagList items={s.items} /> }))}
+        />
+      </Section>
 
-      {/* Experience */}
-      <SectionFrame title="Experience">
-        <div className="grid gap-4">
+      <Section size="lg" titleId="h-experience" title="Experience">
+        <EntryList>
           {EXPERIENCE.map((b, i) => (
-            <Block key={i} {...b} />
+            <Entry key={i} when={b.dates} title={b.header} org={b.org} bullets={b.bullets} extras={b.extras} />
           ))}
-        </div>
-      </SectionFrame>
+        </EntryList>
+      </Section>
 
-      {/* Research Experience */}
-      <SectionFrame title="Research Experience">
-        <div className="grid gap-4">
+      <Section size="lg" titleId="h-research" title="Research Experience">
+        <EntryList>
           {RESEARCH.map((b, i) => (
-            <Block key={i} {...b} />
+            <Entry key={i} when={b.dates} title={b.header} org={b.org} bullets={b.bullets} extras={b.extras} />
           ))}
-        </div>
-      </SectionFrame>
+        </EntryList>
+      </Section>
 
-      {/* Clinical Experience */}
-      <SectionFrame title="Clinical Experience">
-        <div className="grid gap-4">
+      <Section size="lg" titleId="h-clinical" title="Clinical Experience">
+        <EntryList>
           {CLINICAL.map((b, i) => (
-            <Block key={i} {...b} />
+            <Entry key={i} when={b.dates} title={b.header} org={b.org} bullets={b.bullets} extras={b.extras} />
           ))}
-        </div>
-      </SectionFrame>
+        </EntryList>
+      </Section>
 
-      {/* Education */}
-      <SectionFrame title="Education">
-        <div className="grid gap-4">
+      <Section size="lg" titleId="h-education" title="Education">
+        <EntryList>
           {EDUCATION.map((b, i) => (
-            <Block key={i} {...b} />
+            <Entry key={i} when={b.dates} title={b.header} org={b.org} bullets={b.bullets} extras={b.extras} />
           ))}
-        </div>
-      </SectionFrame>
+        </EntryList>
+      </Section>
 
-      {/* Certifications & Awards */}
-      <SectionFrame title="Certifications">
-        <div className="grid gap-4">
+      <Section size="lg" titleId="h-certs" title="Certifications">
+        <EntryList>
           {CERTS.map((b, i) => (
-            <Block key={i} {...b} />
+            <Entry key={i} when={b.dates} title={b.header} org={b.org} bullets={b.bullets} extras={b.extras} />
           ))}
-        </div>
-      </SectionFrame>
+        </EntryList>
+      </Section>
 
-      <SectionFrame title="Awards & Honors">
-        <div className="grid gap-4">
+      <Section size="lg" titleId="h-awards" title="Awards & Honors">
+        <EntryList>
           {AWARDS.map((b, i) => (
-            <Block key={i} {...b} />
+            <Entry key={i} when={b.dates} title={b.header} org={b.org} bullets={b.bullets} extras={b.extras} />
           ))}
-        </div>
-      </SectionFrame>
-    </div>
+        </EntryList>
+      </Section>
+    </>
   );
 }

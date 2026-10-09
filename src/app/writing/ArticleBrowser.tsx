@@ -2,8 +2,8 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import Link from 'next/link';
-import styles from './ArticleBrowser.module.css';
+import { FiSearch } from 'react-icons/fi';
+import { List, ListRow, Input, Pager } from '@/components/ui';
 
 interface Article {
   id: string;
@@ -34,93 +34,47 @@ export default function ArticleBrowser({ itemsPerPage = 6, data, showSearchBar }
   const totalPages = Math.ceil(filtered.length / itemsPerPage);
   const paginated = filtered.slice((page - 1) * itemsPerPage, page * itemsPerPage);
 
-  const handleFirst = () => setPage(1);
-  const handleLast = () => setPage(totalPages);
-  const handlePrev = () => setPage(prev => Math.max(1, prev - 1));
-  const handleNext = () => setPage(prev => Math.min(totalPages, prev + 1));
-
   return (
-    <div className={`${styles.container} px-4`}>
+    <div>
       {showSearchBar !== false && (
-        <input
-          type="text"
-          className={styles.searchBar}
+        <Input
+          label="Search"
+          icon={<FiSearch />}
           placeholder="Search..."
           value={query}
           onChange={(e) => {
             setQuery(e.target.value);
             setPage(1);
           }}
+          wrapperClassName="mt-4 mb-1"
         />
       )}
 
-      <div className={styles.list}>
+      <List>
         {paginated.map((article) => {
           const isDOI = article.id.startsWith('10.');
           const href = isDOI ? `https://doi.org/${article.id}` : `/writing/${article.id}`;
 
           return (
-            <Link
+            <ListRow
               key={article.id}
               href={href}
-              className={styles.card}
-              target={isDOI ? '_blank' : undefined}
-              rel={isDOI ? 'noopener noreferrer' : undefined}
-            >
-              <h2 className={styles.cardTitle}>{article.title}</h2>
-              <p className={styles.cardTopic}>{article.name}</p>
-              <p className={styles.cardMeta}>{article.topic} | {article.date}</p>
-              <p className={styles.cardSnippet}>
-                {article.contents.replace(/<[^>]+>/g, '').slice(0, 200)}...
-              </p>
-            </Link>
+              newTab={isDOI}
+              title={article.title}
+              subline={article.name}
+              meta={
+                <>
+                  {article.topic} | {article.date}
+                </>
+              }
+              metaPlacement="stack"
+              preview={`${article.contents.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').replace(/\s+([,.;:!?)])/g, '$1').trim().slice(0, 200)}...`}
+            />
           );
         })}
-      </div>
+      </List>
 
-      {totalPages > 1 && (
-        <div className={styles.paginationWrapper}>
-          <button
-            className={`${styles.pageButton} ${styles.pageButtonLetter} ${page === 1 ? styles.disabled : ''}`}
-            onClick={handleFirst}
-            disabled={page === 1}
-          >
-            &lt;&lt;<p>First</p>
-          </button>
-          <button
-            className={`${styles.pageButton} ${styles.pageButtonLetter} ${page === 1 ? styles.disabled : ''}`}
-            onClick={handlePrev}
-            disabled={page === 1}
-          >
-            &lt;<p>Prev</p>
-          </button>
-
-          {Array.from({ length: totalPages }).map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setPage(i + 1)}
-              className={`${styles.pageButton} ${styles.pageButtonNumber} ${page === i + 1 ? styles.active : ''}`}
-            >
-              {i + 1}
-            </button>
-          ))}
-
-          <button
-            className={`${styles.pageButton} ${styles.pageButtonLetter} ${page === totalPages ? styles.disabled : ''}`}
-            onClick={handleNext}
-            disabled={page === totalPages}
-          >
-            <p>Next</p>&gt;
-          </button>
-          <button
-            className={`${styles.pageButton} ${styles.pageButtonLetter} ${page === totalPages ? styles.disabled : ''}`}
-            onClick={handleLast}
-            disabled={page === totalPages}
-          >
-            <p>Last</p>&gt;&gt;
-          </button>
-        </div>
-      )}
+      <Pager page={page} totalPages={totalPages} onChange={setPage} />
     </div>
   );
 }

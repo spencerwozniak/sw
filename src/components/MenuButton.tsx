@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import styles from './MenuButton.module.css';
 
 interface MenuButtonProps {
@@ -7,13 +8,19 @@ interface MenuButtonProps {
   isOpen: boolean;
 }
 
-const MenuButton: React.FC<MenuButtonProps> = ({ onClick, isOpen }) => {
+const MenuButton = React.forwardRef<HTMLButtonElement, MenuButtonProps>(function MenuButton(
+  { onClick, isOpen },
+  ref
+) {
   return (
     <button
+      ref={ref}
+      type="button"
       className={`${styles.menu} ${isOpen ? styles.opened : ''}`}
       onClick={onClick}
       aria-label="Main Menu"
       aria-expanded={isOpen}
+      aria-controls="mobile-menu"
     >
       <svg viewBox="0 0 100 100">
         <path className={`${styles.line} ${styles.line1}`} d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058" />
@@ -22,6 +29,6 @@ const MenuButton: React.FC<MenuButtonProps> = ({ onClick, isOpen }) => {
       </svg>
     </button>
   );
-};
+});
 
 export default MenuButton;

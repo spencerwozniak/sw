@@ -1,36 +1,66 @@
-"use client";
+'use client';
 
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
-type Theme = "light" | "dark";
+export type Theme = 'light' | 'dark';
+const STORAGE_KEY = 'theme';
 
 interface ThemeContextType {
   theme: Theme;
+  toggle: () => void;
+  setTheme: (t: Theme) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
+function applyTheme(t: Theme) {
+  const r = document.documentElement;
+  r.setAttribute('data-theme', t);
+  r.style.colorScheme = t;
+}
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme] = useState<Theme>("dark");
+  const [theme, setThemeState] = useState<Theme>('light');
 
   useEffect(() => {
-    // Always set dark mode
-    if (typeof window !== "undefined") {
-      document.documentElement.classList.add("dark");
-    }
+    setThemeState(document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light');
+    const mq = window.matchMedia('(prefers-color-scheme: dark)');
+    const onChange = (e: MediaQueryListEvent) => {
+      let stored: string | null = null;
+      try {
+        stored = localStorage.getItem(STORAGE_KEY);
+      } catch {
+        // ignore
+      }
+      if (stored === 'light' || stored === 'dark') return; // explicit choice wins
+      const t: Theme = e.matches ? 'dark' : 'light';
+      applyTheme(t);
+      setThemeState(t);
+    };
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
   }, []);
 
-  // Always provide the context, even during SSR
-  // This prevents the "useTheme must be used within a ThemeProvider" error
-  return (
-    <ThemeContext.Provider value={{ theme }}>{children}</ThemeContext.Provider>
-  );
+  const setTheme = useCallback((t: Theme) => {
+    applyTheme(t);
+    try {
+      localStorage.setItem(STORAGE_KEY, t);
+    } catch {
+      // ignore
+    }
+    setThemeState(t);
+  }, []);
+
+  const toggle = useCallback(() => {
+    setTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  }, [setTheme]);
+
+  const value = useMemo(() => ({ theme, toggle, setTheme }), [theme, toggle, setTheme]);
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }
 
 export function useTheme() {
-  const context = useContext(ThemeContext);
-  if (context === undefined) {
-    throw new Error("useTheme must be used within a ThemeProvider");
-  }
-  return context;
+  const ctx = useContext(ThemeContext);
+  if (ctx === undefined) throw new Error('useTheme must be used within a ThemeProvider');
+  return ctx;
 }

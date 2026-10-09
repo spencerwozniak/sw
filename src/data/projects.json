@@ -2,7 +2,7 @@
   {
     "slug": "serelora",
     "title": "Serelora",
-    "subtitle": "The Chat EHR",
+    "subtitle": "Agentic Healthcare Infrastructure",
     "description": "Serelora automates the work that keeps doctors at their computers so they can be with their patients.",
     "content": ["/projects/serelora/chart-linking.jpg", "/projects/serelora/scribe-app.png", "/projects/serelora/serelora-note.jpg", "/projects/serelora/timeline.jpg", "/projects/serelora/calendar.jpg", "/projects/serelora/tool-use.jpg"],
     "externalUrl": "https://www.serelora.com",
