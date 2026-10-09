@@ -6,8 +6,8 @@ import { isExternalHref } from './Button';
 export type IconButtonProps = {
   label: string;
   icon: React.ReactNode;
-  variant?: 'ghost' | 'outline' | 'surface';
-  size?: 'sm' | 'md';
+  variant?: 'ghost' | 'outline' | 'surface' | 'plain';
+  size?: 'sm' | 'md' | 'lg';
   href?: string;
   newTab?: boolean;
   onClick?: React.MouseEventHandler<HTMLElement>;
@@ -20,12 +20,14 @@ export type IconButtonProps = {
 const SIZE_CLASSES: Record<NonNullable<IconButtonProps['size']>, string> = {
   sm: 'size-8 [&_svg]:size-[13px]',
   md: 'size-[34px] [&_svg]:size-4',
+  lg: 'size-9 [&_svg]:size-[19px]',
 };
 
 const VARIANT_CLASSES: Record<NonNullable<IconButtonProps['variant']>, string> = {
   ghost: 'border-transparent bg-transparent text-muted hover:border-border hover:text-accent',
   outline: 'border-border bg-transparent text-muted hover:border-accent-hairline hover:text-accent',
   surface: 'border-border bg-bg text-fg hover:border-accent-hairline hover:text-accent',
+  plain: 'border-transparent bg-transparent text-muted hover:text-accent',
 };
 
 export function iconButtonClasses(variant: NonNullable<IconButtonProps['variant']> = 'ghost', size: NonNullable<IconButtonProps['size']> = 'md'): string {

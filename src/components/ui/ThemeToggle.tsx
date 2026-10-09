@@ -15,7 +15,7 @@ export function ThemeToggle({ className }: { className?: string }) {
       aria-label="Toggle dark mode"
       aria-pressed={theme === 'dark'}
       title="Toggle dark mode"
-      className={cx(iconButtonClasses('ghost', 'md'), className)}
+      className={cx(iconButtonClasses('plain', 'lg'), className)}
     >
       <FaMoon aria-hidden className="block dark:hidden" />
       <FaSun aria-hidden className="hidden dark:block" />

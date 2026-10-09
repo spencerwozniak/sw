@@ -2,9 +2,7 @@ import React from 'react';
 import {
   Container,
   Portrait,
-  GoldRule,
   Title,
-  Scripture,
   Lede,
   Prose,
   TextLink,
@@ -36,6 +34,12 @@ export type HomePageProps = {
   articleCount: number;
 };
 
+const HERO_BUTTONS: Array<{ label: string; href: string }> = [
+  { label: 'Get in touch', href: '/contact' },
+  { label: 'My Work', href: '/work' },
+  { label: 'My Story', href: '/writing/behold-i-make-all-things-new' },
+];
+
 function ProjectMeta({ items }: { items: Array<string | undefined> }) {
   const parts = items.filter(Boolean) as string[];
   return (
@@ -53,18 +57,12 @@ function ProjectMeta({ items }: { items: Array<string | undefined> }) {
 export default function HomePage({ projects, articles, projectCount, articleCount }: HomePageProps) {
   return (
     <Container as="main" width="text" className="pt-10 sm:pt-20">
-      <div className="mb-7 grid grid-cols-[auto_1px_minmax(0,1fr)] items-stretch gap-x-[1.1rem] sm:mb-9 sm:gap-x-7">
-        <Portrait alt="Spencer Wozniak headshot" priority />
-        <GoldRule />
-        <div className="flex flex-col justify-center py-1">
-          <Title as="h1" size="h1" className="mb-2.5 sm:mb-4">
-            Spencer Wozniak
-          </Title>
-          <Scripture cite="— Luke 1:38">
-            Behold the handmaid of the Lord;
-            <br />
-            be it unto me according to thy word.
-          </Scripture>
+      <div className="mb-10 flex items-center justify-between gap-6 border-b border-border pb-8">
+        <Title as="h1" size="display" className="max-w-md text-[clamp(2.75rem,2rem+3vw,4rem)]!">
+          Spencer Wozniak
+        </Title>
+        <div>
+          <Portrait alt="Spencer Wozniak headshot" priority />
         </div>
       </div>
 
@@ -73,7 +71,7 @@ export default function HomePage({ projects, articles, projectCount, articleCoun
         building reliable, explainable software for healthcare.
       </Lede>
 
-      <Prose font="sans">
+      <Prose tone="muted">
         <p>
           My background spans clinical care, academic research, and software engineering.
           Through direct exposure to patients and healthcare workflows, it became clear
@@ -88,16 +86,12 @@ export default function HomePage({ projects, articles, projectCount, articleCoun
         </p>
       </Prose>
 
-      <div className="mt-7 flex gap-2 sm:gap-3">
-        <Button grow href="/writing/behold-i-make-all-things-new">
-          My Story
-        </Button>
-        <Button grow href="/work">
-          My Work
-        </Button>
-        <Button grow href="/contact">
-          Contact Me
-        </Button>
+      <div className="mt-10 flex flex-wrap gap-2 sm:gap-3">
+        {HERO_BUTTONS.map((b, i) => (
+          <Button key={b.href} variant={i === 0 ? 'primary' : 'outline'} href={b.href}>
+            {b.label}
+          </Button>
+        ))}
       </div>
 
       <Section

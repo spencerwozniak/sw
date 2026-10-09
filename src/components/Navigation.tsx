@@ -117,7 +117,13 @@ const Navigation: React.FC = () => {
           )}
         >
           <Link href="/" onClick={onLogoClick} className="justify-self-start leading-none">
-            <Signature priority sizes="100px" className={isMobile ? 'h-[30px] w-auto' : 'h-[34px] w-auto'} />
+            <Signature
+              tone="muted"
+              className={cx(
+                'text-muted transition-colors duration-150 ease-ui hover:text-fg',
+                isMobile ? 'h-[30px] w-auto' : 'h-[34px] w-auto'
+              )}
+            />
           </Link>
 
           {!isMobile && (
@@ -129,7 +135,7 @@ const Navigation: React.FC = () => {
                     <Link
                       href={item.link}
                       aria-current={isActive(item.link) ? 'page' : undefined}
-                      className="relative py-1.5 eyebrow text-[0.75rem] text-fg transition-colors hover:text-accent aria-[current=page]:text-accent after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:bg-accent after:opacity-0 aria-[current=page]:after:opacity-100"
+                      className="py-1.5 font-sans text-[0.9375rem] font-bold text-muted transition-colors duration-300 hover:text-fg"
                     >
                       {item.label}
                     </Link>
@@ -141,19 +147,15 @@ const Navigation: React.FC = () => {
 
           <div className="flex items-center gap-2 justify-self-end">
             {!isMobile && (
-              <IconButton href="https://www.linkedin.com/in/spencerwozniak/" label="LinkedIn" icon={<FaLinkedin />} />
+              <IconButton variant="plain" size="lg" href="https://www.linkedin.com/in/spencerwozniak/" label="LinkedIn" icon={<FaLinkedin />} />
             )}
-            <span className="contents max-[359px]:hidden">
-              {pathname.startsWith('/writing/') ? (
+            {pathname.startsWith('/writing/') && (
+              <span className="contents max-[359px]:hidden">
                 <Button size="sm" onClick={handleRandomEssay}>
                   CLICK ME!
                 </Button>
-              ) : (
-                <Button size="sm" href="/contact">
-                  Get in touch
-                </Button>
-              )}
-            </span>
+              </span>
+            )}
             <ThemeToggle />
             {isMobile && <MenuButton ref={menuButtonRef} onClick={toggleSubMenu} isOpen={isSubMenuOpen} />}
           </div>
@@ -178,7 +180,7 @@ const Navigation: React.FC = () => {
                     href={item.link}
                     onClick={() => setIsSubMenuOpen(false)}
                     aria-current={isActive(item.link) ? 'page' : undefined}
-                    className="block py-5 text-fg transition-colors hover:text-accent aria-[current=page]:text-accent"
+                    className="block py-5 text-muted transition-colors hover:text-fg aria-[current=page]:text-fg"
                   >
                     <Title as="h2" size="h1" tone="inherit">
                       {item.label}

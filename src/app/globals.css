@@ -177,6 +177,8 @@
   @media (max-width: 640px) { .prose.prose-lg { font-size: 1.09375rem; } }
   @media (max-width: 640px) { .prose:not(.prose-lg) { font-size: 1rem; } }
   .prose.prose-sans { font-family: var(--font-body), system-ui, sans-serif; line-height: 1.65; }
+  /* Quieter body copy (e.g. Paul-style muted intro paragraphs); WCAG AA 4.5:1 on --bg in both themes */
+  .prose.prose-muted { color: var(--muted); }
   .prose > :first-child { margin-top: 0; }
   .prose > :last-child { margin-bottom: 0; }
   .prose p { margin: 0 0 1.15em; }
