@@ -3,9 +3,7 @@ import {
   Container,
   Portrait,
   Title,
-  Lede,
   Prose,
-  TextLink,
   Button,
   Section,
   List,
@@ -66,23 +64,16 @@ export default function HomePage({ projects, articles, projectCount, articleCoun
         </div>
       </div>
 
-      <Lede serif className="mb-[1.15em]">
-        I&apos;m a Catholic Christian and healthtech entrepreneur focused on
-        building reliable, explainable software for healthcare.
-      </Lede>
-
       <Prose tone="muted">
         <p>
-          My background spans clinical care, academic research, and software engineering.
-          Through direct exposure to patients and healthcare workflows, it became clear
-          that much of the suffering in modern healthcare is not clinical, but infrastructural.
+          I&apos;m a Catholic Christian and healthtech entrepreneur focused on
+          building reliable, explainable software for healthcare.
         </p>
 
         <p>
-          That realization redirected my path from medical school, and I founded{" "}
-          <TextLink href="https://www.serelora.com/">Serelora</TextLink>,
-          a startup  building healthcare infrastructure that is trustworthy, explainable,
-          and oriented toward human dignity.
+          I was born and raised in Michigan, and after graduating from Michigan State
+          University, I drove across the country to San Diego, where I have lived for
+          the last two years.
         </p>
       </Prose>
 
