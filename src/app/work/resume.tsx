@@ -13,19 +13,13 @@ type ResumeBlock = {
 
 const STACK: StackSet[] = [
   {
-    title: 'Frontend',
+    title: 'Frontend & Mobile',
     items: [
       'TypeScript',
       'JavaScript',
       'React',
-      'React Native + Expo (iOS, Android, Web)',
       'Next.js',
-      'NativeWind (Tailwind CSS for React Native)',
-      'React Native SVG',
-      'React Native Reanimated',
-      'Custom navigation systems',
-      'Flow-based handlers',
-      'Platform-specific optimizations',
+      'React Native + Expo (iOS, Android, Web)',
       'Tailwind CSS',
       'HTML',
       'CSS',
@@ -36,33 +30,57 @@ const STACK: StackSet[] = [
     items: [
       'Node.js',
       'Python 3.9+',
-      'Django',
-      'Flask',
+      'Microservices',
       'FastAPI (async REST endpoints)',
-      'Pydantic (schema validation)',
-      'JSON file-based storage',
-      'In-memory TTL cache',
-      'Modular service architecture',
-      'Uvicorn ASGI server',
-      'Prisma',
-      'PostgreSQL',
+      'Flask',
+      'Express',
       'REST APIs',
+      'PostgreSQL',
+      'Prisma',
+      'Pydantic / Zod (schema validation)',
+      'Message queues (SQS)',
+      'Stripe (subs, invoicing)',
+      'Uvicorn ASGI server',
     ],
   },
   {
-    title: 'Auth & Payments',
+    title: 'Cloud & DevOps',
     items: [
-      'Clerk / Auth.js',
+      'Kubernetes',
+      'AWS EKS (Fargate)',
+      'Helm',
+      'Terraform',
+      'Docker',
+      'AWS RDS',
+      'AWS S3',
+      'AWS EC2',
+      'CI/CD (GitHub Actions, CodeBuild)',
+      'Horizontal scaling',
+      'Load balancers',
+      'Nginx (reverse proxy)',
+      'Linux',
+      'Systemd services',
+      'Cloudflare',
+      'Vercel',
+      'GitHub',
+    ],
+  },
+  {
+    title: 'Security & Compliance',
+    items: [
+      'HIPAA-aligned safeguards',
+      'Role-based access control (RBAC)',
+      'Tamper-evident audit logging',
+      'AWS KMS encryption',
+      'Secrets management',
       'OAuth2 / OIDC',
-      'Stripe (subs, invoicing)'
+      'Clerk / Auth.js',
     ],
   },
   {
     title: 'AI / ML',
     items: [
       'PyTorch',
-      'OpenAI',
-      'R',
       'Jupyter',
       'GNNs',
       'CNNs',
@@ -70,63 +88,42 @@ const STACK: StackSet[] = [
       'MoEs',
       'Transfer learning',
       'MLPs',
+      'Clinical NLP (MedCAT, spaCy, medSpaCy)',
     ],
   },
   {
     title: 'Agentic AI',
     items: [
+      'Anthropic Claude',
+      'AWS Bedrock',
       'OpenAI API (real-time streaming, SSE)',
       'OpenAI Vision API',
-      'Structured context aggregation',
-      'Guardrails & hallucination prevention',
-      'Explainable, guideline-based responses',
-      'Async streaming (AWS load balancer optimized)',
+      'Gemini',
+      'Model Context Protocol (MCP)',
       'Multi-agent orchestration',
-      'Tool / function calling',
-      'Streaming UI',
       'Structured extraction',
+      'Structured context aggregation',
     ],
   },
   {
-    title: 'Healthcare',
+    title: 'Healthcare & Interop',
     items: [
+      'FHIR R4 resources',
       'SMART on FHIR embed',
-      'FHIR resources',
-      'EHR-agnostic overlay',
-      'PHI scoping & redaction',
-      'Human-in-the-loop guardrails',
-    ],
-  },
-  {
-    title: 'Apps & Infra',
-    items: [
-      'Docker',
-      'Linux',
-      'Vercel',
-      'AWS EC2',
-      'Nginx (reverse proxy)',
-      'Systemd services',
-      'Horizontal scaling',
-      'Load balancers',
-      'CloudFlare',
-      'Git',
-      'GitHub',
-      'pnpm',
-      'Vim',
-      'VSCode',
-      'Electron desktop wrapper',
-      'Caching & code-splitting',
-      'Sitemap / robots config',
+      'AWS HealthScribe / Transcribe (ambient scribe)',
+      'AWS Comprehend Medical',
+      'AWS Textract (document OCR)',
     ],
   },
   {
     title: 'Design & Content',
     items: [
       'Figma',
-      'Photoshop',
+      'Canva',
       'Markdown',
       'SEO (local + technical)',
       'OpenGraph / metadata',
+      'Sitemap / robots config',
       'Google Docs API ingestion',
       'Dashboards & admin tools',
       'Analytics & tracking',
@@ -136,7 +133,7 @@ const STACK: StackSet[] = [
 
 /* ---------- Static content (copied from the previous resume page) ---------- */
 
-const EXPERIENCE: ResumeBlock[] = [
+const VENTURES: ResumeBlock[] = [
   {
     header: 'Co-Founder & CTO',
     org: (
@@ -376,9 +373,9 @@ export default function Resume() {
         />
       </Section>
 
-      <Section size="lg" titleId="h-experience" title="Experience">
+      <Section size="lg" titleId="h-ventures" title="Business Ventures">
         <EntryList>
-          {EXPERIENCE.map((b, i) => (
+          {VENTURES.map((b, i) => (
             <Entry key={i} when={b.dates} title={b.header} org={b.org} bullets={b.bullets} extras={b.extras} />
           ))}
         </EntryList>
