@@ -4,11 +4,12 @@ import { getPhotos, groupByMonth } from '@/lib/photos';
 import { PhotoGrid } from '../_components/PhotoGrid';
 
 export const metadata: Metadata = {
-  title: 'Photostream · Photos | Spencer Wozniak',
-  description: 'Every photo, newest first.',
+  title: 'All Photos',
+  description: 'Every photo by Spencer Wozniak, newest first.',
+  alternates: { canonical: '/photos/all' },
 };
 
-export default function PhotostreamPage() {
+export default function AllPhotosPage() {
   const photos = getPhotos();
   const groups = groupByMonth(photos);
 
@@ -16,9 +17,9 @@ export default function PhotostreamPage() {
     <FadeIn>
       <Container as="main" width="wide" className="pb-24">
         <div className="pt-8">
-          <Breadcrumb items={[{ label: 'Photos', href: '/photos' }, { label: 'Photostream' }]} />
+          <Breadcrumb items={[{ label: 'Photos', href: '/photos' }, { label: 'All Photos' }]} />
         </div>
-        <PageHeader flush className="pt-8" title="Photostream" subtitle={`${photos.length} photos, newest first.`} />
+        <PageHeader flush className="pt-8" title="All Photos" subtitle={`${photos.length} photos, newest first.`} />
         <div className="flex flex-col gap-12">
           {groups.map((group) => (
             <section key={group.key} aria-labelledby={`h-${group.key}`}>

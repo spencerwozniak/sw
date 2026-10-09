@@ -37,22 +37,22 @@ export function PhotostreamRow({ photos }: { photos: Photo[] }) {
   };
 
   return (
-    <section aria-labelledby="h-photostream">
+    <section aria-labelledby="h-all-photos">
       <div className="mb-4 flex items-center justify-between gap-4">
-        <Title as="h2" size="h3" id="h-photostream">
-          <Link href="/photos/stream" className="transition-colors hover:text-accent">
-            Photostream
+        <Title as="h2" size="h3" id="h-all-photos">
+          <Link href="/photos/all" className="transition-colors hover:text-accent">
+            All Photos
           </Link>
         </Title>
         <div className="flex items-center gap-1.5">
           <Link
-            href="/photos/stream"
+            href="/photos/all"
             className="mr-1 font-sans text-[0.875rem] font-bold text-muted transition-colors hover:text-accent"
           >
             View all
           </Link>
-          <IconButton variant="outline" label="Scroll photostream back" icon={<ChevronLeft />} onClick={() => page(-1)} disabled={edges.start} />
-          <IconButton variant="outline" label="Scroll photostream forward" icon={<ChevronRight />} onClick={() => page(1)} disabled={edges.end} />
+          <IconButton variant="outline" label="Scroll all photos back" icon={<ChevronLeft />} onClick={() => page(-1)} disabled={edges.start} />
+          <IconButton variant="outline" label="Scroll all photos forward" icon={<ChevronRight />} onClick={() => page(1)} disabled={edges.end} />
         </div>
       </div>
 

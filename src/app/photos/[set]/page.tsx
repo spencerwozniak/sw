@@ -17,8 +17,9 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const set = getPhotoset((await params).set);
   if (!set) return {};
   return {
-    title: `${set.title} · Photos | Spencer Wozniak`,
+    title: `${set.title} · Photos`,
     description: set.blurb ?? set.subtitle,
+    alternates: { canonical: `/photos/${set.slug}` },
     openGraph: {
       images: [{ url: photoSrc(set.cover), width: set.cover.width, height: set.cover.height, alt: set.cover.caption }],
     },
@@ -71,9 +72,9 @@ export default async function PhotosetPage({ params }: { params: Params }) {
         <PhotoGrid photos={set.photos} className="mt-10" />
 
         <PrevNext
-          ariaLabel="More photosets"
-          prev={prev ? { href: `/photos/${prev.slug}`, title: prev.title, label: 'Previous set' } : null}
-          next={next ? { href: `/photos/${next.slug}`, title: next.title, label: 'Next set' } : null}
+          ariaLabel="More collections"
+          prev={prev ? { href: `/photos/${prev.slug}`, title: prev.title, label: 'Previous collection' } : null}
+          next={next ? { href: `/photos/${next.slug}`, title: next.title, label: 'Next collection' } : null}
         />
       </Container>
     </FadeIn>
