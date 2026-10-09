@@ -14,7 +14,7 @@ import { FaThreads } from "react-icons/fa6";
 
 import Chatbot from "@/components/Chatbot";
 import CalendlyButton from "@/app/contact/_components/CalendlyButton";
-import { Button, Container, FadeIn, List, ListRow, PageHeader, ScrollCue, Section } from "@/components/ui";
+import { Button, Container, FadeIn, List, ListRow, PageHeader, Section } from "@/components/ui";
 import { scrollToId } from "@/lib/scroll";
 
 type ContactLink = {
@@ -101,7 +101,6 @@ export default function ContactPage() {
               </>
             }
           />
-          <ScrollCue flush label="See more" targetId="contact-methods" buttonLabel="Scroll to contact methods" />
 
           <Section id="contact-methods" titleId="h-connect" title="Let's Connect">
             <List>

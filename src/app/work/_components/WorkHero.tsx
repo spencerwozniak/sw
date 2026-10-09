@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { Button, Lede, Meta, Ruled, ScrollCue } from '@/components/ui';
+import { Button, Lede, Meta, Ruled } from '@/components/ui';
 import projectsData from '@/data/projects.json';
 import type { ProjectItem } from './ProjectCard';
 
@@ -29,7 +29,6 @@ export default function WorkHero() {
         </Lede>
         <Button href="https://www.serelora.com/">Visit Serelora</Button>
       </Ruled>
-      <ScrollCue label="See more" />
     </section>
   );
 }
