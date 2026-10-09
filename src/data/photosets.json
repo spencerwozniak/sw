@@ -1,0 +1,51 @@
+[
+  {
+    "slug": "san-jacinto",
+    "title": "San Jacinto",
+    "subtitle": "Mt. San Jacinto & Suicide Rock",
+    "cover": "san-jacinto-peak-1",
+    "photos": ["san-jacinto-peak-1", "san-jacinto-peak-2", "san-jacinto-peak-3", "suicide-rock", "hiking-in-mountains-sunset"]
+  },
+  {
+    "slug": "san-diego-coast",
+    "title": "San Diego Coast",
+    "subtitle": "La Jolla, Torrey Pines & Coronado",
+    "cover": "sunset-at-windansea-beach",
+    "photos": ["sunset-at-windansea-beach", "windansea-beach", "seals-at-la-jolla", "torrey-pines-beach-1", "torrey-pines-beach-2", "coronado-beach-1", "pacific-beach-at-night", "san-diego-bay-sunset"]
+  },
+  {
+    "slug": "san-diego",
+    "title": "San Diego",
+    "subtitle": "The city, day and night",
+    "cover": "downtown-sd-airplane-view",
+    "photos": ["downtown-sd-airplane-view", "downtown-sd-sunset", "downtown-sd-night-storm", "cowles-mountain-peak-at-night", "balboa-park-church", "chula-vista", "view-from-my-apartment", "hotel-churchill", "protest-in-downtown-sd", "flowers-and-sunset"]
+  },
+  {
+    "slug": "grand-haven",
+    "title": "Grand Haven",
+    "subtitle": "Lake Michigan shoreline",
+    "cover": "grand-haven-lighthouse",
+    "photos": ["grand-haven-lighthouse", "grand-haven-pier-1", "grand-haven-pier-2", "grand-haven-red-house", "train-coal-station", "sunset-at-grand-haven", "muskegon-beach"]
+  },
+  {
+    "slug": "michigan",
+    "title": "Michigan",
+    "subtitle": "Seasons back home",
+    "cover": "northern-michigan",
+    "photos": ["northern-michigan", "michigan-fall-colors", "michigan-night-snow", "michigan-day-snow", "back-in-michigan", "michigan-starry-sky", "taquemenon-falls", "grand-rapids-1", "grand-rapids-2", "grand-rapids-3"]
+  },
+  {
+    "slug": "campus",
+    "title": "Campus",
+    "subtitle": "UCSD, USD & MSU",
+    "cover": "geisel-library",
+    "photos": ["geisel-library", "usd-campus-hilltop", "usd-campus-hilltop-2", "usd-campus-fountain", "msu-library", "msu-campus-fountain", "memorial-hospital"]
+  },
+  {
+    "slug": "on-the-road",
+    "title": "On the Road",
+    "subtitle": "Sedona, Nashville & the drive between",
+    "cover": "sedona-arizona-1",
+    "photos": ["sedona-arizona-1", "sedona-arizona-2", "nashville", "roadtrip-stormclouds"]
+  }
+]

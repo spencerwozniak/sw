@@ -1,0 +1,461 @@
+[
+  {
+    "id": "back-in-michigan",
+    "file": "back-in-michigan.jpg",
+    "caption": "Back In Michigan",
+    "width": 1893,
+    "height": 2400,
+    "takenAt": "2024-12-29T18:10:33",
+    "camera": "iPhone 13"
+  },
+  {
+    "id": "balboa-park-church",
+    "file": "balboa-park-church.jpg",
+    "caption": "Balboa Park Church",
+    "width": 2039,
+    "height": 2400,
+    "takenAt": "2025-02-01T17:55:48",
+    "camera": "iPhone 13"
+  },
+  {
+    "id": "chula-vista",
+    "file": "chula-vista.jpg",
+    "caption": "Chula Vista",
+    "width": 1350,
+    "height": 2400,
+    "takenAt": "2024-11-16T11:03:21",
+    "camera": "iPhone 13"
+  },
+  {
+    "id": "coronado-beach-1",
+    "file": "coronado-beach-1.jpg",
+    "caption": "Coronado Beach",
+    "width": 1800,
+    "height": 2400,
+    "takenAt": "2025-03-04T15:36:02",
+    "camera": "iPhone 13"
+  },
+  {
+    "id": "cowles-mountain-peak-at-night",
+    "file": "cowles-mountain-peak-at-night.jpg",
+    "caption": "Cowles Mountain Peak At Night",
+    "width": 1795,
+    "height": 2400,
+    "takenAt": "2025-01-24T18:51:26",
+    "camera": "iPhone 13"
+  },
+  {
+    "id": "downtown-sd-airplane-view",
+    "file": "downtown-sd-airplane-view.jpg",
+    "caption": "Downtown San Diego Airplane View",
+    "width": 2400,
+    "height": 1800,
+    "takenAt": "2025-04-20T21:34:09",
+    "camera": "iPhone 13"
+  },
+  {
+    "id": "downtown-sd-night-storm",
+    "file": "downtown-sd-night-storm.jpg",
+    "caption": "Downtown San Diego Night Storm",
+    "width": 1350,
+    "height": 2400,
+    "takenAt": "2024-11-02T20:58:22",
+    "camera": "iPhone 13"
+  },
+  {
+    "id": "downtown-sd-sunset",
+    "file": "downtown-sd-sunset.jpg",
+    "caption": "Downtown San Diego Sunset",
+    "width": 1350,
+    "height": 2400,
+    "takenAt": "2024-12-07T16:19:56",
+    "camera": "iPhone 13"
+  },
+  {
+    "id": "flowers-and-sunset",
+    "file": "flowers-and-sunset.jpg",
+    "caption": "Flowers And Sunset",
+    "width": 1350,
+    "height": 2400,
+    "takenAt": "2025-03-20T19:01:28",
+    "camera": "iPhone 13"
+  },
+  {
+    "id": "geisel-library",
+    "file": "geisel-library.jpg",
+    "caption": "Geisel Library",
+    "width": 2400,
+    "height": 2080,
+    "takenAt": "2024-09-03T18:38:36",
+    "camera": "iPhone XR"
+  },
+  {
+    "id": "grand-haven-lighthouse",
+    "file": "grand-haven-lighthouse.jpg",
+    "caption": "Grand Haven Lighthouse",
+    "width": 2400,
+    "height": 1800,
+    "takenAt": "2022-04-23T14:54:35",
+    "camera": "iPhone XR"
+  },
+  {
+    "id": "grand-haven-pier-1",
+    "file": "grand-haven-pier-1.jpg",
+    "caption": "Grand Haven Pier",
+    "width": 2400,
+    "height": 1800,
+    "takenAt": "2022-04-23T15:07:19",
+    "camera": "iPhone XR"
+  },
+  {
+    "id": "grand-haven-pier-2",
+    "file": "grand-haven-pier-2.jpg",
+    "caption": "Grand Haven Pier",
+    "width": 2400,
+    "height": 1842,
+    "takenAt": "2022-04-23T14:47:16",
+    "camera": "iPhone XR"
+  },
+  {
+    "id": "grand-haven-red-house",
+    "file": "grand-haven-red-house.jpg",
+    "caption": "Grand Haven Red House",
+    "width": 2400,
+    "height": 1800,
+    "takenAt": "2022-04-23T14:57:12",
+    "camera": "iPhone XR"
+  },
+  {
+    "id": "grand-rapids-1",
+    "file": "grand-rapids-1.jpg",
+    "caption": "Grand Rapids",
+    "width": 2400,
+    "height": 1800,
+    "takenAt": "2019-03-21T17:36:54",
+    "camera": "iPhone 6s Plus"
+  },
+  {
+    "id": "grand-rapids-2",
+    "file": "grand-rapids-2.jpg",
+    "caption": "Grand Rapids",
+    "width": 2400,
+    "height": 1800,
+    "takenAt": "2019-03-21T16:50:42",
+    "camera": "iPhone 6s Plus"
+  },
+  {
+    "id": "grand-rapids-3",
+    "file": "grand-rapids-3.jpg",
+    "caption": "Grand Rapids",
+    "width": 2400,
+    "height": 1800,
+    "takenAt": "2019-03-21T16:34:01",
+    "camera": "iPhone 6s Plus"
+  },
+  {
+    "id": "hiking-in-mountains-sunset",
+    "file": "hiking-in-mountains-sunset.jpg",
+    "caption": "Hiking In Mountains Sunset",
+    "width": 1350,
+    "height": 2400,
+    "takenAt": "2024-11-30T16:29:13",
+    "camera": "iPhone 13"
+  },
+  {
+    "id": "hotel-churchill",
+    "file": "hotel-churchill.jpg",
+    "caption": "Hotel Churchill",
+    "width": 1499,
+    "height": 2400,
+    "takenAt": "2024-12-19T23:45:57",
+    "camera": "iPhone 13"
+  },
+  {
+    "id": "memorial-hospital",
+    "file": "memorial-hospital.jpg",
+    "caption": "Memorial Hospital",
+    "width": 2310,
+    "height": 2400,
+    "takenAt": "2024-07-24T17:56:15",
+    "camera": "iPhone XR"
+  },
+  {
+    "id": "michigan-day-snow",
+    "file": "michigan-day-snow.jpg",
+    "caption": "Michigan Day Snow",
+    "width": 1800,
+    "height": 2400,
+    "takenAt": "2024-01-25T11:47:09",
+    "camera": "iPhone XR"
+  },
+  {
+    "id": "michigan-fall-colors",
+    "file": "michigan-fall-colors.jpg",
+    "caption": "Michigan Fall Colors",
+    "width": 1800,
+    "height": 2400,
+    "takenAt": "2022-10-16T13:40:25",
+    "camera": "iPhone 11 Pro"
+  },
+  {
+    "id": "michigan-night-snow",
+    "file": "michigan-night-snow.jpg",
+    "caption": "Michigan Night Snow",
+    "width": 1800,
+    "height": 2400,
+    "takenAt": "2023-11-26T20:53:38",
+    "camera": "iPhone XR"
+  },
+  {
+    "id": "michigan-starry-sky",
+    "file": "michigan-starry-sky.jpg",
+    "caption": "Michigan Starry Sky",
+    "width": 1350,
+    "height": 2400,
+    "takenAt": "2024-12-31T00:23:46",
+    "camera": "iPhone 13"
+  },
+  {
+    "id": "msu-campus-fountain",
+    "file": "msu-campus-fountain.jpg",
+    "caption": "MSU Campus Fountain",
+    "width": 1800,
+    "height": 2400,
+    "takenAt": "2024-07-17T13:29:54",
+    "camera": "iPhone XR"
+  },
+  {
+    "id": "msu-library",
+    "file": "msu-library.jpg",
+    "caption": "MSU Library",
+    "width": 1800,
+    "height": 2400,
+    "takenAt": "2024-01-19T15:48:00",
+    "camera": "iPhone XR"
+  },
+  {
+    "id": "muskegon-beach",
+    "file": "muskegon-beach.jpg",
+    "caption": "Muskegon Beach",
+    "width": 1242,
+    "height": 1862,
+    "takenAt": null,
+    "camera": null
+  },
+  {
+    "id": "nashville",
+    "file": "nashville.jpg",
+    "caption": "Nashville",
+    "width": 2358,
+    "height": 2400,
+    "takenAt": "2023-10-06T21:53:03",
+    "camera": "iPhone 11 Pro"
+  },
+  {
+    "id": "northern-michigan",
+    "file": "northern-michigan.jpg",
+    "caption": "Northern Michigan",
+    "width": 2400,
+    "height": 1800,
+    "takenAt": "2023-11-05T17:28:28",
+    "camera": "iPhone XR"
+  },
+  {
+    "id": "pacific-beach-at-night",
+    "file": "pacific-beach-at-night.jpg",
+    "caption": "Pacific Beach At Night",
+    "width": 1800,
+    "height": 2400,
+    "takenAt": "2024-11-01T22:19:40",
+    "camera": "iPhone 13"
+  },
+  {
+    "id": "protest-in-downtown-sd",
+    "file": "protest-in-downtown-sd.jpg",
+    "caption": "Protest In Downtown San Diego",
+    "width": 1242,
+    "height": 2208,
+    "takenAt": null,
+    "camera": null
+  },
+  {
+    "id": "roadtrip-stormclouds",
+    "file": "roadtrip-stormclouds.jpg",
+    "caption": "Roadtrip Stormclouds",
+    "width": 920,
+    "height": 616,
+    "takenAt": null,
+    "camera": null
+  },
+  {
+    "id": "san-diego-bay-sunset",
+    "file": "san-diego-bay-sunset.jpg",
+    "caption": "San Diego Bay Sunset",
+    "width": 1800,
+    "height": 2400,
+    "takenAt": "2025-03-08T17:45:18",
+    "camera": "iPhone 13"
+  },
+  {
+    "id": "san-jacinto-peak-1",
+    "file": "san-jacinto-peak-1.jpg",
+    "caption": "San Jacinto Peak",
+    "width": 2400,
+    "height": 1800,
+    "takenAt": "2024-11-30T12:26:00",
+    "camera": "iPhone 13"
+  },
+  {
+    "id": "san-jacinto-peak-2",
+    "file": "san-jacinto-peak-2.jpg",
+    "caption": "San Jacinto Peak",
+    "width": 1350,
+    "height": 2400,
+    "takenAt": "2024-11-30T12:27:21",
+    "camera": "iPhone 13"
+  },
+  {
+    "id": "san-jacinto-peak-3",
+    "file": "san-jacinto-peak-3.jpg",
+    "caption": "San Jacinto Peak",
+    "width": 1350,
+    "height": 2400,
+    "takenAt": "2024-11-30T12:42:56",
+    "camera": "iPhone 13"
+  },
+  {
+    "id": "seals-at-la-jolla",
+    "file": "seals-at-la-jolla.jpg",
+    "caption": "Seals At La Jolla",
+    "width": 1800,
+    "height": 2400,
+    "takenAt": "2025-03-02T17:23:41",
+    "camera": "iPhone 13"
+  },
+  {
+    "id": "sedona-arizona-1",
+    "file": "sedona-arizona-1.jpg",
+    "caption": "Sedona Arizona",
+    "width": 2358,
+    "height": 2400,
+    "takenAt": "2025-04-19T17:58:00",
+    "camera": "iPhone 13"
+  },
+  {
+    "id": "sedona-arizona-2",
+    "file": "sedona-arizona-2.jpg",
+    "caption": "Sedona Arizona",
+    "width": 1800,
+    "height": 2400,
+    "takenAt": "2025-04-20T12:32:43",
+    "camera": "iPhone 13"
+  },
+  {
+    "id": "suicide-rock",
+    "file": "suicide-rock.jpg",
+    "caption": "Suicide Rock",
+    "width": 1800,
+    "height": 2400,
+    "takenAt": "2024-11-30T15:04:12",
+    "camera": "iPhone 13"
+  },
+  {
+    "id": "sunset-at-grand-haven",
+    "file": "sunset-at-grand-haven.jpg",
+    "caption": "Sunset At Grand Haven",
+    "width": 1800,
+    "height": 2400,
+    "takenAt": "2022-08-23T20:21:20",
+    "camera": "iPhone XR"
+  },
+  {
+    "id": "sunset-at-windansea-beach",
+    "file": "sunset-at-windansea-beach.jpg",
+    "caption": "Sunset At Windansea Beach",
+    "width": 1800,
+    "height": 2400,
+    "takenAt": "2025-01-11T17:03:29",
+    "camera": "iPhone 13"
+  },
+  {
+    "id": "taquemenon-falls",
+    "file": "taquemenon-falls.jpg",
+    "caption": "Taquemenon Falls",
+    "width": 2400,
+    "height": 1800,
+    "takenAt": "2018-08-23T12:45:09",
+    "camera": "iPhone 6s Plus"
+  },
+  {
+    "id": "torrey-pines-beach-1",
+    "file": "torrey-pines-beach-1.jpg",
+    "caption": "Torrey Pines Beach",
+    "width": 1800,
+    "height": 2400,
+    "takenAt": "2023-03-11T16:36:09",
+    "camera": "iPhone XR"
+  },
+  {
+    "id": "torrey-pines-beach-2",
+    "file": "torrey-pines-beach-2.jpg",
+    "caption": "Torrey Pines Beach",
+    "width": 1800,
+    "height": 2400,
+    "takenAt": "2023-03-11T16:36:12",
+    "camera": "iPhone XR"
+  },
+  {
+    "id": "train-coal-station",
+    "file": "train-coal-station.jpg",
+    "caption": "Train Coal Station",
+    "width": 2400,
+    "height": 1800,
+    "takenAt": "2022-04-23T16:01:53",
+    "camera": "iPhone XR"
+  },
+  {
+    "id": "usd-campus-fountain",
+    "file": "usd-campus-fountain.jpg",
+    "caption": "USD Campus Fountain",
+    "width": 1350,
+    "height": 2400,
+    "takenAt": "2025-01-22T17:34:45",
+    "camera": "iPhone 13"
+  },
+  {
+    "id": "usd-campus-hilltop-2",
+    "file": "usd-campus-hilltop-2.jpg",
+    "caption": "USD Campus Hilltop",
+    "width": 1242,
+    "height": 2208,
+    "takenAt": null,
+    "camera": null
+  },
+  {
+    "id": "usd-campus-hilltop",
+    "file": "usd-campus-hilltop.jpg",
+    "caption": "USD Campus Hilltop",
+    "width": 1871,
+    "height": 2400,
+    "takenAt": "2024-09-30T18:49:34",
+    "camera": "iPhone 13"
+  },
+  {
+    "id": "view-from-my-apartment",
+    "file": "view-from-my-apartment.jpg",
+    "caption": "View From My Apartment",
+    "width": 1800,
+    "height": 2400,
+    "takenAt": "2025-04-11T18:27:02",
+    "camera": "iPhone 13"
+  },
+  {
+    "id": "windansea-beach",
+    "file": "windansea-beach.jpg",
+    "caption": "Windansea Beach",
+    "width": 1800,
+    "height": 2400,
+    "takenAt": "2025-03-02T17:10:10",
+    "camera": "iPhone 13"
+  }
+]
