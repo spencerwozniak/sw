@@ -1,20 +1,22 @@
 [
   {
-    "label": "MY WORK",
+    "label": "WORK",
     "link": "/work",
-    "submenu": [
-    ]
+    "submenu": []
   },
   {
     "label": "WRITING",
     "link": "/writing",
-    "submenu": [
-    ]
-  }, 
+    "submenu": []
+  },
+  {
+    "label": "PHOTOS",
+    "link": "/photos",
+    "submenu": []
+  },
   {
     "label": "CONTACT",
     "link": "/contact",
-    "submenu": [
-    ]
+    "submenu": []
   }
 ]
