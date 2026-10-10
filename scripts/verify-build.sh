@@ -22,6 +22,17 @@ listener_pid() {
   echo "${pid}"
 }
 
+# Next never overrides a variable that is already in the environment, so anything exported in
+# your shell (say, the production DATABASE_URL you used for `npm run db:deploy`) would beat the
+# test-only values in .env.local. Drop every variable the app reads, so the build and the
+# server see only what is in .env.verify.
+scrub_env() {
+  local key
+  for key in $(sed -nE 's/^([A-Z][A-Z0-9_]*)=.*/\1/p' "${root}/.env.example" "${root}/.env.verify" | sort -u); do
+    unset "${key}"
+  done
+}
+
 stop_server() {
   local pid
   pid="$(listener_pid)"
@@ -39,6 +50,8 @@ stop_server() {
 case "${cmd}" in
   start)
     [ -f "${root}/.env.verify" ] || { echo "Missing .env.verify. Run: npm run verify:env" >&2; exit 1; }
+    grep -Eq '^DATABASE_URL=.*@(127\.0\.0\.1|localhost):54329/swtest$' "${root}/.env.verify" \
+      || { echo "Refusing to start: DATABASE_URL in .env.verify is not the throwaway test database (127.0.0.1:54329/swtest). Run: npm run verify:env" >&2; exit 1; }
     [ -z "$(listener_pid)" ] || { echo "Port ${port} is already in use. Pick another port or run: scripts/verify-build.sh stop ${port}" >&2; exit 1; }
     rm -rf "${dir}"
     mkdir -p "${dir}"
@@ -46,6 +59,7 @@ case "${cmd}" in
     [ -f "${dir}/package.json" ] || { echo "Could not extract HEAD into ${dir}" >&2; exit 1; }
     ln -s "${root}/node_modules" "${dir}/node_modules"
     cp "${root}/.env.verify" "${dir}/.env.local"
+    scrub_env
     cd "${dir}"
     echo "Generating the Prisma client and building (about a minute)..."
     npx prisma generate >/dev/null

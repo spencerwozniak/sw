@@ -22,7 +22,7 @@
     "verify:env": "tsx scripts/verify-env.ts",
     "verify:start": "scripts/verify-build.sh start",
     "verify:stop": "scripts/verify-build.sh stop",
-    "verify:admin": "node --env-file=.env.verify scripts/browser/admin-auth.mjs && node --env-file=.env.verify scripts/browser/admin-kit.mjs"
+    "verify:admin": "env -u DATABASE_URL node --env-file=.env.verify scripts/browser/admin-auth.mjs && env -u DATABASE_URL node --env-file=.env.verify scripts/browser/admin-kit.mjs"
   },
   "dependencies": {
     "@next/third-parties": "^15.3.2",

@@ -73,7 +73,10 @@ npm run db:deploy
 ```
 
 `db:deploy` only applies migrations that are already committed; it never resets or
-drops anything.
+drops anything. Afterwards run `unset DATABASE_URL`, so the production URL does not
+linger in that shell. (`npm run verify:start` and `npm run verify:admin` ignore
+variables from your shell and refuse any database but the throwaway one, but other
+tools will not.)
 
 ## 6. Tests that touch the database
 
