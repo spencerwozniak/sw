@@ -3446,10 +3446,10 @@ While the server is still running, check what a signed-out visitor and a crawler
 curl -s -o /dev/null -D - http://localhost:3104/admin | grep -iE "^HTTP|^location|x-robots|cache-control"
 curl -s -D - http://localhost:3104/api/admin/session | grep -iE "^HTTP|x-robots|^\{"
 for p in / /photos /writing; do printf "%s %s\n" "$p" "$(curl -s -o /dev/null -w '%{http_code}' http://localhost:3104$p)"; done
-cat ~/.cache/sw-verify-3104/public/robots.txt
+(cd ~/.cache/sw-verify-3104 && npx next-sitemap > /dev/null && cat public/robots.txt)
 ```
 
-Expected: `HTTP/1.1 307`, `location: /admin/login?next=%2Fadmin`, `x-robots-tag: noindex, nofollow`, `cache-control: private, no-store`; then `HTTP/1.1 401`, the same `x-robots-tag`, and `{"error":"Unauthorized"}`; then `/ 200`, `/photos 200`, `/writing 200`; and `robots.txt` containing `Disallow: /admin` and `Disallow: /api/admin`.
+Expected: `HTTP/1.1 307`, `location: /admin/login?next=%2Fadmin`, `x-robots-tag: noindex, nofollow`, `cache-control: private, no-store`; then `HTTP/1.1 401`, the same `x-robots-tag`, and `{"error":"Unauthorized"}`; then `/ 200`, `/photos 200`, `/writing 200`; and `robots.txt` containing `Disallow: /admin` and `Disallow: /api/admin`. (The verification build runs `next build` directly, which skips the `postbuild` hook that generates `robots.txt`, so the last command above generates it inside the throwaway copy first.)
 
 ```bash
 npm run verify:stop
