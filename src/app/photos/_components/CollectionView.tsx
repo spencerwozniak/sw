@@ -1,4 +1,6 @@
 import Image from 'next/image';
+// Equations in text blocks are rendered to HTML when the block is saved, so only the stylesheet is needed here.
+import 'katex/dist/katex.min.css';
 import { Breadcrumb, Container, FadeIn, MetaItems, PrevNext, Prose, Section } from '@/components/ui';
 import { describeCounts } from '@/lib/collections/stats';
 import { formatStatsRange, tileSrc } from '@/lib/content/media-format';

@@ -217,6 +217,30 @@ results.saveTextPublishesTheEdit = (afterSave?.html ?? '').includes('A second se
 await wait(500);
 results.editShowsOnTheSite = (await get(`/photos/${SLUG}`)).text.includes('A second sentence.');
 
+// --- An equation in a text block needs the KaTeX stylesheet on the page that shows it -----------------------------------------------------
+// Without it the screen-reader-only MathML copy of the equation is drawn next to the rendered one.
+const stylesheetsOf = (html) => [...html.matchAll(/<link\b[^>]*>/g)].map((m) => m[0]).filter((tag) => /rel="stylesheet"/.test(tag)).map((tag) => /href="([^"]+)"/.exec(tag)?.[1]).filter(Boolean);
+await textbox.click();
+await page.keyboard.press('Control+End');
+await page.getByRole('button', { name: 'Equation', exact: true }).click();
+await page.getByRole('dialog').getByLabel('TeX').fill('E = mc^2');
+await page.getByRole('dialog').getByRole('button', { name: 'Insert' }).click();
+await page.getByRole('button', { name: 'Save text' }).click();
+await until(`SELECT "bodyHtml" AS html FROM "CollectionBlock" WHERE "collectionId" = $1 AND type = 'TEXT'`, [trips], (r) => (r.html ?? '').includes('mc^2'));
+await wait(500);
+const withEquation = await get(`/photos/${SLUG}`);
+results.equationShowsOnTheSite = withEquation.text.includes('class="katex-display"') && withEquation.text.includes('mc^2');
+const publicSheets = await Promise.all(stylesheetsOf(withEquation.text).map(async (href) => (await fetch(new URL(href, BASE))).text()));
+results.publicPageLoadsTheKatexStylesheet = publicSheets.some((css) => css.includes('.katex-mathml'));
+await page.goto(`${BASE}${editorPath(trips)}/preview`); // a full load, so only this page's own stylesheets are there
+await page.getByRole('heading', { name: `Big trips ${RUN}`, level: 1 }).waitFor();
+const previewSheets = await page.evaluate(() =>
+  Promise.all([...document.querySelectorAll('link[rel="stylesheet"]')].filter((link) => new URL(link.href).origin === location.origin).map(async (link) => (await fetch(link.href)).text()))
+);
+results.previewLoadsTheKatexStylesheetToo = previewSheets.some((css) => css.includes('.katex-mathml'));
+await page.getByRole('link', { name: 'Back to editing' }).click();
+await page.getByRole('button', { name: 'Add photos and videos' }).first().waitFor();
+
 // --- Sub-collections and the parent rule ----------------------------------------------------------------------------------
 await page.getByRole('button', { name: 'Add sub-collection' }).click();
 await page.getByRole('dialog').getByLabel('Title').fill(`Italy ${RUN}`);
