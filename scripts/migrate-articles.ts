@@ -1,5 +1,9 @@
 // Usage: npm run articles:migrate            (dry run: converts everything and reports, writes nothing)
 //        npm run articles:migrate -- --apply (writes to the database in .env.local)
+//        npm run articles:migrate:verify     (--apply --throwaway, on the test database in .env.verify)
+//
+// --throwaway makes the script refuse to run unless DATABASE_URL is the throwaway test database, because
+// --apply overwrites every migrated article (and so erases edits made in the admin).
 //
 // Moves the articles in src/data/articles.json and the publications in src/data/publications.json
 // into the database. It is safe to run more than once: items already there are updated in place.
@@ -7,9 +11,18 @@
 import { readFileSync } from 'node:fs';
 import { createArticle, loadPublished, saveArticle } from '@/lib/articles/repo';
 import { getDb } from '@/lib/db';
+import { assertThrowawayDatabase } from './browser/test-database.mjs';
 import { convertLegacy, type Converted, type LegacyItem } from './lib/legacy-articles';
 
 const apply = process.argv.includes('--apply');
+if (process.argv.includes('--throwaway')) {
+  try {
+    assertThrowawayDatabase();
+  } catch (error) {
+    console.error(error instanceof Error ? error.message : error);
+    process.exit(1);
+  }
+}
 const read = (file: string): LegacyItem[] => JSON.parse(readFileSync(file, 'utf8'));
 
 // Rows are created oldest-first-in-the-file last, so "newest first" with ties broken by creation time

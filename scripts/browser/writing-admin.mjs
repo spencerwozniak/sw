@@ -1,10 +1,8 @@
 // Drives the article editor and the Articles admin against a verification build.
 // Needs `npm run articles:migrate:verify` first (it opens one of the migrated articles).
-import pg from 'pg';
-import { BASE, SHOTS, finish, launch, resetLoginAttempts, signIn } from './common.mjs';
+import { BASE, SHOTS, connectTestDb, finish, launch, resetLoginAttempts, signIn } from './common.mjs';
 
-const db = new pg.Client({ connectionString: process.env.DATABASE_URL });
-await db.connect();
+const db = await connectTestDb(); // refuses anything but the throwaway database (this script deletes rows)
 // Remove anything an earlier run of this script left behind (migrated articles are untouched).
 await db.query(`DELETE FROM "Article" WHERE slug LIKE 'playwright-%' OR title LIKE 'Playwright%'`);
 await resetLoginAttempts();

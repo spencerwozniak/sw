@@ -28,8 +28,8 @@
     "verify:typing": "env -u DATABASE_URL node --env-file=.env.verify scripts/browser/media-upload-typing.mjs",
     "verify:upload": "env -u DATABASE_URL -u BLOB_PUBLIC_TOKEN -u BLOB_PRIVATE_TOKEN node --env-file=.env.verify scripts/browser/media-upload-real.mjs",
     "articles:migrate": "tsx --env-file=.env.local scripts/migrate-articles.ts",
-    "articles:migrate:verify": "tsx --env-file=.env.verify scripts/migrate-articles.ts --apply",
-    "verify:writing": "node --env-file=.env.verify scripts/browser/writing-parity.mjs && node --env-file=.env.verify scripts/browser/writing-admin.mjs",
+    "articles:migrate:verify": "env -u DATABASE_URL tsx --env-file=.env.verify scripts/migrate-articles.ts --apply --throwaway",
+    "verify:writing": "env -u DATABASE_URL node --env-file=.env.verify scripts/browser/writing-parity.mjs && env -u DATABASE_URL node --env-file=.env.verify scripts/browser/writing-admin.mjs",
     "assets:check": "tsx --env-file=.env.local scripts/check-asset-flow.ts"
   },
   "dependencies": {
