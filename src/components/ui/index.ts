@@ -24,7 +24,6 @@ export * from './Tabs';
 export * from './Panel';
 export * from './PrevNext';
 export * from './Breadcrumb';
-export * from './ScrollCue';
 export * from './Stat';
 export * from './Signature';
 export * from './Portrait';

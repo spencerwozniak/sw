@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { FiChevronDown } from 'react-icons/fi';
 import { scrollToId } from '@/lib/scroll';
-import { Container, FadeIn, PageHeader, Button, ScrollCue, Section } from '@/components/ui';
+import { Container, FadeIn, PageHeader, Button, Section } from '@/components/ui';
 import ArticleBrowser from './ArticleBrowser';
 
 interface Article {
@@ -50,7 +50,6 @@ export default function AnimatedWritingContent({ articles, publications }: Props
             </>
           }
         />
-        <ScrollCue flush label="See more" targetId="essays" buttonLabel="Scroll to essays" />
         <Section titleId="essays" title="Essays" count={articles.length}>
           <ArticleBrowser itemsPerPage={6} data={articles} />
         </Section>
