@@ -81,10 +81,11 @@ tools will not.)
 ## 6. Tests that touch the database
 
 ```bash
-npm run test:db     # starts a throwaway Postgres on port 54329 and runs tests/db
+npm run db:test     # starts a throwaway Postgres on port 54329 and applies migrations (needs Docker)
+npm run test:db     # runs tests/db against it; it does not start the database itself
 ```
 
-These tests refuse to run against anything but that throwaway database.
+Run `db:test` first, or `test:db` fails with a connection error. These tests refuse to run against anything but that throwaway database.
 
 ## Troubleshooting
 
