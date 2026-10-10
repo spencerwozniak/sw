@@ -92,7 +92,38 @@ services on carries its filming location inside the file, and that stays public.
 A daily job (`vercel.json`) deletes uploads that never finished. Set `CRON_SECRET` in Vercel
 so only Vercel can call it. You can also run it from the admin with `POST /api/admin/cleanup`.
 
-## 7. Tests that touch the database
+## 7. Articles
+
+Essays and publications live in the database and are written at `/admin/articles`. New items
+start as drafts and autosave as you type. A draft cannot be seen on the site until you press
+**Publish**, which needs a title, a topic, a URL name and some text. Once an article is live,
+edits are **not** autosaved: press **Save changes** when you want them to go out.
+
+Images dragged into an article go to the public store with all metadata removed (the editor
+shrinks them first; the limit is 4 MB). Equations are typed as TeX and drawn on the server, so
+visitors need no JavaScript to read them.
+
+### Moving the existing articles into the database (once)
+
+The 31 essays and 2 publications currently live in `src/data/articles.json` and
+`src/data/publications.json`. **Do this before deploying the version of the site that reads
+articles from the database**, otherwise `/writing` would be empty.
+
+```bash
+npm run db:deploy               # production DATABASE_URL in your shell: creates the Article tables
+npm run articles:migrate        # dry run: converts everything and reports; writes nothing
+npm run articles:migrate -- --apply
+```
+
+The dry run checks that every article converts with no text lost and that every equation
+renders. `--apply` writes to the database named in `.env.local`, so check that file first. It is
+safe to run again: items already there are updated in place. Afterwards, open `/writing` and a
+few articles on the deployed site. The two JSON files stay in the repository as a rollback and
+should only be deleted once you are happy.
+
+To check the article image pipeline against your real public store: `npm run assets:check`.
+
+## 8. Tests that touch the database
 
 ```bash
 npm run db:test     # starts a throwaway Postgres on port 54329 and applies migrations (needs Docker)
