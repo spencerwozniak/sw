@@ -17,7 +17,8 @@
     "db:test": "scripts/db.sh up test",
     "db:deploy": "prisma migrate deploy",
     "db:check": "tsx --env-file=.env.local scripts/check-db.ts",
-    "blob:check": "tsx --env-file=.env.local scripts/check-blob.ts"
+    "blob:check": "tsx --env-file=.env.local scripts/check-blob.ts",
+    "admin:hash": "tsx scripts/hash-password.ts"
   },
   "dependencies": {
     "@next/third-parties": "^15.3.2",
