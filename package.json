@@ -31,7 +31,8 @@
     "verify:writing": "env -u DATABASE_URL node --env-file=.env.verify scripts/browser/writing-parity.mjs && env -u DATABASE_URL node --env-file=.env.verify scripts/browser/writing-admin.mjs",
     "assets:check": "tsx --env-file=.env.local scripts/check-asset-flow.ts",
     "photos:migrate": "tsx --env-file=.env.local scripts/migrate-photos.ts",
-    "photos:migrate:verify": "tsx --env-file=.env.verify scripts/migrate-photos-verify.ts"
+    "photos:migrate:verify": "env -u DATABASE_URL tsx --env-file=.env.verify scripts/migrate-photos-verify.ts",
+    "verify:photos": "env -u DATABASE_URL node --env-file=.env.verify scripts/browser/photos-parity.mjs && env -u DATABASE_URL node --env-file=.env.verify scripts/browser/collections-admin.mjs"
   },
   "dependencies": {
     "@dnd-kit/core": "6.3.1",
