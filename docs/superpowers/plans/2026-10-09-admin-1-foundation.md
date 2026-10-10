@@ -3449,7 +3449,7 @@ for p in / /photos /writing; do printf "%s %s\n" "$p" "$(curl -s -o /dev/null -w
 (cd ~/.cache/sw-verify-3104 && npx next-sitemap > /dev/null && cat public/robots.txt)
 ```
 
-Expected: `HTTP/1.1 307`, `location: /admin/login?next=%2Fadmin`, `x-robots-tag: noindex, nofollow`, `cache-control: private, no-store`; then `HTTP/1.1 401`, the same `x-robots-tag`, and `{"error":"Unauthorized"}`; then `/ 200`, `/photos 200`, `/writing 200`; and `robots.txt` containing `Disallow: /admin` and `Disallow: /api/admin`. (The verification build runs `next build` directly, which skips the `postbuild` hook that generates `robots.txt`, so the last command above generates it inside the throwaway copy first.)
+Expected: `HTTP/1.1 307 Temporary Redirect`, `cache-control: private, no-store`, `location: http://localhost:3104/admin/login?next=%2Fadmin` (the middleware builds the redirect with `new URL(..., request.url)`, so the `location` is always an absolute URL on the host you requested), `x-robots-tag: noindex, nofollow`; then `HTTP/1.1 401 Unauthorized`, the same `x-robots-tag`, and `{"error":"Unauthorized"}`; then `/ 200`, `/photos 200`, `/writing 200`; and `robots.txt` containing `Disallow: /admin` and `Disallow: /api/admin`. (The verification build runs `next build` directly, which skips the `postbuild` hook that generates `robots.txt`, so the last command above generates it inside the throwaway copy first.)
 
 ```bash
 npm run verify:stop
