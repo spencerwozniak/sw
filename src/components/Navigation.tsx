@@ -174,28 +174,32 @@ const Navigation: React.FC = () => {
           inert={!isSubMenuOpen}
           aria-hidden={!isSubMenuOpen}
           className={cx(
-            'fixed inset-x-0 bottom-0 top-[var(--nav-h)] z-[999] overflow-y-auto bg-bg transition-opacity duration-300',
+            'fixed inset-0 z-[999] overflow-y-auto bg-bg transition-opacity duration-300',
             isSubMenuOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
           )}
         >
-          <div className="mx-auto w-full max-w-[var(--col-text)] px-[var(--gutter)] pb-12 pt-6">
-            <ul className="m-0 list-none p-0">
-              {NAV_ITEMS.map((item) => (
-                <li key={item.link} className="border-b border-border">
-                  <Link
-                    href={item.link}
-                    onClick={() => setIsSubMenuOpen(false)}
-                    aria-current={isActive(item.link) ? 'page' : undefined}
-                    className="block py-5 text-muted transition-colors hover:text-fg aria-[current=page]:text-fg"
-                  >
-                    <Title as="h2" size="h1" tone="inherit">
-                      {item.label}
-                    </Title>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            <SocialIcons className="mt-10 justify-start" />
+          {/* Symmetric nav-h padding keeps the content centered on the full screen while clearing the header;
+              m-auto (rather than justify-center) lets it scroll from the top if the viewport is too short. */}
+          <div className="flex min-h-full flex-col items-center px-[var(--gutter)] py-[var(--nav-h)]">
+            <div className="m-auto flex w-full max-w-[var(--col-text)] flex-col items-center text-center">
+              <ul className="m-0 w-full list-none p-0">
+                {NAV_ITEMS.map((item) => (
+                  <li key={item.link} className="after:mx-auto after:block after:h-px after:w-24 after:bg-border">
+                    <Link
+                      href={item.link}
+                      onClick={() => setIsSubMenuOpen(false)}
+                      aria-current={isActive(item.link) ? 'page' : undefined}
+                      className="block py-5 text-muted transition-colors hover:text-fg aria-[current=page]:text-fg"
+                    >
+                      <Title as="h2" size="h1" tone="inherit">
+                        {item.label}
+                      </Title>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <SocialIcons className="mt-10 justify-center" />
+            </div>
           </div>
         </div>
       )}
