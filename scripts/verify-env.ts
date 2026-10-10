@@ -18,6 +18,10 @@ async function main() {
     `SESSION_SECRET=${randomBytes(32).toString('hex')}`,
     'OPENAI_API_KEY=verify-placeholder',
     'STRIPE_SECRET_KEY=verify-placeholder',
+    // Only for the real-upload check (`npm run verify:upload`): development Blob stores, never production ones.
+    ...(process.env.VERIFY_BLOB_PUBLIC_TOKEN && process.env.VERIFY_BLOB_PRIVATE_TOKEN
+      ? [`BLOB_PUBLIC_TOKEN=${process.env.VERIFY_BLOB_PUBLIC_TOKEN}`, `BLOB_PRIVATE_TOKEN=${process.env.VERIFY_BLOB_PRIVATE_TOKEN}`]
+      : []),
     '',
   ];
   writeFileSync('.env.verify', lines.join('\n'));

@@ -78,7 +78,21 @@ linger in that shell. (`npm run verify:start` and `npm run verify:admin` ignore
 variables from your shell and refuse any database but the throwaway one, but other
 tools will not.)
 
-## 6. Tests that touch the database
+## 6. Uploads
+
+Photos and videos are added at `/admin/upload`. Each photo is uploaded straight from the
+browser to the **private** store, then processed on the server: the camera, date and GPS are
+read, the GPS is turned into a place name (OpenStreetMap's Nominatim service, at most one
+lookup per second, identified by `NOMINATIM_USER_AGENT`), and a copy with all metadata removed
+is saved to the **public** store. Only that copy and the place name are ever public.
+
+Videos go straight to the public store exactly as uploaded. **A video shot with location
+services on carries its filming location inside the file, and that stays public.**
+
+A daily job (`vercel.json`) deletes uploads that never finished. Set `CRON_SECRET` in Vercel
+so only Vercel can call it. You can also run it from the admin with `POST /api/admin/cleanup`.
+
+## 7. Tests that touch the database
 
 ```bash
 npm run db:test     # starts a throwaway Postgres on port 54329 and applies migrations (needs Docker)
