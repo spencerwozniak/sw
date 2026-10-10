@@ -20,9 +20,9 @@ const Footer: React.FC = () => {
           className="mx-auto w-[180px] text-muted transition-colors duration-150 ease-ui hover:text-accent sm:w-[220px]"
         />
       </Link>
-      <SocialIcons className="mb-5 mt-7 justify-center" />
+      <SocialIcons className="my-4 justify-center" />
       <nav aria-label="Footer">
-        <ul className="m-0 mb-6 flex list-none flex-wrap justify-center gap-x-6 gap-y-1.5 p-0">
+        <ul className="m-0 my-4 flex list-none flex-wrap justify-center gap-x-6 gap-y-1.5 p-0">
           <li>
             <Link href="/" className={footerLink}>
               Home
@@ -37,7 +37,7 @@ const Footer: React.FC = () => {
           ))}
         </ul>
       </nav>
-      <Scripture cite="— Luke 1:38" size="sm" align="center" tone="muted" className="mx-auto mt-7 max-w-[26rem]">
+      <Scripture cite="— Luke 1:38" size="sm" align="center" tone="muted" className="mx-auto max-w-[26rem]">
         Behold the handmaid of the Lord;
         <br />
         be it unto me according to thy word.
