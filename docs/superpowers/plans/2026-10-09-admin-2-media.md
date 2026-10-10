@@ -4420,7 +4420,8 @@ const toast = (text) => page.getByRole('status').filter({ hasText: text });
 
 // --- Inbox -------------------------------------------------------------------------------------------
 await page.goto(`${BASE}/admin/inbox`);
-results.navHasMediaLinks = (await page.getByRole('navigation', { name: 'Admin' }).getByRole('link').allTextContents()).join(',') === 'Dashboard,Upload,Inbox,Library';
+const navLinks = await page.getByRole('navigation', { name: 'Admin' }).getByRole('link').allTextContents();
+results.navHasMediaLinks = ['Dashboard', 'Upload', 'Inbox', 'Library'].every((label, i) => navLinks[i] === label); // screens added later come after these
 results.inboxCurrent = (await page.getByRole('navigation', { name: 'Admin' }).getByRole('link', { name: 'Inbox' }).getAttribute('aria-current')) === 'page';
 results.inboxHidesPublished = (await page.getByText('Already live').count()) === 0;
 results.inboxCount = (await page.getByText(/^\d+ items?$/).textContent()) === '57 items';

@@ -3145,6 +3145,7 @@ with:
 ```typescript
   { label: 'Inbox', href: '/admin/inbox' },
   { label: 'Library', href: '/admin/library' },
+  { label: 'Collections', href: '/admin/collections' },
   { label: 'Articles', href: '/admin/articles' },
 ];
 ```
@@ -4725,10 +4726,11 @@ npm run db:test
 npm run verify:env
 npm run articles:migrate:verify
 npm run verify:start
+npm run verify:admin
 npm run verify:writing
 ```
 
-Expected: `articles:migrate:verify` prints `Written: 33 created, 0 updated.` on a fresh test database (`Written: 0 created, 33 updated.` when run again), then `Published in the database: 31 articles, 2 publications.` and `Same order as the old site: articles yes, publications yes.` `verify:writing` prints two JSON objects in which **every value is `true`** (11 parity checks, then 39 editor checks) and exits 0. Run `npm run verify:writing` a second time to confirm it can repeat.
+Expected: `verify:admin` (the checks from plans 1 and 2, confirming the new Articles entry and screens disturbed nothing) prints three JSON objects (16 + 16 + 39 checks) in which every value is `true`. `articles:migrate:verify` prints `Written: 33 created, 0 updated.` on a fresh test database (`Written: 0 created, 33 updated.` when run again), then `Published in the database: 31 articles, 2 publications.` and `Same order as the old site: articles yes, publications yes.` `verify:writing` prints two JSON objects in which **every value is `true`** (11 parity checks, then 39 editor checks) and exits 0. Run `npm run verify:writing` a second time to confirm it can repeat.
 
 Look at the screenshots in `${TMPDIR:-/tmp}/sw-verify-shots` (`writing-editor.png`, `writing-legacy.png`, `writing-editor-phone.png`) and confirm: the editor, toolbar, status tags and fields use the site's colours and type; equations are drawn as typeset maths; the toolbar and the date field fit on a phone.
 
