@@ -3145,7 +3145,6 @@ with:
 ```typescript
   { label: 'Inbox', href: '/admin/inbox' },
   { label: 'Library', href: '/admin/library' },
-  { label: 'Collections', href: '/admin/collections' },
   { label: 'Articles', href: '/admin/articles' },
 ];
 ```
@@ -4764,4 +4763,4 @@ Order matters: the new site reads articles from the database, so the database mu
 ## After this plan
 
 - **The old files stay.** `src/data/articles.json` and `src/data/publications.json` are no longer read by the site, but the migration script, the converter and the parity check still use them, and `verify:writing` depends on the migrated articles being in the test database. They are the rollback: reverting the site change restores the old pages with no data loss (the original HTML of every article is also kept in the database as `legacyHtml`). Delete them, with `scripts/migrate-articles.ts`, `scripts/lib/html-to-lexical.ts`, `scripts/lib/legacy-articles.ts`, `scripts/browser/writing-parity.mjs`, their two unit tests and the `jsdom` dev dependency, **only after the owner confirms the live pages are right, and as a separate cleanup**; that cleanup must also drop the checks in `writing-admin.mjs` that count or open migrated articles.
-- Plan 4 (collections and the public photo pages) is independent of this one.
+- Plan 4 (collections and the public photo pages) builds on this plan: collection text blocks reuse its editor and `renderBody`.
