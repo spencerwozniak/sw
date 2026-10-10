@@ -4,6 +4,7 @@
 import { useState, useMemo } from 'react';
 import { FiSearch } from 'react-icons/fi';
 import { List, ListRow, Input, Pager } from '@/components/ui';
+import { htmlToText } from '@/lib/articles/text';
 
 interface Article {
   id: string;
@@ -24,12 +25,24 @@ export default function ArticleBrowser({ itemsPerPage = 6, data, showSearchBar }
   const [query, setQuery] = useState('');
   const [page, setPage] = useState(1);
 
+  // The stored contents are HTML: search and preview the text a reader sees, not tags and entities.
+  const indexed = useMemo(
+    () =>
+      data.map((article) => {
+        const text = htmlToText(article.contents);
+        return {
+          article,
+          searchText: `${article.title} ${text} ${article.topic ?? ''}`.toLowerCase(),
+          preview: `${text.replace(/\s+([,.;:!?)])/g, '$1').slice(0, 200)}...`,
+        };
+      }),
+    [data]
+  );
+
   const filtered = useMemo(() => {
-    return data.filter((article) => {
-      const searchText = `${article.title} ${article.contents} ${article.topic ?? ''}`.toLowerCase();
-      return searchText.includes(query.toLowerCase());
-    });
-  }, [query, data]);
+    const needle = query.toLowerCase();
+    return indexed.filter((entry) => entry.searchText.includes(needle));
+  }, [query, indexed]);
 
   const totalPages = Math.ceil(filtered.length / itemsPerPage);
   const paginated = filtered.slice((page - 1) * itemsPerPage, page * itemsPerPage);
@@ -51,7 +64,7 @@ export default function ArticleBrowser({ itemsPerPage = 6, data, showSearchBar }
       )}
 
       <List>
-        {paginated.map((article) => {
+        {paginated.map(({ article, preview }) => {
           const isDOI = article.id.startsWith('10.');
           const href = isDOI ? `https://doi.org/${article.id}` : `/writing/${article.id}`;
 
@@ -68,7 +81,7 @@ export default function ArticleBrowser({ itemsPerPage = 6, data, showSearchBar }
                 </>
               }
               metaPlacement="stack"
-              preview={`${article.contents.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').replace(/\s+([,.;:!?)])/g, '$1').trim().slice(0, 200)}...`}
+              preview={preview}
             />
           );
         })}

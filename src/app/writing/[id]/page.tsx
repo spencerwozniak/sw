@@ -2,17 +2,11 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Chatbot from "@/components/Chatbot";
 import { getPublishedArticles } from "@/lib/content/articles";
+import { htmlToText, toDescription } from "@/lib/articles/text";
 import ArticlePage from "./ArticlePage";
 
 const SITE_URL = "https://www.spencerwozniak.com";
 const fullSiteUrl = SITE_URL.replace(/\/$/, "");
-
-/** First ~155 characters of the article's text, cut at a word boundary. */
-function toDescription(html: string): string {
-  const text = html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
-  if (text.length <= 155) return text;
-  return `${text.slice(0, 155).replace(/\s+\S*$/, "")}…`;
-}
 
 export async function generateMetadata({
   params,
@@ -108,7 +102,7 @@ export default async function Page({
       : null;
 
   const articleUrl = `${fullSiteUrl}/writing/${id}`;
-  const contentText = article.contents.replace(/<[^>]+>/g, "").slice(0, 5000);
+  const contentText = htmlToText(article.contents).slice(0, 5000);
 
   const articleSchema = {
     "@context": "https://schema.org",
