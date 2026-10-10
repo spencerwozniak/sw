@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { FaLinkedin } from 'react-icons/fa';
+import { FiArrowUpRight } from 'react-icons/fi';
 import MenuButton from './MenuButton';
 import SocialIcons from './SocialIcons';
 import navigationData from '@/data/navigationData.json';
@@ -157,7 +158,7 @@ const Navigation: React.FC = () => {
             )}
             {pathname.startsWith('/writing/') && (
               <span className="contents max-[359px]:hidden">
-                <Button size="sm" onClick={handleRandomEssay}>
+                <Button size="sm" onClick={handleRandomEssay} iconRight={<FiArrowUpRight />}>
                   CLICK ME!
                 </Button>
               </span>

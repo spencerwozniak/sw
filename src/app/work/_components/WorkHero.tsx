@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { FiArrowUpRight } from 'react-icons/fi';
 import { Button, Lede, Meta, Ruled } from '@/components/ui';
 import projectsData from '@/data/projects.json';
 import type { ProjectItem } from './ProjectCard';
@@ -27,7 +28,7 @@ export default function WorkHero() {
         <Lede className="mb-7">
           I&apos;m currently building <strong>Serelora</strong>, a startup that connects fragmented healthcare data and uses AI agents to take action on it.
         </Lede>
-        <Button href="https://www.serelora.com/">Visit Serelora</Button>
+        <Button href="https://www.serelora.com/" iconRight={<FiArrowUpRight />}>Visit Serelora</Button>
       </Ruled>
     </section>
   );

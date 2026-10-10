@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { FaRegComment } from 'react-icons/fa';
-import { FiX } from 'react-icons/fi';
+import { FiArrowUpRight, FiX } from 'react-icons/fi';
 import styles from './Chatbot.module.css';
 import { Panel, Title, IconButton, ChatBubble, Button, Input } from '@/components/ui';
 
@@ -93,7 +93,7 @@ const Chatbot: React.FC = () => {
                 {msg.buttons && (
                   <div className={styles.chatButtons}>
                     {msg.buttons.map((button, btnIndex) => (
-                      <Button key={btnIndex} size="sm" fullWidth href={button.route}>
+                      <Button key={btnIndex} size="sm" fullWidth href={button.route} iconRight={<FiArrowUpRight />}>
                         {button.title}
                       </Button>
                     ))}
@@ -111,7 +111,7 @@ const Chatbot: React.FC = () => {
               onChange={(e) => setInputMessage(e.target.value)}
               onKeyDown={handleKeyDown}
             />
-            <Button variant="primary" size="sm" onClick={handleSendMessage}>Send</Button>
+            <Button variant="primary" size="sm" onClick={handleSendMessage} iconRight={<FiArrowUpRight />}>Send</Button>
           </div>
         </Panel>
       ) : (

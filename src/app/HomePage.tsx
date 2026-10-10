@@ -1,4 +1,5 @@
 import React from 'react';
+import { FiArrowUpRight } from 'react-icons/fi';
 import {
   Container,
   Portrait,
@@ -79,7 +80,7 @@ export default function HomePage({ projects, articles, projectCount, articleCoun
 
       <div className="mt-10 flex flex-wrap gap-2 sm:gap-3">
         {HERO_BUTTONS.map((b, i) => (
-          <Button key={b.href} variant={i === 0 ? 'primary' : 'outline'} href={b.href}>
+          <Button key={b.href} variant={i === 0 ? 'primary' : 'outline'} href={b.href} iconRight={<FiArrowUpRight />}>
             {b.label}
           </Button>
         ))}

@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { FiChevronDown } from 'react-icons/fi';
+import { FiArrowUpRight, FiChevronDown } from 'react-icons/fi';
 import { scrollToId } from '@/lib/scroll';
 import { Container, FadeIn, PageHeader, Button, Section } from '@/components/ui';
 import ArticleBrowser from './ArticleBrowser';
@@ -40,7 +40,7 @@ export default function AnimatedWritingContent({ articles, publications }: Props
           subtitle="Essays and publications"
           actions={
             <>
-              <Button onClick={handleRandomArticle}>Random article</Button>
+              <Button onClick={handleRandomArticle} iconRight={<FiArrowUpRight />}>Random article</Button>
               <Button onClick={() => scrollToId('essays')} iconRight={<FiChevronDown />}>
                 Essays
               </Button>
