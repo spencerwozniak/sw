@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { describeStatus, summarize, uploadReducer, type UploadItem } from '@/lib/media/upload-queue';
+import { describeStatus, settleReady, summarize, uploadReducer, type UploadItem } from '@/lib/media/upload-queue';
 
 const item = (key: string, overrides: Partial<UploadItem> = {}): UploadItem => ({
   key, name: `${key}.jpg`, kind: 'PHOTO', size: 1000, status: 'queued', progress: 0, caption: '', placeName: '', ...overrides,
@@ -45,4 +45,28 @@ test('describeStatus gives short human text', () => {
   assert.equal(describeStatus(item('a', { status: 'duplicate' })), 'Already uploaded');
   assert.equal(describeStatus(item('a', { status: 'failed', error: 'Too large' })), 'Too large');
   assert.equal(describeStatus(item('a', { status: 'failed' })), 'Failed');
+});
+
+test('settleReady: a caption typed during the upload is saved without touching the place the server found', () => {
+  const result = settleReady({ caption: 'Sunset', placeName: '' }, 'Torrey Pines, San Diego');
+  assert.deepEqual(result.save, { caption: 'Sunset' }, 'no placeName key: an empty box must not overwrite the geocoded place');
+  assert.deepEqual(result.patch, { status: 'ready', progress: 1, placeName: 'Torrey Pines, San Diego' });
+});
+
+test('settleReady: a place typed during the upload wins, stays in the box, and is what gets saved', () => {
+  const noGps = settleReady({ caption: '', placeName: 'Paris' }, null);
+  assert.deepEqual(noGps.save, { placeName: 'Paris' });
+  assert.equal('placeName' in noGps.patch, false, 'the box keeps what was typed');
+  const overGps = settleReady({ caption: 'Dinner', placeName: ' Le Marais ' }, 'Paris, France');
+  assert.deepEqual(overGps.save, { caption: 'Dinner', placeName: 'Le Marais' });
+  assert.equal('placeName' in overGps.patch, false);
+});
+
+test('settleReady: nothing to save when nothing was typed, or when the typed place is the one the server found', () => {
+  const untouched = settleReady({ caption: '', placeName: '' }, 'La Jolla');
+  assert.equal(untouched.save, null);
+  assert.deepEqual(untouched.patch, { status: 'ready', progress: 1, placeName: 'La Jolla' });
+  assert.equal(settleReady({ caption: '  ', placeName: '' }, null).save, null, 'whitespace is not a caption');
+  assert.equal(settleReady({ caption: '', placeName: 'La Jolla' }, 'La Jolla').save, null);
+  assert.deepEqual(settleReady({ caption: '', placeName: '' }, null).patch, { status: 'ready', progress: 1, placeName: '' });
 });

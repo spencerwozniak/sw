@@ -8,7 +8,7 @@ import { posterPath, videoPath } from '@/lib/blob-paths';
 import { hashBlob } from '@/lib/media/hash';
 import { createLimiter } from '@/lib/media/limiter';
 import type { AdminMedia } from '@/lib/media/serialize';
-import { describeStatus, summarize, uploadReducer, type UploadItem } from '@/lib/media/upload-queue';
+import { describeStatus, settleReady, summarize, uploadReducer, type UploadItem } from '@/lib/media/upload-queue';
 import { completeVideo, fileDateAsWallClock, processPhoto, readVideoInfo, registerFile, uploadFile } from '@/lib/media/upload-client';
 import { mimeFor, validateUpload } from '@/lib/media/validate';
 import { setPublishedAction, updateMediaAction } from '@/app/admin/(authed)/media-actions';
@@ -41,6 +41,7 @@ export function UploadScreen() {
     async (key: string, kind: UploadItem['kind']) => {
       const file = files.current.get(key);
       if (!file) return;
+      let finished: { mediaId: string; media: AdminMedia } | undefined;
       try {
         patch(key, { status: 'hashing', error: undefined });
         const hash = await hashBlob(file, kind);
@@ -76,12 +77,21 @@ export function UploadScreen() {
           });
         }
 
-        patch(key, { status: 'ready', progress: 1, placeName: media.placeName ?? '' });
+        finished = { mediaId, media };
+      } catch (error) {
+        patch(key, { status: 'failed', error: error instanceof Error ? error.message : String(error) });
+      }
+      if (!finished) return;
 
-        // Apply anything typed while the file was still uploading, then publish if asked.
-        const current = latestItems.current.find((i) => i.key === key);
-        if (current && (current.caption || (current.placeName && current.placeName !== (media.placeName ?? '')))) {
-          const saved = await updateMediaAction(mediaId, { caption: current.caption, placeName: current.placeName });
+      // From here the file is saved on the server, so a problem below must not make it look failed.
+      // What was typed while it uploaded is read before the row changes: a place the server found is
+      // kept unless a place was typed, and only the typed fields are saved.
+      const { mediaId, media } = finished;
+      const settled = settleReady(latestItems.current.find((i) => i.key === key) ?? { caption: '', placeName: '' }, media.placeName);
+      patch(key, settled.patch);
+      try {
+        if (settled.save) {
+          const saved = await updateMediaAction(mediaId, settled.save);
           if (!saved.ok) toast(saved.error, { tone: 'error' });
         }
         if (publishRef.current) {
@@ -89,7 +99,7 @@ export function UploadScreen() {
           if (!published.ok) toast(published.error, { tone: 'error' });
         }
       } catch (error) {
-        patch(key, { status: 'failed', error: error instanceof Error ? error.message : String(error) });
+        toast(error instanceof Error ? error.message : 'Could not save the changes to this item.', { tone: 'error' });
       }
     },
     [patch, toast]

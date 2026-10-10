@@ -43,6 +43,30 @@ export function uploadReducer(state: UploadItem[], action: UploadAction): Upload
   }
 }
 
+/**
+ * What to do when the server has finished a file, given what was typed into its row while it uploaded.
+ *
+ * `patch` is the row's new state. A place that was typed stays as typed (it wins over the place the
+ * server worked out from the photo's GPS); otherwise the row shows the server's place.
+ * `save` carries only the fields that were typed, so a place the server found is never overwritten
+ * by an empty box. It is null when there is nothing to save.
+ */
+export function settleReady(
+  typed: Pick<UploadItem, 'caption' | 'placeName'>,
+  serverPlace: string | null
+): { patch: Partial<UploadItem>; save: { caption?: string; placeName?: string } | null } {
+  const caption = typed.caption.trim();
+  const place = typed.placeName.trim();
+  const found = serverPlace ?? '';
+  const save: { caption?: string; placeName?: string } = {};
+  if (caption) save.caption = caption;
+  if (place && place !== found) save.placeName = place;
+  return {
+    patch: { status: 'ready', progress: 1, ...(place ? {} : { placeName: found }) },
+    save: Object.keys(save).length ? save : null,
+  };
+}
+
 export function summarize(items: UploadItem[]) {
   const count = (statuses: UploadStatus[]) => items.filter((i) => statuses.includes(i.status)).length;
   return {
