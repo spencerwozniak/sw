@@ -32,6 +32,7 @@ export function realCleanupDeps(): CleanupDeps {
     existingIds: async (ids) => new Set((await getDb().media.findMany({ where: { id: { in: ids } }, select: { id: true } })).map((m) => m.id)),
     deleteOriginals: (pathnames) => deleteBlobs('private', pathnames),
     listStale: async (olderThan) => (await repo.listStale(olderThan)).map((m) => ({ id: m.id, mimeType: m.mimeType })),
+    markFailed: async (ids, message) => void (await repo.markPendingFailed(ids, message)),
     deleteRows: repo.deleteRows,
   };
 }

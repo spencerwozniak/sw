@@ -15,8 +15,12 @@ export type CleanupDeps = {
   deleteOriginals(pathnames: string[]): Promise<void>;
   /** Pending rows registered before `olderThan` (they never finished uploading or processing). */
   listStale(olderThan: Date): Promise<Array<{ id: string; mimeType: string }>>;
+  /** Keeps these rows, as failed, so they show in the Inbox with a Retry button. */
+  markFailed(ids: string[], message: string): Promise<void>;
   deleteRows(ids: string[]): Promise<void>;
 };
+
+export const UNFINISHED_MESSAGE = 'Processing never finished. Try processing it again.';
 
 export async function cleanupOrphans(deps: CleanupDeps): Promise<{ orphanOriginals: number; staleRows: number }> {
   const now = deps.now ?? new Date();
@@ -24,7 +28,9 @@ export async function cleanupOrphans(deps: CleanupDeps): Promise<{ orphanOrigina
   const toDelete = new Set<string>();
 
   // 1. Originals with no row, older than a day (a fresh one may still be mid-registration).
-  const old = (await deps.listOriginals()).filter((blob) => blob.uploadedAt < cutoff);
+  const originals = await deps.listOriginals();
+  const stored = new Set(originals.map((blob) => blob.pathname));
+  const old = originals.filter((blob) => blob.uploadedAt < cutoff);
   const candidates = old.flatMap((blob) => {
     const match = ORIGINAL.exec(blob.pathname);
     return match ? [{ pathname: blob.pathname, id: match[1] }] : [];
@@ -33,14 +39,20 @@ export async function cleanupOrphans(deps: CleanupDeps): Promise<{ orphanOrigina
   const orphans = candidates.filter((c) => !withRows.has(c.id));
   orphans.forEach((o) => toDelete.add(o.pathname));
 
-  // 2. Pending rows that never completed, and whatever original they uploaded.
+  // 2. Pending rows that never completed. When the original reached storage, that file is the only
+  // copy of the photo, so the row is kept (as failed, to be retried) and the original is left alone.
+  // Only rows with nothing stored are removed.
   const stale = await deps.listStale(cutoff);
+  const retryable: string[] = [];
+  const empty: string[] = [];
   for (const row of stale) {
     const ext = extensionFor(row.mimeType);
-    if (ext && /^image\//.test(row.mimeType)) toDelete.add(originalPath(row.id, ext));
+    const hasOriginal = !!ext && /^image\//.test(row.mimeType) && stored.has(originalPath(row.id, ext));
+    (hasOriginal ? retryable : empty).push(row.id);
   }
-  if (stale.length) await deps.deleteRows(stale.map((r) => r.id));
+  if (retryable.length) await deps.markFailed(retryable, UNFINISHED_MESSAGE);
+  if (empty.length) await deps.deleteRows(empty);
 
   if (toDelete.size) await deps.deleteOriginals([...toDelete]);
-  return { orphanOriginals: orphans.length, staleRows: stale.length };
+  return { orphanOriginals: orphans.length, staleRows: empty.length };
 }

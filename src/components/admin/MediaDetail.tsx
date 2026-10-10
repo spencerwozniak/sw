@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Button, Dialog, Field, Input, StatusTag, Switch, Textarea, useToast } from '@/components/ui';
 import { formatPhotoDate } from '@/lib/photos-core';
 import { processPhoto } from '@/lib/media/upload-client';
-import { displayStatus, thumbnailUrl, type AdminMedia } from '@/lib/media/serialize';
+import { canRetryProcessing, displayStatus, thumbnailUrl, type AdminMedia } from '@/lib/media/serialize';
 import { setPublishedAction, updateMediaAction } from '@/app/admin/(authed)/media-actions';
 
 // `datetime-local` values look like "2025-03-20T19:01"; stored dates have seconds too.
@@ -97,10 +97,15 @@ export function MediaDetail({ media, onClose, onChanged, onDelete }: {
             {media.width && media.height && <span className="font-sans text-[0.75rem] text-muted tabular-nums">{media.width}×{media.height}</span>}
           </div>
           {media.camera && <p className="m-0 font-sans text-[0.8125rem] text-muted">Camera: {media.camera}</p>}
-          {media.processing === 'FAILED' && (
+          {media.processing !== 'READY' && (
             <div className="grid gap-2">
-              <p role="alert" className="m-0 font-sans text-[0.8125rem] font-bold text-fg">{media.processingError ?? 'Processing failed.'}</p>
-              {media.kind === 'PHOTO' && (
+              {media.processing === 'FAILED' && (
+                <p role="alert" className="m-0 font-sans text-[0.8125rem] font-bold text-fg">{media.processingError ?? 'Processing failed.'}</p>
+              )}
+              {media.processing === 'PENDING' && canRetryProcessing(media) && (
+                <p className="m-0 font-sans text-[0.8125rem] text-muted">Still processing. If this has been more than a few minutes, try again.</p>
+              )}
+              {canRetryProcessing(media) && (
                 <Button size="sm" variant="outline" disabled={busy} onClick={() => act(async () => void (await processPhoto(media.id)), 'Processed')}>
                   Retry processing
                 </Button>

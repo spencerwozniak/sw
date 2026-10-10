@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import type { Media } from '@/generated/prisma/client';
-import { displayStatus, thumbnailUrl, toAdminMedia } from '@/lib/media/serialize';
+import { canRetryProcessing, displayStatus, thumbnailUrl, toAdminMedia } from '@/lib/media/serialize';
 
 const row = (overrides: Partial<Media> = {}): Media => ({
   id: 'cm0abc123def456ghi789jkl0', kind: 'PHOTO', status: 'DRAFT', processing: 'READY', processingError: null, caption: 'Sunset', altText: '',
@@ -33,4 +33,12 @@ test('a photo is its own thumbnail and a video uses its poster', () => {
   assert.equal(thumbnailUrl({ kind: 'PHOTO', webUrl: 'a', posterUrl: null }), 'a');
   assert.equal(thumbnailUrl({ kind: 'VIDEO', webUrl: 'v', posterUrl: 'p' }), 'p');
   assert.equal(thumbnailUrl({ kind: 'VIDEO', webUrl: 'v', posterUrl: null }), null);
+});
+
+test('a photo can be retried unless it is ready, including one stuck pending; videos cannot', () => {
+  assert.equal(canRetryProcessing({ kind: 'PHOTO', processing: 'FAILED' }), true);
+  assert.equal(canRetryProcessing({ kind: 'PHOTO', processing: 'PENDING' }), true);
+  assert.equal(canRetryProcessing({ kind: 'PHOTO', processing: 'READY' }), false);
+  assert.equal(canRetryProcessing({ kind: 'VIDEO', processing: 'FAILED' }), false);
+  assert.equal(canRetryProcessing({ kind: 'VIDEO', processing: 'PENDING' }), false);
 });

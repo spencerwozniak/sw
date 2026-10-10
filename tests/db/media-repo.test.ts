@@ -2,7 +2,7 @@ import { after, before, beforeEach, describe, test } from 'node:test';
 import assert from 'node:assert/strict';
 import { getDb } from '@/lib/db';
 import {
-  bulkUpdate, completeVideo, deleteMedia, getMedia, getUsage, listMedia, listStale, markFailed, markPhotoReady,
+  bulkUpdate, completeVideo, deleteMedia, getMedia, getUsage, listMedia, listStale, markFailed, markPendingFailed, markPhotoReady,
   registerMedia, setPublished, updateMedia,
 } from '@/lib/media/repo';
 import { PAGE_SIZE } from '@/lib/media/filters';
@@ -201,5 +201,17 @@ describe('media repository', () => {
     await db.media.create({ data: { kind: 'PHOTO', mimeType: 'image/jpeg', contentHash: uniqueHash(), processing: 'FAILED', createdAt: old } }); // failed: kept for retry
     const found = await listStale(new Date(Date.now() - 24 * 60 * 60 * 1000));
     assert.deepEqual(found.map((m) => m.id), [stale.id]);
+  });
+
+  test('markPendingFailed turns stuck pending rows into retryable failures and leaves finished ones alone', async () => {
+    const stuck = (await photo()).media.id;
+    const done = await readyPhoto();
+    assert.equal(await markPendingFailed([stuck, done], 'Processing never finished.'), 1);
+    const failed = await getMedia(stuck);
+    assert.equal(failed?.processing, 'FAILED');
+    assert.equal(failed?.processingError, 'Processing never finished.');
+    assert.equal((await getMedia(done))?.processing, 'READY');
+    // A failed row is no longer stale, so the next cleanup leaves it for a retry.
+    assert.deepEqual(await listStale(new Date(Date.now() + 60_000)), []);
   });
 });

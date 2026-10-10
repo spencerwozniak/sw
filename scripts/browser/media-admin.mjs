@@ -135,6 +135,15 @@ await page.getByRole('alert').filter({ hasText: /original file was not found|Pro
 results.retryFailureExplained = true;
 await page.keyboard.press('Escape');
 
+// A photo whose processing never finished is still PENDING. It offers the same Retry (and is not left to the 24-hour cleanup).
+await page.goto(`${BASE}/admin/inbox?state=processing`);
+await page.getByRole('button', { name: 'Open Still processing' }).click();
+results.pendingPhotoOffersRetry = (await page.getByRole('dialog').getByRole('button', { name: 'Retry processing' }).count()) === 1;
+await page.getByRole('dialog').getByRole('button', { name: 'Retry processing' }).click();
+await page.getByRole('alert').filter({ hasText: /original file was not found|Processing failed/ }).first().waitFor();
+results.pendingRetryFailureExplained = (await row(`SELECT processing FROM "Media" WHERE caption = 'Still processing'`)).processing === 'FAILED';
+await page.keyboard.press('Escape');
+
 // --- Bulk place and date -------------------------------------------------------------------------------
 await page.goto(`${BASE}/admin/inbox?q=Extra 0`);
 await page.getByLabel('Select Extra 01').check();

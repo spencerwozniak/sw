@@ -57,3 +57,13 @@ export function displayStatus(media: Pick<AdminMedia, 'status' | 'processing'>):
   if (media.processing === 'PENDING') return 'PENDING';
   return media.status;
 }
+
+/**
+ * Whether the admin can ask for a photo to be processed again. That is every photo that is not ready:
+ * a failed one, and one stuck pending because its processing request never finished (the function
+ * timed out, or the tab closed straight after the upload). Videos are completed by the browser that
+ * has the file, so they cannot be retried from here.
+ */
+export function canRetryProcessing(media: Pick<AdminMedia, 'kind' | 'processing'>): boolean {
+  return media.kind === 'PHOTO' && media.processing !== 'READY';
+}

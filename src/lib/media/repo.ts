@@ -127,9 +127,15 @@ export async function deleteMedia(ids: string[]): Promise<DeletedRefs> {
   });
 }
 
-/** Rows registered before `olderThan` that never finished uploading. Failed rows are kept so they can be retried. */
+/** Rows registered before `olderThan` that never finished uploading or processing. Failed rows are not listed: they are kept so they can be retried. */
 export function listStale(olderThan: Date) {
   return getDb().media.findMany({ where: { processing: 'PENDING', createdAt: { lt: olderThan } }, orderBy: { createdAt: 'asc' } });
+}
+
+/** Marks rows that are still pending as failed, so they can be retried. Rows that finished in the meantime are left alone. */
+export async function markPendingFailed(ids: string[], message: string): Promise<number> {
+  const result = await getDb().media.updateMany({ where: { id: { in: ids }, processing: 'PENDING' }, data: { processing: 'FAILED', processingError: message.slice(0, 500) } });
+  return result.count;
 }
 
 export async function deleteRows(ids: string[]): Promise<void> {
