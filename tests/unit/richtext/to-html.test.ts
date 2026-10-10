@@ -56,8 +56,31 @@ test('quotes: a flat quote gets a paragraph, and a quote of paragraphs keeps the
 
 test('lists, including numbering and nesting', () => {
   const nested = listNode('bullet', [listItemNode([textNode('a')], 1), listItemNode([listNode('number', [listItemNode([textNode('n1')], 1, 1)])], 2)]);
-  assert.equal(html(nested), '<ul><li>a</li><li><ol><li>n1</li></ol></li></ul>');
+  // The nested list sits inside the item before it (as in hand-written HTML), not in an item of its own.
+  assert.equal(html(nested), '<ul><li>a<ol><li>n1</li></ol></li></ul>');
   assert.equal(html({ ...listNode('number', [listItemNode([textNode('x')], 3)]), start: 3 }), '<ol start="3"><li>x</li></ol>');
+});
+
+test('a nested list does not use up a number in the list around it', () => {
+  const inner = (...labels: string[]) => listNode('bullet', labels.map((label, i) => listItemNode([textNode(label)], i + 1, 1)));
+  const outer = listNode('number', [
+    listItemNode([textNode('one')], 1),
+    listItemNode([inner('x', 'y')], 2),
+    listItemNode([textNode('two')], 2),
+  ]);
+  assert.equal(html(outer), '<ol><li>one<ul><li>x</li><li>y</li></ul></li><li>two</li></ol>');
+});
+
+test('several nested lists in a row, and a nested list with nothing before it', () => {
+  const one = (label: string, type: 'bullet' | 'number') => listNode(type, [listItemNode([textNode(label)], 1, 1)]);
+  const twice = listNode('bullet', [listItemNode([textNode('a')], 1), listItemNode([one('b', 'bullet')], 2), listItemNode([one('c', 'number')], 3), listItemNode([textNode('d')], 4)]);
+  assert.equal(html(twice), '<ul><li>a<ul><li>b</li></ul><ol><li>c</li></ol></li><li>d</li></ul>');
+  assert.equal(html(listNode('bullet', [listItemNode([one('first', 'bullet')], 1)])), '<ul><li class="list-nested"><ul><li>first</li></ul></li></ul>');
+});
+
+test('a list item with text and a nested list of its own is left alone', () => {
+  const mixed = listNode('bullet', [listItemNode([textNode('a'), listNode('bullet', [listItemNode([textNode('b')], 1)])], 1)]);
+  assert.equal(html(mixed), '<ul><li>a<ul><li>b</li></ul></li></ul>');
 });
 
 test('equations: block ones stand alone, inline ones sit in the text', () => {

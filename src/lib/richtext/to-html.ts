@@ -30,6 +30,7 @@ export function safeImageUrl(raw: unknown): string | null {
 }
 
 const isInline = (n: LexNode) => n.type === 'text' || n.type === 'linebreak' || n.type === 'link' || (n.type === 'equation' && n.inline === true);
+const isNestedListItem = (n: LexNode) => n.type === 'listitem' && (n.children ?? []).length > 0 && (n.children ?? []).every((c) => c.type === 'list');
 const dimension = (n: unknown) => (typeof n === 'number' && Number.isInteger(n) && n > 0 && n <= 20000 ? n : null);
 
 function formatText(text: string, format: number): string {
@@ -62,7 +63,23 @@ export function lexicalToHtml(state: LexState, renderMath: MathRenderer): string
       case 'list': {
         const ordered = n.listType === 'number';
         const start = ordered && Number.isInteger(n.start) && Number(n.start) > 1 ? ` start="${Number(n.start)}"` : '';
-        return `<${ordered ? 'ol' : 'ul'}${start}>${kids(n)}</${ordered ? 'ol' : 'ul'}>`;
+        // Lexical stores a nested list as its own list item that holds only the list. As HTML that item would
+        // show a stray marker (and use up a number in an ordered list), so the nested list goes inside the
+        // item before it, as in hand-written HTML.
+        const items: string[] = [];
+        let afterItem = false;
+        for (const child of n.children ?? []) {
+          if (afterItem && isNestedListItem(child)) {
+            const previous = items[items.length - 1];
+            items[items.length - 1] = `${previous.slice(0, -'</li>'.length)}${kids(child)}</li>`;
+          } else {
+            // A nested list with no item before it (the first item was indented) keeps an item of its own,
+            // marked so the site's styles can hide its marker, as the editor does.
+            items.push(isNestedListItem(child) ? `<li class="list-nested">${kids(child)}</li>` : render(child));
+            afterItem = child.type === 'listitem';
+          }
+        }
+        return `<${ordered ? 'ol' : 'ul'}${start}>${items.join('')}</${ordered ? 'ol' : 'ul'}>`;
       }
       case 'listitem': return `<li>${kids(n)}</li>`;
       case 'link': {

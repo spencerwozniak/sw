@@ -47,9 +47,9 @@ test('an indented passage that is already inside a blockquote stays in that one 
   assert.doesNotThrow(() => parseLexState(htmlToLexical(html)));
 });
 
-test('lists, including a list nested inside an item', () => {
-  assert.equal(roundTrip('<ul><li>one</li><li>two<ul><li>nested</li></ul></li></ul><ol><li>first</li></ol>'),
-    '<ul><li>one</li><li>two</li><li><ul><li>nested</li></ul></li></ul><ol><li>first</li></ol>');
+test('lists, including a list nested inside an item (it comes back inside that item, as written)', () => {
+  const html = '<ul><li>one</li><li>two<ul><li>nested</li></ul></li></ul><ol><li>first</li></ol>';
+  assert.equal(roundTrip(html), html);
 });
 
 test('text outside any block, with line breaks, becomes one paragraph (a poem)', () => {
