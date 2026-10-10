@@ -4356,12 +4356,12 @@ git commit -m "feat(media): Inbox and Library screens"
 ### Task 10: Browser verification, real-store checks and docs
 
 **Files:**
-- Create: `scripts/browser/media-admin.mjs`, `scripts/check-media-flow.ts`, `scripts/browser/media-upload-real.mjs`
+- Create: `scripts/browser/media-admin.mjs`, `scripts/browser/media-upload-typing.mjs`, `scripts/check-media-flow.ts`, `scripts/browser/media-upload-real.mjs`
 - Modify: `scripts/verify-env.ts`, `.env.example`, `docs/admin-setup.md`, `package.json` (via `npm`)
 
 **Interfaces:**
-- Consumes: the plan-1 harness (`scripts/browser/common.mjs`, `scripts/verify-build.sh`, `.env.verify`), everything above.
-- Produces: `npm run verify:media` (seeds the test database, then drives the Inbox, Library, detail panel, bulk actions, delete flow, upload validation and a phone layout; 39 checks), `npm run media:check` (the real server-side pipeline against your real Blob stores), `npm run verify:upload` (a real browser upload to **development** Blob stores; skipped without tokens).
+- Consumes: the plan-1 harness (`scripts/browser/common.mjs`, `scripts/verify-build.sh`, `.env.verify`), everything above. These checks TRUNCATE tables, so they connect only through the harness's `connectTestDb()` (which refuses any database but the throwaway one) and their npm scripts run under `env -u DATABASE_URL`, so a `DATABASE_URL` exported in your shell can never beat `.env.verify`.
+- Produces: `npm run verify:media` (seeds the test database, then drives the Inbox, Library, detail panel, bulk actions, delete flow, upload validation and a phone layout; 41 checks), `npm run verify:typing` (types into an upload row while its file is still processing; 7 checks), `npm run verify:admin` (runs the admin-auth, admin-kit, media and typing checks one after another: 16 + 16 + 41 + 7 checks), `npm run media:check` (the real server-side pipeline against your real Blob stores), `npm run verify:upload` (a real browser upload to **development** Blob stores; skipped without tokens).
 
 - [ ] **Step 1: Add the browser check that needs no external services**
 
@@ -4370,15 +4370,13 @@ Create `scripts/browser/media-admin.mjs`:
 ```javascript
 // Drives the Inbox, Library and Upload screens against a verification build.
 // It seeds the test database first, so run it only through `npm run verify:media`.
-import pg from 'pg';
-import { BASE, SHOTS, finish, launch, resetLoginAttempts, signIn } from './common.mjs';
+import { BASE, SHOTS, connectTestDb, finish, launch, resetLoginAttempts, signIn } from './common.mjs';
 
 const id = () => 'cm0' + [...crypto.getRandomValues(new Uint8Array(22))].map((b) => 'abcdefghijklmnopqrstuvwxyz0123456789'[b % 36]).join('');
 const IMAGE = '/headshot-square.jpg'; // any image that always exists in public/
 const POSTER = '/sw-brand-logo.png';
 
-const db = new pg.Client({ connectionString: process.env.DATABASE_URL });
-await db.connect();
+const db = await connectTestDb();
 let hashCounter = 0;
 async function addMedia(fields) {
   const row = { id: id(), kind: 'PHOTO', status: 'DRAFT', processing: 'READY', caption: '', alt_text: '', mime_type: 'image/jpeg', content_hash: `seed-${Date.now()}-${hashCounter++}`, web_url: IMAGE, width: 1700, height: 1700, ...fields };
@@ -4507,6 +4505,15 @@ await page.getByRole('alert').filter({ hasText: /original file was not found|Pro
 results.retryFailureExplained = true;
 await page.keyboard.press('Escape');
 
+// A photo whose processing never finished is still PENDING. It offers the same Retry (and is not left to the 24-hour cleanup).
+await page.goto(`${BASE}/admin/inbox?state=processing`);
+await page.getByRole('button', { name: 'Open Still processing' }).click();
+results.pendingPhotoOffersRetry = (await page.getByRole('dialog').getByRole('button', { name: 'Retry processing' }).count()) === 1;
+await page.getByRole('dialog').getByRole('button', { name: 'Retry processing' }).click();
+await page.getByRole('alert').filter({ hasText: /original file was not found|Processing failed/ }).first().waitFor();
+results.pendingRetryFailureExplained = (await row(`SELECT processing FROM "Media" WHERE caption = 'Still processing'`)).processing === 'FAILED';
+await page.keyboard.press('Escape');
+
 // --- Bulk place and date -------------------------------------------------------------------------------
 await page.goto(`${BASE}/admin/inbox?q=Extra 0`);
 await page.getByLabel('Select Extra 01').check();
@@ -4576,10 +4583,106 @@ await browser.close();
 finish(results, errors);
 ```
 
+Create `scripts/browser/media-upload-typing.mjs`. It checks that typing a caption or a place into an upload row while its file is still processing neither loses nor hides the place the server finds. There is no Blob in the verification environment, so it stubs the two Blob requests and the process request; registering and saving still go to the real server and database:
+
+```javascript
+// Typing into a row while its file is still processing must not lose the place the server finds,
+// or hide a place that was typed. There is no Blob in the verification environment, so the two
+// Blob requests and the process request are stubbed; registering and saving go to the real server
+// and database. Run through `npm run verify:typing`, which loads .env.verify.
+import { BASE, SHOTS, connectTestDb, finish, launch, resetLoginAttempts, signIn } from './common.mjs';
+
+const db = await connectTestDb();
+await db.query('TRUNCATE "CollectionBlockMedia","CollectionBlock","CollectionSlugHistory","Collection","Media" RESTART IDENTITY CASCADE');
+await resetLoginAttempts();
+
+const GEOCODED = 'Torrey Pines, San Diego';
+const results = {};
+const errors = [];
+const browser = await launch();
+const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
+page.on('pageerror', (e) => errors.push(e.message));
+await signIn(page);
+
+// The upload goes to a stand-in for Blob: a client token, then a PUT that answers like Blob does.
+await page.route('**/api/admin/upload', (route) =>
+  route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ type: 'blob.generate-client-token', clientToken: 'vercel_blob_client_verifystore_token' }) })
+);
+await page.route('https://vercel.com/api/blob/**', (route) =>
+  route.fulfill({
+    status: 200,
+    contentType: 'application/json',
+    headers: { 'access-control-allow-origin': '*', 'access-control-allow-headers': '*', 'access-control-allow-methods': '*' },
+    body: JSON.stringify({ url: 'https://verify.private.blob.vercel-storage.com/o.jpg', downloadUrl: 'https://verify.private.blob.vercel-storage.com/o.jpg', pathname: 'o.jpg', contentType: 'image/jpeg', contentDisposition: 'inline' }),
+  })
+);
+
+// Processing is held until the test says so; then the server "finishes" with the given place.
+let release;
+let serverPlace = null;
+await page.route('**/api/admin/media/*/process', async (route) => {
+  await new Promise((resolve) => { release = resolve; });
+  const id = route.request().url().split('/').at(-2);
+  await db.query(`UPDATE "Media" SET processing = 'READY', "placeName" = $2, width = 800, height = 600 WHERE id = $1`, [id, serverPlace]);
+  const media = {
+    id, kind: 'PHOTO', status: 'DRAFT', processing: 'READY', processingError: null, caption: '', altText: '', placeName: serverPlace, takenAt: null, camera: null,
+    width: 800, height: 600, durationSec: null, bytes: 1000, mimeType: 'image/jpeg', webUrl: null, posterUrl: null, createdAt: new Date().toISOString(),
+  };
+  await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ outcome: { status: 'ready', placeName: serverPlace }, media }) });
+});
+
+await page.goto(`${BASE}/admin/upload`);
+const input = page.getByLabel('Choose photos or videos to upload');
+
+async function uploadAndType(name, bytes, place, typed) {
+  serverPlace = place;
+  release = undefined;
+  await input.setInputFiles({ name, mimeType: 'image/jpeg', buffer: Buffer.from(bytes) });
+  await page.getByText('Processing…').waitFor(); // uploaded; waiting on the (held) process request
+  while (!release) await page.waitForTimeout(50);
+  if (typed.caption) await page.getByLabel(`Caption for ${name}`).fill(typed.caption);
+  if (typed.place) await page.getByLabel(`Place for ${name}`).fill(typed.place);
+  release();
+  await page.getByText('Ready', { exact: true }).first().waitFor();
+}
+const saved = async () => (await db.query(`SELECT caption, "placeName" FROM "Media" ORDER BY "createdAt" DESC LIMIT 1`)).rows[0];
+const settle = () => page.waitForTimeout(1500); // the save after "Ready" is a server action
+
+// 1. A caption typed while processing, on a photo whose GPS the server turns into a place.
+await uploadAndType('sunset.jpg', 'photo-one-with-gps', GEOCODED, { caption: 'Sunset' });
+await settle();
+let row = await saved();
+results.captionSaved = row.caption === 'Sunset';
+results.geocodedPlaceKeptInDatabase = row.placeName === GEOCODED;
+results.geocodedPlaceShownInBox = (await page.getByLabel('Place for sunset.jpg').inputValue()) === GEOCODED;
+await page.screenshot({ path: `${SHOTS}/media-upload-typing-caption.png`, fullPage: true });
+
+// 2. A place typed while processing, on a photo with no GPS: the box keeps it and so does the database.
+await page.getByRole('button', { name: 'Clear finished' }).click();
+await uploadAndType('paris.jpg', 'photo-two-without-gps', null, { place: 'Paris' });
+await settle();
+row = await saved();
+results.typedPlaceKeptInBox = (await page.getByLabel('Place for paris.jpg').inputValue()) === 'Paris';
+results.typedPlaceSavedInDatabase = row.placeName === 'Paris';
+
+// 3. Nothing typed: the server's place appears in the box, and nothing extra is written.
+await page.getByRole('button', { name: 'Clear finished' }).click();
+await uploadAndType('plain.jpg', 'photo-three-nothing-typed', GEOCODED, {});
+await settle();
+row = await saved();
+results.untouchedRowShowsServerPlace = (await page.getByLabel('Place for plain.jpg').inputValue()) === GEOCODED && row.placeName === GEOCODED && row.caption === '';
+
+results.noPageErrors = errors.length === 0;
+await db.end();
+await browser.close();
+finish(results, errors);
+```
+
 ```bash
 npm pkg set \
-  'scripts.verify:media=node --env-file=.env.verify scripts/browser/media-admin.mjs' \
-  'scripts.verify:admin=node --env-file=.env.verify scripts/browser/admin-auth.mjs && node --env-file=.env.verify scripts/browser/admin-kit.mjs && node --env-file=.env.verify scripts/browser/media-admin.mjs'
+  'scripts.verify:media=env -u DATABASE_URL node --env-file=.env.verify scripts/browser/media-admin.mjs' \
+  'scripts.verify:typing=env -u DATABASE_URL node --env-file=.env.verify scripts/browser/media-upload-typing.mjs' \
+  'scripts.verify:admin=env -u DATABASE_URL node --env-file=.env.verify scripts/browser/admin-auth.mjs && env -u DATABASE_URL node --env-file=.env.verify scripts/browser/admin-kit.mjs && env -u DATABASE_URL node --env-file=.env.verify scripts/browser/media-admin.mjs && env -u DATABASE_URL node --env-file=.env.verify scripts/browser/media-upload-typing.mjs'
 ```
 
 - [ ] **Step 2: Add the real-store checks**
@@ -4650,17 +4753,15 @@ Create `scripts/browser/media-upload-real.mjs`:
 // Uploads photos through the real upload screen to REAL Blob stores, then removes them.
 // Skipped unless `npm run verify:env` found VERIFY_BLOB_PUBLIC_TOKEN and VERIFY_BLOB_PRIVATE_TOKEN
 // in your shell (use dedicated development stores, not your production ones).
-import pg from 'pg';
 import sharp from 'sharp';
-import { BASE, SHOTS, finish, launch, resetLoginAttempts, signIn } from './common.mjs';
+import { BASE, SHOTS, connectTestDb, finish, launch, resetLoginAttempts, signIn } from './common.mjs';
 
 if (!process.env.BLOB_PUBLIC_TOKEN || !process.env.BLOB_PRIVATE_TOKEN) {
   console.log('SKIPPED: set VERIFY_BLOB_PUBLIC_TOKEN and VERIFY_BLOB_PRIVATE_TOKEN (development stores), run `npm run verify:env`, then `npm run verify:start` again.');
   process.exit(0);
 }
 
-const db = new pg.Client({ connectionString: process.env.DATABASE_URL });
-await db.connect();
+const db = await connectTestDb();
 await db.query('TRUNCATE "CollectionBlockMedia","CollectionBlock","CollectionSlugHistory","Collection","Media" RESTART IDENTITY CASCADE');
 await resetLoginAttempts();
 
@@ -4739,7 +4840,7 @@ with:
 ```bash
 npm pkg set \
   'scripts.media:check=tsx --env-file=.env.local scripts/check-media-flow.ts' \
-  'scripts.verify:upload=node --env-file=.env.verify scripts/browser/media-upload-real.mjs'
+  'scripts.verify:upload=env -u DATABASE_URL -u BLOB_PUBLIC_TOKEN -u BLOB_PRIVATE_TOKEN node --env-file=.env.verify scripts/browser/media-upload-real.mjs'
 ```
 
 - [ ] **Step 3: Update the setup docs and the environment template**
@@ -4816,7 +4917,7 @@ Expected: both test commands end with `# fail 0`; the other two print nothing.
 - [ ] **Step 5: Commit, then verify the built app in a real browser**
 
 ```bash
-git add scripts/browser/media-admin.mjs scripts/check-media-flow.ts scripts/browser/media-upload-real.mjs scripts/verify-env.ts .env.example docs/admin-setup.md package.json package-lock.json
+git add scripts/browser/media-admin.mjs scripts/browser/media-upload-typing.mjs scripts/check-media-flow.ts scripts/browser/media-upload-real.mjs scripts/verify-env.ts .env.example docs/admin-setup.md package.json package-lock.json
 git commit -m "test(media): browser verification, real-store checks and docs"
 npm run db:test
 npm run verify:env
@@ -4824,7 +4925,7 @@ npm run verify:start
 npm run verify:admin
 ```
 
-Expected: `verify:admin` prints three JSON objects (16 + 16 + 39 checks) in which **every value is `true`**, and exits 0. Run `npm run verify:media` a second time to confirm it can repeat (it re-seeds the database each run).
+Expected: `verify:admin` prints four JSON objects (16 + 16 + 41 + 7 checks, 80 values in all: admin-auth, admin-kit, media-admin, then media-upload-typing) in which **every value is `true`**, and exits 0. Run `npm run verify:media` a second time to confirm it can repeat (it re-seeds the database each run).
 
 Look at the screenshots in `${TMPDIR:-/tmp}/sw-verify-shots` (`media-inbox.png`, `media-library.png`, `media-detail.png`, `media-upload.png`, `media-inbox-phone.png`) and confirm: the grid, status tags and filter bar use the site's colours and type; the detail panel's fields fit inside it; nothing overflows on a phone.
 

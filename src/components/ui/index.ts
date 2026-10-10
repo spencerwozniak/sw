@@ -37,3 +37,4 @@ export * from './Checkbox';
 export * from './StatusTag';
 export * from './Dialog';
 export * from './Toast';
+export * from './Dropzone';
