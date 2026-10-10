@@ -91,7 +91,9 @@ model Collection {
   publishedAt DateTime?
   blocks      CollectionBlock[]
   slugHistory CollectionSlugHistory[]
-  @@unique([parentId, slug])   // plus a partial unique index on slug WHERE parentId IS NULL
+  @@unique([parentId, slug])   // plus a raw-SQL partial unique index on slug WHERE parentId IS NULL
+                               // (Postgres treats NULLs as distinct, so the line above alone
+                               // would allow two root collections with the same slug)
 }
 
 model CollectionSlugHistory {
@@ -123,20 +125,23 @@ model CollectionBlockMedia {
 }
 
 model Article {
-  id          String      @id            // slug; identical to today's article ids so URLs do not change
+  id          String      @id @default(cuid())
   kind        ArticleKind
+  slug        String?     @unique         // ARTICLE: today's id, so /writing/<slug> URLs do not change
+  externalUrl String?                     // PUBLICATION: https://doi.org/<doi>; publications have no page
   title       String
   topic       String
   author      String
-  publishedOn DateTime                    // date only
+  publishedOn DateTime    @db.Date
   keywords    String[]
   status      Status      @default(DRAFT)
   bodyJson    Json                        // Lexical state (what the editor loads)
-  bodyHtml    String                      // sanitized HTML (what the site serves)
+  bodyHtml    String                      // HTML generated from bodyJson on save (what the site serves)
   legacyHtml  String?                     // original HTML from the repo, kept as backup
   publishedAt DateTime?
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
+  @@index([kind, status, publishedOn])
 }
 
 model Asset {                             // images dragged into articles; not part of All Photos
@@ -170,6 +175,11 @@ Rules that follow from the model:
   the Blob files are deleted afterwards. (`onDelete: Restrict` on grid items
   guards against any code path that tries to delete a Media row without doing
   this.)
+- A database CHECK constraint requires a `slug` for every `ARTICLE` (publications
+  may omit it). Publications are the repo's two journal abstracts: their ids are
+  DOIs (`10.1021/...`, containing `/`), their body is plain text, and the site
+  links them out to doi.org instead of rendering a page, so they get a normal
+  `cuid` id, `externalUrl`, and no slug.
 - Collection depth is unbounded in the schema; the admin and URLs support up to
   3 levels.
 - Ordering (`position`) is an integer rewritten for the affected siblings in
@@ -215,7 +225,8 @@ implementation is OpenStreetMap Nominatim (free, storing results is allowed with
 attribution), called server-side with a descriptive User-Agent, at most one
 request per second, sequentially during bulk imports. Photos with no GPS get a
 place you type in. Only the place name is stored; coordinates stay in the
-private original.
+private original. OpenStreetMap's terms require visible attribution, so photo
+pages carry a small "Place names © OpenStreetMap contributors" line.
 
 ## Admin
 
@@ -271,9 +282,11 @@ Drag and drop works with keyboard, mouse and touch.
 - **Images:** photos go through `next/image` from the public Blob host
   (`remotePatterns`). This uses Vercel's image optimization quota, counted per
   distinct source image.
-- **Articles:** the page renders `bodyHtml`. Equations are rendered with KaTeX
-  to HTML at save time, so math needs no client JavaScript; the KaTeX
-  stylesheet loads only on article pages. `/writing` list and article pages keep
+- **Articles:** the page renders `bodyHtml`, which a pure function
+  (`lexicalToHtml`, no DOM) generates from the Lexical JSON on every save.
+  Equations are rendered with KaTeX to HTML at that moment, so math needs no
+  client JavaScript (the current page runs KaTeX auto-render in the browser);
+  the KaTeX stylesheet loads only on article pages. `/writing` list and article pages keep
   their current components, fed by DB rows adapted to today's shape (date
   formatted for display).
 - **SEO:** `next-sitemap` is replaced by `app/sitemap.ts` and `app/robots.ts`
@@ -299,12 +312,20 @@ and are deleted only after the user confirms.
   order, and its cover set. Then `public/images/photos/` is removed from the
   repo.
 - **Articles and publications:** the 31 articles and 2 publications are
-  imported with their existing ids as slugs and `keywords` as arrays;
-  "February 13, 2026" strings become dates; HTML is converted to Lexical JSON
-  with `@lexical/html`, and `bodyHtml` is regenerated and sanitized. A report
-  lists every article whose text content differs after the round trip so it can
-  be fixed by hand. `legacyHtml` keeps the original. The one article containing
-  math is checked individually.
+  imported (articles keep their ids as slugs; publications get `externalUrl`
+  `https://doi.org/<their DOI>`), `keywords` as arrays, and "February 13, 2026"
+  strings become dates. A purpose-built converter (`htmlToLexical`, jsdom, run
+  only by the migration script) turns the legacy HTML into Lexical JSON, and
+  `bodyHtml` is generated from it. The converter handles what the 33 items
+  actually contain: multi-paragraph blockquotes, three nested lists, bare text
+  outside any block (a poem and display math), `<p style="margin-left…">` quoted
+  passages (converted to quotes), malformed link attributes, and TeX math. Math
+  is stored as TeX delimiters in the HTML (`$$…$$` in one article, `\[…\]` in
+  another, 26 equations in total), which become equation nodes. A prototype of
+  this converter was run against all 33 items during planning: the text content
+  is identical after the round trip, every state loads into Lexical unchanged,
+  and every equation renders in KaTeX. The migration script re-runs these same
+  checks and reports any difference. `legacyHtml` keeps the original.
 - The 4 PDFs in `public/articles` stay where they are.
 
 ## Security
@@ -324,33 +345,52 @@ and are deleted only after the user confirms.
   article images; a private store holds originals, which are never reachable by
   URL and are only streamed through an admin-only route. Upload tokens are
   issued only to an authenticated admin, with allowed types and maximum sizes.
-- **Content safety:** article and text-block HTML passes a strict allow-list
-  sanitizer (links limited to `http`, `https`, `mailto`; images only from the
-  public Blob host; KaTeX output classes allowed).
-- **Secrets:** `DATABASE_URL`, the Blob tokens, `ADMIN_PASSWORD_HASH` and
-  `SESSION_SECRET` live in Vercel and a gitignored `.env.local`; nothing is
+- **Content safety:** article and text-block HTML is never stored or accepted
+  from the browser. It is generated on the server from the Lexical JSON by a
+  serializer that emits a closed set of elements, escapes all text and
+  attributes, and only keeps links using `http`, `https`, `mailto`, `#` or a
+  site-relative path. Images must come from the public Blob host. This replaces
+  a separate HTML sanitizer.
+- **Secrets:** `DATABASE_URL`, `BLOB_PUBLIC_TOKEN`, `BLOB_PRIVATE_TOKEN`,
+  `ADMIN_PASSWORD_HASH` and `SESSION_SECRET` (plus `CRON_SECRET` for the
+  cleanup job) live in Vercel and a gitignored `.env.local`; nothing is
   committed.
 
 ## Dependencies
 
-`prisma` + `@prisma/client`, `@vercel/blob`, `lexical` and `@lexical/*`
-(version matched to `serelora/repo`, `^0.41`), `sanitize-html`, `@dnd-kit/*`
-for sortable lists. Already present: `sharp`, `exifr`, `katex`, `tsx`.
+Verified against the real packages during planning:
+- `prisma` and `@prisma/client` **7.10.0** with `@prisma/adapter-pg` and `pg`
+  (Prisma 7 requires a driver adapter and a `prisma.config.ts`). Generator
+  `prisma-client` with `importFileExtension = ""`. `DATABASE_URL` must be a
+  standard `postgres://` connection string (the direct TCP URL of Prisma
+  Postgres), not a `prisma+postgres://` URL.
+- `@vercel/blob` **2.8.1**, which supports `access: 'private'` and
+  browser-direct uploads authorised by a server route.
+- `lexical` and `@lexical/{react,rich-text,list,link,headless,utils}` pinned to
+  **0.41.0** (the version `serelora/repo` uses), `@dnd-kit/core` and
+  `@dnd-kit/sortable`, `jsdom` (dev only, for the migration converter).
+- Moved from devDependencies to dependencies because they now run in
+  production: `sharp`, `exifr`. Already present: `katex`, `tsx`.
+- Not needed: `sanitize-html`.
 
 ## Phases
 
-Each phase is deployable on its own and gets its own implementation plan task
-group.
+Each phase is deployable on its own and has its own implementation plan
+(`docs/superpowers/plans/2026-10-09-admin-<n>-<name>.md`).
 
 1. **Foundation:** Prisma schema and migrations, DB client, both Blob stores,
    admin login/session/middleware, admin shell, and the UI-kit additions.
 2. **Media admin:** upload pipeline, Inbox, Library, geocoder.
-3. **Collections and public media:** collection tree and block editor, public
+3. **Rich-text editor and writing:** the Lexical editor (image and KaTeX
+   nodes), the JSON-to-HTML serializer, the article admin, the public Writing
+   pages from the DB, and migration of the 31 articles and 2 publications.
+4. **Collections and public media:** collection tree and block editor, public
    pages reading the DB, redirects, sitemap/robots, migration of the 51 photos
-   and 6 collections, removal of the repo copies after confirmation.
-4. **Writing:** Lexical editor (image and KaTeX nodes), article admin, public
-   Writing pages from the DB, migration of the 31 articles and 2 publications,
-   removal of the JSON after confirmation.
+   and 6 collections, and removal of the repo copies after confirmation.
+
+The editor comes before collections because a collection's text blocks use the
+same editor. Until phase 4 ships, the public photo pages keep reading the repo's
+JSON, so nothing regresses.
 
 ## Testing
 
@@ -358,7 +398,8 @@ group.
   (ancestors, drafts), stat rollups, sanitizer allow-list, password/session
   signing, login rate limiting, place-name formatting, and the HTML → Lexical →
   HTML text round trip over all 31 articles.
-- **Integration tests:** Prisma against a throwaway test database; the photo
+- **Integration tests:** Prisma against a throwaway Postgres container started
+  by `scripts/test-db.sh` on its own port (never the real database); the photo
   pipeline with fixture JPEGs (GPS, rotated, no EXIF) asserting the web copy has
   no GPS/EXIF bytes; a test that every `/api/admin` route returns 401 without a
   session and that no public query returns `originalPath` or a draft.
@@ -366,18 +407,28 @@ group.
   lightbox with video, and a visual comparison that the admin matches the site's
   theme in light and dark.
 
-## Open items to verify early in planning
+## Planning findings and remaining checks
 
-1. Private Blob stores are available on the user's Vercel plan (otherwise
-   originals need another private location).
-2. Prisma Postgres connection mode for serverless (`DATABASE_URL` format,
-   pooling) and the Prisma version to use.
-3. Lexical `@lexical/html` import fidelity on the 31 articles (messy attributes
-   such as `target=’_blank’` in the source).
-4. Vercel function memory/time limits when processing the largest originals
-   (about 12MB here, up to 25MB).
-5. Nominatim usage policy compliance (User-Agent, rate, attribution) at the
-   expected volume.
+Resolved during planning:
+1. **Private Blob:** `@vercel/blob` 2.8.1 supports `access: 'private'` for
+   `put`, `get` and client uploads. Account/plan availability is still checked by
+   a script in the Foundation plan (it tries a private write, read and delete).
+2. **Prisma Postgres:** Prisma 7 needs the `pg` driver adapter and a direct
+   `postgres://` URL; the Foundation plan includes a connection check that
+   explains the fix if the URL is `prisma+postgres://`.
+3. **Lexical import fidelity:** a prototype converter was run on all 33
+   legacy items: zero text differences, zero load failures, 26 equations all
+   rendered by KaTeX (see Migration).
+4. **Nominatim policy:** confirmed (max 1 request/second, identifying
+   User-Agent, results cached, attribution displayed). User-triggered lookups at
+   this volume are within the policy.
+
+Still to verify while building:
+5. Vercel function memory/time when processing the largest originals (about
+   12MB here, up to 25MB): the process route sets `maxDuration` and the
+   Media-admin plan includes a test with a large image.
+6. That the generated Prisma client bundles correctly under `next build` (the
+   Foundation plan builds in a throwaway copy to confirm).
 
 ## Out of scope
 
