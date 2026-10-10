@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Breadcrumb, Button, ConfirmDialog, Field, Input, StatusTag, useToast } from '@/components/ui';
 import { RichTextEditor } from '@/components/editor/RichTextEditor';
 import { createAutosave, type AutosaveStatus } from '@/lib/richtext/autosave';
+import { LEAVE_MESSAGE, linkLeavesPage, losesEditsOnLeave } from '@/lib/richtext/leave-guard';
 import { slugify } from '@/lib/articles/slug';
 import type { LexState } from '@/lib/richtext/state';
 import { deleteArticleAction, saveArticleAction, setArticleStatusAction } from '@/app/admin/(authed)/articles/actions';
@@ -95,13 +96,53 @@ export function ArticleEditor({ article }: { article: EditableArticle }) {
     changed();
   }, [title, slug, topic, author, publishedOn, keywords, externalUrl, changed]);
 
+  // Closing or reloading the tab. Set once the writer has agreed to leave from inside the app, so a link that
+  // turns out to be a full page load does not ask a second time.
+  const agreedToLeave = useRef(false);
   useEffect(() => {
     const warn = (e: BeforeUnloadEvent) => {
+      if (agreedToLeave.current) return;
       if (saveStatus === 'dirty' || saveStatus === 'saving' || saveStatus === 'error') e.preventDefault();
     };
     window.addEventListener('beforeunload', warn);
     return () => window.removeEventListener('beforeunload', warn);
   }, [saveStatus]);
+
+  // Leaving from inside the app (the breadcrumb, "Back to all articles", the admin navigation, Log out) never fires
+  // beforeunload and unmounts the editor, so ask first when that would lose edits nothing else will save.
+  const guardLeaving = losesEditsOnLeave(live, saveStatus);
+  useEffect(() => {
+    if (!guardLeaving) return;
+    const confirmLeave = (e: Event) => {
+      if (window.confirm(LEAVE_MESSAGE)) {
+        agreedToLeave.current = true;
+        setTimeout(() => (agreedToLeave.current = false), 2000);
+        return;
+      }
+      e.preventDefault();
+      e.stopPropagation();
+    };
+    const onClick = (e: MouseEvent) => {
+      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const link = e.target instanceof Element ? e.target.closest('a[href]') : null;
+      if (link instanceof HTMLAnchorElement && !link.hasAttribute('download') && linkLeavesPage(link.href, link.target, window.location.href)) confirmLeave(e);
+    };
+    // Capture phase, so this runs before the Link's own handler starts the navigation.
+    document.addEventListener('click', onClick, true);
+    document.addEventListener('submit', confirmLeave, true); // the header's Log out is the only form on this page
+    return () => {
+      document.removeEventListener('click', onClick, true);
+      document.removeEventListener('submit', confirmLeave, true);
+    };
+  }, [guardLeaving]);
+
+  // A draft saves by itself after a pause; leaving inside that pause must not lose what was just typed.
+  useEffect(
+    () => () => {
+      void autosave.flush();
+    },
+    [autosave]
+  );
 
   const saveNow = async () => {
     setBusy(true);
@@ -138,6 +179,7 @@ export function ArticleEditor({ article }: { article: EditableArticle }) {
       setBusy(false);
       return toast(result.error, { tone: 'error' });
     }
+    autosave.cancel(); // the article is gone: leaving must not try to save into it
     router.push('/admin/articles');
   };
 

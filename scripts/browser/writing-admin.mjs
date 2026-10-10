@@ -202,6 +202,38 @@ results.saveChangesPersists = (await html(id)).includes('A late addition to the 
 await wait(1500);
 results.liveEditShowsOnSite = (await get(`/writing/${SLUG}`)).text.includes('A late addition to the live article.');
 
+// --- Leaving a live article with unsaved edits asks first (links inside the app never fire beforeunload) ---------------------------
+await editor().click({ position: { x: 8, y: 8 } });
+await page.keyboard.press('Control+End');
+await page.keyboard.press('Enter');
+await page.keyboard.type('An ending that is never saved.');
+await status(/Unsaved changes/).waitFor();
+const prompts = [];
+let agreeToLeave = false;
+const onDialog = (dialog) => {
+  prompts.push({ type: dialog.type(), message: dialog.message() });
+  return agreeToLeave ? dialog.accept() : dialog.dismiss();
+};
+page.on('dialog', onDialog);
+const editorUrl = page.url();
+await page.getByRole('link', { name: 'Back to all articles' }).click();
+await wait(800);
+results.leavingLiveEditsAsks = prompts.length === 1 && prompts[0].type === 'confirm' && /not saved/.test(prompts[0].message);
+results.decliningStaysOnTheArticle = page.url() === editorUrl && (await editor().innerText()).includes('An ending that is never saved.');
+await page.getByRole('navigation', { name: 'Admin' }).getByRole('link', { name: 'Library' }).click();
+await wait(800);
+results.adminNavigationAsksToo = prompts.length === 2 && page.url() === editorUrl;
+await page.getByRole('button', { name: 'Log out' }).click();
+await wait(800);
+results.logOutAsksToo = prompts.length === 3 && page.url() === editorUrl;
+agreeToLeave = true;
+await page.getByRole('link', { name: 'Back to all articles' }).click();
+await page.waitForURL(/\/admin\/articles$/);
+results.confirmingLeavesAndAsksOnce = prompts.length === 4 && !(await html(id)).includes('An ending that is never saved.');
+page.off('dialog', onDialog);
+await page.goto(`${BASE}/admin/articles/${id}`);
+await editor().waitFor();
+
 // --- Unpublish and delete ------------------------------------------------------------------------------------------------------------
 await page.getByRole('button', { name: 'Unpublish' }).click();
 await toast(/Moved back to drafts/).waitFor();
@@ -221,6 +253,21 @@ await page.waitForURL(/\/admin\/articles\/[a-z0-9]{20,40}$/);
 await page.getByLabel('URL name').fill('what-is-hell'); // a migrated article already has it
 await page.getByRole('status').filter({ hasText: /already used/ }).waitFor({ timeout: 10000 });
 results.duplicateUrlNameExplained = true;
+
+// --- A draft left inside the autosave delay still saves --------------------------------------------------------------------------------
+await page.goto(`${BASE}/admin/articles`);
+await page.getByRole('button', { name: 'New', exact: true }).click();
+await page.getByRole('dialog').getByLabel('Title').fill('Playwright quick leave');
+await page.getByRole('dialog').getByRole('button', { name: 'Create draft' }).click();
+await page.waitForURL(/\/admin\/articles\/[a-z0-9]{20,40}$/);
+const quickId = page.url().split('/').pop();
+await editor().waitFor();
+await editor().click({ position: { x: 8, y: 8 } });
+await page.keyboard.type('Typed just before leaving the page.');
+await page.getByRole('link', { name: 'Back to all articles' }).click(); // well inside the autosave delay
+await page.waitForURL(/\/admin\/articles$/);
+const quick = await until(`SELECT "bodyHtml" AS html FROM "Article" WHERE id = $1`, [quickId], (r) => r.html.includes('Typed just before'));
+results.draftLeftQuicklyIsSaved = quick.html === '<p>Typed just before leaving the page.</p>';
 
 // --- A migrated article opens with its equations ------------------------------------------------------------------------------------------
 const legacy = await row(`SELECT id FROM "Article" WHERE slug = 'mathematical-confidence-in-a-claims-graph'`);
