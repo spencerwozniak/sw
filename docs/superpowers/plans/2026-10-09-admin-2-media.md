@@ -4360,7 +4360,7 @@ git commit -m "feat(media): Inbox and Library screens"
 - Modify: `scripts/verify-env.ts`, `.env.example`, `docs/admin-setup.md`, `package.json` (via `npm`)
 
 **Interfaces:**
-- Consumes: the plan-1 harness (`scripts/browser/common.mjs`, `scripts/verify-build.sh`, `.env.verify`), everything above.
+- Consumes: the plan-1 harness (`scripts/browser/common.mjs`, `scripts/verify-build.sh`, `.env.verify`), everything above. These checks TRUNCATE tables, so they connect only through the harness's `connectTestDb()` (which refuses any database but the throwaway one) and their npm scripts run under `env -u DATABASE_URL`, so a `DATABASE_URL` exported in your shell can never beat `.env.verify`.
 - Produces: `npm run verify:media` (seeds the test database, then drives the Inbox, Library, detail panel, bulk actions, delete flow, upload validation and a phone layout; 39 checks), `npm run media:check` (the real server-side pipeline against your real Blob stores), `npm run verify:upload` (a real browser upload to **development** Blob stores; skipped without tokens).
 
 - [ ] **Step 1: Add the browser check that needs no external services**
@@ -4370,15 +4370,13 @@ Create `scripts/browser/media-admin.mjs`:
 ```javascript
 // Drives the Inbox, Library and Upload screens against a verification build.
 // It seeds the test database first, so run it only through `npm run verify:media`.
-import pg from 'pg';
-import { BASE, SHOTS, finish, launch, resetLoginAttempts, signIn } from './common.mjs';
+import { BASE, SHOTS, connectTestDb, finish, launch, resetLoginAttempts, signIn } from './common.mjs';
 
 const id = () => 'cm0' + [...crypto.getRandomValues(new Uint8Array(22))].map((b) => 'abcdefghijklmnopqrstuvwxyz0123456789'[b % 36]).join('');
 const IMAGE = '/headshot-square.jpg'; // any image that always exists in public/
 const POSTER = '/sw-brand-logo.png';
 
-const db = new pg.Client({ connectionString: process.env.DATABASE_URL });
-await db.connect();
+const db = await connectTestDb();
 let hashCounter = 0;
 async function addMedia(fields) {
   const row = { id: id(), kind: 'PHOTO', status: 'DRAFT', processing: 'READY', caption: '', alt_text: '', mime_type: 'image/jpeg', content_hash: `seed-${Date.now()}-${hashCounter++}`, web_url: IMAGE, width: 1700, height: 1700, ...fields };
@@ -4578,8 +4576,8 @@ finish(results, errors);
 
 ```bash
 npm pkg set \
-  'scripts.verify:media=node --env-file=.env.verify scripts/browser/media-admin.mjs' \
-  'scripts.verify:admin=node --env-file=.env.verify scripts/browser/admin-auth.mjs && node --env-file=.env.verify scripts/browser/admin-kit.mjs && node --env-file=.env.verify scripts/browser/media-admin.mjs'
+  'scripts.verify:media=env -u DATABASE_URL node --env-file=.env.verify scripts/browser/media-admin.mjs' \
+  'scripts.verify:admin=env -u DATABASE_URL node --env-file=.env.verify scripts/browser/admin-auth.mjs && env -u DATABASE_URL node --env-file=.env.verify scripts/browser/admin-kit.mjs && env -u DATABASE_URL node --env-file=.env.verify scripts/browser/media-admin.mjs'
 ```
 
 - [ ] **Step 2: Add the real-store checks**
@@ -4650,17 +4648,15 @@ Create `scripts/browser/media-upload-real.mjs`:
 // Uploads photos through the real upload screen to REAL Blob stores, then removes them.
 // Skipped unless `npm run verify:env` found VERIFY_BLOB_PUBLIC_TOKEN and VERIFY_BLOB_PRIVATE_TOKEN
 // in your shell (use dedicated development stores, not your production ones).
-import pg from 'pg';
 import sharp from 'sharp';
-import { BASE, SHOTS, finish, launch, resetLoginAttempts, signIn } from './common.mjs';
+import { BASE, SHOTS, connectTestDb, finish, launch, resetLoginAttempts, signIn } from './common.mjs';
 
 if (!process.env.BLOB_PUBLIC_TOKEN || !process.env.BLOB_PRIVATE_TOKEN) {
   console.log('SKIPPED: set VERIFY_BLOB_PUBLIC_TOKEN and VERIFY_BLOB_PRIVATE_TOKEN (development stores), run `npm run verify:env`, then `npm run verify:start` again.');
   process.exit(0);
 }
 
-const db = new pg.Client({ connectionString: process.env.DATABASE_URL });
-await db.connect();
+const db = await connectTestDb();
 await db.query('TRUNCATE "CollectionBlockMedia","CollectionBlock","CollectionSlugHistory","Collection","Media" RESTART IDENTITY CASCADE');
 await resetLoginAttempts();
 
@@ -4739,7 +4735,7 @@ with:
 ```bash
 npm pkg set \
   'scripts.media:check=tsx --env-file=.env.local scripts/check-media-flow.ts' \
-  'scripts.verify:upload=node --env-file=.env.verify scripts/browser/media-upload-real.mjs'
+  'scripts.verify:upload=env -u DATABASE_URL -u BLOB_PUBLIC_TOKEN -u BLOB_PRIVATE_TOKEN node --env-file=.env.verify scripts/browser/media-upload-real.mjs'
 ```
 
 - [ ] **Step 3: Update the setup docs and the environment template**
