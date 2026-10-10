@@ -116,11 +116,17 @@ const Navigation: React.FC = () => {
             isMobile ? 'grid-cols-[1fr_auto]' : 'grid-cols-[1fr_auto_1fr]'
           )}
         >
-          <Link href="/" onClick={onLogoClick} className="justify-self-start leading-none">
+          <Link
+            href="/"
+            onClick={onLogoClick}
+            aria-current={pathname === '/' ? 'page' : undefined}
+            className="justify-self-start leading-none"
+          >
             <Signature
               tone="muted"
               className={cx(
-                'text-muted transition-colors duration-150 ease-ui hover:text-fg',
+                'transition-colors duration-150 ease-ui hover:text-fg',
+                pathname === '/' ? 'text-fg' : 'text-muted',
                 isMobile ? 'h-[30px] w-auto' : 'h-[34px] w-auto'
               )}
             />
@@ -135,7 +141,7 @@ const Navigation: React.FC = () => {
                     <Link
                       href={item.link}
                       aria-current={isActive(item.link) ? 'page' : undefined}
-                      className="py-1.5 font-sans text-[0.9375rem] font-bold text-muted transition-colors duration-300 hover:text-fg"
+                      className="py-1.5 font-sans text-[0.9375rem] font-bold text-muted transition-colors duration-300 hover:text-fg aria-[current=page]:text-fg"
                     >
                       {item.label}
                     </Link>
