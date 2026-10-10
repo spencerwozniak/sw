@@ -5,8 +5,11 @@ import { lexicalToHtml } from '@/lib/richtext/to-html';
 
 export type ArticleBody = { state: LexState; html: string; text: string };
 
-function equationsIn(node: LexNode, found: string[] = []): string[] {
-  if (node.type === 'equation') found.push(String(node.equation));
+type FoundEquation = { tex: string; display: boolean };
+
+/** Every equation with the mode lexicalToHtml will render it in (anything not inline is display). */
+function equationsIn(node: LexNode, found: FoundEquation[] = []): FoundEquation[] {
+  if (node.type === 'equation') found.push({ tex: String(node.equation), display: node.inline !== true });
   node.children?.forEach((child) => equationsIn(child, found));
   return found;
 }
@@ -18,8 +21,8 @@ function equationsIn(node: LexNode, found: string[] = []): string[] {
  */
 export function renderBody(input: unknown): ArticleBody {
   const state = parseLexState(input);
-  equationsIn(state.root).forEach((tex, index) => {
-    const problem = mathError(tex);
+  equationsIn(state.root).forEach(({ tex, display }, index) => {
+    const problem = mathError(tex, display);
     if (problem) throw new InvalidRichTextError(`Equation ${index + 1} cannot be displayed: ${problem}`);
   });
   return { state, html: lexicalToHtml(state, renderMath), text: lexicalPlainText(state) };

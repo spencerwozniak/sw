@@ -8,10 +8,13 @@ export function renderMath(tex: string, display: boolean): string {
   return katex.renderToString(tex, { ...OPTIONS, displayMode: display, throwOnError: true });
 }
 
-/** `null` when the TeX renders, otherwise a short message for the writer. */
-export function mathError(tex: string): string | null {
+/**
+ * `null` when the TeX renders, otherwise a short message for the writer. Pass the mode the equation will be
+ * shown in: some TeX (\tag, align, gather) is only valid in display mode, and inline equations are rendered inline.
+ */
+export function mathError(tex: string, display = true): string | null {
   try {
-    renderMath(tex, true);
+    renderMath(tex, display);
     return null;
   } catch (error) {
     return error instanceof Error ? error.message.replace(/^KaTeX parse error:\s*/, '') : 'Invalid equation.';

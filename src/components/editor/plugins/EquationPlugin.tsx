@@ -32,7 +32,7 @@ export function EquationPlugin(): JSX.Element {
   );
 
   const trimmed = tex.trim();
-  const problem = trimmed ? mathError(trimmed) : null;
+  const problem = trimmed ? mathError(trimmed, !dialog?.inline) : null;
   const editing = dialog?.nodeKey != null;
   const close = () => setDialog(null);
 

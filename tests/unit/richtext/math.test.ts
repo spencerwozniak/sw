@@ -24,6 +24,16 @@ test('mathError gives a short message, or null when the TeX is fine', () => {
   assert.ok(message && message.length < 200 && !message.startsWith('KaTeX parse error'), message ?? '');
 });
 
+test('mathError checks the mode the equation will be shown in: display-only TeX is fine as a block and refused inline', () => {
+  for (const tex of ['x \\tag{1}', '\\begin{align} a &= b \\\\ c &= d \\end{align}', '\\begin{gather} a \\end{gather}']) {
+    assert.equal(mathError(tex), null, tex);
+    assert.equal(mathError(tex, true), null, tex);
+    const message = mathError(tex, false);
+    assert.ok(message && /display/i.test(message) && !message.startsWith('KaTeX parse error'), `${tex}: ${message}`);
+  }
+  assert.equal(mathError('x^2', false), null);
+});
+
 test('KaTeX neutralises untrusted commands: no links and no custom classes reach the output', () => {
   const link = renderMath('\\href{javascript:alert(1)}{x}', false);
   assert.doesNotMatch(link, /<a[\s>]/);

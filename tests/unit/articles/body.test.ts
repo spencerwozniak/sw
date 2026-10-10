@@ -31,3 +31,12 @@ test('HTML the browser tries to smuggle in as text is escaped, never trusted', (
   const body = renderBody(rootNode([paragraphNode([textNode('<img src=x onerror=alert(1)>')])]));
   assert.equal(body.html, '<p>&lt;img src=x onerror=alert(1)&gt;</p>');
 });
+
+test('display-only TeX is fine as a block equation but refused inline, with the KaTeX message (not a generic failure)', () => {
+  const tag = 'x \\tag{1}';
+  assert.doesNotThrow(() => renderBody(rootNode([equationNode(tag, false) as never])));
+  for (const tex of [tag, '\\begin{align} a &= b \\end{align}', '\\begin{gather} a \\end{gather}']) {
+    const state = rootNode([paragraphNode([textNode('see '), equationNode(tex, true)])]);
+    assert.throws(() => renderBody(state), (e) => e instanceof InvalidRichTextError && /Equation 1 cannot be displayed: .*display/i.test(e.message), tex);
+  }
+});
