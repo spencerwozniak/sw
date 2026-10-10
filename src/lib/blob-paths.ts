@@ -12,14 +12,18 @@ export const MAX_PHOTO_BYTES = 40 * 1024 * 1024;
 export const MAX_VIDEO_BYTES = 300 * 1024 * 1024;
 export const MAX_ASSET_BYTES = 15 * 1024 * 1024;
 
+// Own-property lookups only: `mime in table` and `table[mime]` also see inherited keys such as
+// `constructor`, `toString` and `__proto__`, which would pass as accepted types.
 export function kindForMime(mime: string): MediaKindName | null {
-  if (mime in PHOTO_TYPES) return 'PHOTO';
-  if (mime in VIDEO_TYPES) return 'VIDEO';
+  if (Object.hasOwn(PHOTO_TYPES, mime)) return 'PHOTO';
+  if (Object.hasOwn(VIDEO_TYPES, mime)) return 'VIDEO';
   return null;
 }
 
 export function extensionFor(mime: string): string | null {
-  return PHOTO_TYPES[mime] ?? VIDEO_TYPES[mime] ?? null;
+  if (Object.hasOwn(PHOTO_TYPES, mime)) return PHOTO_TYPES[mime];
+  if (Object.hasOwn(VIDEO_TYPES, mime)) return VIDEO_TYPES[mime];
+  return null;
 }
 
 // Private store: untouched originals. Public store: everything the website serves.

@@ -35,6 +35,13 @@ test('extensionFor maps accepted mime types to a safe extension', () => {
   assert.equal(extensionFor('text/html'), null);
 });
 
+test('inherited Object.prototype keys are not accepted mime types', () => {
+  for (const key of ['constructor', 'toString', 'hasOwnProperty', 'valueOf', '__proto__', 'unknown/type']) {
+    assert.equal(kindForMime(key), null, `kindForMime(${key})`);
+    assert.equal(extensionFor(key), null, `extensionFor(${key})`);
+  }
+});
+
 test('isPublicBlobUrl accepts only https URLs on the public Blob host', () => {
   assert.equal(isPublicBlobUrl('https://abc123.public.blob.vercel-storage.com/photos/x.jpg'), true);
   assert.equal(isPublicBlobUrl('http://abc123.public.blob.vercel-storage.com/photos/x.jpg'), false);
