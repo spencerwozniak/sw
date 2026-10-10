@@ -4,6 +4,10 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true, // ⛑️ bypass build-breaking TS error from Vercel
   },
+  images: {
+    // Photos, posters and article images are served from the public Vercel Blob store.
+    remotePatterns: [{ protocol: 'https', hostname: '**.public.blob.vercel-storage.com' }],
+  },
   async redirects() {
     // Retired routes Google may still have indexed; a permanent redirect hands their ranking to the replacement.
     return [

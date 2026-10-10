@@ -1,0 +1,153 @@
+generator client {
+  provider            = "prisma-client"
+  output              = "../src/generated/prisma"
+  importFileExtension = ""
+  moduleFormat        = "esm"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum MediaKind {
+  PHOTO
+  VIDEO
+}
+
+enum Status {
+  DRAFT
+  PUBLISHED
+}
+
+enum ProcessingState {
+  PENDING
+  READY
+  FAILED
+}
+
+enum BlockType {
+  TEXT
+  GRID
+}
+
+enum ArticleKind {
+  ARTICLE
+  PUBLICATION
+}
+
+model Media {
+  id              String          @id @default(cuid())
+  kind            MediaKind
+  status          Status          @default(DRAFT)
+  processing      ProcessingState @default(PENDING)
+  processingError String?
+  caption         String          @default("")
+  altText         String          @default("")
+  placeName       String?
+  takenAt         DateTime?
+  camera          String?
+  width           Int?
+  height          Int?
+  durationSec     Float?
+  bytes           Int?
+  mimeType        String
+  contentHash     String          @unique
+  originalPath    String?
+  webUrl          String?
+  posterUrl       String?
+  publishedAt     DateTime?
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  gridItems       CollectionBlockMedia[]
+  coverOf         Collection[]
+
+  @@index([status, takenAt])
+}
+
+model Collection {
+  id          String       @id @default(cuid())
+  parentId    String?
+  parent      Collection?  @relation("CollectionTree", fields: [parentId], references: [id], onDelete: Restrict)
+  children    Collection[] @relation("CollectionTree")
+  slug        String
+  title       String
+  subtitle    String       @default("")
+  coverId     String?
+  cover       Media?       @relation(fields: [coverId], references: [id], onDelete: SetNull)
+  status      Status       @default(DRAFT)
+  position    Int
+  publishedAt DateTime?
+  blocks      CollectionBlock[]
+  slugHistory CollectionSlugHistory[]
+
+  @@unique([parentId, slug])
+}
+
+model CollectionSlugHistory {
+  id           String     @id @default(cuid())
+  collectionId String
+  collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+  path         String     @unique
+}
+
+model CollectionBlock {
+  id           String     @id @default(cuid())
+  collectionId String
+  collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+  position     Int
+  type         BlockType
+  bodyJson     Json?
+  bodyHtml     String?
+  items        CollectionBlockMedia[]
+
+  @@index([collectionId, position])
+}
+
+model CollectionBlockMedia {
+  blockId  String
+  block    CollectionBlock @relation(fields: [blockId], references: [id], onDelete: Cascade)
+  mediaId  String
+  media    Media           @relation(fields: [mediaId], references: [id], onDelete: Restrict)
+  position Int
+
+  @@id([blockId, mediaId])
+}
+
+model Article {
+  id          String      @id @default(cuid())
+  kind        ArticleKind
+  slug        String?     @unique
+  externalUrl String?
+  title       String
+  topic       String
+  author      String
+  publishedOn DateTime    @db.Date
+  keywords    String[]
+  status      Status      @default(DRAFT)
+  bodyJson    Json
+  bodyHtml    String
+  legacyHtml  String?
+  publishedAt DateTime?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@index([kind, status, publishedOn])
+}
+
+model Asset {
+  id        String   @id @default(cuid())
+  url       String
+  width     Int
+  height    Int
+  bytes     Int
+  mimeType  String
+  createdAt DateTime @default(now())
+}
+
+model LoginAttempt {
+  id     String   @id @default(cuid())
+  ipHash String
+  at     DateTime @default(now())
+
+  @@index([ipHash, at])
+}
