@@ -10,12 +10,19 @@ export type AttemptStore = {
   failuresSince(key: string, since: Date): Promise<Date[]>;
   recordFailure(key: string, at: Date): Promise<void>;
   clear(key: string): Promise<void>;
+  /**
+   * Take one of the MAX_FAILURES attempts allowed per window, atomically. If fewer than
+   * MAX_FAILURES attempts are in the window ending at `now`, it records one at `now` and
+   * returns allowed; otherwise it records nothing and says how long the lock lasts. Two
+   * concurrent calls for one key must never both take the last slot.
+   */
+  reserveAttempt(key: string, now: Date): Promise<LoginCheck>;
 };
 
 export type LoginCheck = { allowed: true } | { allowed: false; retryAfterSeconds: number };
 
-export async function checkLoginAllowed(store: AttemptStore, key: string, now = new Date()): Promise<LoginCheck> {
-  const failures = await store.failuresSince(key, new Date(now.getTime() - WINDOW_MS));
+/** Decide from the attempts already in the window (oldest first). */
+export function lockStatus(failures: Date[], now: Date): LoginCheck {
   if (failures.length < MAX_FAILURES) return { allowed: true };
   // Locked until the oldest of the last MAX_FAILURES failures leaves the window.
   const deciding = failures[failures.length - MAX_FAILURES];
@@ -23,20 +30,35 @@ export async function checkLoginAllowed(store: AttemptStore, key: string, now = 
   return { allowed: false, retryAfterSeconds };
 }
 
+/**
+ * Read-only check. Do not use it to gate a password check followed by recordFailedLogin:
+ * parallel requests all read "not locked" before any of them records. Use store.reserveAttempt.
+ */
+export async function checkLoginAllowed(store: AttemptStore, key: string, now = new Date()): Promise<LoginCheck> {
+  return lockStatus(await store.failuresSince(key, new Date(now.getTime() - WINDOW_MS)), now);
+}
+
 export const recordFailedLogin = (store: AttemptStore, key: string, now = new Date()) => store.recordFailure(key, now);
 export const recordSuccessfulLogin = (store: AttemptStore, key: string) => store.clear(key);
 
 export function memoryAttemptStore(): AttemptStore {
   const attempts = new Map<string, Date[]>();
+  const recent = (key: string, from: Date) => (attempts.get(key) ?? []).filter((d) => d >= from).sort((a, b) => a.getTime() - b.getTime());
   return {
-    async failuresSince(key, since) {
-      return (attempts.get(key) ?? []).filter((d) => d >= since).sort((a, b) => a.getTime() - b.getTime());
+    async failuresSince(key, from) {
+      return recent(key, from);
     },
     async recordFailure(key, at) {
       attempts.set(key, [...(attempts.get(key) ?? []), at]);
     },
     async clear(key) {
       attempts.delete(key);
+    },
+    async reserveAttempt(key, now) {
+      // Nothing is awaited between the check and the write, so concurrent callers cannot interleave.
+      const decision = lockStatus(recent(key, new Date(now.getTime() - WINDOW_MS)), now);
+      if (decision.allowed) attempts.set(key, [...(attempts.get(key) ?? []), now]);
+      return decision;
     },
   };
 }

@@ -29,6 +29,22 @@ test('the lock lifts when enough failures age out of the window, and says how lo
   assert.deepEqual(await checkLoginAllowed(store, 'k', at(WINDOW_MS + 1)), { allowed: true });
 });
 
+test('reserveAttempt hands out MAX_FAILURES attempts, then refuses without recording more', async () => {
+  const store = memoryAttemptStore();
+  for (let i = 0; i < MAX_FAILURES; i++) assert.deepEqual(await store.reserveAttempt('k', at(i * 1000)), { allowed: true });
+  const blocked = await store.reserveAttempt('k', at(10_000));
+  assert.equal(blocked.allowed, false);
+  assert.equal(blocked.allowed === false && blocked.retryAfterSeconds, Math.ceil((WINDOW_MS - 10_000) / 1000));
+  assert.equal((await store.failuresSince('k', new Date(0))).length, MAX_FAILURES, 'the refused attempt was not recorded, so it cannot extend the lock');
+  assert.deepEqual(await store.reserveAttempt('k', at(WINDOW_MS + 1)), { allowed: true });
+});
+
+test('reserveAttempt never over-allocates when called in parallel', async () => {
+  const store = memoryAttemptStore();
+  const decisions = await Promise.all(Array.from({ length: 25 }, () => store.reserveAttempt('k', T0)));
+  assert.equal(decisions.filter((d) => d.allowed).length, MAX_FAILURES);
+});
+
 test('a successful login clears the failures', async () => {
   const store = memoryAttemptStore();
   for (let i = 0; i < MAX_FAILURES - 1; i++) await recordFailedLogin(store, 'k', at(i));

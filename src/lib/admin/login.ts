@@ -1,5 +1,5 @@
 import { verifyPassword } from './password';
-import { checkLoginAllowed, hashClientKey, recordFailedLogin, recordSuccessfulLogin, type AttemptStore } from './rate-limit';
+import { hashClientKey, recordSuccessfulLogin, type AttemptStore } from './rate-limit';
 import { createSessionToken } from './session';
 
 export const LOGIN_NOT_CONFIGURED = 'Admin login is not configured on this server.';
@@ -25,15 +25,15 @@ export async function attemptLogin(input: LoginInput): Promise<LoginResult> {
 
   try {
     const key = await hashClientKey(ip, secret);
-    const check = await checkLoginAllowed(store, key, now);
-    if (!check.allowed) {
-      const minutes = Math.ceil(check.retryAfterSeconds / 60);
+    // Take the attempt BEFORE the slow password check, and let a success give it back below.
+    // Counting first and recording the failure afterwards would let a burst of parallel
+    // guesses all see "not locked yet" and all get checked.
+    const slot = await store.reserveAttempt(key, now);
+    if (!slot.allowed) {
+      const minutes = Math.ceil(slot.retryAfterSeconds / 60);
       return { ok: false, error: `Too many attempts. Try again in ${minutes} minute${minutes === 1 ? '' : 's'}.` };
     }
-    if (!(await verifyPassword(password, passwordHash))) {
-      await recordFailedLogin(store, key, now);
-      return { ok: false, error: 'Incorrect password.' };
-    }
+    if (!(await verifyPassword(password, passwordHash))) return { ok: false, error: 'Incorrect password.' };
     await recordSuccessfulLogin(store, key);
     return { ok: true, token: await createSessionToken(secret, now.getTime()) };
   } catch (error) {

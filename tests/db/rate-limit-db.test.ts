@@ -19,6 +19,26 @@ describe('prismaAttemptStore', () => {
     assert.equal((await checkLoginAllowed(store, 'ip-hash', now)).allowed, true);
   });
 
+  test('reserveAttempt hands out exactly MAX_FAILURES attempts to a burst of parallel requests', async () => {
+    const store = prismaAttemptStore();
+    const now = new Date();
+    const decisions = await Promise.all(Array.from({ length: 25 }, () => store.reserveAttempt('burst', now)));
+    assert.equal(decisions.filter((d) => d.allowed).length, MAX_FAILURES);
+    assert.equal(await getDb().loginAttempt.count({ where: { ipHash: 'burst' } }), MAX_FAILURES, 'refused attempts are not stored');
+    const refused = decisions.find((d) => !d.allowed);
+    assert.ok(refused && !refused.allowed && refused.retryAfterSeconds > 0);
+  });
+
+  test('reserveAttempt counts only its own key, and a success frees the key', async () => {
+    const store = prismaAttemptStore();
+    const now = new Date();
+    for (let i = 0; i < MAX_FAILURES; i++) assert.equal((await store.reserveAttempt('a', now)).allowed, true);
+    assert.equal((await store.reserveAttempt('a', now)).allowed, false);
+    assert.equal((await store.reserveAttempt('b', now)).allowed, true);
+    await recordSuccessfulLogin(store, 'a');
+    assert.equal((await store.reserveAttempt('a', now)).allowed, true);
+  });
+
   test('recording a failure prunes attempts older than a day', async () => {
     const db = getDb();
     const store = prismaAttemptStore();

@@ -32,7 +32,8 @@ test('a wrong password is refused with a generic message and counts as a failure
 
 test('the failures are stored under a hash of the IP, never the IP itself', async () => {
   const seen: string[] = [];
-  const spy: AttemptStore = { ...memoryAttemptStore(), recordFailure: async (key) => void seen.push(key) };
+  const inner = memoryAttemptStore();
+  const spy: AttemptStore = { ...inner, reserveAttempt: async (key, now) => { seen.push(key); return inner.reserveAttempt(key, now); } };
   const { input } = await setup({ password: 'wrong password!!', store: spy });
   await attemptLogin(input);
   assert.equal(seen.length, 1);
@@ -47,6 +48,15 @@ test('after the maximum failures even the CORRECT password is refused until the 
   assert.match(locked.ok === false ? locked.error : '', /Too many attempts\. Try again in 15 minutes\./);
   const later = await attemptLogin({ ...input, now: new Date(NOW.getTime() + 16 * 60 * 1000) });
   assert.equal(later.ok, true);
+});
+
+test('parallel wrong guesses cannot get past the lockout', async () => {
+  // The password check is slow, so every request in a burst starts before any of them has finished.
+  const { input } = await setup({ password: 'wrong password!!' });
+  const results = await Promise.all(Array.from({ length: 40 }, () => attemptLogin(input)));
+  const errors = results.map((r) => (r.ok ? 'signed in' : r.error));
+  assert.equal(errors.filter((e) => e === 'Incorrect password.').length, MAX_FAILURES, 'only the allowed number of guesses get a password check');
+  assert.equal(errors.filter((e) => e.startsWith('Too many attempts')).length, 40 - MAX_FAILURES);
 });
 
 test('a successful login clears earlier failures', async () => {
@@ -78,6 +88,7 @@ test('if the attempt store is down the login fails closed instead of skipping th
     failuresSince: async () => { throw new Error('connection refused'); },
     recordFailure: async () => { throw new Error('connection refused'); },
     clear: async () => { throw new Error('connection refused'); },
+    reserveAttempt: async () => { throw new Error('connection refused'); },
   };
   const { input } = await setup({ store: broken });
   const result = await attemptLogin(input);
