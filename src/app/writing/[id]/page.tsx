@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Chatbot from "@/components/Chatbot";
 import { getPublishedArticles } from "@/lib/content/articles";
 import { htmlToText, toDescription } from "@/lib/articles/text";
+import { jsonLd } from "@/lib/json-ld";
 import ArticlePage from "./ArticlePage";
 
 const SITE_URL = "https://www.spencerwozniak.com";
@@ -155,11 +156,11 @@ export default async function Page({
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(articleSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbSchema) }}
       />
       <ArticlePage
         article={article}
