@@ -8,8 +8,10 @@ import { FORMAT } from './state';
 
 export type MathRenderer = (tex: string, display: boolean) => string;
 
-const esc = (s: string) =>
-  s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+/** Text between tags only needs & < > escaped; quotes stay as typed so stored HTML reads like the writer's text. */
+const escText = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+/** Attribute values are quoted, so quotes must be escaped as well. */
+const esc = (s: string) => escText(s).replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
 /** Links may point to the web, to an email address, to an anchor, or to a page on this site. */
 export function safeLinkUrl(raw: unknown): string | null {
@@ -31,7 +33,7 @@ const isInline = (n: LexNode) => n.type === 'text' || n.type === 'linebreak' || 
 const dimension = (n: unknown) => (typeof n === 'number' && Number.isInteger(n) && n > 0 && n <= 20000 ? n : null);
 
 function formatText(text: string, format: number): string {
-  let html = esc(text);
+  let html = escText(text);
   if (format & FORMAT.code) html = `<code>${html}</code>`;
   if (format & FORMAT.bold) html = `<strong>${html}</strong>`;
   if (format & FORMAT.italic) html = `<em>${html}</em>`;

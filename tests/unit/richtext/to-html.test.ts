@@ -27,8 +27,9 @@ test('text formats nest in a fixed order', () => {
   assert.equal(html(paragraphNode([textNode('H', 0), textNode('2', FORMAT.subscript), textNode('s', FORMAT.strikethrough)])), '<p>H<sub>2</sub><s>s</s></p>');
 });
 
-test('all text is escaped, including quotes', () => {
-  assert.equal(html(paragraphNode([textNode(`<script>alert("x") & 'y'</script>`)])), '<p>&lt;script&gt;alert(&quot;x&quot;) &amp; &#39;y&#39;&lt;/script&gt;</p>');
+test('all text is escaped, but quotes stay as typed (only attribute values need them escaped)', () => {
+  assert.equal(html(paragraphNode([textNode(`<script>alert("x") & 'y'</script>`)])), `<p>&lt;script&gt;alert("x") &amp; 'y'&lt;/script&gt;</p>`);
+  assert.equal(html(paragraphNode([textNode(`"What does God give?" It's fine.`, FORMAT.bold)])), `<p><strong>"What does God give?" It's fine.</strong></p>`);
 });
 
 test('links: external ones open in a new tab, internal ones do not, and unsafe ones keep only their text', () => {
