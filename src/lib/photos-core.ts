@@ -1,5 +1,5 @@
 // Pure photo types and helpers. No imports, so this module is safe for
-// client components and runs directly under `node --experimental-strip-types`.
+// client components and the tsx-run tests and photo script.
 
 export type Photo = {
   id: string;
@@ -22,8 +22,6 @@ export type PhotosetRecord = {
 };
 
 export type Photoset = Omit<PhotosetRecord, 'cover' | 'photos'> & { cover: Photo; photos: Photo[] };
-
-export type PhotoGroup = { key: string; label: string; photos: Photo[] };
 
 const MONTHS = [
   'January', 'February', 'March', 'April', 'May', 'June',
@@ -98,27 +96,6 @@ export function formatPhotoDate(takenAt: string | null): string | null {
   return `${shortMonth(month)} ${Number(takenAt.slice(8, 10))}, ${year}`;
 }
 
-export function groupByMonth(photos: Photo[]): PhotoGroup[] {
-  const groups: PhotoGroup[] = [];
-  const undated: Photo[] = [];
-  for (const photo of sortNewestFirst(photos)) {
-    if (!photo.takenAt) {
-      undated.push(photo);
-      continue;
-    }
-    const key = photo.takenAt.slice(0, 7);
-    let group = groups[groups.length - 1];
-    if (!group || group.key !== key) {
-      const { year, month } = yearMonth(photo.takenAt);
-      group = { key, label: `${MONTHS[month]} ${year}`, photos: [] };
-      groups.push(group);
-    }
-    group.photos.push(photo);
-  }
-  if (undated.length) groups.push({ key: 'undated', label: 'Undated', photos: undated });
-  return groups;
-}
-
 export function stepIndex(index: number, step: number, total: number): number {
   return (((index + step) % total) + total) % total;
 }
@@ -133,4 +110,70 @@ export function mergePhotos(existing: Photo[], incoming: Photo[]): Photo[] {
     merged.push(photo);
   }
   return merged;
+}
+
+/** Date then camera, the same details the lightbox and grid hover show. */
+export function photoDetails(photo: Photo): string[] {
+  return [formatPhotoDate(photo.takenAt), photo.camera].filter((d): d is string => Boolean(d));
+}
+
+/**
+ * A length relative to the grid's container width: calc(<cqw>cqw + <px>px).
+ * Masonry positions are linear in the container width, so computing them in
+ * this form lets the server lay out the collage once and CSS scale it exactly.
+ */
+export type FluidLength = { cqw: number; px: number };
+
+export type MasonryTile = { top: FluidLength; left: FluidLength; height: FluidLength };
+
+export type MasonryLayout = {
+  columnWidth: FluidLength;
+  tiles: MasonryTile[];
+  /** Height of each non-empty column; the grid is as tall as the tallest. */
+  columnHeights: FluidLength[];
+};
+
+// Rounds away float noise and normalizes -0 so lengths compare and print cleanly.
+const tidy = (n: number) => Math.round(n * 1e6) / 1e6 + 0;
+const fluid = (cqw: number, px: number): FluidLength => ({ cqw: tidy(cqw), px: tidy(px) });
+const add = (a: FluidLength, b: FluidLength) => fluid(a.cqw + b.cqw, a.px + b.px);
+
+/**
+ * Masonry placement: each photo goes into the currently shortest column
+ * (leftmost on ties), so reading order stays left-to-right across the top.
+ * `referenceWidth` (px) only breaks near-ties between columns.
+ */
+export function masonryLayout(
+  photos: Pick<Photo, 'width' | 'height'>[],
+  columns: number,
+  gap: number,
+  referenceWidth = 1200
+): MasonryLayout {
+  const columnWidth = fluid(100 / columns, (-gap * (columns - 1)) / columns);
+  const bottoms: (FluidLength | null)[] = Array.from({ length: columns }, () => null);
+  const at = (len: FluidLength | null) => (len ? (len.cqw * referenceWidth) / 100 + len.px + gap : 0);
+
+  const tiles = photos.map((photo) => {
+    let column = 0;
+    for (let c = 1; c < columns; c++) if (at(bottoms[c]) < at(bottoms[column])) column = c;
+    const ratio = photo.width / photo.height;
+    const top = bottoms[column] ? add(bottoms[column]!, fluid(0, gap)) : fluid(0, 0);
+    const height = fluid(columnWidth.cqw / ratio, columnWidth.px / ratio);
+    bottoms[column] = add(top, height);
+    return { top, left: fluid((column * 100) / columns, (column * gap) / columns), height };
+  });
+
+  return { columnWidth, tiles, columnHeights: bottoms.filter((b): b is FluidLength => b !== null) };
+}
+
+const trim = (n: number) => Number(Math.abs(n).toFixed(4));
+
+export function fluidCss({ cqw, px }: FluidLength): string {
+  return `calc(${Number(cqw.toFixed(4))}cqw ${px < 0 ? '-' : '+'} ${trim(px)}px)`;
+}
+
+export function fluidMax(lengths: FluidLength[]): string {
+  if (!lengths.length) return '0px';
+  if (lengths.length === 1) return fluidCss(lengths[0]);
+  return `max(${lengths.map(fluidCss).join(', ')})`;
 }

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { MetaItems } from '@/components/ui';
 import { cx } from '@/lib/cx';
-import { formatPhotoDate, photoSrc, stepIndex, type Photo } from '@/lib/photos-core';
+import { photoDetails, photoSrc, stepIndex, type Photo } from '@/lib/photos-core';
 
 export type LightboxProps = {
   photos: Photo[];
@@ -19,7 +19,7 @@ const CONTROL =
 
 export function Lightbox({ photos, index, onChange }: LightboxProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
-  const touchX = useRef<number | null>(null);
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
   const isOpen = index !== null;
   const photo = index !== null ? photos[index] : null;
 
@@ -46,11 +46,23 @@ export function Lightbox({ photos, index, onChange }: LightboxProps) {
   const go = (step: number) => {
     if (index !== null) onChange(stepIndex(index, step, photos.length));
   };
+
+  // Listen on the document, not the dialog: Safari doesn't focus what you click,
+  // so after clicking the photo, key events may not reach the dialog.
+  useEffect(() => {
+    if (index === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') onChange(stepIndex(index, -1, photos.length));
+      if (e.key === 'ArrowRight') onChange(stepIndex(index, 1, photos.length));
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [index, photos.length, onChange]);
   const closeOnSelf = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) close();
   };
 
-  const details = photo ? [formatPhotoDate(photo.takenAt), photo.camera].filter(Boolean) : [];
+  const details = photo ? photoDetails(photo) : [];
 
   return (
     <dialog
@@ -58,18 +70,17 @@ export function Lightbox({ photos, index, onChange }: LightboxProps) {
       aria-label="Photo viewer"
       onClose={() => onChange(null)}
       onClick={closeOnSelf}
-      onKeyDown={(e) => {
-        if (e.key === 'ArrowLeft') go(-1);
-        if (e.key === 'ArrowRight') go(1);
-      }}
       onTouchStart={(e) => {
-        touchX.current = e.touches[0].clientX;
+        // Pinch-zoom (two fingers) must never flip the photo.
+        touchStart.current = e.touches.length === 1 ? { x: e.touches[0].clientX, y: e.touches[0].clientY } : null;
       }}
       onTouchEnd={(e) => {
-        if (touchX.current === null) return;
-        const dx = e.changedTouches[0].clientX - touchX.current;
-        touchX.current = null;
-        if (Math.abs(dx) > 50) go(dx < 0 ? 1 : -1);
+        const start = touchStart.current;
+        touchStart.current = null;
+        if (!start || e.touches.length > 0) return;
+        const dx = e.changedTouches[0].clientX - start.x;
+        const dy = e.changedTouches[0].clientY - start.y;
+        if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) go(dx < 0 ? 1 : -1);
       }}
       className="fixed inset-0 m-0 h-dvh max-h-none w-dvw max-w-none border-0 bg-black/95 p-0 text-white backdrop:bg-black/80"
     >
@@ -95,15 +106,17 @@ export function Lightbox({ photos, index, onChange }: LightboxProps) {
                 <ChevronLeft aria-hidden="true" />
               </button>
             )}
-            <div className="relative mx-2 h-full flex-1 sm:mx-20">
+            {/* The image box matches the photo, so clicks on the black around it close the viewer. */}
+            <div className="flex h-full min-w-0 flex-1 items-center justify-center px-2 sm:px-20" onClick={closeOnSelf}>
               <Image
                 key={photo.id}
                 src={photoSrc(photo)}
                 alt={photo.caption}
-                fill
+                width={photo.width}
+                height={photo.height}
                 priority
                 sizes="100vw"
-                className="object-contain"
+                className="h-auto max-h-full w-auto max-w-full object-contain"
               />
             </div>
             {photos.length > 1 && (

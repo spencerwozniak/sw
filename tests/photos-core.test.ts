@@ -9,9 +9,12 @@ import {
   resolvePhotoset,
   formatDateRange,
   formatPhotoDate,
-  groupByMonth,
   stepIndex,
   mergePhotos,
+  photoDetails,
+  masonryLayout,
+  fluidCss,
+  fluidMax,
   type Photo,
 } from '../src/lib/photos-core';
 
@@ -95,24 +98,6 @@ test('formatPhotoDate formats without timezone shifts', () => {
   assert.equal(formatPhotoDate(null), null);
 });
 
-test('groupByMonth groups newest first with Undated last', () => {
-  const groups = groupByMonth([
-    photo('u'),
-    photo('nov-a', '2024-11-30T12:00:00'),
-    photo('mar', '2025-03-02T12:00:00'),
-    photo('nov-b', '2024-11-01T12:00:00'),
-  ]);
-  assert.deepEqual(
-    groups.map((g) => [g.key, g.label, g.photos.map((p) => p.id)]),
-    [
-      ['2025-03', 'March 2025', ['mar']],
-      ['2024-11', 'November 2024', ['nov-a', 'nov-b']],
-      ['undated', 'Undated', ['u']],
-    ]
-  );
-  assert.deepEqual(groupByMonth([]), []);
-});
-
 test('stepIndex wraps in both directions', () => {
   assert.equal(stepIndex(0, -1, 5), 4);
   assert.equal(stepIndex(4, 1, 5), 0);
@@ -126,4 +111,54 @@ test('mergePhotos keeps existing entries (and captions) and appends only new ids
   const merged = mergePhotos(existing, incoming);
   assert.deepEqual(merged.map((p) => p.id), ['a', 'b']);
   assert.equal(merged[0].caption, 'Hand edited');
+});
+
+test('photoDetails lists date then camera, skipping missing values', () => {
+  assert.deepEqual(photoDetails(photo('a', '2025-03-20T19:01:28', { camera: 'iPhone 13' })), ['Mar 20, 2025', 'iPhone 13']);
+  assert.deepEqual(photoDetails(photo('b', null, { camera: 'iPhone XR' })), ['iPhone XR']);
+  assert.deepEqual(photoDetails(photo('c')), []);
+});
+
+test('masonryLayout stacks a single column with gaps', () => {
+  const layout = masonryLayout([photo('a', null, { width: 2, height: 1 }), photo('b', null, { width: 1, height: 1 })], 1, 4);
+  assert.deepEqual(layout.columnWidth, { cqw: 100, px: 0 });
+  assert.deepEqual(layout.tiles.map((t) => t.top), [{ cqw: 0, px: 0 }, { cqw: 50, px: 4 }]);
+  assert.deepEqual(layout.tiles.map((t) => t.height), [{ cqw: 50, px: 0 }, { cqw: 100, px: 0 }]);
+  assert.deepEqual(layout.columnHeights, [{ cqw: 150, px: 4 }]);
+});
+
+test('masonryLayout places each photo in the shortest column, leftmost on ties', () => {
+  const layout = masonryLayout(
+    [
+      photo('wide', null, { width: 2, height: 1 }),
+      photo('tall', null, { width: 1, height: 2 }),
+      photo('square', null, { width: 1, height: 1 }),
+    ],
+    2,
+    4
+  );
+  assert.deepEqual(layout.columnWidth, { cqw: 50, px: -2 });
+  assert.deepEqual(
+    layout.tiles.map((t) => [t.left, t.top, t.height]),
+    [
+      [{ cqw: 0, px: 0 }, { cqw: 0, px: 0 }, { cqw: 25, px: -1 }],
+      [{ cqw: 50, px: 2 }, { cqw: 0, px: 0 }, { cqw: 100, px: -4 }],
+      [{ cqw: 0, px: 0 }, { cqw: 25, px: 3 }, { cqw: 50, px: -2 }],
+    ]
+  );
+  assert.deepEqual(layout.columnHeights, [{ cqw: 75, px: 1 }, { cqw: 100, px: -4 }]);
+});
+
+test('masonryLayout skips empty columns in the heights', () => {
+  assert.deepEqual(masonryLayout([photo('a', null, { width: 1, height: 1 })], 3, 4).columnHeights.length, 1);
+  assert.deepEqual(masonryLayout([], 3, 4), { columnWidth: masonryLayout([], 3, 4).columnWidth, tiles: [], columnHeights: [] });
+});
+
+test('fluidCss and fluidMax format container-relative lengths', () => {
+  assert.equal(fluidCss({ cqw: 100 / 3, px: -8 / 3 }), 'calc(33.3333cqw - 2.6667px)');
+  assert.equal(fluidCss({ cqw: 50, px: 2 }), 'calc(50cqw + 2px)');
+  assert.equal(fluidCss({ cqw: 0, px: 0 }), 'calc(0cqw + 0px)');
+  assert.equal(fluidMax([]), '0px');
+  assert.equal(fluidMax([{ cqw: 75, px: 1 }]), 'calc(75cqw + 1px)');
+  assert.equal(fluidMax([{ cqw: 75, px: 1 }, { cqw: 100, px: -4 }]), 'max(calc(75cqw + 1px), calc(100cqw - 4px))');
 });
