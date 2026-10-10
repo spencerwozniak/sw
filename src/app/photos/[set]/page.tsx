@@ -16,12 +16,26 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const set = getPhotoset((await params).set);
   if (!set) return {};
+  const title = `${set.title} · Photos`;
+  const description = set.blurb ?? set.subtitle;
+  const image = photoSrc(set.cover);
   return {
-    title: `${set.title} · Photos`,
-    description: set.blurb ?? set.subtitle,
+    title,
+    description,
     alternates: { canonical: `/photos/${set.slug}` },
     openGraph: {
-      images: [{ url: photoSrc(set.cover), width: set.cover.width, height: set.cover.height, alt: set.cover.caption }],
+      type: 'website',
+      title,
+      description,
+      url: `/photos/${set.slug}`,
+      images: [{ url: image, width: set.cover.width, height: set.cover.height, alt: set.cover.caption }],
+    },
+    // Set explicitly: the layout's twitter card would otherwise win over the cover.
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [image],
     },
   };
 }
