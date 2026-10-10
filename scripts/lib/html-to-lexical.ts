@@ -157,3 +157,4 @@ export function htmlToLexical(html: string): LexState {
   blocks(body, out);
   return rootNode(out);
 }
+
