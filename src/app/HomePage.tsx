@@ -55,7 +55,7 @@ function ProjectMeta({ items }: { items: Array<string | undefined> }) {
 export default function HomePage({ projects, articles, projectCount, articleCount }: HomePageProps) {
   return (
     <Container as="main" width="text" className="pt-10 sm:pt-20">
-      <div className="mb-10 flex items-center justify-between gap-6 border-b border-border pb-8">
+      <div className="mb-8 flex items-center justify-between gap-6 border-b border-border pb-4">
         <Title as="h1" size="display" className="max-w-md text-[clamp(2.75rem,2rem+3vw,4rem)]!">
           Spencer Wozniak
         </Title>
