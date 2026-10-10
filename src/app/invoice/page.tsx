@@ -6,6 +6,7 @@ import { Container } from '@/components/ui';
 export const metadata = {
   ...rootMetadata,
   title: 'Invoice',
+  robots: { index: false, follow: false },
   openGraph: {
     ...rootMetadata.openGraph,
     title: 'Invoice',

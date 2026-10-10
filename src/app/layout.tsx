@@ -1,6 +1,7 @@
 // src/app/layout.tsx
 
 import "./globals.css";
+import type { Metadata } from "next";
 import { Lato, Lora } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { ThemeProvider } from "@/contexts/ThemeContext";
@@ -21,51 +22,84 @@ const lora = Lora({
   variable: "--font-heading",
 });
 
-export const metadata = {
-  title: "Spencer Wozniak | Thinker, Builder, Mentor.",
-  description: "Explore the work, writing, and worldview of Spencer Wozniak.",
+const SITE_URL = "https://www.spencerwozniak.com";
+const DESCRIPTION =
+  "Spencer Wozniak is a Catholic Christian and healthtech entrepreneur, co-founder and CTO of Serelora, building reliable, explainable software for healthcare.";
+const SAME_AS = [
+  "https://www.linkedin.com/in/spencerwozniak",
+  "https://github.com/spencerwozniak",
+  "https://x.com/WozniakSpencer",
+  "https://instagram.com/spencer.wozniak",
+  "https://scholar.google.com/citations?user=vBp7kzAAAAAJ&hl=en",
+];
+
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Spencer Wozniak",
+    template: "%s | Spencer Wozniak",
+  },
+  description: DESCRIPTION,
+  applicationName: "Spencer Wozniak",
   icons: {
     icon: "/sw-brand-logo.png",
     shortcut: "/sw-brand-logo.png",
     apple: "/sw-brand-logo.png",
   },
-  keywords: [
-    "Spencer Wozniak",
-    "web developer San Diego",
-    "MCAT tutor San Diego",
-    "STEM tutor",
-    "AI in healthcare",
-    "Catholic thinker",
-    "San Diego tutoring",
-    "philosophy and science",
-  ],
-  authors: [{ name: "Spencer Wozniak", url: "https://spencerwozniak.com" }],
+  authors: [{ name: "Spencer Wozniak", url: SITE_URL }],
   creator: "Spencer Wozniak",
-  metadataBase: new URL("https://spencerwozniak.com"),
   openGraph: {
     title: "Spencer Wozniak",
-    description: "Explore the work, writing, and worldview of Spencer Wozniak.",
-    url: "https://www.spencerwozniak.com",
+    description: DESCRIPTION,
+    url: SITE_URL,
     siteName: "Spencer Wozniak",
     images: [
       {
-        url: "https://www.spencerwozniak.com/sw-full-signature-white.png",
+        url: "/headshot-square.jpg",
         width: 1700,
         height: 1700,
         alt: "Spencer Wozniak",
       },
     ],
     locale: "en_US",
-    type: "website",
+    type: "profile",
   },
   twitter: {
-    card: "summary_large_image",
+    card: "summary",
     title: "Spencer Wozniak",
-    description: "Explore the work, writing, and worldview of Spencer Wozniak.",
-    site: "@spencerwozniak",
-    creator: "@spencerwozniak",
-    images: ["https://www.spencerwozniak.com/sw-full-signature-white.png"],
+    description: DESCRIPTION,
+    site: "@WozniakSpencer",
+    creator: "@WozniakSpencer",
+    images: ["/headshot-square.jpg"],
   },
+};
+
+// Person + WebSite: the WebSite name is what Google shows as the site name above the result.
+const SITE_JSON_LD = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": `${SITE_URL}/#person`,
+      name: "Spencer Wozniak",
+      url: SITE_URL,
+      image: `${SITE_URL}/headshot-square.jpg`,
+      description: DESCRIPTION,
+      jobTitle: "Co-Founder & CTO",
+      worksFor: { "@type": "Organization", name: "Serelora", url: "https://www.serelora.com" },
+      alumniOf: { "@type": "CollegeOrUniversity", name: "Michigan State University" },
+      sameAs: SAME_AS,
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: "Spencer Wozniak",
+      alternateName: "spencerwozniak.com",
+      publisher: { "@id": `${SITE_URL}/#person` },
+      inLanguage: "en-US",
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -82,57 +116,9 @@ export default function RootLayout({
             __html: `(function(){var r=document.documentElement,t=null;try{t=localStorage.getItem('theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}r.setAttribute('data-theme',t);r.style.colorScheme=t})();`,
           }}
         />
-        {/* JSON-LD Structured Data for Google Logo */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@graph": [
-                {
-                  "@type": "Organization",
-                  "@id": "https://www.spencerwozniak.com/#org",
-                  name: "Spencer Wozniak",
-                  url: "https://www.spencerwozniak.com",
-                  logo: {
-                    "@type": "ImageObject",
-                    url: "https://www.spencerwozniak.com/sw-brand-logo.png",
-                    width: 702,
-                    height: 702,
-                  },
-                  sameAs: [
-                    "https://www.linkedin.com/in/spencerwozniak",
-                    "https://x.com/WozniakSpencer",
-                    "https://scholar.google.com/citations?user=vBp7kzAAAAAJ&hl=en",
-                    "https://www.wozprep.org/",
-                  ],
-                },
-                {
-                  "@type": "Person",
-                  "@id": "https://www.spencerwozniak.com/#person",
-                  name: "Spencer Wozniak",
-                  url: "https://www.spencerwozniak.com",
-                  image:
-                    "https://www.spencerwozniak.com/sw-full-signature-white.png",
-                  affiliation: { "@id": "https://www.spencerwozniak.com/#org" },
-                  sameAs: [
-                    "https://www.linkedin.com/in/spencerwozniak",
-                    "https://x.com/WozniakSpencer",
-                    "https://scholar.google.com/citations?user=vBp7kzAAAAAJ&hl=en",
-                    "https://www.wozprep.org/",
-                  ],
-                },
-                {
-                  "@type": "WebSite",
-                  "@id": "https://www.spencerwozniak.com/#website",
-                  url: "https://www.spencerwozniak.com",
-                  name: "Spencer Wozniak",
-                  publisher: { "@id": "https://www.spencerwozniak.com/#org" },
-                  inLanguage: "en",
-                },
-              ],
-            }),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(SITE_JSON_LD).replace(/</g, "\\u003c") }}
         />
         <link
           href="https://assets.calendly.com/assets/external/widget.css"

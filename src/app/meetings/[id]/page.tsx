@@ -31,6 +31,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   return {
     title,
     description: m.description,
+    robots: { index: false, follow: false },
     openGraph: { title, description: m.description, type: "article" },
     twitter: { card: "summary", title, description: m.description },
   };

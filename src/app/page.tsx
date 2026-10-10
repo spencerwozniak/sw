@@ -4,6 +4,10 @@ import Chatbot from '@/components/Chatbot';
 import projects from '@/data/projects.json';
 import articles from '@/data/articles.json';
 
+export const metadata = {
+  alternates: { canonical: '/' },
+};
+
 const selectedProjects = projects.slice(0, 5).map((p) => ({
   href: `/work/projects/${p.slug}`,
   title: p.title,

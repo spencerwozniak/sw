@@ -5,6 +5,13 @@ import { ProjectCard, ProjectItem } from './_components/ProjectCard';
 import projectsData from '@/data/projects.json';
 import Resume from './resume';
 
+export const metadata = {
+  title: 'Work',
+  description:
+    'Projects, startups, research and resume of Spencer Wozniak, from agentic healthcare infrastructure at Serelora to FHIR tooling and freelance builds.',
+  alternates: { canonical: '/work' },
+};
+
 export default function MyWorkPage() {
   const projects = projectsData as ProjectItem[];
 

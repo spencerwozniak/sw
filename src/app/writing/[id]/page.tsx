@@ -18,6 +18,13 @@ interface Article {
 const SITE_URL = "https://www.spencerwozniak.com";
 const fullSiteUrl = SITE_URL.replace(/\/$/, "");
 
+/** First ~155 characters of the article's text, cut at a word boundary. */
+function toDescription(html: string): string {
+  const text = html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+  if (text.length <= 155) return text;
+  return `${text.slice(0, 155).replace(/\s+\S*$/, "")}…`;
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -30,10 +37,10 @@ export async function generateMetadata({
 
   const articleUrl = `${fullSiteUrl}/writing/${id}`;
   const fullTitle = `${article.title} | Spencer Wozniak`;
-  const description = `Read "${article.title}", an article published on ${article.date} by Spencer Wozniak.`;
+  const description = toDescription(article.contents);
 
   return {
-    title: fullTitle,
+    title: article.title,
     description,
     keywords: article.keywords || ["Spencer Wozniak", article.title],
     authors: [{ name: article.name, url: fullSiteUrl }],

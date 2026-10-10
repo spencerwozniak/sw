@@ -5,7 +5,14 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true, // ⛑️ bypass build-breaking TS error from Vercel
   },
   async redirects() {
-    return [{ source: '/gallery', destination: '/photos', permanent: true }];
+    // Retired routes Google may still have indexed; a permanent redirect hands their ranking to the replacement.
+    return [
+      { source: '/gallery', destination: '/photos', permanent: true },
+      { source: '/about', destination: '/', permanent: true },
+      { source: '/resume', destination: '/work', permanent: true },
+      { source: '/mcat', destination: '/', permanent: true },
+      { source: '/articles', destination: '/writing', permanent: true },
+    ];
   },
 };
 

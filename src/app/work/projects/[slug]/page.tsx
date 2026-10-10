@@ -34,12 +34,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     };
   }
 
-  const title = `${project.title} | Projects`;
+  const title = project.title;
   const description = project.subtitle || project.description || `${project.title} — featured project`;
 
   return {
     title,
     description,
+    alternates: { canonical: `/work/projects/${project.slug}` },
     openGraph: {
       type: 'website',
       title,

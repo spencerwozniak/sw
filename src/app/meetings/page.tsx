@@ -46,6 +46,7 @@ function formatDate(isoDate: string): string {
 export const metadata = {
   title: "Meetings",
   description: "Browse all meetings, newest first.",
+  robots: { index: false, follow: false },
 };
 
 export default function MeetingsPage() {
