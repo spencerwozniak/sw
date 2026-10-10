@@ -23,6 +23,8 @@ function refresh() {
   revalidatePath('/admin/inbox');
   revalidatePath('/admin/library');
   revalidateTag(MEDIA_TAG);
+  // The public photo pages show captions, places and what is published.
+  revalidatePath('/photos', 'layout');
 }
 
 export async function updateMediaAction(id: unknown, patch: Record<string, unknown>): Promise<ActionResult> {

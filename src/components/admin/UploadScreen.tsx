@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useReducer, useRef, useState } from 'react';
 import Link from 'next/link';
 import { Film, Upload, X } from 'lucide-react';
-import { Button, Dropzone, Input, Panel, Switch, useToast } from '@/components/ui';
+import { Button, Dropzone, Input, Panel, Select, Switch, useToast } from '@/components/ui';
 import { posterPath, videoPath } from '@/lib/blob-paths';
 import { hashBlob } from '@/lib/media/hash';
 import { createLimiter } from '@/lib/media/limiter';
@@ -11,15 +11,17 @@ import type { AdminMedia } from '@/lib/media/serialize';
 import { describeStatus, settleReady, summarize, uploadReducer, type UploadItem } from '@/lib/media/upload-queue';
 import { completeVideo, fileDateAsWallClock, processPhoto, readVideoInfo, registerFile, uploadFile } from '@/lib/media/upload-client';
 import { mimeFor, validateUpload } from '@/lib/media/validate';
+import { addToCollectionAction } from '@/app/admin/(authed)/collections/actions';
 import { setPublishedAction, updateMediaAction } from '@/app/admin/(authed)/media-actions';
 
 const UPLOADS_AT_ONCE = 3;
 const PROCESSING_AT_ONCE = 2;
 
-export function UploadScreen() {
+export function UploadScreen({ collections }: { collections: Array<{ id: string; title: string }> }) {
   const toast = useToast();
   const [items, dispatch] = useReducer(uploadReducer, []);
   const [publishNow, setPublishNow] = useState(false);
+  const [collectionId, setCollectionId] = useState('');
 
   // Files and preview URLs live outside React state: they are large and never rendered directly.
   const files = useRef(new Map<string, File>());
@@ -28,6 +30,8 @@ export function UploadScreen() {
   latestItems.current = items;
   const publishRef = useRef(false);
   publishRef.current = publishNow;
+  const collectionRef = useRef('');
+  collectionRef.current = collectionId;
   const limits = useRef({ upload: createLimiter(UPLOADS_AT_ONCE), process: createLimiter(PROCESSING_AT_ONCE) });
 
   const patch = useCallback((key: string, changes: Partial<UploadItem>) => dispatch({ type: 'patch', key, patch: changes }), []);
@@ -98,6 +102,10 @@ export function UploadScreen() {
           const published = await setPublishedAction([mediaId], true);
           if (!published.ok) toast(published.error, { tone: 'error' });
         }
+        if (collectionRef.current) {
+          const added = await addToCollectionAction(collectionRef.current, [mediaId]);
+          if (!added.ok) toast(added.error, { tone: 'error' });
+        }
       } catch (error) {
         toast(error instanceof Error ? error.message : 'Could not save the changes to this item.', { tone: 'error' });
       }
@@ -151,6 +159,14 @@ export function UploadScreen() {
       </Dropzone>
 
       <div className="grid gap-3 font-sans text-[0.875rem] text-muted">
+        {collections.length > 0 && (
+          <Select label="Add to collection" value={collectionId} onChange={(e) => setCollectionId(e.target.value)}>
+            <option value="">No collection</option>
+            {collections.map((c) => (
+              <option key={c.id} value={c.id}>{c.title}</option>
+            ))}
+          </Select>
+        )}
         <Switch checked={publishNow} onChange={setPublishNow} label="Publish immediately when ready" />
         <p className="m-0">Keep this page open while files upload. Without the switch above, everything arrives in the Inbox as a draft.</p>
         {hasVideo && (

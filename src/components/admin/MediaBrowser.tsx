@@ -1,17 +1,19 @@
 'use client';
 
 import { useCallback, useEffect, useState, useTransition } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Button, Checkbox, ConfirmDialog, Dialog, Field, Input, useToast } from '@/components/ui';
+import { Button, Checkbox, ConfirmDialog, Dialog, Field, Input, Select, useToast } from '@/components/ui';
 import type { MediaUsage } from '@/lib/media/repo';
 import type { AdminMedia } from '@/lib/media/serialize';
 import { bulkDateAction, bulkPlaceAction, deleteMediaAction, getUsageAction, setPublishedAction, type ActionResult } from '@/app/admin/(authed)/media-actions';
+import { addToCollectionAction } from '@/app/admin/(authed)/collections/actions';
 import { MediaDetail } from './MediaDetail';
 import { MediaTile } from './MediaTile';
 
-type Prompt = null | 'place' | 'date';
+type Prompt = null | 'place' | 'date' | 'collection';
 
-export function MediaBrowser({ items, emptyMessage }: { items: AdminMedia[]; emptyMessage: React.ReactNode }) {
+export function MediaBrowser({ items, collections, emptyMessage }: { items: AdminMedia[]; collections: Array<{ id: string; title: string }>; emptyMessage: React.ReactNode }) {
   const router = useRouter();
   const toast = useToast();
   const [pending, startTransition] = useTransition();
@@ -50,6 +52,10 @@ export function MediaBrowser({ items, emptyMessage }: { items: AdminMedia[]; emp
     setPromptValue('');
     if (kind === 'place') await run(() => bulkPlaceAction(ids, value), (r) => `Updated ${r.changed} item${r.changed === 1 ? '' : 's'}`);
     if (kind === 'date') await run(() => bulkDateAction(ids, value), (r) => `Updated ${r.changed} item${r.changed === 1 ? '' : 's'}`);
+    if (kind === 'collection') {
+      const name = collections.find((c) => c.id === value)?.title ?? 'the collection';
+      await run(() => addToCollectionAction(value, ids), (r) => (r.added === ids.length ? `Added ${r.added} to ${name}` : `Added ${r.added} to ${name} (${ids.length - r.added} were already there)`));
+    }
   };
 
   const open = items.find((m) => m.id === openId) ?? null;
@@ -78,6 +84,9 @@ export function MediaBrowser({ items, emptyMessage }: { items: AdminMedia[]; emp
             </Button>
             <Button size="sm" variant="outline" disabled={pending} onClick={() => setPrompt('date')}>
               Set date
+            </Button>
+            <Button size="sm" variant="outline" disabled={pending} onClick={() => setPrompt('collection')}>
+              Add to collection
             </Button>
             <Button size="sm" variant="outline" disabled={pending} onClick={() => askDelete(ids)}>
               Delete
@@ -111,18 +120,39 @@ export function MediaBrowser({ items, emptyMessage }: { items: AdminMedia[]; emp
       <Dialog
         open={prompt !== null}
         onClose={() => setPrompt(null)}
-        title={prompt === 'place' ? `Set the place for ${ids.length} item${ids.length === 1 ? '' : 's'}` : `Set the date for ${ids.length} item${ids.length === 1 ? '' : 's'}`}
-        description={prompt === 'place' ? 'Leave it empty to clear the place.' : 'Leave it empty to clear the date.'}
+        title={
+          prompt === 'collection'
+            ? `Add ${ids.length} item${ids.length === 1 ? '' : 's'} to a collection`
+            : prompt === 'place'
+              ? `Set the place for ${ids.length} item${ids.length === 1 ? '' : 's'}`
+              : `Set the date for ${ids.length} item${ids.length === 1 ? '' : 's'}`
+        }
+        description={prompt === 'collection' ? 'They are added to the end of its last photo grid. Nothing becomes public until both the collection and the items are published.' : prompt === 'place' ? 'Leave it empty to clear the place.' : 'Leave it empty to clear the date.'}
         actions={
           <>
             <Button variant="outline" onClick={() => setPrompt(null)}>Cancel</Button>
-            <Button variant="primary" onClick={confirmPrompt}>Apply</Button>
+            <Button variant="primary" onClick={confirmPrompt} disabled={prompt === 'collection' && !promptValue}>Apply</Button>
           </>
         }
       >
-        <Field label={prompt === 'place' ? 'Place' : 'Date'} htmlFor="bulk-value">
-          <Input id="bulk-value" label={prompt === 'place' ? 'Place' : 'Date'} type={prompt === 'date' ? 'date' : 'text'} value={promptValue} onChange={(e) => setPromptValue(e.target.value)} autoFocus />
-        </Field>
+        {prompt === 'collection' ? (
+          collections.length === 0 ? (
+            <p className="m-0 font-sans text-[0.9375rem] text-muted">There are no collections yet. <Link className="link" href="/admin/collections">Create one first</Link>.</p>
+          ) : (
+            <Field label="Collection" htmlFor="bulk-collection">
+              <Select id="bulk-collection" label="Collection" value={promptValue} onChange={(e) => setPromptValue(e.target.value)}>
+                <option value="">Choose a collection…</option>
+                {collections.map((c) => (
+                  <option key={c.id} value={c.id}>{c.title}</option>
+                ))}
+              </Select>
+            </Field>
+          )
+        ) : (
+          <Field label={prompt === 'place' ? 'Place' : 'Date'} htmlFor="bulk-value">
+            <Input id="bulk-value" label={prompt === 'place' ? 'Place' : 'Date'} type={prompt === 'date' ? 'date' : 'text'} value={promptValue} onChange={(e) => setPromptValue(e.target.value)} autoFocus />
+          </Field>
+        )}
       </Dialog>
 
       <ConfirmDialog
