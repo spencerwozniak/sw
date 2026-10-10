@@ -41,15 +41,22 @@ export function PhotosetCard({ set, featured = false }: { set: Photoset; feature
   );
 }
 
-/** First set spans the full width; the rest fill a two-column grid. */
+/**
+ * First set spans the full width; the rest fill a two-column grid. When that
+ * would leave the last card alone on its row, it spans the full width too.
+ */
 export function PhotosetGrid({ sets }: { sets: Photoset[] }) {
+  const lastIsOrphan = sets.length > 1 && (sets.length - 1) % 2 === 1;
   return (
     <ul className="m-0 grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-2 sm:gap-5">
-      {sets.map((set, i) => (
-        <li key={set.slug} className={i === 0 ? 'sm:col-span-2' : undefined}>
-          <PhotosetCard set={set} featured={i === 0} />
-        </li>
-      ))}
+      {sets.map((set, i) => {
+        const wide = i === 0 || (lastIsOrphan && i === sets.length - 1);
+        return (
+          <li key={set.slug} className={wide ? 'sm:col-span-2' : undefined}>
+            <PhotosetCard set={set} featured={wide} />
+          </li>
+        );
+      })}
     </ul>
   );
 }

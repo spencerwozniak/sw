@@ -7,18 +7,11 @@
     "photos": ["san-jacinto-peak-1", "san-jacinto-peak-2", "san-jacinto-peak-3", "suicide-rock", "hiking-in-mountains-sunset"]
   },
   {
-    "slug": "san-diego-coast",
-    "title": "San Diego Coast",
-    "subtitle": "La Jolla, Torrey Pines & Coronado",
-    "cover": "sunset-at-windansea-beach",
-    "photos": ["sunset-at-windansea-beach", "windansea-beach", "seals-at-la-jolla", "torrey-pines-beach-1", "torrey-pines-beach-2", "coronado-beach-1", "pacific-beach-at-night", "san-diego-bay-sunset"]
-  },
-  {
     "slug": "san-diego",
     "title": "San Diego",
-    "subtitle": "The city, day and night",
+    "subtitle": "The city and the coast, day and night",
     "cover": "downtown-sd-airplane-view",
-    "photos": ["downtown-sd-airplane-view", "downtown-sd-sunset", "downtown-sd-night-storm", "cowles-mountain-peak-at-night", "balboa-park-church", "chula-vista", "view-from-my-apartment", "hotel-churchill", "protest-in-downtown-sd", "flowers-and-sunset"]
+    "photos": ["downtown-sd-airplane-view", "downtown-sd-sunset", "downtown-sd-night-storm", "cowles-mountain-peak-at-night", "balboa-park-church", "chula-vista", "view-from-my-apartment", "hotel-churchill", "protest-in-downtown-sd", "flowers-and-sunset", "sunset-at-windansea-beach", "windansea-beach", "seals-at-la-jolla", "torrey-pines-beach-1", "torrey-pines-beach-2", "coronado-beach-1", "pacific-beach-at-night", "san-diego-bay-sunset"]
   },
   {
     "slug": "grand-haven",
