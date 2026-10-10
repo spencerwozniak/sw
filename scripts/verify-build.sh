@@ -64,7 +64,9 @@ case "${cmd}" in
     echo "Generating the Prisma client and building (about a minute)..."
     npx prisma generate >/dev/null
     NEXT_TELEMETRY_DISABLED=1 npx next build >build.log 2>&1 || { tail -40 build.log >&2; exit 1; }
-    nohup npx next start -p "${port}" >start.log 2>&1 &
+    # Loopback only: the build has a publicly documented admin password (see .env.verify), so it
+    # must not be reachable from other machines on the network.
+    nohup npx next start -p "${port}" -H 127.0.0.1 >start.log 2>&1 &
     for _ in $(seq 1 60); do curl -s -o /dev/null "http://localhost:${port}/admin/login" && break; sleep 1; done
     curl -s -o /dev/null "http://localhost:${port}/admin/login" || { tail -20 start.log >&2; exit 1; }
     echo "serving http://localhost:${port} from ${dir}"

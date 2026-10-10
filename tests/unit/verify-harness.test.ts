@@ -59,6 +59,9 @@ test('verify:start builds and serves without any variable from the shell leaking
     const calls = readFileSync(log, 'utf8').trim().split('\n');
     assert.ok(calls.some((c) => c.startsWith('next build')), 'the build ran');
     assert.ok(calls.some((c) => c.startsWith(`next start -p ${PORT}`)), 'the server started');
+    // The build accepts a publicly documented admin password, so it must listen on loopback only.
+    const startCall = calls.find((c) => c.startsWith('next start'))!;
+    assert.match(startCall.split('|')[0], / -H 127\.0\.0\.1$/, 'the server binds to 127.0.0.1 only');
     for (const call of calls) assert.match(call, /\|DATABASE_URL=unset\|BLOB_PUBLIC_TOKEN=unset$/, `the shell's variables must not reach: ${call}`);
     // With the shell's value gone, Next reads the test database from .env.local.
     assert.match(readFileSync(join(home, '.cache', `sw-verify-${PORT}`, '.env.local'), 'utf8'), /^DATABASE_URL=postgresql:\/\/postgres:postgres@127\.0\.0\.1:54329\/swtest$/m);
