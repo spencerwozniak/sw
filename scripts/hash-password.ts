@@ -32,8 +32,10 @@ async function main() {
   const first = await ask(`Admin password (at least ${MIN_PASSWORD_LENGTH} characters): `);
   const second = await ask('Repeat it: ');
   if (first !== second) throw new Error('The passwords do not match.');
+  // Hash first: a rejected password (too short, empty) must not be followed by instructions.
+  const hash = await hashPassword(first);
   console.log('\nAdd these to Vercel (Production and Preview) and to .env.local:\n');
-  console.log(`ADMIN_PASSWORD_HASH=${await hashPassword(first)}`);
+  console.log(`ADMIN_PASSWORD_HASH=${hash}`);
   console.log(`SESSION_SECRET=${randomBytes(32).toString('hex')}\n`);
   console.log('Rotating SESSION_SECRET signs everyone out. Keep both values private.');
   process.exit(0);
