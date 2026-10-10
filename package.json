@@ -22,9 +22,10 @@
     "verify:env": "tsx scripts/verify-env.ts",
     "verify:start": "scripts/verify-build.sh start",
     "verify:stop": "scripts/verify-build.sh stop",
-    "verify:admin": "env -u DATABASE_URL node --env-file=.env.verify scripts/browser/admin-auth.mjs && env -u DATABASE_URL node --env-file=.env.verify scripts/browser/admin-kit.mjs && env -u DATABASE_URL node --env-file=.env.verify scripts/browser/media-admin.mjs",
+    "verify:admin": "env -u DATABASE_URL node --env-file=.env.verify scripts/browser/admin-auth.mjs && env -u DATABASE_URL node --env-file=.env.verify scripts/browser/admin-kit.mjs && env -u DATABASE_URL node --env-file=.env.verify scripts/browser/media-admin.mjs && env -u DATABASE_URL node --env-file=.env.verify scripts/browser/media-upload-typing.mjs",
     "verify:media": "env -u DATABASE_URL node --env-file=.env.verify scripts/browser/media-admin.mjs",
     "media:check": "tsx --env-file=.env.local scripts/check-media-flow.ts",
+    "verify:typing": "env -u DATABASE_URL node --env-file=.env.verify scripts/browser/media-upload-typing.mjs",
     "verify:upload": "env -u DATABASE_URL -u BLOB_PUBLIC_TOKEN -u BLOB_PRIVATE_TOKEN node --env-file=.env.verify scripts/browser/media-upload-real.mjs"
   },
   "dependencies": {
