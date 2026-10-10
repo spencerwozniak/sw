@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Container, FadeIn, PageHeader, Section } from '@/components/ui';
+import { Container, FadeIn, Section } from '@/components/ui';
 import { getPhotos, getPhotosets } from '@/lib/photos';
 import { PhotostreamRow } from './_components/PhotostreamRow';
 import { PhotosetGrid } from './_components/PhotosetCard';
@@ -18,8 +18,8 @@ export default function PhotosPage() {
 
   return (
     <FadeIn>
-      <Container as="main" width="wide" className="pb-24">
-        <PageHeader title="Photos" subtitle="San Diego, Michigan and the places in between." />
+      <Container as="main" width="wide" className="pt-14 pb-24 sm:pt-20">
+        <h1 className="sr-only">Photos</h1>
         <PhotostreamRow photos={photos.slice(0, STREAM_PREVIEW)} />
         <Section size="lg" titleId="h-collections" title="Collections" count={sets.length}>
           <PhotosetGrid sets={sets} />
