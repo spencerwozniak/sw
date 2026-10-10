@@ -40,3 +40,17 @@ test('display-only TeX is fine as a block equation but refused inline, with the 
     assert.throws(() => renderBody(state), (e) => e instanceof InvalidRichTextError && /Equation 1 cannot be displayed: .*display/i.test(e.message), tex);
   }
 });
+
+test('content pasted from another document saves instead of failing the whole draft', () => {
+  const pasted = {
+    root: { type: 'root', version: 1, direction: null, format: '', indent: 0, children: [
+      { type: 'heading', version: 1, tag: 'h1', direction: null, format: '', indent: 0, children: [{ type: 'text', version: 1, text: 'Title', format: 0, detail: 0, mode: 'normal', style: '' }] },
+      { type: 'paragraph', version: 1, textFormat: 0, textStyle: '', direction: null, format: '', indent: 0, children: [
+        { type: 'text', version: 1, text: 'col1', format: 0, detail: 0, mode: 'normal', style: '' },
+        { type: 'tab', version: 1, text: '\t', format: 0, detail: 2, mode: 'normal', style: '' },
+        { type: 'link', version: 1, url: 'tel:+1555', target: null, rel: null, title: null, direction: null, format: '', indent: 0, children: [{ type: 'text', version: 1, text: 'call', format: 0, detail: 0, mode: 'normal', style: '' }] },
+      ] },
+    ] },
+  };
+  assert.equal(renderBody(pasted).html, '<h2>Title</h2><p>col1 call</p>');
+});
