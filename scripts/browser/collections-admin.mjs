@@ -241,6 +241,61 @@ results.previewLoadsTheKatexStylesheetToo = previewSheets.some((css) => css.incl
 await page.getByRole('link', { name: 'Back to editing' }).click();
 await page.getByRole('button', { name: 'Add photos and videos' }).first().waitFor();
 
+// --- Leaving with unsaved edits asks first (links inside the app never fire beforeunload) ------------------------------------------------
+const prompts = [];
+let agreeToLeave = false;
+const onDialog = (dialog) => {
+  prompts.push({ type: dialog.type(), message: dialog.message() });
+  return agreeToLeave ? dialog.accept() : dialog.dismiss();
+};
+page.on('dialog', onDialog);
+const editorUrl = page.url();
+await textbox.click();
+await page.keyboard.press('Control+End');
+await page.keyboard.type(' A sentence that is never saved.');
+await page.getByText('Unsaved changes').first().waitFor();
+await page.getByRole('link', { name: 'Preview' }).click();
+await wait(800);
+results.leavingLiveTextByPreviewAsks = prompts.length === 1 && prompts[0].type === 'confirm' && /not saved/.test(prompts[0].message);
+results.decliningStaysOnTheEditor = page.url() === editorUrl && (await textbox.innerText()).includes('A sentence that is never saved.');
+await page.getByRole('link', { name: 'Back to all collections' }).click();
+await wait(800);
+results.backLinkAsksToo = prompts.length === 2 && page.url() === editorUrl;
+await page.getByRole('navigation', { name: 'Admin' }).getByRole('link', { name: 'Library' }).click();
+await wait(800);
+results.adminNavigationAsksToo = prompts.length === 3 && page.url() === editorUrl;
+await page.getByRole('button', { name: 'Log out' }).click();
+await wait(800);
+results.logOutAsksToo = prompts.length === 4 && page.url() === editorUrl;
+// Unsaved details and unsaved text at once are still one question.
+await page.getByLabel('Subtitle').fill('Edited but never saved');
+await page.getByRole('link', { name: 'Back to all collections' }).click();
+await wait(800);
+results.textAndDetailsTogetherAskOnce = prompts.length === 5 && page.url() === editorUrl;
+agreeToLeave = true;
+await page.getByRole('link', { name: 'Back to all collections' }).click();
+await page.waitForURL(/\/admin\/collections$/);
+results.confirmingLeavesAndAsksOnce = prompts.length === 6;
+results.leavingDiscardedTheEdits =
+  !((await row(`SELECT "bodyHtml" AS html FROM "CollectionBlock" WHERE "collectionId" = $1 AND type = 'TEXT'`, [trips])).html ?? '').includes('never saved') &&
+  (await row(`SELECT subtitle FROM "Collection" WHERE id = $1`, [trips])).subtitle === 'Places I went';
+
+// Unsaved details alone ask too, and nothing asks once the page matches what is saved again.
+agreeToLeave = false;
+await page.goto(`${BASE}${editorPath(trips)}`);
+await textbox.waitFor();
+await page.getByLabel('Subtitle').fill('Places I went, edited');
+await page.getByRole('link', { name: 'Preview' }).click();
+await wait(800);
+results.unsavedDetailsAskBeforeLeaving = prompts.length === 7 && page.url().endsWith(editorPath(trips));
+await page.getByLabel('Subtitle').fill('Places I went');
+await page.getByRole('link', { name: 'Preview' }).click();
+await page.getByRole('heading', { name: `Big trips ${RUN}`, level: 1 }).waitFor();
+results.nothingAsksWhenNothingWouldBeLost = prompts.length === 7;
+page.off('dialog', onDialog);
+await page.goto(`${BASE}${editorPath(trips)}`);
+await textbox.waitFor();
+
 // --- Sub-collections and the parent rule ----------------------------------------------------------------------------------
 await page.getByRole('button', { name: 'Add sub-collection' }).click();
 await page.getByRole('dialog').getByLabel('Title').fill(`Italy ${RUN}`);

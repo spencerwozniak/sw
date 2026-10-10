@@ -8,10 +8,12 @@ import { Button, ConfirmDialog, IconButton, Panel, SortableList, StatusTag, useT
 import { RichTextEditor } from '@/components/editor/RichTextEditor';
 import type { EditableBlock } from '@/lib/collections/repo';
 import { createAutosave, type AutosaveStatus } from '@/lib/richtext/autosave';
+import { losesEditsOnLeave } from '@/lib/richtext/leave-guard';
 import { emptyState, type LexState } from '@/lib/richtext/state';
 import { thumbnailUrl, type AdminMedia } from '@/lib/media/serialize';
 import { addBlockAction, deleteBlockAction, reorderBlocksAction, saveTextBlockAction, setGridItemsAction } from '@/app/admin/(authed)/collections/actions';
 import { MediaPicker } from './MediaPicker';
+import { useLeaveGuard } from './useLeaveGuard';
 
 type Block = EditableBlock;
 
@@ -118,13 +120,9 @@ function TextBlock({ block, live }: { block: Extract<Block, { type: 'TEXT' }>; l
 
   // Leaving the page must not lose the last few seconds of typing in a draft.
   useEffect(() => () => void autosave.flush(), [autosave]);
-  useEffect(() => {
-    const warn = (e: BeforeUnloadEvent) => {
-      if (status === 'dirty' || status === 'saving' || status === 'error') e.preventDefault();
-    };
-    window.addEventListener('beforeunload', warn);
-    return () => window.removeEventListener('beforeunload', warn);
-  }, [status]);
+  // Closing the tab always asks while text is unsaved. Following a link inside the app asks only when nothing else will
+  // save it: after a failed save, or in a live collection, whose text is never autosaved.
+  useLeaveGuard({ tabClose: status === 'dirty' || status === 'saving' || status === 'error', inApp: losesEditsOnLeave(live, status) });
 
   // A live collection must not publish half-finished sentences, so only drafts autosave.
   const changed = (state: LexState) => {

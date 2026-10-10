@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -13,6 +13,7 @@ import { deleteCollectionAction, saveCollectionDetailsAction, setCollectionStatu
 import { CollectionBlocks } from './CollectionBlocks';
 import { MediaPicker } from './MediaPicker';
 import { NewCollectionDialog } from './NewCollectionDialog';
+import { useLeaveGuard } from './useLeaveGuard';
 
 type Details = { title: string; subtitle: string; slug: string; coverId: string | null };
 
@@ -37,13 +38,9 @@ export function CollectionEditor({ collection }: { collection: EditableCollectio
   const dirty = (Object.keys(current) as Array<keyof Details>).some((key) => current[key] !== savedDetails[key]);
   const slugChangedOnLive = live && slug !== savedDetails.slug;
 
-  useEffect(() => {
-    const warn = (e: BeforeUnloadEvent) => {
-      if (dirty) e.preventDefault();
-    };
-    window.addEventListener('beforeunload', warn);
-    return () => window.removeEventListener('beforeunload', warn);
-  }, [dirty]);
+  // The details are never autosaved, so leaving by any route (closing the tab, or a link inside the app such as Preview)
+  // would lose them.
+  useLeaveGuard({ tabClose: dirty, inApp: dirty });
 
   const persist = async (): Promise<boolean> => {
     const result = await saveCollectionDetailsAction(collection.id, current);
