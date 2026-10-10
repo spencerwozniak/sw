@@ -16,3 +16,8 @@ test('existing redirects are untouched', async () => {
   const sources = redirects.map((r) => r.source);
   for (const source of ['/gallery', '/about', '/resume', '/mcat', '/articles']) assert.ok(sources.includes(source), `${source} redirect must remain`);
 });
+
+test('the old split sitemap URL leads to the single sitemap', async () => {
+  const redirects = (await nextConfig.redirects?.()) ?? [];
+  assert.deepEqual(redirects.find((r) => r.source === '/sitemap-0.xml'), { source: '/sitemap-0.xml', destination: '/sitemap.xml', permanent: true });
+});
