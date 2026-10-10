@@ -123,7 +123,51 @@ should only be deleted once you are happy.
 
 To check the article image pipeline against your real public store: `npm run assets:check`.
 
-## 8. Tests that touch the database
+## 8. Collections and the public photo pages
+
+Collections are the pages under `/photos` (for example `/photos/san-diego`). Make them at `/admin/collections`:
+each has a title, subtitle, cover and a stack of **text blocks** and **photo grids**, and can contain
+sub-collections up to three levels deep. Drag the grip beside an item to reorder it (or focus the grip, press
+space, use the arrow keys, press space again). Moving a collection to a different parent is the arrow button.
+
+- A collection is on the site only when it **and every collection above it** are published. A photo shows in a
+  grid, and in All Photos, only when the photo itself is published too.
+- Changing a collection's URL name, or moving it, keeps the old address working: visitors are sent to the new one.
+- `all` cannot be used as a top-level URL name, because `/photos/all` is the All Photos page.
+- **Preview** (in the collection editor) shows the public page exactly as visitors would see it, with drafts included, so a collection can be checked before it is published. Only you can open it.
+- Photos can be added to a collection from the Upload screen, the Inbox and the Library, or from the collection itself.
+- Changes go live within seconds. Text in a published collection goes out when you press **Save text**;
+  adding, removing and reordering photos goes out immediately.
+- Place names shown on photo pages carry the "Place names © OpenStreetMap contributors" credit that the
+  OpenStreetMap licence requires.
+
+### Moving the existing photos into the database (once)
+
+The photos and collections that are currently stored in the repository (`src/data/photos.json`,
+`src/data/photosets.json`, `public/images/photos`) are moved to Blob and the database. Their original files are
+still in git history, so you need a **full clone** (not a shallow one). **Do this before deploying the version of
+the site that reads photos from the database**, otherwise `/photos` would be empty.
+
+```bash
+npm run photos:migrate                 # dry run: checks the originals and the data; writes nothing
+npm run photos:migrate -- --apply      # uploads about 230 MB and writes the database named in .env.local
+```
+
+`--apply` stores each original in the **private** store, makes the public copy (metadata removed) and the place
+name, publishes the photo with its old caption, then creates the six collections with their old covers and order,
+and finally checks that what the site will show matches the old files. It is safe to run again: photos already
+there are recognised by their content and skipped, and collections that exist are left alone. The old address
+`/photos/san-diego-coast` is kept as a redirect to `/photos/san-diego`. Afterwards, open `/photos`, `/photos/all`
+and each collection on the deployed site. Photos with no date appear last in All Photos, newest upload first.
+
+### Sitemap and robots.txt
+
+`/sitemap.xml` and `/robots.txt` are now generated from the database (`src/app/sitemap.ts`, `src/app/robots.ts`),
+so a new article or collection is listed within seconds and no redeploy is needed. The `next-sitemap` tool is gone.
+If an old local build left `public/sitemap.xml`, `public/sitemap-0.xml` or `public/robots.txt` in your checkout,
+delete them: they are generated files, and a `robots.txt` in `public` would clash with the new one.
+
+## 9. Tests that touch the database
 
 ```bash
 npm run db:test     # starts a throwaway Postgres on port 54329 and applies migrations (needs Docker)

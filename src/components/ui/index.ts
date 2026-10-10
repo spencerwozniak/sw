@@ -38,3 +38,4 @@ export * from './StatusTag';
 export * from './Dialog';
 export * from './Toast';
 export * from './Dropzone';
+export * from './SortableList';

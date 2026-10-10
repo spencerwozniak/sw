@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
 import { Button, Container, PageHeader } from '@/components/ui';
-import { getDb } from '@/lib/db';
+import { listCollectionLabels } from '@/lib/collections/repo';
 import { filtersToQuery, parseMediaFilters, type MediaScope } from '@/lib/media/filters';
 import { listMedia } from '@/lib/media/repo';
 import { toAdminMedia } from '@/lib/media/serialize';
@@ -19,7 +19,7 @@ export async function MediaScreen({ scope, title, subtitle, searchParams }: {
   const filters = parseMediaFilters(searchParams);
   const [{ items, total, pageCount }, collections] = await Promise.all([
     listMedia(filters, scope),
-    getDb().collection.findMany({ select: { id: true, title: true }, orderBy: { title: 'asc' } }),
+    listCollectionLabels(),
   ]);
   if (filters.page > pageCount) redirect(`${basePath}${filtersToQuery(filters, { page: pageCount })}`);
 
@@ -35,6 +35,7 @@ export async function MediaScreen({ scope, title, subtitle, searchParams }: {
       </p>
       <MediaBrowser
         items={items.map(toAdminMedia)}
+        collections={collections}
         emptyMessage={
           filtered ? (
             'Nothing matches these filters.'

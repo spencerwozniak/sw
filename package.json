@@ -5,7 +5,6 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "next lint",
     "test": "tsx --test \"tests/*.test.ts\" \"tests/unit/**/*.test.ts\"",
@@ -30,9 +29,15 @@
     "articles:migrate": "tsx --env-file=.env.local scripts/migrate-articles.ts",
     "articles:migrate:verify": "env -u DATABASE_URL tsx --env-file=.env.verify scripts/migrate-articles.ts --apply --throwaway",
     "verify:writing": "env -u DATABASE_URL node --env-file=.env.verify scripts/browser/writing-parity.mjs && env -u DATABASE_URL node --env-file=.env.verify scripts/browser/writing-admin.mjs",
-    "assets:check": "tsx --env-file=.env.local scripts/check-asset-flow.ts"
+    "assets:check": "tsx --env-file=.env.local scripts/check-asset-flow.ts",
+    "photos:migrate": "tsx --env-file=.env.local scripts/migrate-photos.ts",
+    "photos:migrate:verify": "env -u DATABASE_URL tsx --env-file=.env.verify scripts/migrate-photos-verify.ts",
+    "verify:photos": "env -u DATABASE_URL node --env-file=.env.verify scripts/browser/photos-parity.mjs && env -u DATABASE_URL node --env-file=.env.verify scripts/browser/collections-admin.mjs"
   },
   "dependencies": {
+    "@dnd-kit/core": "6.3.1",
+    "@dnd-kit/sortable": "10.0.0",
+    "@dnd-kit/utilities": "3.2.2",
     "@lexical/link": "0.41.0",
     "@lexical/list": "0.41.0",
     "@lexical/react": "0.41.0",
@@ -54,7 +59,6 @@
     "lexical": "0.41.0",
     "lucide-react": "^0.562.0",
     "next": "^15.5.12",
-    "next-sitemap": "^4.2.3",
     "nodemailer": "^7.0.2",
     "openai": "^4.100.0",
     "pg": "^8.23.1",

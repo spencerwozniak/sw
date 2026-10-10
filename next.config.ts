@@ -16,6 +16,8 @@ const nextConfig: NextConfig = {
       { source: '/resume', destination: '/work', permanent: true },
       { source: '/mcat', destination: '/', permanent: true },
       { source: '/articles', destination: '/writing', permanent: true },
+      // The sitemap used to be split across sitemap.xml and sitemap-0.xml; it is now a single sitemap.xml.
+      { source: '/sitemap-0.xml', destination: '/sitemap.xml', permanent: true },
     ];
   },
 };
