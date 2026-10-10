@@ -1,0 +1,33 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { mathError, renderMath } from '@/lib/richtext/math';
+
+test('renders display and inline math to HTML with a MathML copy for screen readers', () => {
+  const display = renderMath('p_{new} = 1 - (1 - p_1)(1 - p_2)', true);
+  assert.match(display, /katex-display/);
+  assert.match(display, /<math/);
+  assert.doesNotMatch(renderMath('x^2', false), /katex-display/);
+});
+
+test('accepts Unicode that a writer might paste, such as arrows', () => {
+  assert.doesNotThrow(() => renderMath('A → B', true));
+});
+
+test('invalid TeX throws instead of producing a red error span', () => {
+  assert.throws(() => renderMath('\\frac{1}{', true));
+  assert.throws(() => renderMath('\\notacommand{x}', false));
+});
+
+test('mathError gives a short message, or null when the TeX is fine', () => {
+  assert.equal(mathError('x^2'), null);
+  const message = mathError('\\frac{1}{');
+  assert.ok(message && message.length < 200 && !message.startsWith('KaTeX parse error'), message ?? '');
+});
+
+test('KaTeX neutralises untrusted commands: no links and no custom classes reach the output', () => {
+  const link = renderMath('\\href{javascript:alert(1)}{x}', false);
+  assert.doesNotMatch(link, /<a[\s>]/);
+  assert.doesNotMatch(link, /href=/); // the TeX source may appear as inert text in <annotation>, but never as a link
+  assert.doesNotMatch(renderMath('\\htmlClass{evil}{x}', false), /class="[^"]*\bevil\b/);
+  assert.doesNotMatch(renderMath('\\htmlData{x=1}{y}', false), /data-x/);
+});
