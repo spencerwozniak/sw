@@ -17,7 +17,8 @@ async function main() {
     const migrations = await client
       .query<{ migration_name: string }>('select migration_name from "_prisma_migrations" where finished_at is not null order by started_at')
       .catch(() => null);
-    if (!migrations) console.log('no migrations applied yet: run `npm run db:deploy`');
+    // db:deploy (prisma migrate deploy) reads DATABASE_URL from the shell, not from .env.local.
+    if (!migrations) console.log('no migrations applied yet: export this database\'s DATABASE_URL in your shell (db:deploy does not read .env.local), then run `npm run db:deploy`');
     else console.log(`${migrations.rowCount} migration(s) applied: ${migrations.rows.map((r) => r.migration_name).join(', ')}`);
   } finally {
     await client.end();
