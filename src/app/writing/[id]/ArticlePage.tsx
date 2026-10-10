@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import Image from "next/image";
-import renderMathInElement from "katex/contrib/auto-render";
+// Equations are rendered to HTML when an article is saved, so only the stylesheet is needed here.
 import "katex/dist/katex.min.css";
 import { Breadcrumb, Container, FadeIn, Frame, PageHeader, PrevNext, Prose } from "@/components/ui";
 import ShareButtons from "./_components/ShareButtons";
@@ -14,7 +13,7 @@ interface Article {
   date: string;
   name: string;
   contents: string;
-  image: [string, string];
+  image: string[];
   keywords?: string[];
 }
 
@@ -29,16 +28,6 @@ export default function ArticlePage({
   prevArticle,
   nextArticle,
 }: Props) {
-  const contentRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!contentRef.current) return;
-    renderMathInElement(contentRef.current, {
-      throwOnError: false,
-      errorColor: "var(--accent)",
-    });
-  }, [article.contents]);
-
   return (
     <FadeIn>
       <Container as="main" width="text">
@@ -83,10 +72,7 @@ export default function ArticlePage({
           )}
 
           <Prose size="lg">
-            <div
-              ref={contentRef}
-              dangerouslySetInnerHTML={{ __html: article.contents }}
-            />
+            <div dangerouslySetInnerHTML={{ __html: article.contents }} />
           </Prose>
           <div className="clear-both" />
         </article>

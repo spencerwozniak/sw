@@ -8,7 +8,6 @@ import { FiArrowUpRight } from 'react-icons/fi';
 import MenuButton from './MenuButton';
 import SocialIcons from './SocialIcons';
 import navigationData from '@/data/navigationData.json';
-import articles from '@/data/articles.json';
 import { cx } from '@/lib/cx';
 import { Signature, Button, IconButton, ThemeToggle, Title } from '@/components/ui';
 
@@ -29,11 +28,12 @@ const Navigation: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
 
-  const handleRandomEssay = () => {
-    const randomIndex = Math.floor(Math.random() * articles.length);
-    const randomArticle = articles[randomIndex];
-    if (randomArticle?.id) {
-      router.push(`/writing/${randomArticle.id}`);
+  const handleRandomEssay = async () => {
+    try {
+      const { slug } = (await (await fetch('/api/writing/random')).json()) as { slug: string | null };
+      router.push(slug ? `/writing/${slug}` : '/writing');
+    } catch {
+      router.push('/writing');
     }
   };
 
