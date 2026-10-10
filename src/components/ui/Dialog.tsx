@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
+import { cx } from '@/lib/cx';
 import { Button } from './Button';
 import { Title } from './Title';
 
@@ -12,10 +13,12 @@ export type DialogProps = {
   children?: React.ReactNode;
   /** Buttons shown at the bottom (right-aligned). */
   actions?: React.ReactNode;
+  /** `lg` is for dialogs that hold a form. */
+  size?: 'md' | 'lg';
 };
 
 /** A modal built on the native <dialog>: focus trapping, Esc to close and an inert page behind it come for free. */
-export function Dialog({ open, onClose, title, description, children, actions }: DialogProps) {
+export function Dialog({ open, onClose, title, description, children, actions, size = 'md' }: DialogProps) {
   const ref = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
@@ -33,7 +36,10 @@ export function Dialog({ open, onClose, title, description, children, actions }:
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
-      className="m-auto w-[calc(100%-2rem)] max-w-md rounded-ui border border-border bg-bg p-0 text-fg backdrop:bg-black/50"
+      className={cx(
+        'm-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] overflow-y-auto rounded-ui border border-border bg-bg p-0 text-fg backdrop:bg-black/50',
+        size === 'lg' ? 'max-w-2xl' : 'max-w-md'
+      )}
     >
       {open && (
         <div className="grid gap-4 p-5 sm:p-6">
