@@ -3,12 +3,13 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Play } from 'lucide-react';
 import { IconButton, Title } from '@/components/ui';
-import { photoSrc, type Photo } from '@/lib/photos-core';
+import { tileSrc } from '@/lib/content/media-format';
+import type { PublicMedia } from '@/lib/content/types';
 import { Lightbox } from './Lightbox';
 
-export function PhotostreamRow({ photos }: { photos: Photo[] }) {
+export function PhotostreamRow({ photos }: { photos: PublicMedia[] }) {
   const scrollerRef = useRef<HTMLUListElement>(null);
   const [edges, setEdges] = useState({ start: true, end: false });
   const [open, setOpen] = useState<number | null>(null);
@@ -65,17 +66,24 @@ export function PhotostreamRow({ photos }: { photos: Photo[] }) {
             <button
               type="button"
               onClick={() => setOpen(i)}
-              aria-label={`View ${photo.caption}`}
+              aria-label={`View ${photo.caption || photo.alt}`}
               className="group relative block h-36 cursor-zoom-in overflow-hidden rounded-ui bg-surface sm:h-48"
               style={{ aspectRatio: `${photo.width} / ${photo.height}` }}
             >
-              <Image
-                src={photoSrc(photo)}
-                alt={photo.caption}
-                fill
-                sizes="(max-width: 640px) 60vw, 24rem"
-                className="object-cover transition-transform duration-500 ease-ui group-hover:scale-[1.03]"
-              />
+              {tileSrc(photo) && (
+                <Image
+                  src={tileSrc(photo) as string}
+                  alt={photo.alt}
+                  fill
+                  sizes="(max-width: 640px) 60vw, 24rem"
+                  className="object-cover transition-transform duration-500 ease-ui group-hover:scale-[1.03]"
+                />
+              )}
+              {photo.kind === 'VIDEO' && (
+                <span className="pointer-events-none absolute bottom-2 left-2 inline-flex items-center gap-1 rounded-ui bg-black/70 px-1.5 py-0.5 font-sans text-[0.75rem] text-white">
+                  <Play aria-hidden="true" className="size-3" /> Video
+                </span>
+              )}
             </button>
           </li>
         ))}
