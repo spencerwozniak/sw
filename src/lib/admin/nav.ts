@@ -6,6 +6,7 @@ export const ADMIN_NAV: AdminNavItem[] = [
   { label: 'Upload', href: '/admin/upload' },
   { label: 'Inbox', href: '/admin/inbox' },
   { label: 'Library', href: '/admin/library' },
+  { label: 'Articles', href: '/admin/articles' },
 ];
 
 export function isNavActive(item: AdminNavItem, pathname: string): boolean {

@@ -1,29 +1,13 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Chatbot from "@/components/Chatbot";
-import articles from "@/data/articles.json";
+import { getPublishedArticles } from "@/lib/content/articles";
+import { htmlToText, toDescription } from "@/lib/articles/text";
+import { jsonLd } from "@/lib/json-ld";
 import ArticlePage from "./ArticlePage";
-
-interface Article {
-  id: string;
-  title: string;
-  topic: string;
-  date: string;
-  name: string;
-  contents: string;
-  image: [string, string];
-  keywords?: string[];
-}
 
 const SITE_URL = "https://www.spencerwozniak.com";
 const fullSiteUrl = SITE_URL.replace(/\/$/, "");
-
-/** First ~155 characters of the article's text, cut at a word boundary. */
-function toDescription(html: string): string {
-  const text = html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
-  if (text.length <= 155) return text;
-  return `${text.slice(0, 155).replace(/\s+\S*$/, "")}…`;
-}
 
 export async function generateMetadata({
   params,
@@ -31,7 +15,7 @@ export async function generateMetadata({
   params: Promise<{ id: string }>;
 }): Promise<Metadata> {
   const { id } = await params;
-  const article = (articles as unknown as Article[]).find((p) => p.id === id);
+  const article = (await getPublishedArticles()).find((p) => p.id === id);
 
   if (!article) return {};
 
@@ -65,8 +49,8 @@ export async function generateMetadata({
       url: articleUrl,
       siteName: "Spencer Wozniak",
       type: "article",
-      publishedTime: new Date(article.date).toISOString(),
-      modifiedTime: new Date(article.date).toISOString(),
+      publishedTime: article.isoDate,
+      modifiedTime: article.isoDate,
       authors: [article.name],
       tags: article.keywords || ["Spencer Wozniak"],
       images: [
@@ -86,8 +70,8 @@ export async function generateMetadata({
       images: [`https://www.spencerwozniak.com/sw-full-signature-white.png`],
     },
     other: {
-      "article:published_time": new Date(article.date).toISOString(),
-      "article:modified_time": new Date(article.date).toISOString(),
+      "article:published_time": article.isoDate,
+      "article:modified_time": article.isoDate,
       "article:author": "Spencer Wozniak",
       "article:section": "Article",
       "article:tag": "Spencer Wozniak",
@@ -96,8 +80,8 @@ export async function generateMetadata({
   };
 }
 
-export function generateStaticParams() {
-  return (articles as unknown as Article[]).map((article) => ({ id: article.id }));
+export async function generateStaticParams() {
+  return (await getPublishedArticles()).map((article) => ({ id: article.id }));
 }
 
 export default async function Page({
@@ -106,7 +90,7 @@ export default async function Page({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const articlesList = articles as unknown as Article[];
+  const articlesList = await getPublishedArticles();
   const article = articlesList.find((p) => p.id === id);
 
   if (!article) return notFound();
@@ -119,7 +103,7 @@ export default async function Page({
       : null;
 
   const articleUrl = `${fullSiteUrl}/writing/${id}`;
-  const contentText = article.contents.replace(/<[^>]+>/g, "").slice(0, 5000);
+  const contentText = htmlToText(article.contents).slice(0, 5000);
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -127,8 +111,8 @@ export default async function Page({
     headline: article.title,
     description: contentText.slice(0, 160),
     image: `${fullSiteUrl}/sw-full-signature-white.png`,
-    datePublished: new Date(article.date).toISOString(),
-    dateModified: new Date(article.date).toISOString(),
+    datePublished: article.isoDate,
+    dateModified: article.isoDate,
     author: {
       "@type": "Person",
       name: article.name,
@@ -172,11 +156,11 @@ export default async function Page({
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(articleSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbSchema) }}
       />
       <ArticlePage
         article={article}

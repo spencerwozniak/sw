@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import { chmodSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { chmodSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { assertThrowawayDatabase } from '../../scripts/browser/test-database.mjs';
@@ -81,4 +81,38 @@ test('verify:start refuses a .env.verify that does not point at the throwaway da
   } finally {
     rmSync(home, { recursive: true, force: true });
   }
+});
+
+// `node --env-file` and `tsx --env-file` never override a variable that is already exported, so a script that
+// loads .env.verify only gets the throwaway database if the shell's DATABASE_URL is dropped first. The owner runs
+// `npm run db:deploy` in a shell that exports the production URL.
+test('every npm script that loads .env.verify drops the shell\'s DATABASE_URL first', () => {
+  const scripts = JSON.parse(readFileSync('package.json', 'utf8')).scripts as Record<string, string>;
+  const verify = Object.entries(scripts).filter(([, command]) => command.includes('.env.verify'));
+  assert.ok(verify.length >= 6, 'the verify scripts were found');
+  for (const [name, command] of verify) {
+    // Scripts may chain commands with &&: every part that loads .env.verify must be unset first.
+    for (const part of command.split('&&').map((p) => p.trim()).filter((p) => p.includes('.env.verify'))) {
+      assert.match(part, /^env (-u [A-Z_]+ )*-u DATABASE_URL /, `${name}: "${part}" must start with env -u DATABASE_URL`);
+    }
+  }
+});
+
+test('the browser checks reach the database only through connectTestDb, which refuses anything but the throwaway one', () => {
+  const dir = join(process.cwd(), 'scripts/browser');
+  for (const file of readdirSync(dir).filter((f) => f.endsWith('.mjs') && f !== 'common.mjs' && f !== 'test-database.mjs')) {
+    const source = readFileSync(join(dir, file), 'utf8');
+    assert.doesNotMatch(source, /new pg\.Client|process\.env\.DATABASE_URL/, `${file} must use connectTestDb() from ./common.mjs`);
+  }
+});
+
+test('articles:migrate:verify refuses to write anywhere but the throwaway database, before it reads or converts anything', () => {
+  const result = spawnSync(join(process.cwd(), 'node_modules/.bin/tsx'), ['scripts/migrate-articles.ts', '--apply', '--throwaway'], {
+    encoding: 'utf8',
+    env: { ...process.env, DATABASE_URL: PRODUCTION_DB },
+  });
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /not the throwaway test database/);
+  assert.ok(!/hunter2|example\.com/.test(result.stderr + result.stdout), 'the URL is not printed');
+  assert.ok(!/ok\s+article/.test(result.stdout), 'nothing was converted');
 });
