@@ -3,7 +3,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Lato, Lora } from "next/font/google";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import { AnalyticsGate } from "@/components/AnalyticsGate";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 
 import ClientLayoutWrapper from "./ClientLayoutWrapper";
@@ -131,7 +131,7 @@ export default function RootLayout({
         </ThemeProvider>
       </body>
 
-      <GoogleAnalytics gaId="G-5YDYQ636NM" />
+      <AnalyticsGate gaId="G-5YDYQ636NM" />
     </html>
   );
 }

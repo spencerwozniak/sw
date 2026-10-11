@@ -77,7 +77,7 @@ export function resolvePhotoset(record: PhotosetRecord, byId: ReadonlyMap<string
   return { ...record, cover: lookup(record.cover), photos: record.photos.map(lookup) };
 }
 
-export function formatDateRange(photos: Photo[]): string | null {
+export function formatDateRange(photos: Pick<Photo, 'takenAt'>[]): string | null {
   const dates = photos
     .map((p) => p.takenAt)
     .filter((d): d is string => d !== null)

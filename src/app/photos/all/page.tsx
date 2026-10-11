@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import { Breadcrumb, Container, FadeIn } from '@/components/ui';
-import { getPhotos } from '@/lib/photos';
+import { getPhotosModel } from '@/lib/content/photos';
 import { PhotoCollage } from '../_components/PhotoCollage';
+import { PlaceNameCredit } from '../_components/PlaceNameCredit';
 
 export const metadata: Metadata = {
   title: 'All Photos',
@@ -9,8 +10,8 @@ export const metadata: Metadata = {
   alternates: { canonical: '/photos/all' },
 };
 
-export default function AllPhotosPage() {
-  const photos = getPhotos();
+export default async function AllPhotosPage() {
+  const photos = (await getPhotosModel()).allPhotos();
 
   return (
     <FadeIn>
@@ -21,6 +22,11 @@ export default function AllPhotosPage() {
           </div>
         </Container>
         <PhotoCollage photos={photos} />
+        {photos.some((m) => m.placeName) && (
+          <Container width="wide">
+            <PlaceNameCredit />
+          </Container>
+        )}
       </main>
     </FadeIn>
   );

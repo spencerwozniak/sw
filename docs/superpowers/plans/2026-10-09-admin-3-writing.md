@@ -4007,7 +4007,10 @@ export function htmlToLexical(html: string): LexState {
   blocks(body, out);
   return rootNode(out);
 }
+
 ```
+
+The file ends with one empty line after the closing brace (the code block above ends with that empty line too); keep it, because the verification compares this file byte for byte with the tested reference.
 
 Create `scripts/lib/legacy-articles.ts`:
 

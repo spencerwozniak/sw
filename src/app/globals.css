@@ -198,6 +198,7 @@
   .prose li::marker { color: var(--faint); font-family: var(--font-body), system-ui, sans-serif; }
   .prose ol > li::marker { font-variant-numeric: tabular-nums; font-size: .9em; }
   .prose li > ul, .prose li > ol { margin: .35em 0 .2em; }
+  .prose li.list-nested { list-style: none; } /* a nested list that starts its list has no text to mark */
   .prose strong, .prose b { font-weight: 700; }
   .prose u { text-decoration-line: underline; text-underline-offset: 3px; }
   .prose del { text-decoration: line-through; color: var(--muted); }

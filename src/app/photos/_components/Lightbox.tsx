@@ -5,11 +5,13 @@ import Image from 'next/image';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { MetaItems } from '@/components/ui';
 import { cx } from '@/lib/cx';
-import { photoDetails, photoSrc, stepIndex, type Photo } from '@/lib/photos-core';
+import { mediaDetails } from '@/lib/content/media-format';
+import type { PublicMedia } from '@/lib/content/types';
+import { stepIndex } from '@/lib/photos-core';
 
 export type LightboxProps = {
-  photos: Photo[];
-  /** Index of the open photo, or null when closed. */
+  photos: PublicMedia[];
+  /** Index of the open item, or null when closed. */
   index: number | null;
   onChange: (index: number | null) => void;
 };
@@ -52,6 +54,8 @@ export function Lightbox({ photos, index, onChange }: LightboxProps) {
   useEffect(() => {
     if (index === null) return;
     const onKey = (e: KeyboardEvent) => {
+      // The arrow keys belong to a playing video's own controls (seeking).
+      if ((e.target as HTMLElement | null)?.tagName === 'VIDEO') return;
       if (e.key === 'ArrowLeft') onChange(stepIndex(index, -1, photos.length));
       if (e.key === 'ArrowRight') onChange(stepIndex(index, 1, photos.length));
     };
@@ -62,12 +66,12 @@ export function Lightbox({ photos, index, onChange }: LightboxProps) {
     if (e.target === e.currentTarget) close();
   };
 
-  const details = photo ? photoDetails(photo) : [];
+  const details = photo ? mediaDetails(photo) : [];
 
   return (
     <dialog
       ref={dialogRef}
-      aria-label="Photo viewer"
+      aria-label="Photo and video viewer"
       onClose={() => onChange(null)}
       onClick={closeOnSelf}
       onTouchStart={(e) => {
@@ -99,7 +103,7 @@ export function Lightbox({ photos, index, onChange }: LightboxProps) {
             {photos.length > 1 && (
               <button
                 type="button"
-                aria-label="Previous photo"
+                aria-label="Previous"
                 onClick={() => go(-1)}
                 className={cx(CONTROL, 'absolute left-2 z-10 bg-black/30 sm:left-4')}
               >
@@ -108,21 +112,34 @@ export function Lightbox({ photos, index, onChange }: LightboxProps) {
             )}
             {/* The image box matches the photo, so clicks on the black around it close the viewer. */}
             <div className="flex h-full min-w-0 flex-1 items-center justify-center px-2 sm:px-20" onClick={closeOnSelf}>
-              <Image
-                key={photo.id}
-                src={photoSrc(photo)}
-                alt={photo.caption}
-                width={photo.width}
-                height={photo.height}
-                priority
-                sizes="100vw"
-                className="h-auto max-h-full w-auto max-w-full object-contain"
-              />
+              {photo.kind === 'VIDEO' ? (
+                <video
+                  key={photo.id}
+                  src={photo.src}
+                  poster={photo.posterSrc ?? undefined}
+                  controls
+                  playsInline
+                  preload="metadata"
+                  aria-label={photo.alt}
+                  className="h-auto max-h-full w-auto max-w-full"
+                />
+              ) : (
+                <Image
+                  key={photo.id}
+                  src={photo.src}
+                  alt={photo.alt}
+                  width={photo.width}
+                  height={photo.height}
+                  priority
+                  sizes="100vw"
+                  className="h-auto max-h-full w-auto max-w-full object-contain"
+                />
+              )}
             </div>
             {photos.length > 1 && (
               <button
                 type="button"
-                aria-label="Next photo"
+                aria-label="Next"
                 onClick={() => go(1)}
                 className={cx(CONTROL, 'absolute right-2 z-10 bg-black/30 sm:right-4')}
               >
@@ -132,7 +149,7 @@ export function Lightbox({ photos, index, onChange }: LightboxProps) {
           </div>
 
           <div className="px-4 pt-3 pb-5 text-center sm:px-6 sm:pb-7" onClick={closeOnSelf}>
-            <p className="font-serif text-lg leading-snug text-white">{photo.caption}</p>
+            {photo.caption && <p className="font-serif text-lg leading-snug text-white">{photo.caption}</p>}
             {details.length > 0 && (
               <p className="mt-1 font-sans text-[0.8125rem] text-white/60 tabular-nums">
                 <MetaItems items={details} />
