@@ -31,12 +31,16 @@ export function MediaBrowser({ items, collections, emptyMessage }: { items: Admi
   const ids = [...selected];
   const refresh = useCallback(() => startTransition(() => router.refresh()), [router]);
 
+  // The selection survives a successful action so several can be applied to the same items in a row.
   const run = async <T extends object>(work: () => Promise<ActionResult<T>>, message: (result: T) => string) => {
     const result = await work();
-    if (!result.ok) return toast(result.error, { tone: 'error' });
+    if (!result.ok) {
+      toast(result.error, { tone: 'error' });
+      return false;
+    }
     toast(message(result));
-    setSelected(new Set());
     refresh();
+    return true;
   };
 
   const askDelete = async (target: string[]) => {
@@ -90,6 +94,9 @@ export function MediaBrowser({ items, collections, emptyMessage }: { items: Admi
             </Button>
             <Button size="sm" variant="outline" disabled={pending} onClick={() => askDelete(ids)}>
               Delete
+            </Button>
+            <Button size="sm" variant="ghost" onClick={() => setSelected(new Set())}>
+              Clear selection
             </Button>
           </div>
         )}
@@ -169,7 +176,10 @@ export function MediaBrowser({ items, collections, emptyMessage }: { items: Admi
         onConfirm={async () => {
           const target = deleting;
           setDeleting(null);
-          if (target) await run(() => deleteMediaAction(target.ids), (r) => `Deleted ${r.deleted}${r.filesNotDeleted ? ` (${r.filesNotDeleted} files could not be removed from storage)` : ''}`);
+          if (!target) return;
+          const deleted = await run(() => deleteMediaAction(target.ids), (r) => `Deleted ${r.deleted}${r.filesNotDeleted ? ` (${r.filesNotDeleted} files could not be removed from storage)` : ''}`);
+          // Deleted items are gone, so drop them from the selection and keep the rest.
+          if (deleted) setSelected((current) => new Set([...current].filter((id) => !target.ids.includes(id))));
         }}
       />
     </div>

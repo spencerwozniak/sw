@@ -89,6 +89,8 @@ results.publishedInDb = (await row(`SELECT count(*)::int AS n FROM "Media" WHERE
 
 // Publishing something that is not processed yet is skipped, and says so.
 await page.getByLabel('Select Broken upload').check();
+// The two published items left the Inbox, so they also left the selection: only this one is selected.
+results.publishedLeaveSelection = (await page.getByText('1 selected').count()) === 1;
 await page.getByRole('button', { name: 'Publish', exact: true }).click();
 await toast('not ready yet').waitFor();
 results.unprocessedNotPublished = (await row(`SELECT status FROM "Media" WHERE id = $1`, [failed])).status === 'DRAFT';
@@ -155,12 +157,22 @@ await page.getByRole('dialog').getByLabel('Place', { exact: true }).fill('Testvi
 await page.getByRole('dialog').getByRole('button', { name: 'Apply' }).click();
 await toast('Updated 2 items').waitFor();
 results.bulkPlace = (await row(`SELECT count(*)::int AS n FROM "Media" WHERE "placeName" = 'Testville'`)).n === 2;
-await page.getByLabel('Select Extra 01').check();
+// The selection survives the action, so another one can be applied without selecting again.
+await page.waitForLoadState('networkidle');
+results.selectionSurvivesAction =
+  (await page.getByText('2 selected').count()) === 1 &&
+  (await page.getByLabel('Select Extra 01').isChecked()) &&
+  (await page.getByLabel('Select Extra 02').isChecked());
+await page.getByLabel('Select Extra 02').uncheck();
 await page.getByRole('button', { name: 'Set date' }).click();
 await page.getByRole('dialog').getByLabel('Date', { exact: true }).fill('2025-05-05');
 await page.getByRole('dialog').getByRole('button', { name: 'Apply' }).click();
 await toast('Updated 1 item').waitFor();
 results.bulkDate = (await row(`SELECT to_char("takenAt", 'YYYY-MM-DD"T"HH24:MI:SS') AS taken FROM "Media" WHERE caption = 'Extra 01'`)).taken === '2025-05-05T00:00:00';
+await page.getByRole('button', { name: 'Clear selection' }).click();
+results.clearSelection =
+  (await page.getByText('Select all on this page').count()) === 1 &&
+  (await page.getByRole('group', { name: 'Actions for the selected items' }).count()) === 0;
 
 // --- Delete: asks first, and says where the item is used ------------------------------------------------
 await page.goto(`${BASE}/admin/library?q=dusk`);
@@ -175,6 +187,40 @@ await page.getByRole('button', { name: 'Delete', exact: true }).click();
 await page.getByRole('dialog').getByRole('button', { name: 'Delete', exact: true }).click();
 await toast('Deleted 1').waitFor();
 results.deleteRemovesRowAndGridEntry = (await row(`SELECT count(*)::int AS n FROM "Media" WHERE id = $1`, [desert])).n === 0 && (await row(`SELECT count(*)::int AS n FROM "CollectionBlockMedia"`)).n === 0;
+
+// --- Library: several bulk actions in a row on the same selection ---------------------------------------
+await page.goto(`${BASE}/admin/library?q=Extra 0`);
+await page.getByLabel('Select Extra 08').check();
+await page.getByLabel('Select Extra 09').check();
+await page.getByRole('button', { name: 'Add to collection' }).click();
+await page.getByRole('dialog').getByLabel('Collection', { exact: true }).selectOption({ label: 'Arizona' });
+await page.getByRole('dialog').getByRole('button', { name: 'Apply' }).click();
+await toast('Added 2 to Arizona').waitFor();
+await page.getByRole('button', { name: 'Publish', exact: true }).click();
+await toast('Published 2').waitFor();
+await page.waitForLoadState('networkidle');
+results.chainedActionsKeepSelection =
+  (await page.getByText('2 selected').count()) === 1 &&
+  (await page.getByLabel('Select Extra 08').isChecked()) &&
+  (await page.getByLabel('Select Extra 09').isChecked());
+results.chainedActionsApplied =
+  (await row(`SELECT count(*)::int AS n FROM "CollectionBlockMedia" cbm JOIN "Media" m ON m.id = cbm."mediaId" WHERE m.caption IN ('Extra 08','Extra 09')`)).n === 2 &&
+  (await row(`SELECT count(*)::int AS n FROM "Media" WHERE caption IN ('Extra 08','Extra 09') AND status = 'PUBLISHED'`)).n === 2;
+// Deleting one item from its detail panel leaves the rest of the selection alone.
+await page.getByLabel('Select Extra 08').uncheck();
+await page.getByRole('button', { name: 'Open Extra 08' }).click();
+await page.getByRole('dialog').getByRole('button', { name: 'Delete', exact: true }).click();
+await page.getByRole('dialog').getByRole('button', { name: 'Delete', exact: true }).click();
+await toast('Deleted 1').waitFor();
+await page.getByText('Extra 08').waitFor({ state: 'detached' });
+results.deleteKeepsOthersSelected =
+  (await page.getByText('1 selected').count()) === 1 && (await page.getByLabel('Select Extra 09').isChecked());
+// Deleting the selected items themselves empties the selection.
+await page.getByRole('button', { name: 'Delete', exact: true }).first().click();
+await page.getByRole('dialog').getByRole('button', { name: 'Delete', exact: true }).click();
+await toast('Deleted 1').waitFor();
+await page.getByText('Extra 09').waitFor({ state: 'detached' });
+results.deletedLeaveSelection = (await page.getByText('Select all on this page').count()) === 1;
 
 // --- Upload screen ---------------------------------------------------------------------------------------
 await page.goto(`${BASE}/admin/upload`);
