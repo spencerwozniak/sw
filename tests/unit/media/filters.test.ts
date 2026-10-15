@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { PAGE_SIZE, filtersToQuery, mediaOrderBy, mediaWhere, parseMediaFilters } from '@/lib/media/filters';
+import { NO_COLLECTION, PAGE_SIZE, filtersToQuery, mediaOrderBy, mediaWhere, parseMediaFilters } from '@/lib/media/filters';
 
 test('parseMediaFilters keeps valid values and drops everything else', () => {
   assert.deepEqual(parseMediaFilters({}), { page: 1 });
@@ -42,6 +42,12 @@ test('kind, search, missing fields and collection combine with AND', () => {
     { gridItems: { some: { block: { collectionId: 'c1' } } } },
   ]);
   assert.deepEqual(mediaWhere({ page: 1, missing: 'caption' }, 'library').AND, [{ caption: '' }]);
+});
+
+test('the "no collection" choice keeps only items that sit in no collection, and survives a round trip through the URL', () => {
+  assert.deepEqual(mediaWhere({ page: 1, collection: NO_COLLECTION }, 'library').AND, [{ gridItems: { none: {} } }]);
+  assert.deepEqual(parseMediaFilters({ collection: NO_COLLECTION }), { page: 1, collection: NO_COLLECTION });
+  assert.equal(filtersToQuery({ page: 1, collection: NO_COLLECTION }), `?collection=${NO_COLLECTION}`);
 });
 
 test('ordering: the inbox shows the newest uploads first; the library shows the newest photos first, undated last', () => {

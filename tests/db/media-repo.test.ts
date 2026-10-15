@@ -5,7 +5,7 @@ import {
   bulkUpdate, completeVideo, deleteMedia, getMedia, getUsage, listMedia, listStale, markFailed, markPendingFailed, markPhotoReady,
   registerMedia, setPublished, updateMedia,
 } from '@/lib/media/repo';
-import { PAGE_SIZE } from '@/lib/media/filters';
+import { NO_COLLECTION, PAGE_SIZE } from '@/lib/media/filters';
 import { assertTestDatabase, resetDb, uniqueHash } from './helpers';
 
 const photo = (overrides: Partial<Parameters<typeof registerMedia>[0]> = {}) =>
@@ -143,6 +143,17 @@ describe('media repository', () => {
 
     assert.deepEqual((await listMedia({ page: 1, state: 'published' }, 'library')).items.map((m) => m.id), [newer]);
     assert.deepEqual((await listMedia({ page: 1, q: 'nowh' }, 'library')).items.map((m) => m.id), [undated]);
+  });
+
+  test('listMedia can filter to one collection, or to items in no collection', async () => {
+    const inCollection = await readyPhoto({ placeName: 'In' });
+    const loose = await readyPhoto({ placeName: 'Loose' });
+    const collection = await getDb().collection.create({ data: { slug: 'japan', title: 'Japan', position: 0 } });
+    const block = await getDb().collectionBlock.create({ data: { collectionId: collection.id, position: 0, type: 'GRID' } });
+    await getDb().collectionBlockMedia.create({ data: { blockId: block.id, mediaId: inCollection, position: 0 } });
+
+    assert.deepEqual((await listMedia({ page: 1, collection: collection.id }, 'library')).items.map((m) => m.id), [inCollection]);
+    assert.deepEqual((await listMedia({ page: 1, collection: NO_COLLECTION }, 'library')).items.map((m) => m.id), [loose]);
   });
 
   test('listMedia pages through more than one page', async () => {

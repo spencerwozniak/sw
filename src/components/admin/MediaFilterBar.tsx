@@ -1,5 +1,5 @@
 import { Button, Input, Select } from '@/components/ui';
-import type { MediaFilters, MediaScope } from '@/lib/media/filters';
+import { NO_COLLECTION, type MediaFilters, type MediaScope } from '@/lib/media/filters';
 
 /** A plain GET form: filters live in the URL, so they survive refresh and can be bookmarked. */
 export function MediaFilterBar({ scope, filters, collections, action }: {
@@ -31,6 +31,7 @@ export function MediaFilterBar({ scope, filters, collections, action }: {
       {collections.length > 0 ? (
         <Select label="Collection" name="collection" defaultValue={filters.collection ?? ''}>
           <option value="">Any collection</option>
+          <option value={NO_COLLECTION}>No collection</option>
           {collections.map((c) => (
             <option key={c.id} value={c.id}>{c.title}</option>
           ))}

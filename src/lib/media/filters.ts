@@ -3,6 +3,9 @@ import type { Prisma } from '@/generated/prisma/client';
 export const PAGE_SIZE = 48;
 const MAX_PAGE = 1000;
 
+/** The `collection` filter value for items that are in no collection. Collection ids are cuids, so it can't clash with one. */
+export const NO_COLLECTION = 'none';
+
 export type MediaState = 'draft' | 'published' | 'processing' | 'failed';
 export type MediaScope = 'inbox' | 'library';
 export type MediaFilters = {
@@ -48,7 +51,8 @@ export function mediaWhere(filters: MediaFilters, scope: MediaScope): Prisma.Med
   }
   if (filters.missing === 'place') and.push({ OR: [{ placeName: null }, { placeName: '' }] });
   if (filters.missing === 'caption') and.push({ caption: '' });
-  if (filters.collection) and.push({ gridItems: { some: { block: { collectionId: filters.collection } } } });
+  if (filters.collection === NO_COLLECTION) and.push({ gridItems: { none: {} } });
+  else if (filters.collection) and.push({ gridItems: { some: { block: { collectionId: filters.collection } } } });
   return { AND: and };
 }
 
