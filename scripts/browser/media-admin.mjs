@@ -111,6 +111,8 @@ await dialog.getByLabel('Alt text').fill('A long straight road through red rock'
 await page.screenshot({ path: `${SHOTS}/media-detail.png` });
 await dialog.getByRole('button', { name: 'Save' }).click();
 await toast('Saved').waitFor();
+await dialog.waitFor({ state: 'hidden' });
+results.saveClosesDialog = (await page.getByRole('dialog').count()) === 0;
 // to_char keeps the stored wall-clock time as is; node-postgres would shift a `timestamp` into the machine's timezone.
 const saved = await row(`SELECT caption, "placeName", "altText", to_char("takenAt", 'YYYY-MM-DD"T"HH24:MI:SS') AS taken FROM "Media" WHERE id = $1`, [desert]);
 results.detailSaves = saved.caption === 'Desert road at dusk' && saved.placeName === 'Sedona' && saved.altText.startsWith('A long straight road');

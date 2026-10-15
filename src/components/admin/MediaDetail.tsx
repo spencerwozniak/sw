@@ -38,24 +38,28 @@ export function MediaDetail({ media, onClose, onChanged, onDelete }: {
   const src = thumbnailUrl(media);
   const ready = media.processing === 'READY';
 
+  /** Runs a change, toasts the outcome, and reports whether it worked. */
   const act = async (work: () => Promise<{ ok: boolean; error?: string } | void>, success: string) => {
     setBusy(true);
     try {
       const result = await work();
-      if (result && !result.ok) toast(result.error ?? 'Something went wrong.', { tone: 'error' });
-      else {
-        toast(success);
-        onChanged();
+      if (result && !result.ok) {
+        toast(result.error ?? 'Something went wrong.', { tone: 'error' });
+        return false;
       }
+      toast(success);
+      onChanged();
+      return true;
     } catch (error) {
       toast(error instanceof Error ? error.message : 'Something went wrong.', { tone: 'error' });
+      return false;
     } finally {
       setBusy(false);
     }
   };
 
-  const save = () =>
-    act(
+  const save = async () => {
+    const saved = await act(
       () =>
         updateMediaAction(media.id, {
           caption,
@@ -66,6 +70,9 @@ export function MediaDetail({ media, onClose, onChanged, onDelete }: {
         }),
       'Saved'
     );
+    // Stay open on a failed save so the edits are not lost.
+    if (saved) onClose();
+  };
 
   return (
     <Dialog
